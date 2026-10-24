@@ -83,3 +83,26 @@ Each entry: decision, why, evidence, alternatives.
 - Observation: remaining errors come mostly from ASR (sentence 4 "ունեն" → "they have";
   sentence 8 lost words), so ASR is the weaker link.
 - Memory: ASR ~0.9 GB + translation ~1.0 GB ≈ 2 GB → close Chrome during live use.
+
+## D8 — Latency: cut utterances at 7 s, translation beam 2 (2026-10-24)
+- Requirement R6: ≤ 5 s from end of phrase to printed line.
+- Mic test (read sentences, 2–5 s each): median 1.6–1.8 s, max 2.0 s. Breakdown: end-of-phrase
+  wait 0.6 s + ASR ~0.25 s + translation ~0.8–1.0 s.
+- System test (Armenian podcast, continuous speech, ~60 s per run, `--timing`):
+
+| Run | Settings | Segments | Median | p95 | Max | Over 5 s | Max MT |
+|---|---|---|---|---|---|---|---|
+| 1 | beam 2, max 12 s | 3 | 4.5 s | 5.9 s | 5.9 s | 1 | 5.08 s |
+| 2 | beam 1, max 12 s | 3 | 4.7 s | 5.5 s | 5.5 s | 1 | 4.56 s |
+| 3 | beam 2, max 7 s | 12 | 2.9 s | 4.0 s | 4.3 s | 0 | 3.77 s |
+
+- Cause: continuous speech has no 0.6 s pauses, so utterances hit the maximum length;
+  translation time grows with text length (up to ~5 s for 12 s of speech). Beam 1 did not help.
+- Decision: default max utterance 7 s (`--max-utterance-s`), beam 2. Shorter input also
+  gave more coherent translations; cost: some sentences are cut mid-thought.
+- Risks: margin ~0.7 s; one segment waited 1.4 s in the queue; the video player (and at the
+  interview, the call app) competes for the 2 CPU cores → re-measure during the rehearsal;
+  6 s is the next lever. Echo: the mic hears the speakers → use headphones.
+- Also fixed: utterances where ASR finds no words were dropped silently; they are now
+  counted in the summary and shown with `--timing`.
+
