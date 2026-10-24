@@ -13,7 +13,7 @@ import numpy as np
 
 REPO = "csukuangfj/speaker-embedding-models"
 DEFAULT_MODEL = "nemo_en_titanet_small.onnx"
-DEFAULT_THRESHOLD = 0.25        # A/B test: 0.20-0.30 gave 2 speakers, 100 % correct (D9)
+DEFAULT_THRESHOLD = 0.40        # known-truth eval: safe range 0.35-0.50; below live same-person scores (D10)
 
 
 class SpeakerEmbedder:

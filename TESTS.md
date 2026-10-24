@@ -11,7 +11,7 @@ Command (from the project folder):
 
     C:\ProgramData\anaconda3\envs\livetrans\python.exe -m pytest -q
 
-Latest verified result: **29 passed** (2026-10-24, at commit f5e73db).
+Latest verified result: **38 passed** (2026-10-24, with the D10 threshold change).
 
 | File | Tests | Covers |
 |---|---|---|
@@ -20,6 +20,7 @@ Latest verified result: **29 passed** (2026-10-24, at commit f5e73db).
 | tests/test_metrics.py | 8 | R2: CER/WER used to choose models (Armenian punctuation, "և" = "եւ") |
 | tests/test_output.py | 3 | R5: time, speaker, HY and EN lines in the brief's format |
 | tests/test_speakers.py | 6 | R4: new voice → new label, same voice keeps its label, short clips cannot create speakers |
+| tests/test_speakers_eval.py | 9 | R4: scores of the known-truth speaker evaluation (splits, merges, ghost speakers, mixed pieces kept out of accuracy) |
 
 The automated tests cover pure logic only. Audio devices and models are covered by the
 measurement tools and manual checks below.
@@ -74,14 +75,18 @@ eval/hy_test_reference_en.txt (English), eval/hy_test_asr.txt (real ASR output).
   count is still to be confirmed.
 
 ### R4 — Speakers: mic = "Me", call side = "Speaker 1", "Speaker 2", stable for the session
-- Automated: tests/test_speakers.py (6).
-- Measured, two single-speaker clips A and B recorded through system audio (D9):
-  TitaNet-small, A vs B similarity 0.12 (max 0.25), within A 0.80, within B 0.50;
-  interleaved A/B test (18 utterances): thresholds 0.20–0.30 → 2 speakers, all labels
-  correct; >= 0.35 → B split into two speakers. Chosen threshold: 0.25.
-- Live, done: two-person Armenian podcast (host + guest): 9 segments, host → Speaker 1,
-  guest → Speaker 2, host returning → Speaker 1 again (similarity 0.80) (D9).
-- Known limitation: one 7 s cut contained the end of the host and the start of the guest.
+- Automated: tests/test_speakers.py (6); tests/test_speakers_eval.py (9) for the evaluation scores.
+- Known-truth evaluation (D10), verified single-voice clips (friend A 0–40 s, friend B, clip C),
+  `python -m livetrans.tools.speakers_eval`:
+  thresholds 0.35–0.50 → 100 % and exactly 3 speakers in all scenarios (turns, mixed-start,
+  handovers); 0.25–0.30 → merges after mixed pieces (67 %); 0.55–0.60 → ghost speakers or splits.
+  Default threshold changed from 0.25 to 0.40.
+- Model check (D10): friends recorded separately via Meet: A vs B 0.12, within A 0.69, within B 0.67.
+- Live, done (D9, at 0.25): podcast host and guest labelled correctly (9 segments).
+- Live failures found at 0.25 (D10): friends on one device merged; two people in one video merged.
+- Earlier A/B test (D9) used a clip that turned out to contain two people (correction in D9).
+- Known limitation: a piece that contains two voices gets one label.
+- Live re-test at 0.40: see M1 (PENDING).
 
 ### R5 — Live terminal output with time, speaker, Armenian and English
 - Automated: tests/test_output.py (3), tests/test_timeline.py (5), tests/test_segmenter.py (7).

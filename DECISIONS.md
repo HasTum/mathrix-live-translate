@@ -136,6 +136,11 @@ Each entry: decision, why, evidence, alternatives.
 - Risks: small sample (one A/B pair, one podcast); a 7 s cut can contain the end of one speaker
   and the start of another (seen once); video-call compression untested; RAM +~180 MB
   (target was 150 MB) → total ≈ 2.1 GB, close Chrome.
+- Correction (2026-10-24, see D10): samples/speaker_b.wav, used here as "B", contains two
+  people. The interleaved result above therefore counted two people under one label as
+  correct, and ">= 0.35 splits B" was most likely a correct separation of those two people.
+  The model ranking stays a like-for-like comparison on the same clips; TitaNet-small was
+  later confirmed on clean single-voice clips (D10).
 
 ## N1 — Incident: python.exe emptied by pasted output (2026-10-24)
 - Output lines pasted back into cmd contained the prompt `...>C:\...\python.exe`; cmd read `>`
@@ -144,3 +149,37 @@ Each entry: decision, why, evidence, alternatives.
 - Fix: renamed the damaged cache folder; `conda install -n livetrans --force-reinstall --no-deps
   python=3.11.17=hb00fc5c_0` rebuilt it from the package archive. Tests passed afterwards.
 - Lesson: paste only commands into cmd; never output or prompt lines; no Administrator window.
+
+## D10 — Speaker threshold 0.25 → 0.40, from a known-truth evaluation (2026-10-24)
+- Live failures at 0.25:
+  - Friends' call (two people on one device, Google Meet): A's first piece → Speaker 1,
+    then B scored 0.38 against it → B labelled Speaker 1 too (merge).
+  - Two YouTube videos: host and guest of video 1 both → Speaker 1 (their greeting was one
+    mixed 7 s piece); the speaker of video 2 → Speaker 2, consistently.
+- Model check on clean clips: friend A and friend B recorded one at a time through the same
+  Meet setup: within A 0.69, within B 0.67, A vs B 0.12 → TitaNet-small separates them.
+  (The first recordings of the friends contained both voices and were discarded.)
+- Cause: a piece that contains two voices becomes or updates a speaker's average; later
+  pieces of both people then match that blend above 0.25.
+- Tool: `python -m livetrans.tools.speakers_eval` (tests/test_speakers_eval.py). Builds
+  sequences with known truth from verified single-voice clips: samples/meet_a.wav 0–40 s,
+  samples/meet_b.wav, samples/speaker_a.wav (samples/speaker_b.wav excluded: two people).
+  Scenarios: turns (clean only), mixed-start (first piece mixes two people), handovers
+  (mixed piece at every second change of speaker; 3 clean pieces reused). Accuracy, splits
+  and merges count clean pieces only; ghost speakers (labels used only by mixed pieces)
+  are counted separately.
+
+| Threshold | turns | mixed-start | handovers |
+|---|---|---|---|
+| 0.25, 0.30 | 100 %, 3 speakers | 67 %, 2 speakers (merge) | 67 %, 2 speakers (merge) |
+| 0.35 – 0.50 | 100 %, 3 speakers | 100 %, 3 speakers | 100 %, 3 speakers |
+| 0.55 | 100 %, 3 speakers | 100 %, 3 speakers | 100 %, 4 found (ghost from a mixed piece) |
+| 0.60 | 100 %, 3 speakers | 92 %, 4 found (split) | 100 %, 5 found (ghosts) |
+
+- Decision: default threshold 0.40 (`--speaker-threshold` still overrides it). It is inside
+  the safe range 0.35–0.50 and below the lowest same-person score seen live (0.46, a 1.9 s
+  line in a Meet call), so a real caller should not be split.
+- Not done: A1 (check whether the start and end of a piece have the same voice). Not needed
+  on this data; kept as a possible improvement if mixed pieces still cause errors live.
+- Limits: 3 verified voices, two of them from one shared device; a mixed piece itself still
+  gets one label. Two-speaker live validation (M1) is still PENDING.
