@@ -1,62 +1,71 @@
 # PLAN — mathrix-live-translate
 
 ## Goal
-A local Windows Python app that captures microphone and system audio at the same time,
-transcribes Armenian speech, translates it to English, labels speakers, and prints
-timestamped lines in the terminal with ≤ 5 s latency. No cloud ASR/translation APIs.
+A local Python app (Windows 10, this laptop) that captures microphone and system audio
+at the same time, transcribes Armenian speech, translates it to English, labels speakers,
+and prints timestamped lines in the terminal within 5 s. No cloud speech/translation APIs.
+Source of truth: "Coding Challenge: Live Armenian Transcription → English Translation" (Oct 21, 2026).
+Deadline: ~2026-10-28, ~20 h total.
 
-## Requirements (to re-check against the official challenge brief)
-- R1 Capture mic + system audio simultaneously
-- R2 Transcribe Armenian speech locally
-- R3 Translate Armenian → English locally
-- R4 Identify speakers
-- R5 Print timestamped results in the terminal
-- R6 Latency ≤ 5 s (measured: end of utterance → line printed)
-- R7 No cloud speech recognition or translation APIs
-- R8 Deliverables: README, complete exported chats in `chats/`
+## Requirements (from the brief)
+- R1 Capture mic + system audio simultaneously; user picks devices (device list / CLI flags)
+- R2 Transcribe spoken Armenian to Armenian text
+- R3 Translate each segment to English
+- R4 Speakers: mic = "Me"; system side = "Speaker 1", "Speaker 2"…, stable for the whole session
+- R5 Live terminal output per segment: time, speaker, HY original, EN translation
+- R6 Latency ≤ 5 s from end of phrase to its English line
+- R7 Transcription, translation and speaker identification run locally
+- R8 Runs on the laptop brought to the interview (i5-4200M, 2 cores, 5.9 GB RAM, no GPU)
+- R9 Deliverables: Git repo, README (setup, audio setup, model choices + alternatives,
+  architecture, limitations), complete unedited chat exports in `chats/` (one .md per session)
+- R10 Never commit model weights, audio recordings or API keys
+
+Out of scope: GUI, installer, echo handling, naming speakers, saving transcripts, other languages.
+
+## Output format
+    [00:01:12] Speaker 1
+    HY: Բարև, ինչպե՞ս ես։
+    EN: Hi, how are you?
 
 ## Pipeline and modules
 | Module | Input | Output | Status |
 |---|---|---|---|
-| `audio/devices.py` | WASAPI devices | mic + loopback device info | exists |
-| `audio/capture.py` | device stream | 16 kHz mono float32 chunks + timestamps | exists; must fill loopback gaps |
-| `vad` | chunks per source | utterance segments (start, end, audio) | todo |
-| `asr` | segment audio | Armenian text | todo — model to be chosen by measurement |
-| `translate` | Armenian text | English text | todo — model to be chosen by measurement |
-| `speakers` | segment audio + source | speaker label | todo — baseline: mic = "Me", system = "Remote"; then split speakers within system audio |
-| `output` | labelled segment | terminal line | todo |
-| `app` | CLI args | runs everything in threads/queues | todo |
+| `audio/devices.py` | WASAPI devices | mic + loopback device info | done |
+| `audio/capture.py` | device stream | 16 kHz mono chunks + timestamps | done |
+| `audio/timeline.py` | chunks | gap-free stream per source | done (M1) |
+| `vad` | stream per source | utterance segments (start, end, audio) | todo |
+| `asr` | segment audio | Armenian text | todo — chosen by measurement |
+| `translate` | Armenian text | English text | todo — chosen by measurement |
+| `speakers` | system-side segment audio | Speaker N (stable) | todo |
+| `output` | labelled segment | terminal lines | todo |
+| `app` | CLI flags | runs everything in threads/queues | todo |
 
-Example output line (draft):
-`[00:01:23.4] Remote-2 | HY: Բարև, ինչպե՞ս ես | EN: Hello, how are you? | lat 3.1 s`
-
-## Candidate models (each to be verified in official docs: Armenian support, license, install)
+## Candidate models (verify each in official docs: Armenian support, license, size, install)
 - VAD: Silero VAD
-- ASR: Whisper family (e.g. via faster-whisper), plus other local models with Armenian support
-- Translation: NLLB-200, MADLAD-400, Whisper's translate mode
-- Speaker embeddings: to be researched
+- ASR: Whisper family via faster-whisper (small sizes first), other local models with Armenian
+- Translation: NLLB-200 distilled, MADLAD-400, Whisper translate mode
+- Speaker embeddings: small local speaker-embedding model (to research)
 
 ## Risks
-- Armenian ASR quality may be weak on small models; large models may be too slow on CPU → R6
-- Hardware (CPU/GPU/RAM) not yet known — drives model size
-- Loopback sends no data during silence (confirmed 2026-10-24) → timeline gaps
-- Echo: mic hears speaker output → duplicate lines (use headphones or dedupe)
-- Live speaker separation within system audio in < 5 s is hard
-- Model licenses may restrict use (e.g. non-commercial)
+- Hardware: 2-core 2013 CPU, ~1.7 GB free RAM, no GPU → small models only; ASR + MT + speaker
+  model must fit in memory together; close Chrome when running
+- Armenian is low-resource: small ASR models may be inaccurate → measure CER/WER
+- Telling call-side speakers apart from short segments, live, on CPU
+- Model licenses (e.g. non-commercial)
 
 ## Testing strategy
-- Unit tests (pytest) for pure logic: gap filling, segmentation, formatting, latency math
-- Offline evaluation on recorded Armenian clips with reference text:
-  ASR = WER/CER, translation = chrF + manual check, speakers = label accuracy
-- Every printed line logs its latency; report median and 95th percentile per session
-- Manual end-to-end test: scripted two-person Armenian call
+- Unit tests (pytest) for pure logic: gap filling, segmentation, speaker clustering, formatting
+- Offline evaluation on my own Armenian recordings with reference text (not committed):
+  ASR = CER/WER, translation = manual check, speakers = label accuracy
+- Every line's latency is logged; report median and 95th percentile per session
+- Rehearsal of the interview: live call with 2+ Armenian speakers on the system side
 
 ## Milestones
 - M0 Environment + capture baseline — done (b0eb262)
-- M1 Fix loopback gaps + capture tests
-- M2 Offline ASR on WAV files, compare models
+- M1 Fill loopback silence gaps + tests — done (9b7bc32)
+- M2 Offline ASR on WAV files, compare models (speed + CER)
 - M3 Offline translation, compare models
-- M4 Minimal end-to-end live pipeline (speaker = source)
+- M4 Minimal end-to-end live pipeline (mic = Me, system = one speaker)
 - M5 Measure latency/quality, improve the weakest part
-- M6 Speakers within system audio
-- M7 README + chat exports
+- M6 Speaker 1 / Speaker 2 on the system side
+- M7 README + chat exports + interview rehearsal
