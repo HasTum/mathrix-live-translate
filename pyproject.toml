@@ -1,0 +1,18 @@
+[project]
+name = "livetrans"
+version = "0.1.0"
+description = "Live Armenian transcription and English translation with speaker labels"
+requires-python = ">=3.10,<3.13"
+dependencies = [
+    "numpy",
+    "PyAudioWPatch",
+    "soxr",
+    "soundfile",
+]
+
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
