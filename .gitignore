@@ -9,3 +9,5 @@ models/
 *.safetensors
 *.pt
 .env
+
+.pytest_cache/

@@ -10,6 +10,9 @@ dependencies = [
     "soundfile",
 ]
 
+[project.optional-dependencies]
+dev = ["pytest"]
+
 [build-system]
 requires = ["setuptools>=61"]
 build-backend = "setuptools.build_meta"
