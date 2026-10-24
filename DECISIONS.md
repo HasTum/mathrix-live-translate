@@ -61,3 +61,25 @@ Each entry: decision, why, evidence, alternatives.
   non-streaming, so we will feed it one utterance at a time from the VAD.
 - Observed errors on our take: "լավ եմ" → "լավավ", "ունենք" → "ունեն", last sentence partly lost.
 - Next step: validate the complete live pipeline against the ≤5 s phrase-to-English-output requirement.
+
+
+## D7 — Translation: NLLB-200 distilled 600M, CTranslate2 int8 (2026-10-24)
+- Test: the 8 test sentences, one sentence per call (as in the live app), beam 2, 4 threads.
+  Acceptance criteria set before testing: ≥ 6/8 understandable, median ≤ 1.0 s/sentence,
+  peak RAM ≤ 1.2 GB.
+
+| Source text | chrF | Understandable | Median / max time | Peak RAM |
+|---|---|---|---|---|
+| Correct Armenian (eval/hy_test_reference.txt) | 74.5 | 8/8 | 0.96 s / 1.06 s | 1051 MB |
+| Real ASR output (eval/hy_test_asr.txt) | 69.1 | 7/8 | 0.92 s / 1.28 s | 1037 MB |
+
+- Model: JustFrederik/nllb-200-distilled-600M-ct2-int8 (third-party int8 conversion with the
+  official ct2-transformers-converter); tokenizer from facebook/nllb-200-distilled-600M.
+  Runs on CTranslate2; transformers is used only for the tokenizer (no PyTorch).
+- License: CC-BY-NC-4.0 (non-commercial). Acceptable for this challenge; must be stated in README.
+- Alternatives: M2M100 418M (MIT license, generally weaker on low-resource languages, kept as
+  fallback); OPUS-MT mul→en (Apache-2.0, no published Armenian scores; no dedicated hy→en
+  model found); NLLB 1.3B and local LLMs (rejected: RAM).
+- Observation: remaining errors come mostly from ASR (sentence 4 "ունեն" → "they have";
+  sentence 8 lost words), so ASR is the weaker link.
+- Memory: ASR ~0.9 GB + translation ~1.0 GB ≈ 2 GB → close Chrome during live use.

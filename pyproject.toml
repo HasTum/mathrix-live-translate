@@ -8,10 +8,15 @@ dependencies = [
     "PyAudioWPatch",
     "soxr",
     "soundfile",
+    "onnx-asr[cpu,hub]",
+    "ctranslate2",
+    "transformers",
+    "sentencepiece",
+    "huggingface-hub",
 ]
 
 [project.optional-dependencies]
-dev = ["pytest"]
+dev = ["pytest", "psutil", "sacrebleu", "faster-whisper"]
 
 [build-system]
 requires = ["setuptools>=61"]
