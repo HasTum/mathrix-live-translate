@@ -106,3 +106,41 @@ Each entry: decision, why, evidence, alternatives.
 - Also fixed: utterances where ASR finds no words were dropped silently; they are now
   counted in the summary and shown with `--timing`.
 
+## D9 — Speaker identification: TitaNet-small voiceprints + online clustering, threshold 0.25 (2026-10-24)
+- Requirement R4: mic = "Me"; call side = "Speaker 1", "Speaker 2", ... stable for the session.
+- Design: one voiceprint per system-side utterance (sherpa-onnx), compared with each known
+  speaker's average (cosine similarity). New speaker only from utterances >= 1.5 s; labels never
+  change. The voiceprint is taken after ASR, so noise without words cannot create a speaker.
+- Test data with known truth: two single-speaker videos (A, B) recorded through system audio,
+  60 s each (samples/speaker_a.wav, samples/speaker_b.wav; not committed).
+
+| Model (sherpa-onnx) | within A | within B | A vs B | time/utt | extra RAM |
+|---|---|---|---|---|---|
+| WeSpeaker ResNet34-LM | 0.96 | 0.86 | 0.88 | 0.31 s | 116 MB |
+| **NeMo TitaNet-small** | 0.80 | 0.50 | **0.12** (max 0.25) | **0.12 s** | 179–191 MB |
+| 3D-Speaker ERes2Net | 0.81 | 0.52 | 0.17 | 0.45 s | 196 MB |
+| NeMo TitaNet-large | 0.82 | 0.47 | 0.12 | 0.39 s | 253 MB |
+
+- Interleaved A/B test (18 utterances, A1 B1 A2 B2 ...), TitaNet-small: thresholds 0.20–0.30 →
+  exactly 2 speakers, all labels correct; >= 0.35 → B split into two speakers.
+  Chosen: 0.25, the middle of the working range (`--speaker-threshold`).
+- Live test, Armenian two-person podcast (host + guest): 9 segments; host → Speaker 1,
+  guest → Speaker 2, host returning → Speaker 1 again (similarity 0.80). Latency median 3.1 s,
+  max 4.4 s; speaker step median 0.17 s.
+- Rejected: ResNet34 (A vs B as similar as same person; checked it is not an input-scale bug:
+  ×32768 made it worse); centering by the session average (separates groups but scatters one
+  speaker); CAM++ (rated a different person more similar than the same person); ERes2Net and
+  TitaNet-large (slower, not better); pyannote/SpeechBrain/Resemblyzer (need PyTorch).
+- Why TitaNet may work better here: trained also on telephone speech (Fisher, Switchboard)
+  and noise. License: NeMo Toolkit license.
+- Risks: small sample (one A/B pair, one podcast); a 7 s cut can contain the end of one speaker
+  and the start of another (seen once); video-call compression untested; RAM +~180 MB
+  (target was 150 MB) → total ≈ 2.1 GB, close Chrome.
+
+## N1 — Incident: python.exe emptied by pasted output (2026-10-24)
+- Output lines pasted back into cmd contained the prompt `...>C:\...\python.exe`; cmd read `>`
+  as "write output to file" and truncated python.exe to 0 bytes (conda hard-links it to its
+  package cache, so the cache copy was emptied too).
+- Fix: renamed the damaged cache folder; `conda install -n livetrans --force-reinstall --no-deps
+  python=3.11.17=hb00fc5c_0` rebuilt it from the package archive. Tests passed afterwards.
+- Lesson: paste only commands into cmd; never output or prompt lines; no Administrator window.

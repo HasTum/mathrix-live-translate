@@ -13,6 +13,7 @@ dependencies = [
     "transformers",
     "sentencepiece",
     "huggingface-hub",
+    "sherpa-onnx",
 ]
 
 [project.optional-dependencies]
