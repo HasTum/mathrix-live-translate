@@ -74,9 +74,36 @@ def worker(jobs: queue.Queue, t0: float, asr: ArmenianASR, mt: ArmenianToEnglish
         print(flush=True)
 
 
-def report(stats: list[dict], skipped: list[float], n_speakers: int) -> None:
+FINISH_TIMEOUT_S = 30.0
+
+
+def finish(th: threading.Thread, jobs: queue.Queue,
+           timeout_s: float = FINISH_TIMEOUT_S) -> int:
+    """After Ctrl+C: let the worker finish the queued utterances, then return how many
+    were left unprocessed. A second Ctrl+C or the timeout stops waiting, so the
+    summary is always printed and a backlog is reported instead of hidden."""
+    waiting = jobs.qsize() - 1                # minus the stop signal
+    if waiting > 0:
+        print(f"finishing {waiting} queued utterance(s) - Ctrl+C again to skip ...", flush=True)
+    try:
+        th.join(timeout=timeout_s)
+    except KeyboardInterrupt:
+        print("skipped the remaining queued utterances", flush=True)
+    left = 0
+    while True:                               # count (and drop) what the worker did not reach
+        try:
+            item = jobs.get_nowait()
+        except queue.Empty:
+            return left
+        if item is not None:
+            left += 1
+
+
+def report(stats: list[dict], skipped: list[float], n_speakers: int,
+           unprocessed: int = 0) -> None:
+    not_done = f", {unprocessed} not processed (stopped)" if unprocessed else ""
     if not stats:
-        print(f"\nno segments were processed ({len(skipped)} skipped)")
+        print(f"\nno segments were processed ({len(skipped)} skipped{not_done})")
         return
     lat = sorted(r["latency"] for r in stats)
     p95 = lat[round(0.95 * (len(lat) - 1))]
@@ -84,7 +111,7 @@ def report(stats: list[dict], skipped: list[float], n_speakers: int) -> None:
     n_me = sum(r["source"] == "mic" for r in stats)
     med = {k: statistics.median(r[k] for r in stats) for k in ("audio", "wait", "asr", "spk", "mt")}
     print(f"\n{len(lat)} segments ({n_me} Me, {len(lat) - n_me} system, {n_speakers} call "
-          f"speakers), {len(skipped)} skipped | latency median {statistics.median(lat):.1f} s, "
+          f"speakers), {len(skipped)} skipped{not_done} | latency median {statistics.median(lat):.1f} s, "
           f"p95 {p95:.1f} s, max {lat[-1]:.1f} s | over 5 s: {over}")
     print(f"medians: audio {med['audio']:.1f} s | waited {med['wait']:.1f} s | "
           f"ASR {med['asr']:.2f} s | speaker {med['spk']:.2f} s | MT {med['mt']:.2f} s "
@@ -173,8 +200,8 @@ def main() -> None:
             for s in sources:
                 s.stop()
         jobs.put(None)                        # let the worker finish what is queued
-        th.join(timeout=30)
-        report(stats, skipped, clusterer.n_speakers)
+        unprocessed = finish(th, jobs)
+        report(list(stats), list(skipped), clusterer.n_speakers, unprocessed)
     finally:
         pa.terminate()
 
