@@ -5,7 +5,7 @@ A local Python app (Windows 10, this laptop) that captures microphone and system
 at the same time, transcribes Armenian speech, translates it to English, labels speakers,
 and prints timestamped lines in the terminal within 5 s. No cloud speech/translation APIs.
 Source of truth: "Coding Challenge: Live Armenian Transcription → English Translation" (Oct 21, 2026).
-Deadline: ~2026-10-28, ~20 h total.
+Deadline: ~2026-10-30, ~20 h total.
 
 ## Requirements (from the brief)
 - R1 Capture mic + system audio simultaneously; user picks devices (device list / CLI flags)
