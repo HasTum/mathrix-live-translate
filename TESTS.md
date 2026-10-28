@@ -21,6 +21,7 @@ Latest verified result: **43 passed** (2026-10-27, with the D10 threshold change
 | tests/test_output.py | 3 | R5: time, speaker, HY and EN lines in the brief's format |
 | tests/test_speakers.py | 6 | R4: new voice → new label, same voice keeps its label, short clips cannot create speakers |
 | tests/test_speakers_eval.py | 9 | R4: scores of the known-truth speaker evaluation (splits, merges, ghost speakers, mixed pieces kept out of accuracy) |
+| tests/test_app_shutdown.py | 5 | Stopping: summary always printed; queued utterances counted |
 
 The automated tests cover pure logic only. Audio devices and models are covered by the
 measurement tools and manual checks below.
@@ -130,4 +131,4 @@ eval/hy_test_reference_en.txt (English), eval/hy_test_asr.txt (real ASR output).
 | M1 | Interview rehearsal: real video call with **at least two Armenian-speaking participants** on the call side, headphones on my side, `python -m livetrans.app --timing` | each caller keeps one "Speaker N" label; "Me" only for my voice; 0 segments over 5 s; English understandable | **PENDING** |
 | M2 | Offline run: disconnect the network, start the app, speak and play audio | app loads cached models and works without network | PENDING |
 | M3 | Mic level check before the interview (Windows Sound → Recording → Levels, see D5) | `record` take: clipped < 0.1 %, speech p90 between −25 and −12 dB | PENDING (re-check on the day) |
-| M4 | Repository check: `git ls-files` contains no .wav, .onnx, .bin or other model/audio files | no such files listed | PENDING |
+| M4 | Repository check: `git ls-files` contains no .wav, .onnx, .bin or other model/audio files | no such files listed | DONE 2026-10-28: no audio, model, log or secret files in any commit |

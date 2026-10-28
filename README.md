@@ -35,7 +35,7 @@ EN: Hi, how are you?
 ```
 conda create -n livetrans python=3.11 -y
 conda activate livetrans
-git clone <repository URL>
+git clone https://github.com/HasTum/mathrix-live-translate.git
 cd mathrix-live-translate
 pip install -e .          # application
 pip install -e .[dev]     # optional: tests and benchmark tools
