@@ -3,6 +3,12 @@
 Visible messages of this conversation, text unchanged, from the official Claude data export. Technical parts (tool calls and results, internal reasoning, notes injected by the app) are left out here; the complete export with everything is `mathrix_ai_coding_challenge.md`.
 
 
+## Quick navigation
+
+- [2026-10-22 (4 messages)](#1-user-2026-10-22-0600-utc)
+- [2026-10-24 (266 messages)](#5-user-2026-10-24-0901-utc)
+- [2026-10-26 (38 messages)](#271-user-2026-10-26-1544-utc)
+
 ---
 
 ### 1. User (2026-10-22 06:00 UTC)
@@ -24,7 +30,7 @@ Hey! What can I help you with today?
 ### 3. User (2026-10-22 06:01 UTC)
 
 ```text
-I want you to guide me through the Mathrix AI coding challenge step by step. Please follow the company’s “Vibe Coding: 10 Tips for Working with Claude Cowork” document.
+I want you to guide me through the Mathrix AI coding challenge step by step. Please follow the companyâ€™s â€œVibe Coding: 10 Tips for Working with Claude Coworkâ€ document.
 
 My current environment:
 
@@ -155,7 +161,7 @@ Paste all the output and we'll decide where the project environment and folder g
 ### 7. User (2026-10-24 09:07 UTC)
 
 ```text
-․․․
+â€¤â€¤â€¤
 ```
 
 <details><summary>Attachment: </summary>
@@ -1111,7 +1117,7 @@ samples\20261021-231012_system.wav 19.97 s 16000 Hz rms 0.2059 peak 0.9501
 Clear result:
 
 - **The lengths match: 20.0 s and 19.97 s.** So this recording does *not* show the gap problem. But it can't rule it out either: system audio was loud the whole time (RMS 0.21), so there were probably no silent stretches to drop. The test so far only confirms that capture works when audio is playing.
-- **The levels are healthy.** The mic sits around −34 dBFS with peaks well under full scale. The system audio is loud, peaking at 0.95, close to the clipping limit of 1.0. That's fine, but it's worth remembering if the speech recognition ever struggles with distorted audio.
+- **The levels are healthy.** The mic sits around âˆ’34 dBFS with peaks well under full scale. The system audio is loud, peaking at 0.95, close to the clipping limit of 1.0. That's fine, but it's worth remembering if the speech recognition ever struggles with distorted audio.
 
 **Step 6: Test the silence hypothesis directly**
 
@@ -1159,9 +1165,9 @@ That's a very informative failure: **the system file is 0.0 seconds, not 20.** N
 I still need one thing to be sure *why* there was no system audio at all here. There are two possibilities:
 
 - **A. Audio never started playing** during the 20 seconds, for example because the play click came late or the video was buffering.
-- **B. Audio played, but through a different output** than "Speakers (Conexant…)", such as headphones, Bluetooth, an HDMI monitor, or a USB headset. The recorder only listens to the default speakers' loopback, so it would hear nothing.
+- **B. Audio played, but through a different output** than "Speakers (Conexantâ€¦)", such as headphones, Bluetooth, an HDMI monitor, or a USB headset. The recorder only listens to the default speakers' loopback, so it would hear nothing.
 
-(Separately: the mic showed −0.9 dB at that moment, which is almost at the clipping limit. Were you speaking very close to the laptop, or did something tap it? It's a minor point, but I want to know whether that's normal for your mic.)
+(Separately: the mic showed âˆ’0.9 dB at that moment, which is almost at the clipping limit. Were you speaking very close to the laptop, or did something tap it? It's a minor point, but I want to know whether that's normal for your mic.)
 
 **Step 7: Answer three short questions; there's nothing to run**
 
@@ -1191,14 +1197,14 @@ saved samples\20261024-131800_system.wav  (20.0 s)
 
 ### 24. Claude (2026-10-24 09:18 UTC)
 
-**System audio worked this time: 20.0 s, and the level was −8.2 dB at the end.** Together with the previous run, we now have clear evidence:
+**System audio worked this time: 20.0 s, and the level was âˆ’8.2 dB at the end.** Together with the previous run, we now have clear evidence:
 
 | Run | System audio | System file length |
 |---|---|---|
-| Oct 24, 13:14 | Nothing captured (−120 dB) | **0.0 s** |
+| Oct 24, 13:14 | Nothing captured (âˆ’120 dB) | **0.0 s** |
 | Oct 24, 13:18 | Playing | **20.0 s** |
 
-So the capture works, but when nothing is playing, loopback delivers **zero data instead of silence**. That's confirmed, so no more tests are needed for it. In the live app, any quiet stretch on the system side would vanish from the timeline. We'll fix it in the code by filling gaps with silence based on the clock, and log the decision with this evidence in DECISIONS.md. The mic at −41 dB is a normal speaking level, so the earlier −0.9 dB was a one-off.
+So the capture works, but when nothing is playing, loopback delivers **zero data instead of silence**. That's confirmed, so no more tests are needed for it. In the live app, any quiet stretch on the system side would vanish from the timeline. We'll fix it in the code by filling gaps with silence based on the clock, and log the decision with this evidence in DECISIONS.md. The mic at âˆ’41 dB is a normal speaking level, so the earlier âˆ’0.9 dB was a one-off.
 
 **Step 8: Create a clean Python 3.11 environment for the project**
 
@@ -1211,7 +1217,7 @@ conda create -n livetrans python=3.11 -y
 conda run -n livetrans python -c "import sys; print(sys.executable); print(sys.version)"
 ```
 
-- `conda create -n livetrans python=3.11 -y` creates a separate environment named `livetrans` with its own Python 3.11. It doesn't touch `tf_env` or `base`. `-y` answers "yes" to the confirmation prompt. It downloads roughly 30–50 MB and may take a few minutes.
+- `conda create -n livetrans python=3.11 -y` creates a separate environment named `livetrans` with its own Python 3.11. It doesn't touch `tf_env` or `base`. `-y` answers "yes" to the confirmation prompt. It downloads roughly 30â€“50 MB and may take a few minutes.
 - The second line runs the new environment's Python and prints its location and exact version. That proves the environment works, without activating it.
 
 One thing to watch: Anaconda is installed in `C:\ProgramData`, which sometimes needs admin rights to write to. If you see a permission error, paste it exactly. Don't rerun as administrator yet; we'll decide the right fix together.
@@ -1387,7 +1393,7 @@ C:\ProgramData\anaconda3\envs\livetrans\python.exe
 Two things from your paste:
 
 - **The measurement command crashed, and that's my bug.** My one-liner tried to compute the peak of an empty array, the 0.0 s system file, and numpy refused. Its error was correct; my code didn't handle empty files. We'll handle that properly when this becomes a real script.
-- **That 13:14 mic file is clipped:** RMS 0.39 with a peak of 1.0, much louder than your normal −41 dB. Something very loud hit the mic in that run. Clipping distorts speech and hurts recognition, so we'll keep an eye on mic levels, but it doesn't block anything now.
+- **That 13:14 mic file is clipped:** RMS 0.39 with a peak of 1.0, much louder than your normal âˆ’41 dB. Something very loud hit the mic in that run. Clipping distorts speech and hurts recognition, so we'll keep an eye on mic levels, but it doesn't block anything now.
 
 **Step 9: Install the project into the new environment and check that capture still works**
 
@@ -1403,7 +1409,7 @@ C:\ProgramData\anaconda3\envs\livetrans\python.exe -m livetrans.tools.record --l
 - `pip list` shows exactly which packages and versions ended up installed. We'll pin these later.
 - `record --list` runs the existing tool on the new Python to list your microphones and loopback devices. If it shows the Conexant mic [9] and speakers loopback [10] again, the audio layer works on 3.11.
 
-One thing to watch: if pip prints "Building wheel for …" for any package, it's compiling from source instead of using a ready-made package. Paste that part in full, because that's where Windows installs usually break.
+One thing to watch: if pip prints "Building wheel for â€¦" for any package, it's compiling from source instead of using a ready-made package. Paste that part in full, because that's where Windows installs usually break.
 
 Paste the end of the first command's output and all of the other two.
 
@@ -1700,20 +1706,20 @@ notepad PLAN.md
 Notepad will ask whether to create a new file. Click **Yes**, paste everything in the box below, then **save** (Ctrl+S) and close.
 
 ```markdown
-# PLAN — mathrix-live-translate
+# PLAN â€” mathrix-live-translate
 
 ## Goal
 A local Windows Python app that captures microphone and system audio at the same time,
 transcribes Armenian speech, translates it to English, labels speakers, and prints
-timestamped lines in the terminal with ≤ 5 s latency. No cloud ASR/translation APIs.
+timestamped lines in the terminal with â‰¤ 5 s latency. No cloud ASR/translation APIs.
 
 ## Requirements (to re-check against the official challenge brief)
 - R1 Capture mic + system audio simultaneously
 - R2 Transcribe Armenian speech locally
-- R3 Translate Armenian → English locally
+- R3 Translate Armenian â†’ English locally
 - R4 Identify speakers
 - R5 Print timestamped results in the terminal
-- R6 Latency ≤ 5 s (measured: end of utterance → line printed)
+- R6 Latency â‰¤ 5 s (measured: end of utterance â†’ line printed)
 - R7 No cloud speech recognition or translation APIs
 - R8 Deliverables: README, complete exported chats in `chats/`
 
@@ -1723,14 +1729,14 @@ timestamped lines in the terminal with ≤ 5 s latency. No cloud ASR/translation
 | `audio/devices.py` | WASAPI devices | mic + loopback device info | exists |
 | `audio/capture.py` | device stream | 16 kHz mono float32 chunks + timestamps | exists; must fill loopback gaps |
 | `vad` | chunks per source | utterance segments (start, end, audio) | todo |
-| `asr` | segment audio | Armenian text | todo — model to be chosen by measurement |
-| `translate` | Armenian text | English text | todo — model to be chosen by measurement |
-| `speakers` | segment audio + source | speaker label | todo — baseline: mic = "Me", system = "Remote"; then split speakers within system audio |
+| `asr` | segment audio | Armenian text | todo â€” model to be chosen by measurement |
+| `translate` | Armenian text | English text | todo â€” model to be chosen by measurement |
+| `speakers` | segment audio + source | speaker label | todo â€” baseline: mic = "Me", system = "Remote"; then split speakers within system audio |
 | `output` | labelled segment | terminal line | todo |
 | `app` | CLI args | runs everything in threads/queues | todo |
 
 Example output line (draft):
-`[00:01:23.4] Remote-2 | HY: Բարև, ինչպե՞ս ես | EN: Hello, how are you? | lat 3.1 s`
+`[00:01:23.4] Remote-2 | HY: Ô²Õ¡Ö€Ö‡, Õ«Õ¶Õ¹ÕºÕ¥ÕžÕ½ Õ¥Õ½ | EN: Hello, how are you? | lat 3.1 s`
 
 ## Candidate models (each to be verified in official docs: Armenian support, license, install)
 - VAD: Silero VAD
@@ -1739,10 +1745,10 @@ Example output line (draft):
 - Speaker embeddings: to be researched
 
 ## Risks
-- Armenian ASR quality may be weak on small models; large models may be too slow on CPU → R6
-- Hardware (CPU/GPU/RAM) not yet known — drives model size
-- Loopback sends no data during silence (confirmed 2026-10-24) → timeline gaps
-- Echo: mic hears speaker output → duplicate lines (use headphones or dedupe)
+- Armenian ASR quality may be weak on small models; large models may be too slow on CPU â†’ R6
+- Hardware (CPU/GPU/RAM) not yet known â€” drives model size
+- Loopback sends no data during silence (confirmed 2026-10-24) â†’ timeline gaps
+- Echo: mic hears speaker output â†’ duplicate lines (use headphones or dedupe)
 - Live speaker separation within system audio in < 5 s is hard
 - Model licenses may restrict use (e.g. non-commercial)
 
@@ -1754,7 +1760,7 @@ Example output line (draft):
 - Manual end-to-end test: scripted two-person Armenian call
 
 ## Milestones
-- M0 Environment + capture baseline — done (b0eb262)
+- M0 Environment + capture baseline â€” done (b0eb262)
 - M1 Fix loopback gaps + capture tests
 - M2 Offline ASR on WAV files, compare models
 - M3 Offline translation, compare models
@@ -1888,7 +1894,7 @@ notepad PLAN.md
 
 Click **Yes** when it asks to create a new file. If the window doesn't appear, check the taskbar; it may be behind cmd.
 
-**2. Paste the plan.** Scroll up to my message that starts with *"Your name is fixed"* and copy everything inside the gray box, from `# PLAN — mathrix-live-translate` to the last line `- M7 README + chat exports`. Paste it into Notepad.
+**2. Paste the plan.** Scroll up to my message that starts with *"Your name is fixed"* and copy everything inside the gray box, from `# PLAN â€” mathrix-live-translate` to the last line `- M7 README + chat exports`. Paste it into Notepad.
 
 **3. Save and close:** press Ctrl+S, then close Notepad.
 
@@ -1911,7 +1917,7 @@ Paste the output. Then we go straight to the first Python code: fixing the syste
 ### 41. User (2026-10-24 10:59 UTC)
 
 ```text
-hey I hav a problem ,my notepad is not worsing 
+hey I hav a problem ,my notepad is not worsing
 do we have another way to do the project?
 ```
 
@@ -2087,7 +2093,7 @@ C:\ProgramData\anaconda3\envs\livetrans\python.exe -m idlelib PLAN.md
 This starts IDLE from our project environment and opens an editor window for a file called `PLAN.md` in the current folder. The file is created when you save. The cmd window will wait while IDLE is open; that's normal.
 
 Then:
-1. Copy the plan text from my message that starts with *"Your name is fixed"*: everything in the gray box, from `# PLAN — mathrix-live-translate` to `- M7 README + chat exports`.
+1. Copy the plan text from my message that starts with *"Your name is fixed"*: everything in the gray box, from `# PLAN â€” mathrix-live-translate` to `- M7 README + chat exports`.
 2. Paste it into the IDLE window.
 3. Press **Ctrl+S** to save, then close the IDLE window.
 
@@ -2124,20 +2130,20 @@ IDLE is open and it's the right file: the title shows `C:\Users\Lenovo\Projects\
 Here's the plan again so you don't have to scroll. Copy everything in the box, paste it into the IDLE window, press **Ctrl+S**, then close IDLE:
 
 ```markdown
-# PLAN — mathrix-live-translate
+# PLAN â€” mathrix-live-translate
 
 ## Goal
 A local Windows Python app that captures microphone and system audio at the same time,
 transcribes Armenian speech, translates it to English, labels speakers, and prints
-timestamped lines in the terminal with ≤ 5 s latency. No cloud ASR/translation APIs.
+timestamped lines in the terminal with â‰¤ 5 s latency. No cloud ASR/translation APIs.
 
 ## Requirements (to re-check against the official challenge brief)
 - R1 Capture mic + system audio simultaneously
 - R2 Transcribe Armenian speech locally
-- R3 Translate Armenian → English locally
+- R3 Translate Armenian â†’ English locally
 - R4 Identify speakers
 - R5 Print timestamped results in the terminal
-- R6 Latency ≤ 5 s (measured: end of utterance → line printed)
+- R6 Latency â‰¤ 5 s (measured: end of utterance â†’ line printed)
 - R7 No cloud speech recognition or translation APIs
 - R8 Deliverables: README, complete exported chats in `chats/`
 
@@ -2147,14 +2153,14 @@ timestamped lines in the terminal with ≤ 5 s latency. No cloud ASR/translation
 | `audio/devices.py` | WASAPI devices | mic + loopback device info | exists |
 | `audio/capture.py` | device stream | 16 kHz mono float32 chunks + timestamps | exists; must fill loopback gaps |
 | `vad` | chunks per source | utterance segments (start, end, audio) | todo |
-| `asr` | segment audio | Armenian text | todo — model to be chosen by measurement |
-| `translate` | Armenian text | English text | todo — model to be chosen by measurement |
-| `speakers` | segment audio + source | speaker label | todo — baseline: mic = "Me", system = "Remote"; then split speakers within system audio |
+| `asr` | segment audio | Armenian text | todo â€” model to be chosen by measurement |
+| `translate` | Armenian text | English text | todo â€” model to be chosen by measurement |
+| `speakers` | segment audio + source | speaker label | todo â€” baseline: mic = "Me", system = "Remote"; then split speakers within system audio |
 | `output` | labelled segment | terminal line | todo |
 | `app` | CLI args | runs everything in threads/queues | todo |
 
 Example output line (draft):
-`[00:01:23.4] Remote-2 | HY: Բարև, ինչպե՞ս ես | EN: Hello, how are you? | lat 3.1 s`
+`[00:01:23.4] Remote-2 | HY: Ô²Õ¡Ö€Ö‡, Õ«Õ¶Õ¹ÕºÕ¥ÕžÕ½ Õ¥Õ½ | EN: Hello, how are you? | lat 3.1 s`
 
 ## Candidate models (each to be verified in official docs: Armenian support, license, install)
 - VAD: Silero VAD
@@ -2163,10 +2169,10 @@ Example output line (draft):
 - Speaker embeddings: to be researched
 
 ## Risks
-- Armenian ASR quality may be weak on small models; large models may be too slow on CPU → R6
-- Hardware (CPU/GPU/RAM) not yet known — drives model size
-- Loopback sends no data during silence (confirmed 2026-10-24) → timeline gaps
-- Echo: mic hears speaker output → duplicate lines (use headphones or dedupe)
+- Armenian ASR quality may be weak on small models; large models may be too slow on CPU â†’ R6
+- Hardware (CPU/GPU/RAM) not yet known â€” drives model size
+- Loopback sends no data during silence (confirmed 2026-10-24) â†’ timeline gaps
+- Echo: mic hears speaker output â†’ duplicate lines (use headphones or dedupe)
 - Live speaker separation within system audio in < 5 s is hard
 - Model licenses may restrict use (e.g. non-commercial)
 
@@ -2178,7 +2184,7 @@ Example output line (draft):
 - Manual end-to-end test: scripted two-person Armenian call
 
 ## Milestones
-- M0 Environment + capture baseline — done (b0eb262)
+- M0 Environment + capture baseline â€” done (b0eb262)
 - M1 Fix loopback gaps + capture tests
 - M2 Offline ASR on WAV files, compare models
 - M3 Offline translation, compare models
@@ -2802,7 +2808,7 @@ saved samples\20261024-151755_system.wav  (20.0 s, silence inserted 4.6 s)
 
 **The fix works on real audio.** Both files are exactly **20.0 s**.
 
-Something was playing on the system side this time (−9.6 dB), so this run tested the *mixed* case rather than pure silence. That's actually the more realistic case. The system source sent about 15.4 s of real audio, and the recorder filled the **4.6 s** of quiet with silence. Before the fix, that file would have come out at about 15.4 s, with everything after the first quiet stretch shifted earlier in time. The 0.3 s on the mic is just the stream's start-up delay, now correctly counted as silence. The fully silent case is covered by the unit test, so we don't need to repeat it.
+Something was playing on the system side this time (âˆ’9.6 dB), so this run tested the *mixed* case rather than pure silence. That's actually the more realistic case. The system source sent about 15.4 s of real audio, and the recorder filled the **4.6 s** of quiet with silence. Before the fix, that file would have come out at about 15.4 s, with everything after the first quiet stretch shifted earlier in time. The 0.3 s on the mic is just the stream's start-up delay, now correctly counted as silence. The fully silent case is covered by the unit test, so we don't need to repeat it.
 
 **Milestone M1 is done.** Let's record it, along with the decisions made so far.
 
@@ -2819,24 +2825,24 @@ Paste this, press Ctrl+S, and close:
 
 Each entry: decision, why, evidence, alternatives.
 
-## D1 — Python 3.11 in a dedicated conda env `livetrans` (2026-10-24)
+## D1 â€” Python 3.11 in a dedicated conda env `livetrans` (2026-10-24)
 - Why: the old `.venv` was created from conda's `tf_env` (Python 3.10.16) and would
   break if `tf_env` changes. Anaconda stops new Python 3.10 builds after 2026-10-31.
   3.11 is inside the project's `requires-python` range.
 - Evidence: all dependencies installed as prebuilt cp311 wheels; capture works on 3.11.
 - Alternative rejected: keep the 3.10 `.venv`.
 
-## D2 — Tooling: cmd.exe and IDLE (2026-10-24)
+## D2 â€” Tooling: cmd.exe and IDLE (2026-10-24)
 - Machine is Windows 10 21H2 (build 19044), not Windows 11.
 - Notepad does not open on this machine; VS Code is not installed.
   IDLE (from the project env) is used to edit files for now.
 
-## D3 — System audio via WASAPI loopback with PyAudioWPatch
+## D3 â€” System audio via WASAPI loopback with PyAudioWPatch
 - Why: captures what the speakers play without a virtual cable driver;
   the user still hears the call normally.
 - Evidence: 20 s recordings at 48 kHz from "Speakers [Loopback]" alongside the mic.
 
-## D4 — Fill silence gaps with a per-source Timeline (2026-10-24)
+## D4 â€” Fill silence gaps with a per-source Timeline (2026-10-24)
 - Problem: WASAPI loopback delivers no data while nothing plays.
   Evidence: 20 s recording with no playback produced a 0.0 s system file.
   Without a fix, quiet periods vanish and later timestamps are wrong (breaks R5).
@@ -2975,7 +2981,7 @@ This doesn't mean the project fails. It means our job is to find the best qualit
 2. **Does the challenge say which hardware it will be judged on?** For example, "must run on a typical laptop", or whether reviewers will run it on their own machines.
 3. **Can you paste the challenge brief?** Even a photo or a copy of the text. Several decisions now depend on its exact wording, such as whether transcription quality or latency matters more, and how many speakers to expect.
 
-While you look: next, we'll create a small **Armenian test set**. You'll record yourself reading 5–10 short Armenian sentences that we write down first. The text you read becomes the "correct answer", so we can score each speech model with real numbers.
+While you look: next, we'll create a small **Armenian test set**. You'll record yourself reading 5â€“10 short Armenian sentences that we write down first. The text you read becomes the "correct answer", so we can score each speech model with real numbers.
 
 
 ---
@@ -3047,8 +3053,8 @@ Thanks. The brief answers a lot. Here's what changes, now that we have the real 
 **What the brief settles**
 
 - **Hardware:** *"It must run on the machine you bring to the interview."* With no other computer, that means **this laptop**. Weak hardware is now a fixed constraint, so we design for it and explain it in the README. The brief rewards that: *"A solution that is honest about its limits beats one that hides them."*
-- **Speaker labels are exact:** mic = **Me**. On the system side, **Speaker 1, Speaker 2…**, and each person must keep the same label for the whole session. The interview uses **at least two people on the call side**, so telling call speakers apart is **required**, not optional.
-- **Output format:** `[00:01:12] Speaker 1`, then `HY: …` and `EN: …` lines.
+- **Speaker labels are exact:** mic = **Me**. On the system side, **Speaker 1, Speaker 2â€¦**, and each person must keep the same label for the whole session. The interview uses **at least two people on the call side**, so telling call speakers apart is **required**, not optional.
+- **Output format:** `[00:01:12] Speaker 1`, then `HY: â€¦` and `EN: â€¦` lines.
 - **Out of scope, which saves time:** echo handling, saving transcripts, a graphical interface, an installer.
 - **Never commit audio recordings or model weights.** Your `.gitignore` already blocks `.wav` and the common model formats, so that's handled. The test recordings stay on your machine only.
 - **Deadline:** one week from Oct 21, so about **Oct 28**, roughly 20 hours in total. We have about four days left, so we'll aim for a working end-to-end version early and improve it after.
@@ -3063,22 +3069,22 @@ C:\ProgramData\anaconda3\envs\livetrans\python.exe -m idlelib PLAN.md
 Press **Ctrl+A**, paste the version below to replace everything, then Ctrl+S and close:
 
 ```markdown
-# PLAN — mathrix-live-translate
+# PLAN â€” mathrix-live-translate
 
 ## Goal
 A local Python app (Windows 10, this laptop) that captures microphone and system audio
 at the same time, transcribes Armenian speech, translates it to English, labels speakers,
 and prints timestamped lines in the terminal within 5 s. No cloud speech/translation APIs.
-Source of truth: "Coding Challenge: Live Armenian Transcription → English Translation" (Oct 21, 2026).
+Source of truth: "Coding Challenge: Live Armenian Transcription â†’ English Translation" (Oct 21, 2026).
 Deadline: ~2026-10-28, ~20 h total.
 
 ## Requirements (from the brief)
 - R1 Capture mic + system audio simultaneously; user picks devices (device list / CLI flags)
 - R2 Transcribe spoken Armenian to Armenian text
 - R3 Translate each segment to English
-- R4 Speakers: mic = "Me"; system side = "Speaker 1", "Speaker 2"…, stable for the whole session
+- R4 Speakers: mic = "Me"; system side = "Speaker 1", "Speaker 2"â€¦, stable for the whole session
 - R5 Live terminal output per segment: time, speaker, HY original, EN translation
-- R6 Latency ≤ 5 s from end of phrase to its English line
+- R6 Latency â‰¤ 5 s from end of phrase to its English line
 - R7 Transcription, translation and speaker identification run locally
 - R8 Runs on the laptop brought to the interview (i5-4200M, 2 cores, 5.9 GB RAM, no GPU)
 - R9 Deliverables: Git repo, README (setup, audio setup, model choices + alternatives,
@@ -3089,7 +3095,7 @@ Out of scope: GUI, installer, echo handling, naming speakers, saving transcripts
 
 ## Output format
     [00:01:12] Speaker 1
-    HY: Բարև, ինչպե՞ս ես։
+    HY: Ô²Õ¡Ö€Ö‡, Õ«Õ¶Õ¹ÕºÕ¥ÕžÕ½ Õ¥Õ½Ö‰
     EN: Hi, how are you?
 
 ## Pipeline and modules
@@ -3099,8 +3105,8 @@ Out of scope: GUI, installer, echo handling, naming speakers, saving transcripts
 | `audio/capture.py` | device stream | 16 kHz mono chunks + timestamps | done |
 | `audio/timeline.py` | chunks | gap-free stream per source | done (M1) |
 | `vad` | stream per source | utterance segments (start, end, audio) | todo |
-| `asr` | segment audio | Armenian text | todo — chosen by measurement |
-| `translate` | Armenian text | English text | todo — chosen by measurement |
+| `asr` | segment audio | Armenian text | todo â€” chosen by measurement |
+| `translate` | Armenian text | English text | todo â€” chosen by measurement |
 | `speakers` | system-side segment audio | Speaker N (stable) | todo |
 | `output` | labelled segment | terminal lines | todo |
 | `app` | CLI flags | runs everything in threads/queues | todo |
@@ -3112,9 +3118,9 @@ Out of scope: GUI, installer, echo handling, naming speakers, saving transcripts
 - Speaker embeddings: small local speaker-embedding model (to research)
 
 ## Risks
-- Hardware: 2-core 2013 CPU, ~1.7 GB free RAM, no GPU → small models only; ASR + MT + speaker
+- Hardware: 2-core 2013 CPU, ~1.7 GB free RAM, no GPU â†’ small models only; ASR + MT + speaker
   model must fit in memory together; close Chrome when running
-- Armenian is low-resource: small ASR models may be inaccurate → measure CER/WER
+- Armenian is low-resource: small ASR models may be inaccurate â†’ measure CER/WER
 - Telling call-side speakers apart from short segments, live, on CPU
 - Model licenses (e.g. non-commercial)
 
@@ -3126,8 +3132,8 @@ Out of scope: GUI, installer, echo handling, naming speakers, saving transcripts
 - Rehearsal of the interview: live call with 2+ Armenian speakers on the system side
 
 ## Milestones
-- M0 Environment + capture baseline — done (b0eb262)
-- M1 Fill loopback silence gaps + tests — done (9b7bc32)
+- M0 Environment + capture baseline â€” done (b0eb262)
+- M1 Fill loopback silence gaps + tests â€” done (9b7bc32)
 - M2 Offline ASR on WAV files, compare models (speed + CER)
 - M3 Offline translation, compare models
 - M4 Minimal end-to-end live pipeline (mic = Me, system = one speaker)
@@ -3184,14 +3190,14 @@ Following your rule 9, I checked the official sources first.
 We need Armenian speech where we know the exact correct text, so we can score each model. You'll read these 8 sentences into the mic in **one recording**, with a short pause of about 2 seconds between them:
 
 ```
-Բարև, ինչպե՞ս ես։
-Լավ եմ, շնորհակալություն, իսկ դու՞։
-Այսօր եղանակը շատ լավ է Երևանում։
-Վաղը առավոտյան ժամը տասին հանդիպում ունենք։
-Ես աշխատում եմ ծրագրավորման նոր նախագծի վրա։
-Կարո՞ղ ես ինձ ուղարկել փաստաթղթերը մինչև երեկո։
-Մենք պետք է որոշենք, թե որ մոդելն ենք օգտագործելու։
-Շնորհակալ եմ, հաջողություն և ցտեսություն։
+Ô²Õ¡Ö€Ö‡, Õ«Õ¶Õ¹ÕºÕ¥ÕžÕ½ Õ¥Õ½Ö‰
+Ô¼Õ¡Õ¾ Õ¥Õ´, Õ·Õ¶Õ¸Ö€Õ°Õ¡Õ¯Õ¡Õ¬Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶, Õ«Õ½Õ¯ Õ¤Õ¸Ö‚ÕžÖ‰
+Ô±ÕµÕ½Ö…Ö€ Õ¥Õ²Õ¡Õ¶Õ¡Õ¯Õ¨ Õ·Õ¡Õ¿ Õ¬Õ¡Õ¾ Õ§ ÔµÖ€Ö‡Õ¡Õ¶Õ¸Ö‚Õ´Ö‰
+ÕŽÕ¡Õ²Õ¨ Õ¡Õ¼Õ¡Õ¾Õ¸Õ¿ÕµÕ¡Õ¶ ÕªÕ¡Õ´Õ¨ Õ¿Õ¡Õ½Õ«Õ¶ Õ°Õ¡Õ¶Õ¤Õ«ÕºÕ¸Ö‚Õ´ Õ¸Ö‚Õ¶Õ¥Õ¶Ö„Ö‰
+ÔµÕ½ Õ¡Õ·Õ­Õ¡Õ¿Õ¸Ö‚Õ´ Õ¥Õ´ Õ®Ö€Õ¡Õ£Ö€Õ¡Õ¾Õ¸Ö€Õ´Õ¡Õ¶ Õ¶Õ¸Ö€ Õ¶Õ¡Õ­Õ¡Õ£Õ®Õ« Õ¾Ö€Õ¡Ö‰
+Ô¿Õ¡Ö€Õ¸ÕžÕ² Õ¥Õ½ Õ«Õ¶Õ± Õ¸Ö‚Õ²Õ¡Ö€Õ¯Õ¥Õ¬ ÖƒÕ¡Õ½Õ¿Õ¡Õ©Õ²Õ©Õ¥Ö€Õ¨ Õ´Õ«Õ¶Õ¹Ö‡ Õ¥Ö€Õ¥Õ¯Õ¸Ö‰
+Õ„Õ¥Õ¶Ö„ ÕºÕ¥Õ¿Ö„ Õ§ Õ¸Ö€Õ¸Õ·Õ¥Õ¶Ö„, Õ©Õ¥ Õ¸Ö€ Õ´Õ¸Õ¤Õ¥Õ¬Õ¶ Õ¥Õ¶Ö„ Ö…Õ£Õ¿Õ¡Õ£Õ¸Ö€Õ®Õ¥Õ¬Õ¸Ö‚Ö‰
+Õ‡Õ¶Õ¸Ö€Õ°Õ¡Õ¯Õ¡Õ¬ Õ¥Õ´, Õ°Õ¡Õ»Õ¸Õ²Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶ Ö‡ ÖÕ¿Õ¥Õ½Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶Ö‰
 ```
 
 Before you start:
@@ -3207,7 +3213,7 @@ C:\ProgramData\anaconda3\envs\livetrans\python.exe -m livetrans.tools.record --s
 
 This records 60 seconds from the mic and the system. Start reading as soon as the level bars appear. Speak at a normal conversational pace, at a normal distance from the laptop. If you finish early, just stay quiet until it ends.
 
-Paste the output lines, the two "saved…" lines. Next, we install faster-whisper and run the first model on your recording.
+Paste the output lines, the two "savedâ€¦" lines. Next, we install faster-whisper and run the first model on your recording.
 
 
 ---
@@ -3234,7 +3240,7 @@ C:\Users\Lenovo\Projects\mathrix-live-translate>
 
 The recording worked: **60.1 s from the mic** (0.1 s of silence filled at the start), and the system side was almost entirely silent, as it should be. The ~2.8 s of system audio was probably a notification sound, which is harmless.
 
-One warning sign: at the end, the mic level showed **−1.9 dB**, very close to the maximum (0 dB). Earlier we also saw a clipped mic recording. Clipped audio is distorted, and that hurts speech recognition. Before testing models, let's check how much of this take is clipped, so we don't blame a model for a microphone problem.
+One warning sign: at the end, the mic level showed **âˆ’1.9 dB**, very close to the maximum (0 dB). Earlier we also saw a clipped mic recording. Clipped audio is distorted, and that hurts speech recognition. Before testing models, let's check how much of this take is clipped, so we don't blame a model for a microphone problem.
 
 **Step 22: Save the take under a stable name, check for clipping, and install faster-whisper**
 
@@ -3252,9 +3258,9 @@ C:\ProgramData\anaconda3\envs\livetrans\python.exe -m pip install faster-whisper
 
 - `copy` makes a copy called `hy_test.wav`, so later commands don't depend on the timestamp. It stays in `samples/`, which Git ignores, so the recording is never committed.
 - The Python line prints the take's length, its average loudness (RMS in dB), its peak, and the **percentage of clipped samples** (samples at the maximum). Under about 0.1% is fine. Several percent would mean we should lower the mic level in Windows before testing models.
-- `pip install faster-whisper` installs the speech-recognition engine we verified above, plus its dependencies (CTranslate2, the Silero VAD model, and a few others). It's a download of roughly 100–150 MB. The speech models themselves download later, on first use.
+- `pip install faster-whisper` installs the speech-recognition engine we verified above, plus its dependencies (CTranslate2, the Silero VAD model, and a few others). It's a download of roughly 100â€“150 MB. The speech models themselves download later, on first use.
 
-As before, if pip prints "Building wheel for …" for anything other than a pure-Python package, paste that part in full.
+As before, if pip prints "Building wheel for â€¦" for anything other than a pure-Python package, paste that part in full.
 
 Paste all three outputs.
 
@@ -3444,7 +3450,7 @@ faster-whisper installed cleanly (version 1.2.1, with CTranslate2 4.8.3), all fr
 | Measure | Your take | Healthy range |
 |---|---|---|
 | Clipped samples | **14.9%** | under 0.1% |
-| Average loudness (RMS) | **−6.5 dB** | about −30 to −18 dB |
+| Average loudness (RMS) | **âˆ’6.5 dB** | about âˆ’30 to âˆ’18 dB |
 | Peak | 1.0, the maximum | under about 0.7 |
 
 About one sample in seven is cut off at the maximum. The input is **far too loud**, so the waveform gets flattened and the speech is distorted. Our code can't cause this: it only converts what the sound card delivers, and averaging the two mic channels can't make the signal louder. So the gain is set too high **in Windows or the sound driver**. The likely culprit is "Microphone Boost", which Conexant laptop drivers often set to +20 or +30 dB.
@@ -3458,13 +3464,13 @@ If we tested models on this recording, we'd be measuring the distortion, not the
    control mmsys.cpl,,1
    ```
    This opens the classic Windows **Sound** window directly on the **Recording** tab.
-2. Double-click **Internal Microphone** → open the **Levels** tab.
+2. Double-click **Internal Microphone** â†’ open the **Levels** tab.
 3. Set **Microphone** to about **50**. If there's a **Microphone Boost** slider, set it to **0 dB**. Click **OK**, then **OK** again.
 4. Back in cmd, record a new take, reading the same 8 sentences with ~2 s pauses:
    ```cmd
    C:\ProgramData\anaconda3\envs\livetrans\python.exe -m livetrans.tools.record --seconds 60
    ```
-5. Then check it. Replace `NEWSTAMP` with the timestamp from the new "saved …_mic.wav" line:
+5. Then check it. Replace `NEWSTAMP` with the timestamp from the new "saved â€¦_mic.wav" line:
    ```cmd
    copy /y samples\NEWSTAMP_mic.wav samples\hy_test.wav
    ```
@@ -3473,7 +3479,7 @@ If we tested models on this recording, we'd be measuring the distortion, not the
    ```
    `copy /y` overwrites the old `hy_test.wav` without asking.
 
-**What we're aiming for:** clipped samples under 0.1%, and the level bar during recording mostly between −30 and −10 dB while you speak, never touching 0 dB. If it's still clipping, lower the Microphone slider to about 30 and repeat. If it becomes very quiet (RMS below −40 dB), raise it a little.
+**What we're aiming for:** clipped samples under 0.1%, and the level bar during recording mostly between âˆ’30 and âˆ’10 dB while you speak, never touching 0 dB. If it's still clipping, lower the Microphone slider to about 30 and repeat. If it becomes very quiet (RMS below âˆ’40 dB), raise it a little.
 
 Paste the recorder output, the check output, and the slider values you ended up with. We'll record the final setting in DECISIONS.md and the README, because the brief asks for the audio setup to be documented.
 
@@ -3517,8 +3523,8 @@ C:\ProgramData\anaconda3\envs\livetrans\python.exe -c "import soundfile as sf, n
 ```
 
 Please paste:
-1. The output of `dir /b /o-d …`
-2. The new recorder output (its "saved…" lines), if you still have it
+1. The output of `dir /b /o-d â€¦`
+2. The new recorder output (its "savedâ€¦" lines), if you still have it
 3. The check output
 4. The **Microphone** and **Microphone Boost** values you set in the Sound window. If you couldn't find or change them, say so; that's important too.
 
@@ -3583,10 +3589,10 @@ clipped samples % 7.528
 
 ### 82. Claude (2026-10-24 12:13 UTC)
 
-Better, but still not usable: clipping went from **14.9% to 7.5%**, but healthy is under 0.1%. And the average level of **−9.3 dB** is suspicious. That average includes your ~2-second pauses, so even the "quiet" parts must be loud. That points to one of two causes:
+Better, but still not usable: clipping went from **14.9% to 7.5%**, but healthy is under 0.1%. And the average level of **âˆ’9.3 dB** is suspicious. That average includes your ~2-second pauses, so even the "quiet" parts must be loud. That points to one of two causes:
 
 - **A. The gain is still far too high**: the slider didn't change enough, or Windows reset it.
-- **B. The mic is picking up constant loud noise**, such as a fan, hum, or a driver "enhancement" effect, so even silence is loud. Earlier recordings were sometimes quiet (−34 to −41 dB), which makes this worth checking.
+- **B. The mic is picking up constant loud noise**, such as a fan, hum, or a driver "enhancement" effect, so even silence is loud. Earlier recordings were sometimes quiet (âˆ’34 to âˆ’41 dB), which makes this worth checking.
 
 **Step 24: Diagnose before changing anything else**
 
@@ -3596,7 +3602,7 @@ Better, but still not usable: clipping went from **14.9% to 7.5%**, but healthy 
 start samples\hy_test.wav
 ```
 
-This opens the file in your default media player. Listen for 10–15 seconds. Does your voice sound **distorted or crackly**? Is there a loud **hiss or hum** in the pauses?
+This opens the file in your default media player. Listen for 10â€“15 seconds. Does your voice sound **distorted or crackly**? Is there a loud **hiss or hum** in the pauses?
 
 **24b. Measure the quiet parts versus the speech.** In cmd:
 
@@ -3605,11 +3611,11 @@ C:\ProgramData\anaconda3\envs\livetrans\python.exe -c "import soundfile as sf, n
 ```
 
 This cuts the recording into 0.1-second frames and prints:
-- **p10**: the level of the quietest 10%, which is basically your pauses, the background noise. Healthy is below −45 dB.
+- **p10**: the level of the quietest 10%, which is basically your pauses, the background noise. Healthy is below âˆ’45 dB.
 - **p90**: the level of the loudest 10%, which is your speech.
 - **per-second dB**: one number per second, so we can see whether pauses are actually quiet.
 
-If p10 is high, around −20 dB or louder, the problem is constant noise or gain, not your voice.
+If p10 is high, around âˆ’20 dB or louder, the problem is constant noise or gain, not your voice.
 
 **24c. Tell me the slider values.** In the Sound window (`control mmsys.cpl,,1`, then Internal Microphone, then **Levels**), what do **Microphone** and **Microphone Boost** show *right now*? Also check whether there's an **Enhancements** or **Advanced** tab with effects like "noise suppression" or "beamforming", and tell me what's listed there.
 
@@ -3637,14 +3643,14 @@ per-second dB: [-105, -20, -33, -35, -35, -36, -36, -37, -37, -37, -37, -17, -6,
 
 The numbers make the cause clear, so we can rule out noise:
 
-- **The pauses are fine.** During silence the level is about −35 to −40 dB, a normal background-noise level.
-- **The speech is far too loud.** While you talk, the per-second level jumps to **−4 to −10 dB**, right at the ceiling. That's where the 7.5% clipping comes from.
+- **The pauses are fine.** During silence the level is about âˆ’35 to âˆ’40 dB, a normal background-noise level.
+- **The speech is far too loud.** While you talk, the per-second level jumps to **âˆ’4 to âˆ’10 dB**, right at the ceiling. That's where the 7.5% clipping comes from.
 
-So it's **cause A: the microphone gain is still far too high**, probably by about 20 dB. The noise floor will also drop once the gain is lowered. (The −105 at the start is just the silence our Timeline inserted before the mic started.)
+So it's **cause A: the microphone gain is still far too high**, probably by about 20 dB. The noise floor will also drop once the gain is lowered. (The âˆ’105 at the start is just the silence our Timeline inserted before the mic started.)
 
 **Step 25: Lower the gain properly, then do a short test**
 
-1. Run `control mmsys.cpl,,1` → double-click **Internal Microphone** → **Levels** tab.
+1. Run `control mmsys.cpl,,1` â†’ double-click **Internal Microphone** â†’ **Levels** tab.
 2. **Take a screenshot of the Levels tab and send it to me.** That way I can see exactly which sliders your driver offers, instead of us guessing.
 3. Set **Microphone Boost** to **0 dB**, if it exists, and **Microphone** to **30**. Click **OK**.
 4. Record a **short 20-second test**, reading just the first 3 sentences at your normal voice and distance:
@@ -3655,9 +3661,9 @@ So it's **cause A: the microphone gain is still far too high**, probably by abou
    ```cmd
    C:\ProgramData\anaconda3\envs\livetrans\python.exe -c "import glob, soundfile as sf, numpy as np; p=sorted(glob.glob('samples/2*_mic.wav'))[-1]; x,sr=sf.read(p,dtype='float32'); f=x[:len(x)//1600*1600].reshape(-1,1600); r=20*np.log10(np.sqrt((f**2).mean(1))+1e-9); print(p); print('clipped %', round(100*float(np.mean(np.abs(x)>0.99)),3)); print('frame dB p10 p50 p90:', [round(float(v),1) for v in np.percentile(r,[10,50,90])])"
    ```
-   This finds the newest `…_mic.wav` (file names sort by time, so the last one is the newest) and prints its clipping percentage and quiet, middle and loud levels.
+   This finds the newest `â€¦_mic.wav` (file names sort by time, so the last one is the newest) and prints its clipping percentage and quiet, middle and loud levels.
 
-**Target:** clipping under 0.1%, and p90 (your speech) around **−25 to −12 dB**. If it's still clipping, lower Microphone to 15 and repeat steps 4–5. Once it's in range, we'll record the full 8-sentence take with that setting.
+**Target:** clipping under 0.1%, and p90 (your speech) around **âˆ’25 to âˆ’12 dB**. If it's still clipping, lower Microphone to 15 and repeat steps 4â€“5. Once it's in range, we'll record the full 8-sentence take with that setting.
 
 Send the screenshot and paste the output.
 
@@ -3686,7 +3692,7 @@ frame dB p10 p50 p90: [-29.7, -21.6, -3.3]
 
 ### 86. Claude (2026-10-24 12:15 UTC)
 
-The numbers are essentially unchanged: **6.4% clipped, and speech (p90) still at −3.3 dB**, which is at the ceiling. The background (p10) is even a bit louder than before. So whatever happened in the Sound window, **it had no effect on the signal we receive.** There are three possible reasons, and I can't tell which one it is without seeing your screen:
+The numbers are essentially unchanged: **6.4% clipped, and speech (p90) still at âˆ’3.3 dB**, which is at the ceiling. The background (p10) is even a bit louder than before. So whatever happened in the Sound window, **it had no effect on the signal we receive.** There are three possible reasons, and I can't tell which one it is without seeing your screen:
 
 1. The sliders weren't changed, or the dialog was closed with **Cancel** instead of **OK**.
 2. Your driver doesn't offer a Boost slider, and the Microphone slider has no effect.
@@ -3727,7 +3733,7 @@ Let's verify with a short test first. A 20-second check is cheaper than redoing 
    C:\ProgramData\anaconda3\envs\livetrans\python.exe -c "import glob, soundfile as sf, numpy as np; p=sorted(glob.glob('samples/2*_mic.wav'))[-1]; x,sr=sf.read(p,dtype='float32'); f=x[:len(x)//1600*1600].reshape(-1,1600); r=20*np.log10(np.sqrt((f**2).mean(1))+1e-9); print(p); print('clipped %', round(100*float(np.mean(np.abs(x)>0.99)),3)); print('frame dB p10 p50 p90:', [round(float(v),1) for v in np.percentile(r,[10,50,90])])"
    ```
 
-**Target:** `clipped %` under **0.1**, and p90 (your speech) between about **−25 and −12 dB**.
+**Target:** `clipped %` under **0.1**, and p90 (your speech) between about **âˆ’25 and âˆ’12 dB**.
 
 Paste both outputs, and tell me in one line **what you changed** to fix the mic. We'll record that in DECISIONS.md and the README, because the brief asks for the audio setup to be documented, and the same setting has to be in place on interview day.
 
@@ -3756,16 +3762,16 @@ frame dB p10 p50 p90: [-79.3, -71.4, -57.9]
 
 ### 90. Claude (2026-10-24 12:26 UTC)
 
-The opposite problem now: **no clipping at all, but your speech is far too quiet.** p90, the loudest parts, is only **−57.9 dB**, about 35–45 dB below where speech should be. The live bar showed −68.7 dB. At this level, speech models would hear almost nothing. So the fix went too far: the gain is now too low, or the mic is muted. The good news is that this shows the setting really does affect the signal, so it's just a matter of finding the right value.
+The opposite problem now: **no clipping at all, but your speech is far too quiet.** p90, the loudest parts, is only **âˆ’57.9 dB**, about 35â€“45 dB below where speech should be. The live bar showed âˆ’68.7 dB. At this level, speech models would hear almost nothing. So the fix went too far: the gain is now too low, or the mic is muted. The good news is that this shows the setting really does affect the signal, so it's just a matter of finding the right value.
 
 (If you didn't actually speak during these 20 seconds, tell me, because that would also explain it.)
 
 **Step 28: Find the middle setting**
 
-1. Open `control mmsys.cpl,,1` → **Internal Microphone** → **Levels**. Check that the speaker icon next to the slider **isn't muted** (no red circle).
+1. Open `control mmsys.cpl,,1` â†’ **Internal Microphone** â†’ **Levels**. Check that the speaker icon next to the slider **isn't muted** (no red circle).
 2. Change **one thing at a time**, then repeat the 20-second test after each change:
    - First try: **Microphone = 70, Boost = 0 dB**.
-   - Still too quiet (p90 below −30)? Try **Microphone = 100, Boost = 0 dB**.
+   - Still too quiet (p90 below âˆ’30)? Try **Microphone = 100, Boost = 0 dB**.
    - Still too quiet? Try **Boost = +10 dB** (with Microphone = 70).
    - Clipping again? Step back down halfway.
 3. After each change, run the same two commands, then read the first 3 sentences:
@@ -3776,9 +3782,9 @@ The opposite problem now: **no clipping at all, but your speech is far too quiet
    C:\ProgramData\anaconda3\envs\livetrans\python.exe -c "import glob, soundfile as sf, numpy as np; p=sorted(glob.glob('samples/2*_mic.wav'))[-1]; x,sr=sf.read(p,dtype='float32'); f=x[:len(x)//1600*1600].reshape(-1,1600); r=20*np.log10(np.sqrt((f**2).mean(1))+1e-9); print(p); print('clipped %', round(100*float(np.mean(np.abs(x)>0.99)),3)); print('frame dB p10 p50 p90:', [round(float(v),1) for v in np.percentile(r,[10,50,90])])"
    ```
 
-**Target:** clipped under **0.1%**, and p90 between **−25 and −12 dB**.
+**Target:** clipped under **0.1%**, and p90 between **âˆ’25 and âˆ’12 dB**.
 
-Paste each result **together with the setting you used**, like "Mic 70, Boost 0 → [output]". Writing them as pairs builds the evidence we'll put in DECISIONS.md, and it tells you exactly what to set on interview day.
+Paste each result **together with the setting you used**, like "Mic 70, Boost 0 â†’ [output]". Writing them as pairs builds the evidence we'll put in DECISIONS.md, and it tells you exactly what to set on interview day.
 
 
 ---
@@ -3797,12 +3803,12 @@ frame dB p10 p50 p90: [-77.3, -54.6, -42.7]
 
 ### 92. Claude (2026-10-24 12:30 UTC)
 
-Getting closer: speech (p90) rose from **−57.9 to −42.7 dB**, with no clipping. It still needs about **+15 to +20 dB** to reach the −25 to −12 target. Quiet speech also sits closer to the background noise, which makes recognition harder, so it's worth getting there.
+Getting closer: speech (p90) rose from **âˆ’57.9 to âˆ’42.7 dB**, with no clipping. It still needs about **+15 to +20 dB** to reach the âˆ’25 to âˆ’12 target. Quiet speech also sits closer to the background noise, which makes recognition harder, so it's worth getting there.
 
 Which setting gave this result? Tell me, and make the next increase based on it:
 
-- **If this was Microphone 70, Boost 0** → try **Microphone 100, Boost 0**.
-- **If this was already Microphone 100, Boost 0** → try **Microphone 70, Boost +10 dB**. Each Boost step is a big jump, so lower the Microphone slider a bit when you add Boost.
+- **If this was Microphone 70, Boost 0** â†’ try **Microphone 100, Boost 0**.
+- **If this was already Microphone 100, Boost 0** â†’ try **Microphone 70, Boost +10 dB**. Each Boost step is a big jump, so lower the Microphone slider a bit when you add Boost.
 - **If there's no Boost slider and Microphone is at 100**, tell me. Then we'll check the Enhancements tab, or consider a headset mic.
 
 Then repeat the same two commands, reading the first 3 sentences:
@@ -3814,7 +3820,7 @@ C:\ProgramData\anaconda3\envs\livetrans\python.exe -m livetrans.tools.record --s
 C:\ProgramData\anaconda3\envs\livetrans\python.exe -c "import glob, soundfile as sf, numpy as np; p=sorted(glob.glob('samples/2*_mic.wav'))[-1]; x,sr=sf.read(p,dtype='float32'); f=x[:len(x)//1600*1600].reshape(-1,1600); r=20*np.log10(np.sqrt((f**2).mean(1))+1e-9); print(p); print('clipped %', round(100*float(np.mean(np.abs(x)>0.99)),3)); print('frame dB p10 p50 p90:', [round(float(v),1) for v in np.percentile(r,[10,50,90])])"
 ```
 
-Please paste it as **"setting → output"**, for example "Mic 100, Boost 0 → clipped 0.0, p90 −30.1". That pairing is the evidence for DECISIONS.md, and it's what you'll set on interview day.
+Please paste it as **"setting â†’ output"**, for example "Mic 100, Boost 0 â†’ clipped 0.0, p90 âˆ’30.1". That pairing is the evidence for DECISIONS.md, and it's what you'll set on interview day.
 
 
 ---
@@ -3833,7 +3839,7 @@ frame dB p10 p50 p90: [-46.8, -21.7, -14.3]
 
 ### 94. Claude (2026-10-24 12:32 UTC)
 
-**That's in range.** Speech (p90) is at **−14.3 dB**, inside the −25 to −12 target. Clipping is **0.051%**, under the 0.1% limit, so only occasional peaks touch the ceiling. Background noise (p10) is at **−46.8 dB**, nicely quiet. Your voice now sits about 30 dB above the noise, which gives the speech model a clean signal.
+**That's in range.** Speech (p90) is at **âˆ’14.3 dB**, inside the âˆ’25 to âˆ’12 target. Clipping is **0.051%**, under the 0.1% limit, so only occasional peaks touch the ceiling. Background noise (p10) is at **âˆ’46.8 dB**, nicely quiet. Your voice now sits about 30 dB above the noise, which gives the speech model a clean signal.
 
 **Keep this setting exactly as it is.** Tell me which values you ended up with (Microphone and Boost), because they go into DECISIONS.md and the README, and you'll need to check them before the interview.
 
@@ -3842,14 +3848,14 @@ frame dB p10 p50 p90: [-46.8, -21.7, -14.3]
 Read **all 8 sentences** with a ~2-second pause between them, at the same voice and distance as just now:
 
 ```
-Բարև, ինչպե՞ս ես։
-Լավ եմ, շնորհակալություն, իսկ դու՞։
-Այսօր եղանակը շատ լավ է Երևանում։
-Վաղը առավոտյան ժամը տասին հանդիպում ունենք։
-Ես աշխատում եմ ծրագրավորման նոր նախագծի վրա։
-Կարո՞ղ ես ինձ ուղարկել փաստաթղթերը մինչև երեկո։
-Մենք պետք է որոշենք, թե որ մոդելն ենք օգտագործելու։
-Շնորհակալ եմ, հաջողություն և ցտեսություն։
+Ô²Õ¡Ö€Ö‡, Õ«Õ¶Õ¹ÕºÕ¥ÕžÕ½ Õ¥Õ½Ö‰
+Ô¼Õ¡Õ¾ Õ¥Õ´, Õ·Õ¶Õ¸Ö€Õ°Õ¡Õ¯Õ¡Õ¬Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶, Õ«Õ½Õ¯ Õ¤Õ¸Ö‚ÕžÖ‰
+Ô±ÕµÕ½Ö…Ö€ Õ¥Õ²Õ¡Õ¶Õ¡Õ¯Õ¨ Õ·Õ¡Õ¿ Õ¬Õ¡Õ¾ Õ§ ÔµÖ€Ö‡Õ¡Õ¶Õ¸Ö‚Õ´Ö‰
+ÕŽÕ¡Õ²Õ¨ Õ¡Õ¼Õ¡Õ¾Õ¸Õ¿ÕµÕ¡Õ¶ ÕªÕ¡Õ´Õ¨ Õ¿Õ¡Õ½Õ«Õ¶ Õ°Õ¡Õ¶Õ¤Õ«ÕºÕ¸Ö‚Õ´ Õ¸Ö‚Õ¶Õ¥Õ¶Ö„Ö‰
+ÔµÕ½ Õ¡Õ·Õ­Õ¡Õ¿Õ¸Ö‚Õ´ Õ¥Õ´ Õ®Ö€Õ¡Õ£Ö€Õ¡Õ¾Õ¸Ö€Õ´Õ¡Õ¶ Õ¶Õ¸Ö€ Õ¶Õ¡Õ­Õ¡Õ£Õ®Õ« Õ¾Ö€Õ¡Ö‰
+Ô¿Õ¡Ö€Õ¸ÕžÕ² Õ¥Õ½ Õ«Õ¶Õ± Õ¸Ö‚Õ²Õ¡Ö€Õ¯Õ¥Õ¬ ÖƒÕ¡Õ½Õ¿Õ¡Õ©Õ²Õ©Õ¥Ö€Õ¨ Õ´Õ«Õ¶Õ¹Ö‡ Õ¥Ö€Õ¥Õ¯Õ¸Ö‰
+Õ„Õ¥Õ¶Ö„ ÕºÕ¥Õ¿Ö„ Õ§ Õ¸Ö€Õ¸Õ·Õ¥Õ¶Ö„, Õ©Õ¥ Õ¸Ö€ Õ´Õ¸Õ¤Õ¥Õ¬Õ¶ Õ¥Õ¶Ö„ Ö…Õ£Õ¿Õ¡Õ£Õ¸Ö€Õ®Õ¥Õ¬Õ¸Ö‚Ö‰
+Õ‡Õ¶Õ¸Ö€Õ°Õ¡Õ¯Õ¡Õ¬ Õ¥Õ´, Õ°Õ¡Õ»Õ¸Õ²Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶ Ö‡ ÖÕ¿Õ¥Õ½Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶Ö‰
 ```
 
 ```cmd
@@ -3885,7 +3891,7 @@ frame dB p10 p50 p90: [-58.6, -46.8, -25.5]
 
 ### 96. Claude (2026-10-24 12:35 UTC)
 
-Good take. **60 s, clipping 0.11%**, practically at our 0.1% limit and far from the 7–15% before. The background is quiet (−58.6 dB). Speech reads a bit lower than in the short test (p90 −25.5) only because this take has more pauses, which pull the percentiles down. That's fine. **This is our test recording.**
+Good take. **60 s, clipping 0.11%**, practically at our 0.1% limit and far from the 7â€“15% before. The background is quiet (âˆ’58.6 dB). Speech reads a bit lower than in the short test (p90 âˆ’25.5) only because this take has more pauses, which pull the percentiles down. That's fine. **This is our test recording.**
 
 I still need your **Microphone and Boost values**. Please include them in your next reply; they go into DECISIONS.md.
 
@@ -3893,8 +3899,8 @@ Now we score speech models. To do that honestly, we need two measures: **CER** (
 
 We'll write this scoring code ourselves, test it first, and only then use it to judge models. For Armenian, two details matter:
 
-- Punctuation like `՞` sits **inside** words (`ինչպե՞ս`), so we remove it rather than turning it into a space.
-- `և` can be written as one character or as `եւ`. We treat both as equal, so a model isn't penalised for spelling style.
+- Punctuation like `Õž` sits **inside** words (`Õ«Õ¶Õ¹ÕºÕ¥ÕžÕ½`), so we remove it rather than turning it into a space.
+- `Ö‡` can be written as one character or as `Õ¥Ö‚`. We treat both as equal, so a model isn't penalised for spelling style.
 
 **Step 30: Write the scoring module and its tests**
 
@@ -3922,7 +3928,7 @@ Paste, Ctrl+S, close:
 
 Both compare a model's output (hypothesis) with what was really said (reference)
 after identical normalization, so punctuation, letter case and the two spellings
-of "և" are not counted as errors.
+of "Ö‡" are not counted as errors.
 """
 from __future__ import annotations
 
@@ -3931,10 +3937,10 @@ import unicodedata
 
 
 def normalize(text: str) -> str:
-    """NFKC (turns the ligature "և" into "եւ"), lowercase, remove punctuation, collapse spaces.
+    """NFKC (turns the ligature "Ö‡" into "Õ¥Ö‚"), lowercase, remove punctuation, collapse spaces.
 
     Punctuation is removed, not replaced by a space, because Armenian marks such as
-    the question mark "՞" sit inside words: "ինչպե՞ս" must become "ինչպես".
+    the question mark "Õž" sit inside words: "Õ«Õ¶Õ¹ÕºÕ¥ÕžÕ½" must become "Õ«Õ¶Õ¹ÕºÕ¥Õ½".
     """
     text = unicodedata.normalize("NFKC", text).lower()
     text = "".join(ch for ch in text if not unicodedata.category(ch).startswith("P"))
@@ -3986,22 +3992,22 @@ from livetrans.eval.metrics import cer, normalize, wer
 
 
 def test_identical_text_scores_zero():
-    s = "Այսօր եղանակը շատ լավ է Երևանում։"
+    s = "Ô±ÕµÕ½Ö…Ö€ Õ¥Õ²Õ¡Õ¶Õ¡Õ¯Õ¨ Õ·Õ¡Õ¿ Õ¬Õ¡Õ¾ Õ§ ÔµÖ€Ö‡Õ¡Õ¶Õ¸Ö‚Õ´Ö‰"
     assert cer(s, s) == 0.0
     assert wer(s, s) == 0.0
 
 
 def test_punctuation_and_case_are_ignored():
-    assert cer("Բարև, ինչպե՞ս ես։", "բարև ինչպես ես") == 0.0
+    assert cer("Ô²Õ¡Ö€Ö‡, Õ«Õ¶Õ¹ÕºÕ¥ÕžÕ½ Õ¥Õ½Ö‰", "Õ¢Õ¡Ö€Ö‡ Õ«Õ¶Õ¹ÕºÕ¥Õ½ Õ¥Õ½") == 0.0
 
 
 def test_question_mark_inside_word_does_not_split_it():
-    assert normalize("ինչպե՞ս") == "ինչպես"
+    assert normalize("Õ«Õ¶Õ¹ÕºÕ¥ÕžÕ½") == "Õ«Õ¶Õ¹ÕºÕ¥Õ½"
 
 
 def test_both_spellings_of_yev_are_equal():
-    assert cer("և", "եւ") == 0.0
-    assert wer("հաջողություն և ցտեսություն", "հաջողություն եւ ցտեսություն") == 0.0
+    assert cer("Ö‡", "Õ¥Ö‚") == 0.0
+    assert wer("Õ°Õ¡Õ»Õ¸Õ²Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶ Ö‡ ÖÕ¿Õ¥Õ½Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶", "Õ°Õ¡Õ»Õ¸Õ²Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶ Õ¥Ö‚ ÖÕ¿Õ¥Õ½Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶") == 0.0
 
 
 def test_one_substitution():
@@ -4153,14 +4159,14 @@ C:\ProgramData\anaconda3\envs\livetrans\python.exe -m idlelib eval\hy_test_refer
 Paste, Ctrl+S, close:
 
 ```
-Բարև, ինչպե՞ս ես։
-Լավ եմ, շնորհակալություն, իսկ դու՞։
-Այսօր եղանակը շատ լավ է Երևանում։
-Վաղը առավոտյան ժամը տասին հանդիպում ունենք։
-Ես աշխատում եմ ծրագրավորման նոր նախագծի վրա։
-Կարո՞ղ ես ինձ ուղարկել փաստաթղթերը մինչև երեկո։
-Մենք պետք է որոշենք, թե որ մոդելն ենք օգտագործելու։
-Շնորհակալ եմ, հաջողություն և ցտեսություն։
+Ô²Õ¡Ö€Ö‡, Õ«Õ¶Õ¹ÕºÕ¥ÕžÕ½ Õ¥Õ½Ö‰
+Ô¼Õ¡Õ¾ Õ¥Õ´, Õ·Õ¶Õ¸Ö€Õ°Õ¡Õ¯Õ¡Õ¬Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶, Õ«Õ½Õ¯ Õ¤Õ¸Ö‚ÕžÖ‰
+Ô±ÕµÕ½Ö…Ö€ Õ¥Õ²Õ¡Õ¶Õ¡Õ¯Õ¨ Õ·Õ¡Õ¿ Õ¬Õ¡Õ¾ Õ§ ÔµÖ€Ö‡Õ¡Õ¶Õ¸Ö‚Õ´Ö‰
+ÕŽÕ¡Õ²Õ¨ Õ¡Õ¼Õ¡Õ¾Õ¸Õ¿ÕµÕ¡Õ¶ ÕªÕ¡Õ´Õ¨ Õ¿Õ¡Õ½Õ«Õ¶ Õ°Õ¡Õ¶Õ¤Õ«ÕºÕ¸Ö‚Õ´ Õ¸Ö‚Õ¶Õ¥Õ¶Ö„Ö‰
+ÔµÕ½ Õ¡Õ·Õ­Õ¡Õ¿Õ¸Ö‚Õ´ Õ¥Õ´ Õ®Ö€Õ¡Õ£Ö€Õ¡Õ¾Õ¸Ö€Õ´Õ¡Õ¶ Õ¶Õ¸Ö€ Õ¶Õ¡Õ­Õ¡Õ£Õ®Õ« Õ¾Ö€Õ¡Ö‰
+Ô¿Õ¡Ö€Õ¸ÕžÕ² Õ¥Õ½ Õ«Õ¶Õ± Õ¸Ö‚Õ²Õ¡Ö€Õ¯Õ¥Õ¬ ÖƒÕ¡Õ½Õ¿Õ¡Õ©Õ²Õ©Õ¥Ö€Õ¨ Õ´Õ«Õ¶Õ¹Ö‡ Õ¥Ö€Õ¥Õ¯Õ¸Ö‰
+Õ„Õ¥Õ¶Ö„ ÕºÕ¥Õ¿Ö„ Õ§ Õ¸Ö€Õ¸Õ·Õ¥Õ¶Ö„, Õ©Õ¥ Õ¸Ö€ Õ´Õ¸Õ¤Õ¥Õ¬Õ¶ Õ¥Õ¶Ö„ Ö…Õ£Õ¿Õ¡Õ£Õ¸Ö€Õ®Õ¥Õ¬Õ¸Ö‚Ö‰
+Õ‡Õ¶Õ¸Ö€Õ°Õ¡Õ¯Õ¡Õ¬ Õ¥Õ´, Õ°Õ¡Õ»Õ¸Õ²Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶ Ö‡ ÖÕ¿Õ¥Õ½Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶Ö‰
 ```
 
 This text file can go into Git, since only *audio* is forbidden. That way a reviewer can see exactly what we tested against.
@@ -4325,7 +4331,7 @@ C:\Users\Lenovo\Projects\mathrix-live-translate>C:\ProgramData\anaconda3\envs\li
 Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
 
 Segments:
-  [  0.43 ->   2.43] われ!
+  [  0.43 ->   2.43] ã‚ã‚Œ!
 
 model=tiny compute=int8 beam=1 threads=4
 audio 60.0 s | load 20.7 s | transcribe 8.3 s | RTF 0.14 | peak RAM 304 MB
@@ -4341,7 +4347,7 @@ CER 1.000 | WER 1.000
 
 ### 100. Claude (2026-10-24 12:41 UTC)
 
-The first result is a clear failure, and **it's useful.** Tiny produced **one segment, from 0.4 s to 2.4 s, containing Japanese characters ("われ!")**, even though we told it the language is Armenian. Everything else was missing, so CER and WER are 1.0 (100% wrong).
+The first result is a clear failure, and **it's useful.** Tiny produced **one segment, from 0.4 s to 2.4 s, containing Japanese characters ("ã‚ã‚Œ!")**, even though we told it the language is Armenian. Everything else was missing, so CER and WER are 1.0 (100% wrong).
 
 On the positive side, it was **fast** (RTF 0.14, so 60 s of audio took 8 s) and **light** (304 MB peak RAM). The 20.7 s load time includes the one-time download.
 
@@ -4450,7 +4456,7 @@ C:\ProgramData\anaconda3\envs\livetrans\python.exe -m livetrans.tools.asr_bench 
 
 How to read it:
 - If "speech kept by VAD" is only a few seconds, while you spoke for about 30 s, then the **VAD** is the problem (cause B), and the `--no-vad` run should show more text.
-- If VAD keeps about 25–35 s and tiny still writes nonsense, the **model** is too weak for Armenian (cause A), and we move up to *base* and *small*.
+- If VAD keeps about 25â€“35 s and tiny still writes nonsense, the **model** is too weak for Armenian (cause A), and we move up to *base* and *small*.
 
 The HF_TOKEN warning only means downloads aren't logged in. They still work, so you can ignore it.
 
@@ -4480,12 +4486,12 @@ Two likely reasons the voice sounds unclear:
 
 **Step 33: Make the recording clear, then re-record**
 
-**33a. Turn off enhancements.** Run `control mmsys.cpl,,1` → double-click **Internal Microphone**:
+**33a. Turn off enhancements.** Run `control mmsys.cpl,,1` â†’ double-click **Internal Microphone**:
 - On the **Enhancements** tab (if it exists), tick **"Disable all sound effects"** or **"Disable all enhancements"**.
 - On the **Advanced** tab (if it exists), untick anything like "noise suppression", "beamforming" or "acoustic echo cancellation".
 - Click **OK**. Leave the **Levels** tab as it is now.
 
-**33b. Re-record the 8 sentences.** Sit about **30–50 cm** from the laptop, face the screen, and speak **clearly at a normal volume**, as if on a call. Pause about 2 s between sentences.
+**33b. Re-record the 8 sentences.** Sit about **30â€“50 cm** from the laptop, face the screen, and speak **clearly at a normal volume**, as if on a call. Pause about 2 s between sentences.
 
 ```cmd
 C:\ProgramData\anaconda3\envs\livetrans\python.exe -m livetrans.tools.record --seconds 60
@@ -4500,7 +4506,7 @@ C:\ProgramData\anaconda3\envs\livetrans\python.exe -c "import glob, shutil, soun
 start samples\hy_test.wav
 ```
 
-**Success means:** you can clearly understand every word when you listen back, clipping is under 0.1%, and p90 is between −25 and −12 dB.
+**Success means:** you can clearly understand every word when you listen back, clipping is under 0.1%, and p90 is between âˆ’25 and âˆ’12 dB.
 
 Paste the outputs and tell me:
 1. How it **sounds** now: clear, or still unclear, and in what way (muffled, noisy, crackly, too quiet)?
@@ -4515,7 +4521,7 @@ If it's still unclear after this, the most reliable fix is a **headset or earpho
 ### 103. User (2026-10-24 12:50 UTC)
 
 ```text
-The `tiny` benchmark with VAD enabled produced only one segment, “Yes, that's it.” CER=0.993, WER=1.000, transcription time=22.5 s, peak RAM=300 MB.
+The `tiny` benchmark with VAD enabled produced only one segment, â€œYes, that's it.â€ CER=0.993, WER=1.000, transcription time=22.5 s, peak RAM=300 MB.
 Running `python -m livetrans.tools.asr_bench --model tiny --no-vad` fails with `unrecognized arguments: --no-vad`. The current script's usage output does not list `--no-vad`.
 Please help me verify that the updated `src/livetrans/tools/asr_bench.py` was saved correctly and includes the `--no-vad` argument and VAD-duration reporting. Then guide me through rerunning both tests.
 ```
@@ -4557,7 +4563,7 @@ C:\ProgramData\anaconda3\envs\livetrans\python.exe -m livetrans.tools.asr_bench 
 C:\ProgramData\anaconda3\envs\livetrans\python.exe -m livetrans.tools.asr_bench --model tiny --no-vad
 ```
 
-Each run should now print an extra line: `audio 60.0 s | speech kept by VAD … s`, plus `vad=on` or `vad=off` in the settings line.
+Each run should now print an extra line: `audio 60.0 s | speech kept by VAD â€¦ s`, plus `vad=on` or `vad=off` in the settings line.
 
 About your new result: tiny writing English ("Yes, that's it.") while we asked for Armenian is the same pattern as the Japanese before. The model produces a short, confident phrase that has nothing to do with the audio. The transcription time rose from 8.3 s to 22.5 s, which hints that the VAD kept more speech this time. The new "speech kept by VAD" line will tell us for sure.
 
@@ -4807,7 +4813,7 @@ CER 0.987 | WER 1.000
 
 - **The VAD works properly.** It kept 32 s of speech, which fits 8 sentences plus a little margin. So cause B is ruled out.
 - **Tiny can't recognize Armenian (cause A).** With all the speech available, it still writes a single unrelated English phrase, even though we told it the language is Armenian. Whisper does this when it can't make sense of the audio: it skips windows it isn't confident about and falls back to a common phrase. **Tiny is rejected.** That's a measured result for DECISIONS.md and the README.
-- Speed was fine (RTF 0.31–0.44) and memory tiny (~300 MB), but speed doesn't matter if the text is wrong.
+- Speed was fine (RTF 0.31â€“0.44) and memory tiny (~300 MB), but speed doesn't matter if the text is wrong.
 
 **Step 35: Commit the tools, then test base and small**
 
@@ -4895,7 +4901,7 @@ C:\Users\Lenovo\Projects\mathrix-live-translate>C:\ProgramData\anaconda3\envs\li
 Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
 
 Segments:
-  [  1.01 ->  31.01] Ենwości՜ց ող expose が Են Zone Ե՘ պ Carneyն ձես գ detectingց տերoping արա թռցողում, Եյր Չկեց ոողմ Շնապետ աշնածցոտԷերբննլակ նասն՞նՈվ ՅովումՈն աշնդն էն այյմաց եմ ամյեմն է downstairsմյամ այմաց մթյմաամմծրպեմİ ホ� Airbnbֵ�
+  [  1.01 ->  31.01] ÔµÕ¶ï£°woÅ›ciÕœÖ Õ¸Õ² expose ãŒ ÔµÕ¶ï£± Zone ÔµÕ˜ Õº CarneyÕ¶ Õ±Õ¥Õ½ Õ£ detectingÖ Õ¿Õ¥Ö€oping Õ¡Ö€Õ¡ Õ©Õ¼ÖÕ¸Õ²Õ¸Ö‚Õ´, ÔµÕµÖ€ Õ‰Õ¯Õ¥Ö Õ¸Õ¸Õ²Õ´ Õ‡Õ¶Õ¡ÕºÕ¥Õ¿ Õ¡Õ·Õ¶Õ¡Õ®ÖÕ¸Õ¿Ô·Õ¥Ö€Õ¢Õ¶Õ¶Õ¬Õ¡Õ¯ Õ¶Õ¡Õ½Õ¶ÕžÕ¶ÕˆÕ¾ Õ…Õ¸Õ¾Õ¸Ö‚Õ´ÕˆÕ¶ Õ¡Õ·Õ¶Õ¤Õ¶ Õ§Õ¶ Õ¡ÕµÕµÕ´Õ¡Ö Õ¥Õ´ Õ¡Õ´ÕµÕ¥Õ´Õ¶ Õ§ downstairsÕ´ÕµÕ¡Õ´ Õ¡ÕµÕ´Õ¡Ö Õ´Õ©ÕµÕ´Õ¡Õ¡Õ´Õ´Õ®Ö€ÕºÕ¥Õ´Ä° ãƒ›ï¿½ AirbnbÖµï¿½
   [ 31.01 ->  55.01] nd
 
 model=base compute=int8 beam=1 threads=4 vad=on
@@ -4915,13 +4921,13 @@ operable program or batch file.
 
 ### 112. Claude (2026-10-24 12:58 UTC)
 
-Base is also unusable. It writes a mix of broken Armenian, English, Japanese and random words, with a **CER of 0.807**. It's also already slow on this CPU: **RTF 0.87**, so 60 s of audio took 52 s. *small* is roughly 3× bigger than base, so on this laptop it would very likely be **slower than real time** (RTF above 1). That can't work live, no matter how accurate it is.
+Base is also unusable. It writes a mix of broken Armenian, English, Japanese and random words, with a **CER of 0.807**. It's also already slow on this CPU: **RTF 0.87**, so 60 s of audio took 52 s. *small* is roughly 3Ã— bigger than base, so on this laptop it would very likely be **slower than real time** (RTF above 1). That can't work live, no matter how accurate it is.
 
 While you were running that, I looked for an Armenian-specific alternative and found a much better candidate, verified in the official sources:
 
 **NVIDIA FastConformer for Armenian** (`stt_hy_fastconformer_hybrid_large_pc`)
 - It was **trained specifically on Armenian**: about 296 hours, including Common Voice, FLEURS and Armenian audiobooks.
-- It reports a **WER of about 12–13% on FLEURS**. That's similar to the large Armenian-tuned Whisper (about 11.9%), yet this model has only **~115M parameters**, about 15× smaller.
+- It reports a **WER of about 12â€“13% on FLEURS**. That's similar to the large Armenian-tuned Whisper (about 11.9%), yet this model has only **~115M parameters**, about 15Ã— smaller.
 - It's licensed **CC-BY-4.0**, which allows our use. It outputs Armenian **with punctuation and capitalization**, and it expects 16 kHz mono, which is exactly what our capture produces.
 - Unlike Whisper, it doesn't generate text word by word: it processes audio in a **single pass**, which is usually much faster on CPU. We'll measure that rather than assume it.
 - It's listed in NVIDIA's official NeMo checkpoint catalog ([NVIDIA model card](https://huggingface.co/nvidia/stt_hy_fastconformer_hybrid_large_pc), [NeMo checkpoints list](https://docs.nvidia.com/nemo-framework/user-guide/26.02/nemotoolkit/asr/all_chkpt.html)). An **ONNX export** of the same weights runs with the small `onnx-asr` library, without PyTorch or NeMo ([OpenVoiceOS ONNX export](https://huggingface.co/OpenVoiceOS/stt_hy_fastconformer_hybrid_large_pc_onnx), [onnx-asr on PyPI](https://pypi.org/project/onnx-asr/), which needs Python 3.10 or newer).
@@ -5042,16 +5048,16 @@ Armenian is a low-resource language for Whisper: it saw comparatively little Arm
 
 | Model | Measured on your laptop | Verdict |
 |---|---|---|
-| Whisper tiny | CER 0.99, RTF 0.31–0.44, ~300 MB | Fast but useless |
+| Whisper tiny | CER 0.99, RTF 0.31â€“0.44, ~300 MB | Fast but useless |
 | Whisper base | CER 0.81, RTF 0.87, ~460 MB | Useless and already nearly too slow |
-| Whisper small | not run; ~3× base's size → likely RTF above 1 | Too slow for live, even if accurate |
+| Whisper small | not run; ~3Ã— base's size â†’ likely RTF above 1 | Too slow for live, even if accurate |
 
 ## Options for a fully local Armenian ASR on this laptop
 
-| Option | Armenian quality (published) | Fits 2 cores / ~1.7–3 GB free RAM? | Trade-offs |
+| Option | Armenian quality (published) | Fits 2 cores / ~1.7â€“3 GB free RAM? | Trade-offs |
 |---|---|---|---|
-| **A. NVIDIA FastConformer, Armenian** (115M params) | WER ~12–13% FLEURS, ~10–11% Common Voice ([model card](https://huggingface.co/nvidia/stt_hy_fastconformer_hybrid_large_pc)) | **Likely yes.** About 460 MB of weights in fp32, single-pass (no word-by-word generation) | Trained only on Armenian. CC-BY-4.0. Outputs punctuation. Card warns it's sensitive to noise and is non-streaming, which is fine because we send whole utterances |
-| A1. Run via ONNX export + `onnx-asr` | same weights | Light: no PyTorch, uses ONNX Runtime, which is already installed | The ONNX export is a **third-party conversion** by OpenVoiceOS, CTC head only, fp32 only ([export](https://huggingface.co/OpenVoiceOS/stt_hy_fastconformer_hybrid_large_pc_onnx), [onnx-asr](https://pypi.org/project/onnx-asr/), Python ≥ 3.10) |
+| **A. NVIDIA FastConformer, Armenian** (115M params) | WER ~12â€“13% FLEURS, ~10â€“11% Common Voice ([model card](https://huggingface.co/nvidia/stt_hy_fastconformer_hybrid_large_pc)) | **Likely yes.** About 460 MB of weights in fp32, single-pass (no word-by-word generation) | Trained only on Armenian. CC-BY-4.0. Outputs punctuation. Card warns it's sensitive to noise and is non-streaming, which is fine because we send whole utterances |
+| A1. Run via ONNX export + `onnx-asr` | same weights | Light: no PyTorch, uses ONNX Runtime, which is already installed | The ONNX export is a **third-party conversion** by OpenVoiceOS, CTC head only, fp32 only ([export](https://huggingface.co/OpenVoiceOS/stt_hy_fastconformer_hybrid_large_pc_onnx), [onnx-asr](https://pypi.org/project/onnx-asr/), Python â‰¥ 3.10) |
 | A2. Run the original via NVIDIA NeMo | same, plus the slightly better decoder | Heavy: PyTorch + NeMo, several GB to install, poorly supported on Windows | Only worth it if A1's output looks wrong and we need to verify against the original |
 | B. Armenian fine-tuned Whisper tiny/base | Mostly **no published accuracy**; one small fine-tune reports ~74% WER on its own validation data ([Edmon02/whisper-small-hy](https://friendli.ai/models/Edmon02/whisper-small-hy)) | Speed like tiny/base | Must be converted with PyTorch + transformers (a heavy install), and quality is unknown. A fallback only |
 | C. Armenian fine-tuned Whisper large-v3 | Best published: CER 3.7%, WER 11.9% on FLEURS ([BuzzASR/armenian](https://huggingface.co/BuzzASR/armenian)) | **No.** About 1.5B+ parameters and meant for GPU | Good for the README as "considered and rejected: hardware" |
@@ -5067,17 +5073,17 @@ For the live app, every finished phrase has to pass through this whole budget wi
 - speaker identification
 - printing
 
-With Whisper, ASR alone would already take 3–5 s for a typical 5 s phrase on your CPU (from base's RTF of 0.87). The NVIDIA model doesn't generate text token by token, so it should be much faster. My rough expectation is well under 1 s per phrase, but **that's a guess until we measure it.**
+With Whisper, ASR alone would already take 3â€“5 s for a typical 5 s phrase on your CPU (from base's RTF of 0.87). The NVIDIA model doesn't generate text token by token, so it should be much faster. My rough expectation is well under 1 s per phrase, but **that's a guess until we measure it.**
 
-Memory is the other limit: ASR plus a translation model plus a speaker model must fit together. With option A1 (~0.5–0.9 GB) there should be room for a translation model, **as long as Chrome is closed** while it runs.
+Memory is the other limit: ASR plus a translation model plus a speaker model must fit together. With option A1 (~0.5â€“0.9 GB) there should be room for a translation model, **as long as Chrome is closed** while it runs.
 
 ## Recommendation
 
 **Benchmark option A1 next**, on the same `hy_test.wav`, with the same scoring. To keep us honest, here are acceptance criteria decided **before** we see the result:
 
-- **Quality:** CER ≤ 0.20 on your take
-- **Speed:** RTF ≤ 0.3, which leaves time in the 5 s budget for translation and speakers
-- **Memory:** peak RAM ≤ 1 GB
+- **Quality:** CER â‰¤ 0.20 on your take
+- **Speed:** RTF â‰¤ 0.3, which leaves time in the 5 s budget for translation and speakers
+- **Memory:** peak RAM â‰¤ 1 GB
 
 If A1 passes, it becomes our ASR, and that decision goes into DECISIONS.md with these numbers. If quality fails, we check the original via A2 before giving up on the model. If speed or memory fails, option B is the fallback.
 
@@ -5184,7 +5190,7 @@ C:\ProgramData\anaconda3\envs\livetrans\python.exe -m livetrans.tools.asr_bench_
 - `findstr` should print one line containing `onnx_asr.load_model`. If it prints nothing, the save didn't work, so stop and tell me.
 - The benchmark downloads the model once (roughly 450 MB, into your user cache, not the project), then transcribes the whole 60 s take.
 
-**Acceptance criteria**, set before we see the result: **CER ≤ 0.20, RTF ≤ 0.3, peak RAM ≤ 1 GB.**
+**Acceptance criteria**, set before we see the result: **CER â‰¤ 0.20, RTF â‰¤ 0.3, peak RAM â‰¤ 1 GB.**
 
 Paste the full output, including any error or warning.
 
@@ -5204,7 +5210,7 @@ C:\Users\Lenovo\Projects\mathrix-live-translate>C:\ProgramData\anaconda3\envs\li
 Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
 
 Segments:
-  [  1.01 ->  31.01] Ենwości՜ց ող expose が Են Zone Ե՘ պ Carneyն ձես գ detectingց տերoping արա թռցողում, Եյր Չկեց ոողմ Շնապետ աշնածցոտԷերբննլակ նասն՞նՈվ ՅովումՈն աշնդն էն այյմաց եմ ամյեմն է downstairsմյամ այմաց մթյմաամմծրպեմİ ホ� Airbnbֵ�
+  [  1.01 ->  31.01] ÔµÕ¶ï£°woÅ›ciÕœÖ Õ¸Õ² expose ãŒ ÔµÕ¶ï£± Zone ÔµÕ˜ Õº CarneyÕ¶ Õ±Õ¥Õ½ Õ£ detectingÖ Õ¿Õ¥Ö€oping Õ¡Ö€Õ¡ Õ©Õ¼ÖÕ¸Õ²Õ¸Ö‚Õ´, ÔµÕµÖ€ Õ‰Õ¯Õ¥Ö Õ¸Õ¸Õ²Õ´ Õ‡Õ¶Õ¡ÕºÕ¥Õ¿ Õ¡Õ·Õ¶Õ¡Õ®ÖÕ¸Õ¿Ô·Õ¥Ö€Õ¢Õ¶Õ¶Õ¬Õ¡Õ¯ Õ¶Õ¡Õ½Õ¶ÕžÕ¶ÕˆÕ¾ Õ…Õ¸Õ¾Õ¸Ö‚Õ´ÕˆÕ¶ Õ¡Õ·Õ¶Õ¤Õ¶ Õ§Õ¶ Õ¡ÕµÕµÕ´Õ¡Ö Õ¥Õ´ Õ¡Õ´ÕµÕ¥Õ´Õ¶ Õ§ downstairsÕ´ÕµÕ¡Õ´ Õ¡ÕµÕ´Õ¡Ö Õ´Õ©ÕµÕ´Õ¡Õ¡Õ´Õ´Õ®Ö€ÕºÕ¥Õ´Ä° ãƒ›ï¿½ AirbnbÖµï¿½
   [ 31.01 ->  55.01] nd
 
 model=base compute=int8 beam=1 threads=4 vad=on
@@ -5257,17 +5263,17 @@ C:\Users\Lenovo\Projects\mathrix-live-translate>findstr /n "onnx_asr.load_model"
 
 C:\Users\Lenovo\Projects\mathrix-live-translate>C:\ProgramData\anaconda3\envs\livetrans\python.exe -m livetrans.tools.asr_bench_nemo
 Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
-config.json: 100%|██████████████████████████████████████████████████████████████████████████| 96.0/96.0 [00:00<?, ?B/s]
-Fetching 3 files: 100%|██████████████████████████████████████████████████████████████████| 3/3 [01:11<00:00, 23.94s/it]
-Download complete: ████████████████████████████████████████████████████████████████████████████████|  430MB, 5.08MB/s
-Text:struction complete: 100%|████████████████████████████████████████████████████████████|  458MB /  458MB, 14.3MB/s
-  Բարեւ, ինչպես ես լավավ շնորհակալություն, իսկ դու այսօր եղանակը շատ լավ է Երեւանում, Վաղը առավոտյան ժամը տասին հանդիպում ունեն Ես աշխատում եմ ծրագրավորման նոր նախագծի վրա, կարո՞ղ ես ինձ ուղարկել փաստաթղթերը մինչեւ երեկո, մենք պետք է որոշենք, թե որ մոդելն ենք օգտագործելու Հաջողություն եւտես։
+config.json: 100%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ| 96.0/96.0 [00:00<?, ?B/s]
+Fetching 3 files: 100%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ| 3/3 [01:11<00:00, 23.94s/it]
+Download complete: â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ|  430MB, 5.08MB/s
+Text:struction complete: 100%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ|  458MB /  458MB, 14.3MB/s
+  Ô²Õ¡Ö€Õ¥Ö‚, Õ«Õ¶Õ¹ÕºÕ¥Õ½ Õ¥Õ½ Õ¬Õ¡Õ¾Õ¡Õ¾ Õ·Õ¶Õ¸Ö€Õ°Õ¡Õ¯Õ¡Õ¬Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶, Õ«Õ½Õ¯ Õ¤Õ¸Ö‚ Õ¡ÕµÕ½Ö…Ö€ Õ¥Õ²Õ¡Õ¶Õ¡Õ¯Õ¨ Õ·Õ¡Õ¿ Õ¬Õ¡Õ¾ Õ§ ÔµÖ€Õ¥Ö‚Õ¡Õ¶Õ¸Ö‚Õ´, ÕŽÕ¡Õ²Õ¨ Õ¡Õ¼Õ¡Õ¾Õ¸Õ¿ÕµÕ¡Õ¶ ÕªÕ¡Õ´Õ¨ Õ¿Õ¡Õ½Õ«Õ¶ Õ°Õ¡Õ¶Õ¤Õ«ÕºÕ¸Ö‚Õ´ Õ¸Ö‚Õ¶Õ¥Õ¶ ÔµÕ½ Õ¡Õ·Õ­Õ¡Õ¿Õ¸Ö‚Õ´ Õ¥Õ´ Õ®Ö€Õ¡Õ£Ö€Õ¡Õ¾Õ¸Ö€Õ´Õ¡Õ¶ Õ¶Õ¸Ö€ Õ¶Õ¡Õ­Õ¡Õ£Õ®Õ« Õ¾Ö€Õ¡, Õ¯Õ¡Ö€Õ¸ÕžÕ² Õ¥Õ½ Õ«Õ¶Õ± Õ¸Ö‚Õ²Õ¡Ö€Õ¯Õ¥Õ¬ ÖƒÕ¡Õ½Õ¿Õ¡Õ©Õ²Õ©Õ¥Ö€Õ¨ Õ´Õ«Õ¶Õ¹Õ¥Ö‚ Õ¥Ö€Õ¥Õ¯Õ¸, Õ´Õ¥Õ¶Ö„ ÕºÕ¥Õ¿Ö„ Õ§ Õ¸Ö€Õ¸Õ·Õ¥Õ¶Ö„, Õ©Õ¥ Õ¸Ö€ Õ´Õ¸Õ¤Õ¥Õ¬Õ¶ Õ¥Õ¶Ö„ Ö…Õ£Õ¿Õ¡Õ£Õ¸Ö€Õ®Õ¥Õ¬Õ¸Ö‚ Õ€Õ¡Õ»Õ¸Õ²Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶ Õ¥Ö‚Õ¿Õ¥Õ½Ö‰
 
 model=OpenVoiceOS/stt_hy_fastconformer_hybrid_large_pc_onnx
 audio 59.9 s | load 79.4 s | transcribe 4.0 s | RTF 0.07 | peak RAM 937 MB
 CER 0.085 | WER 0.146
-Download complete: ████████████████████████████████████████████████████████████████████████████████|  430MB, 5.08MB/s
-Reconstruction complete: 100%|████████████████████████████████████████████████████████████|  458MB /  458MB, 14.3MB/s
+Download complete: â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ|  430MB, 5.08MB/s
+Reconstruction complete: 100%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ|  458MB /  458MB, 14.3MB/s
 
 C:\Users\Lenovo\Projects\mathrix-live-translate>
 ```
@@ -5281,16 +5287,16 @@ C:\Users\Lenovo\Projects\mathrix-live-translate>
 
 | Criterion | Target | NVIDIA FastConformer | Whisper base, for comparison |
 |---|---|---|---|
-| Quality: CER | ≤ 0.20 | **0.085** | 0.807 |
+| Quality: CER | â‰¤ 0.20 | **0.085** | 0.807 |
 | Quality: WER | (no target) | **0.146** | 0.979 |
-| Speed: RTF | ≤ 0.3 | **0.07** (60 s of audio in 4 s) | 0.87 |
-| Memory: peak RAM | ≤ 1 GB | **937 MB** (passes, but close) | 462 MB |
+| Speed: RTF | â‰¤ 0.3 | **0.07** (60 s of audio in 4 s) | 0.87 |
+| Memory: peak RAM | â‰¤ 1 GB | **937 MB** (passes, but close) | 462 MB |
 
 The text is real, readable Armenian. About 7 of the 8 sentences are essentially correct, and punctuation is included. The errors are honest to note:
 
-- "Լավ եմ" became "լավավ"
-- "ունենք" lost its last letter: "ունեն"
-- the last sentence is damaged: "Շնորհակալ եմ, … ցտեսություն" became "Հաջողություն եւտես". The start was dropped and the last word garbled.
+- "Ô¼Õ¡Õ¾ Õ¥Õ´" became "Õ¬Õ¡Õ¾Õ¡Õ¾"
+- "Õ¸Ö‚Õ¶Õ¥Õ¶Ö„" lost its last letter: "Õ¸Ö‚Õ¶Õ¥Õ¶"
+- the last sentence is damaged: "Õ‡Õ¶Õ¸Ö€Õ°Õ¡Õ¯Õ¡Õ¬ Õ¥Õ´, â€¦ ÖÕ¿Õ¥Õ½Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶" became "Õ€Õ¡Õ»Õ¸Õ²Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶ Õ¥Ö‚Õ¿Õ¥Õ½". The start was dropped and the last word garbled.
 
 That's what a CER of 8.5% looks like in practice: good, not perfect. A typical phrase of about 5 s would take roughly **0.35 s** to transcribe, which leaves most of the 5 s budget for translation and speakers.
 
@@ -5318,16 +5324,16 @@ Press **Ctrl+End** to jump to the end, press Enter once, and paste the text belo
 
 ```markdown
 
-## D5 — Microphone level for the internal Conexant mic (2026-10-24)
-- Problem: speech was clipped (14.9 % and 7.5 % of samples at full scale); p90 frame level −3 dB.
-- Fix: Windows Sound → Recording → Internal Microphone → Levels: Microphone = __, Boost = __;
+## D5 â€” Microphone level for the internal Conexant mic (2026-10-24)
+- Problem: speech was clipped (14.9 % and 7.5 % of samples at full scale); p90 frame level âˆ’3 dB.
+- Fix: Windows Sound â†’ Recording â†’ Internal Microphone â†’ Levels: Microphone = __, Boost = __;
   enhancements disabled.
-- Evidence after fix: 60 s test take, 0.11 % clipped, p10 −58.6 dB, p90 −25.5 dB; speech clear on listening.
+- Evidence after fix: 60 s test take, 0.11 % clipped, p10 âˆ’58.6 dB, p90 âˆ’25.5 dB; speech clear on listening.
 - Must be checked again before the interview.
 
-## D6 — ASR model: NVIDIA FastConformer Armenian via ONNX + onnx-asr (2026-10-24)
+## D6 â€” ASR model: NVIDIA FastConformer Armenian via ONNX + onnx-asr (2026-10-24)
 - Test: 60 s take, 8 Armenian sentences (eval/hy_test_reference.txt), this laptop, CPU only.
-  Acceptance criteria set before testing: CER ≤ 0.20, RTF ≤ 0.3, peak RAM ≤ 1 GB.
+  Acceptance criteria set before testing: CER â‰¤ 0.20, RTF â‰¤ 0.3, peak RAM â‰¤ 1 GB.
 
 | Model | CER | WER | RTF | Peak RAM | Result |
 |---|---|---|---|---|---|
@@ -5336,17 +5342,17 @@ Press **Ctrl+End** to jump to the end, press Enter once, and paste the text belo
 | FastConformer hy (ONNX, fp32) | 0.085 | 0.146 | 0.07 | __ MB | **chosen** |
 
 - Model: nvidia/stt_hy_fastconformer_hybrid_large_pc (~115M params, trained on ~296 h of
-  Armenian; CC-BY-4.0; published WER ~12–13 % FLEURS). Run through the ONNX export
+  Armenian; CC-BY-4.0; published WER ~12â€“13 % FLEURS). Run through the ONNX export
   OpenVoiceOS/stt_hy_fastconformer_hybrid_large_pc_onnx with onnx-asr 0.12.0; no PyTorch needed.
   Load time from cache: __ s.
-- Not chosen: Whisper small (about 3× base's size; base already RTF 0.87, so too slow for live —
+- Not chosen: Whisper small (about 3Ã— base's size; base already RTF 0.87, so too slow for live â€”
   not measured); Armenian fine-tuned Whisper large-v3 (BuzzASR/armenian, CER 3.7 % FLEURS, but
   ~1.5B+ params, GPU-oriented); small Armenian Whisper fine-tunes (no reliable published accuracy,
   need a PyTorch conversion).
 - Risks: the ONNX export is a third-party conversion (CTC head only, fp32 only); peak RAM close
   to 1 GB leaves less room for translation; the model card warns it is noise-sensitive and
   non-streaming, so we will feed it one utterance at a time from the VAD.
-- Observed errors on our take: "լավ եմ" → "լավավ", "ունենք" → "ունեն", last sentence partly lost.
+- Observed errors on our take: "Õ¬Õ¡Õ¾ Õ¥Õ´" â†’ "Õ¬Õ¡Õ¾Õ¡Õ¾", "Õ¸Ö‚Õ¶Õ¥Õ¶Ö„" â†’ "Õ¸Ö‚Õ¶Õ¥Õ¶", last sentence partly lost.
 ```
 
 **37c. Commit:**
@@ -5358,7 +5364,7 @@ git add src\livetrans\tools\asr_bench_nemo.py DECISIONS.md
 git commit -m "Choose NVIDIA FastConformer Armenian ASR (CER 0.085, RTF 0.07); add benchmark"
 ```
 
-Paste the 37a output and the commit output. Next is **M3: translation.** We'll choose an Armenian→English model the same way: verify it in the docs, set acceptance criteria, then measure it on these 8 sentences. Memory will be the main constraint, since ASR already uses close to 1 GB.
+Paste the 37a output and the commit output. Next is **M3: translation.** We'll choose an Armenianâ†’English model the same way: verify it in the docs, set acceptance criteria, then measure it on these 8 sentences. Memory will be the main constraint, since ASR already uses close to 1 GB.
 
 
 ---
@@ -5384,7 +5390,7 @@ C:\Users\Lenovo\Projects\mathrix-live-translate>git commit -m "Choose NVIDIA Fas
 
 ### 120. Claude (2026-10-24 13:24 UTC)
 
-The commit worked (`a0e6cdc`), but one detail in the output worries me: **"82 insertions(+), 29 deletions(-)"**. We only *added* to DECISIONS.md, so there should be no deletions, apart from the new script file which only adds lines. 29 deleted lines suggests that some of the earlier entries (D1–D4) were replaced instead of appended to. That happens easily if Ctrl+A was pressed before pasting.
+The commit worked (`a0e6cdc`), but one detail in the output worries me: **"82 insertions(+), 29 deletions(-)"**. We only *added* to DECISIONS.md, so there should be no deletions, apart from the new script file which only adds lines. 29 deleted lines suggests that some of the earlier entries (D1â€“D4) were replaced instead of appended to. That happens easily if Ctrl+A was pressed before pasting.
 
 Nothing is lost, because Git still has the previous version. Let's check before going on.
 
@@ -5397,7 +5403,7 @@ findstr /n /b "## D" DECISIONS.md
 This lists every line that *starts* (`/b`) with `## D`, meaning every decision heading, with its line number.
 
 - **Expected: 6 lines**, D1 to D6, in order.
-- If D1–D4 are missing or incomplete, that confirms the problem, and I'll give you a two-command way to restore them from Git without retyping anything.
+- If D1â€“D4 are missing or incomplete, that confirms the problem, and I'll give you a two-command way to restore them from Git without retyping anything.
 
 Also, I didn't see the output of **37a**, the second benchmark run. Please run it again and paste it:
 
@@ -5423,8 +5429,8 @@ C:\Users\Lenovo\Projects\mathrix-live-translate>git commit -m "Choose NVIDIA Fas
  create mode 100644 src/livetrans/tools/asr_bench_nemo.py
 
 C:\Users\Lenovo\Projects\mathrix-live-translate>findstr /n /b "## D" DECISIONS.md
-1:## D5 ΓÇö Microphone level for the internal Conexant mic (2026-10-24)
-8:## D6 ΓÇö ASR model: NVIDIA FastConformer Armenian via ONNX + onnx-asr (2026-10-24)
+1:## D5 Î“Ã‡Ã¶ Microphone level for the internal Conexant mic (2026-10-24)
+8:## D6 Î“Ã‡Ã¶ ASR model: NVIDIA FastConformer Armenian via ONNX + onnx-asr (2026-10-24)
 ```
 
 
@@ -5432,20 +5438,20 @@ C:\Users\Lenovo\Projects\mathrix-live-translate>findstr /n /b "## D" DECISIONS.m
 
 ### 122. Claude (2026-10-24 13:25 UTC)
 
-Confirmed: **D1–D4 were overwritten.** The file now starts directly at D5, so the paste replaced the old content instead of being added after it. (The `ΓÇö` is just how cmd displays the "—" dash. The file itself is fine; only cmd's display is wrong.)
+Confirmed: **D1â€“D4 were overwritten.** The file now starts directly at D5, so the paste replaced the old content instead of being added after it. (The `Î“Ã‡Ã¶` is just how cmd displays the "â€”" dash. The file itself is fine; only cmd's display is wrong.)
 
-We'll restore it from Git and keep your new D5–D6. Git still has the previous version in the commit before this one (`HEAD~1`).
+We'll restore it from Git and keep your new D5â€“D6. Git still has the previous version in the commit before this one (`HEAD~1`).
 
-**Step 39: Restore D1–D4 and keep D5–D6**
+**Step 39: Restore D1â€“D4 and keep D5â€“D6**
 
-**39a.** One command: it takes the old DECISIONS.md from the previous commit, adds the current D5–D6 below it, and writes the combined result:
+**39a.** One command: it takes the old DECISIONS.md from the previous commit, adds the current D5â€“D6 below it, and writes the combined result:
 
 ```cmd
 C:\ProgramData\anaconda3\envs\livetrans\python.exe -c "import subprocess, pathlib; old=subprocess.run(['git','show','HEAD~1:DECISIONS.md'],capture_output=True,check=True).stdout.decode('utf-8'); p=pathlib.Path('DECISIONS.md'); new=p.read_text(encoding='utf-8'); p.write_text(old.rstrip()+'\n\n'+new.lstrip(), encoding='utf-8', newline='\n'); print('done')"
 ```
 
-- `git show HEAD~1:DECISIONS.md` reads the file *as it was in the previous commit*, with D1–D4 intact.
-- The script puts the old content first, then a blank line, then the current D5–D6, and saves it as UTF-8 so the Armenian text and dashes stay correct.
+- `git show HEAD~1:DECISIONS.md` reads the file *as it was in the previous commit*, with D1â€“D4 intact.
+- The script puts the old content first, then a blank line, then the current D5â€“D6, and saves it as UTF-8 so the Armenian text and dashes stay correct.
 
 **39b. Check:**
 
@@ -5489,7 +5495,7 @@ Paste the 39b `findstr` output, the 39c benchmark output, and the commit output.
 C:\Users\Lenovo\Projects\mathrix-live-translate>C:\ProgramData\anaconda3\envs\livetrans\python.exe -m livetrans.tools.asr_bench_nemo
 
 Text:
-  Բարեւ, ինչպես ես լավավ շնորհակալություն, իսկ դու այսօր եղանակը շատ լավ է Երեւանում, Վաղը առավոտյան ժամը տասին հանդիպում ունեն Ես աշխատում եմ ծրագրավորման նոր նախագծի վրա, կարո՞ղ ես ինձ ուղարկել փաստաթղթերը մինչեւ երեկո, մենք պետք է որոշենք, թե որ մոդելն ենք օգտագործելու Հաջողություն եւտես։
+  Ô²Õ¡Ö€Õ¥Ö‚, Õ«Õ¶Õ¹ÕºÕ¥Õ½ Õ¥Õ½ Õ¬Õ¡Õ¾Õ¡Õ¾ Õ·Õ¶Õ¸Ö€Õ°Õ¡Õ¯Õ¡Õ¬Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶, Õ«Õ½Õ¯ Õ¤Õ¸Ö‚ Õ¡ÕµÕ½Ö…Ö€ Õ¥Õ²Õ¡Õ¶Õ¡Õ¯Õ¨ Õ·Õ¡Õ¿ Õ¬Õ¡Õ¾ Õ§ ÔµÖ€Õ¥Ö‚Õ¡Õ¶Õ¸Ö‚Õ´, ÕŽÕ¡Õ²Õ¨ Õ¡Õ¼Õ¡Õ¾Õ¸Õ¿ÕµÕ¡Õ¶ ÕªÕ¡Õ´Õ¨ Õ¿Õ¡Õ½Õ«Õ¶ Õ°Õ¡Õ¶Õ¤Õ«ÕºÕ¸Ö‚Õ´ Õ¸Ö‚Õ¶Õ¥Õ¶ ÔµÕ½ Õ¡Õ·Õ­Õ¡Õ¿Õ¸Ö‚Õ´ Õ¥Õ´ Õ®Ö€Õ¡Õ£Ö€Õ¡Õ¾Õ¸Ö€Õ´Õ¡Õ¶ Õ¶Õ¸Ö€ Õ¶Õ¡Õ­Õ¡Õ£Õ®Õ« Õ¾Ö€Õ¡, Õ¯Õ¡Ö€Õ¸ÕžÕ² Õ¥Õ½ Õ«Õ¶Õ± Õ¸Ö‚Õ²Õ¡Ö€Õ¯Õ¥Õ¬ ÖƒÕ¡Õ½Õ¿Õ¡Õ©Õ²Õ©Õ¥Ö€Õ¨ Õ´Õ«Õ¶Õ¹Õ¥Ö‚ Õ¥Ö€Õ¥Õ¯Õ¸, Õ´Õ¥Õ¶Ö„ ÕºÕ¥Õ¿Ö„ Õ§ Õ¸Ö€Õ¸Õ·Õ¥Õ¶Ö„, Õ©Õ¥ Õ¸Ö€ Õ´Õ¸Õ¤Õ¥Õ¬Õ¶ Õ¥Õ¶Ö„ Ö…Õ£Õ¿Õ¡Õ£Õ¸Ö€Õ®Õ¥Õ¬Õ¸Ö‚ Õ€Õ¡Õ»Õ¸Õ²Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶ Õ¥Ö‚Õ¿Õ¥Õ½Ö‰
 
 model=OpenVoiceOS/stt_hy_fastconformer_hybrid_large_pc_onnx
 audio 59.9 s | load 7.5 s | transcribe 3.6 s | RTF 0.06 | peak RAM 917 MB
@@ -5508,13 +5514,13 @@ C:\Users\Lenovo\Projects\mathrix-live-translate>git commit -m "Choose NVIDIA Fas
  create mode 100644 src/livetrans/tools/asr_bench_nemo.py
 
 C:\Users\Lenovo\Projects\mathrix-live-translate>findstr /n /b "## D" DECISIONS.md
-1:## D5 ΓÇö Microphone level for the internal Conexant mic (2026-10-24)
-8:## D6 ΓÇö ASR model: NVIDIA FastConformer Armenian via ONNX + onnx-asr (2026-10-24)
+1:## D5 Î“Ã‡Ã¶ Microphone level for the internal Conexant mic (2026-10-24)
+8:## D6 Î“Ã‡Ã¶ ASR model: NVIDIA FastConformer Armenian via ONNX + onnx-asr (2026-10-24)
 
 C:\Users\Lenovo\Projects\mathrix-live-translate>C:\ProgramData\anaconda3\envs\livetrans\python.exe -m livetrans.tools.asr_bench_nemo
 
 Text:
-  Բարեւ, ինչպես ես լավավ շնորհակալություն, իսկ դու այսօր եղանակը շատ լավ է Երեւանում, Վաղը առավոտյան ժամը տասին հանդիպում ունեն Ես աշխատում եմ ծրագրավորման նոր նախագծի վրա, կարո՞ղ ես ինձ ուղարկել փաստաթղթերը մինչեւ երեկո, մենք պետք է որոշենք, թե որ մոդելն ենք օգտագործելու Հաջողություն եւտես։
+  Ô²Õ¡Ö€Õ¥Ö‚, Õ«Õ¶Õ¹ÕºÕ¥Õ½ Õ¥Õ½ Õ¬Õ¡Õ¾Õ¡Õ¾ Õ·Õ¶Õ¸Ö€Õ°Õ¡Õ¯Õ¡Õ¬Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶, Õ«Õ½Õ¯ Õ¤Õ¸Ö‚ Õ¡ÕµÕ½Ö…Ö€ Õ¥Õ²Õ¡Õ¶Õ¡Õ¯Õ¨ Õ·Õ¡Õ¿ Õ¬Õ¡Õ¾ Õ§ ÔµÖ€Õ¥Ö‚Õ¡Õ¶Õ¸Ö‚Õ´, ÕŽÕ¡Õ²Õ¨ Õ¡Õ¼Õ¡Õ¾Õ¸Õ¿ÕµÕ¡Õ¶ ÕªÕ¡Õ´Õ¨ Õ¿Õ¡Õ½Õ«Õ¶ Õ°Õ¡Õ¶Õ¤Õ«ÕºÕ¸Ö‚Õ´ Õ¸Ö‚Õ¶Õ¥Õ¶ ÔµÕ½ Õ¡Õ·Õ­Õ¡Õ¿Õ¸Ö‚Õ´ Õ¥Õ´ Õ®Ö€Õ¡Õ£Ö€Õ¡Õ¾Õ¸Ö€Õ´Õ¡Õ¶ Õ¶Õ¸Ö€ Õ¶Õ¡Õ­Õ¡Õ£Õ®Õ« Õ¾Ö€Õ¡, Õ¯Õ¡Ö€Õ¸ÕžÕ² Õ¥Õ½ Õ«Õ¶Õ± Õ¸Ö‚Õ²Õ¡Ö€Õ¯Õ¥Õ¬ ÖƒÕ¡Õ½Õ¿Õ¡Õ©Õ²Õ©Õ¥Ö€Õ¨ Õ´Õ«Õ¶Õ¹Õ¥Ö‚ Õ¥Ö€Õ¥Õ¯Õ¸, Õ´Õ¥Õ¶Ö„ ÕºÕ¥Õ¿Ö„ Õ§ Õ¸Ö€Õ¸Õ·Õ¥Õ¶Ö„, Õ©Õ¥ Õ¸Ö€ Õ´Õ¸Õ¤Õ¥Õ¬Õ¶ Õ¥Õ¶Ö„ Ö…Õ£Õ¿Õ¡Õ£Õ¸Ö€Õ®Õ¥Õ¬Õ¸Ö‚ Õ€Õ¡Õ»Õ¸Õ²Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶ Õ¥Ö‚Õ¿Õ¥Õ½Ö‰
 
 model=OpenVoiceOS/stt_hy_fastconformer_hybrid_large_pc_onnx
 audio 59.9 s | load 7.2 s | transcribe 4.4 s | RTF 0.07 | peak RAM 917 MB
@@ -5540,7 +5546,7 @@ C:\Users\Lenovo\Projects\mathrix-live-translate>
 
 ### 124. Claude (2026-10-24 13:29 UTC)
 
-The repair worked: **"33 insertions"** means the 29 old lines of D1–D4 came back, plus the blank line and spacing. The cached benchmark gives the real numbers: **load 7.2–7.5 s, transcription 3.6–4.4 s, RTF 0.06–0.07, peak RAM 917 MB**. The text was **identical across runs**, so this model gives repeatable results, which matters for testing.
+The repair worked: **"33 insertions"** means the 29 old lines of D1â€“D4 came back, plus the blank line and spacing. The cached benchmark gives the real numbers: **load 7.2â€“7.5 s, transcription 3.6â€“4.4 s, RTF 0.06â€“0.07, peak RAM 917 MB**. The text was **identical across runs**, so this model gives repeatable results, which matters for testing.
 
 Quick check before we move on. Run these and confirm you see **6 headings** and **no `__` lines**:
 
@@ -5553,14 +5559,14 @@ findstr /n "__" DECISIONS.md
 
 If any `__` lines appear, fill them in with IDLE (Ctrl+F, search `__`) and commit again.
 
-## M3: Translation options (Armenian → English), researched before we install anything
+## M3: Translation options (Armenian â†’ English), researched before we install anything
 
 | Option | Size | License | Armenian support | Notes |
 |---|---|---|---|---|
 | **A. NLLB-200 distilled 600M** (Meta) | 600M params; int8 CTranslate2 conversion available | **CC-BY-NC-4.0, non-commercial only** ([CTranslate2 int8 conversion](https://huggingface.co/JustFrederik/nllb-200-distilled-600M-ct2-int8)) | Yes: Armenian is one of its 200 languages (code `hye_Armn`) | Built specifically for low-resource languages. Runs on **CTranslate2**, which faster-whisper already installed. Officially documented in CTranslate2's guide ([CTranslate2 Transformers guide](https://opennmt.net/CTranslate2/guides/transformers)) |
 | B. M2M100 418M (Meta) | 418M params | MIT | Yes | Older and generally weaker on low-resource languages. Its advantage is a fully permissive license |
-| C. OPUS-MT multilingual→English | small, ~77M | Apache-2.0 | Lists "hy" among its source languages, but publishes **no Armenian scores** ([opus-mt-mul-en](https://www.endorlabs.com/ai-model/helsinki-nlp-opus-mt-mul-en)) | Very light and fast. Quality for Armenian is unknown and probably weak. I found no dedicated hy→en OPUS-MT model, only en→hy |
-| D. NLLB 1.3B or a local LLM | 1.3B+ | — | Yes | **Rejected:** not enough RAM next to the ASR model on this laptop |
+| C. OPUS-MT multilingualâ†’English | small, ~77M | Apache-2.0 | Lists "hy" among its source languages, but publishes **no Armenian scores** ([opus-mt-mul-en](https://www.endorlabs.com/ai-model/helsinki-nlp-opus-mt-mul-en)) | Very light and fast. Quality for Armenian is unknown and probably weak. I found no dedicated hyâ†’en OPUS-MT model, only enâ†’hy |
+| D. NLLB 1.3B or a local LLM | 1.3B+ | â€” | Yes | **Rejected:** not enough RAM next to the ASR model on this laptop |
 
 Things I could **not** verify, so I'm being explicit about them:
 - I couldn't open Meta's official NLLB model card from here, because the site isn't reachable from my tools. The license above comes from the converted copy, which carries the original's license. You can confirm it yourself at `huggingface.co/facebook/nllb-200-distilled-600M`.
@@ -5568,7 +5574,7 @@ Things I could **not** verify, so I'm being explicit about them:
 
 **The license trade-off for option A:** "non-commercial" is fine for a job-interview challenge, which is evaluation rather than a commercial product, but it must be stated clearly in the README. If you're uncomfortable with that, option B is the clean-license alternative, with probably lower quality.
 
-**Memory is the real risk.** ASR already uses ~0.9 GB. NLLB-600M in int8 likely needs roughly 0.7–1.0 GB, so together about 2 GB, plus the speaker model later. That works with Chrome closed. We'll measure it rather than guess.
+**Memory is the real risk.** ASR already uses ~0.9 GB. NLLB-600M in int8 likely needs roughly 0.7â€“1.0 GB, so together about 2 GB, plus the speaker model later. That works with Chrome closed. We'll measure it rather than guess.
 
 ## Recommendation and acceptance criteria, set before testing
 
@@ -5576,8 +5582,8 @@ Things I could **not** verify, so I'm being explicit about them:
 
 Pass criteria:
 - **Understandable:** at least **6 of 8** sentences understandable, as judged by you. That's the brief's own test: *"is the English understandable"*. We'll also compute **chrF**, an automatic score, against English references I'll provide.
-- **Speed:** median **≤ 1.0 s per sentence** on this CPU.
-- **Memory:** translator peak RAM **≤ 1.2 GB**.
+- **Speed:** median **â‰¤ 1.0 s per sentence** on this CPU.
+- **Memory:** translator peak RAM **â‰¤ 1.2 GB**.
 
 Installing this needs `transformers` and `sentencepiece`, for NLLB's tokenizer only; **no PyTorch**. It doesn't change any existing code. It adds one new benchmark script and an English reference file.
 
@@ -5599,7 +5605,7 @@ go
 
 We'll benchmark **NLLB-200 distilled 600M** the same way as the ASR: on the 8 sentences, one sentence at a time, since the live app will translate one utterance at a time.
 
-**Acceptance criteria:** at least 6 of 8 sentences understandable (your judgment), median ≤ 1.0 s per sentence, peak RAM ≤ 1.2 GB.
+**Acceptance criteria:** at least 6 of 8 sentences understandable (your judgment), median â‰¤ 1.0 s per sentence, peak RAM â‰¤ 1.2 GB.
 
 **Step 40: Translation benchmark**
 
@@ -5639,14 +5645,14 @@ C:\ProgramData\anaconda3\envs\livetrans\python.exe -m idlelib eval\hy_test_asr.t
 This is the **ASR's real output from your take**, split by hand into the same 8 sentences, so we can test translation on realistic input, mistakes included:
 
 ```
-Բարեւ, ինչպես ես
-լավավ շնորհակալություն, իսկ դու
-այսօր եղանակը շատ լավ է Երեւանում,
-Վաղը առավոտյան ժամը տասին հանդիպում ունեն
-Ես աշխատում եմ ծրագրավորման նոր նախագծի վրա,
-կարո՞ղ ես ինձ ուղարկել փաստաթղթերը մինչեւ երեկո,
-մենք պետք է որոշենք, թե որ մոդելն ենք օգտագործելու
-Հաջողություն եւտես։
+Ô²Õ¡Ö€Õ¥Ö‚, Õ«Õ¶Õ¹ÕºÕ¥Õ½ Õ¥Õ½
+Õ¬Õ¡Õ¾Õ¡Õ¾ Õ·Õ¶Õ¸Ö€Õ°Õ¡Õ¯Õ¡Õ¬Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶, Õ«Õ½Õ¯ Õ¤Õ¸Ö‚
+Õ¡ÕµÕ½Ö…Ö€ Õ¥Õ²Õ¡Õ¶Õ¡Õ¯Õ¨ Õ·Õ¡Õ¿ Õ¬Õ¡Õ¾ Õ§ ÔµÖ€Õ¥Ö‚Õ¡Õ¶Õ¸Ö‚Õ´,
+ÕŽÕ¡Õ²Õ¨ Õ¡Õ¼Õ¡Õ¾Õ¸Õ¿ÕµÕ¡Õ¶ ÕªÕ¡Õ´Õ¨ Õ¿Õ¡Õ½Õ«Õ¶ Õ°Õ¡Õ¶Õ¤Õ«ÕºÕ¸Ö‚Õ´ Õ¸Ö‚Õ¶Õ¥Õ¶
+ÔµÕ½ Õ¡Õ·Õ­Õ¡Õ¿Õ¸Ö‚Õ´ Õ¥Õ´ Õ®Ö€Õ¡Õ£Ö€Õ¡Õ¾Õ¸Ö€Õ´Õ¡Õ¶ Õ¶Õ¸Ö€ Õ¶Õ¡Õ­Õ¡Õ£Õ®Õ« Õ¾Ö€Õ¡,
+Õ¯Õ¡Ö€Õ¸ÕžÕ² Õ¥Õ½ Õ«Õ¶Õ± Õ¸Ö‚Õ²Õ¡Ö€Õ¯Õ¥Õ¬ ÖƒÕ¡Õ½Õ¿Õ¡Õ©Õ²Õ©Õ¥Ö€Õ¨ Õ´Õ«Õ¶Õ¹Õ¥Ö‚ Õ¥Ö€Õ¥Õ¯Õ¸,
+Õ´Õ¥Õ¶Ö„ ÕºÕ¥Õ¿Ö„ Õ§ Õ¸Ö€Õ¸Õ·Õ¥Õ¶Ö„, Õ©Õ¥ Õ¸Ö€ Õ´Õ¸Õ¤Õ¥Õ¬Õ¶ Õ¥Õ¶Ö„ Ö…Õ£Õ¿Õ¡Õ£Õ¸Ö€Õ®Õ¥Õ¬Õ¸Ö‚
+Õ€Õ¡Õ»Õ¸Õ²Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶ Õ¥Ö‚Õ¿Õ¥Õ½Ö‰
 ```
 
 **40c. Create the benchmark script:**
@@ -5714,7 +5720,7 @@ def main() -> None:
         out = res[0].hypotheses[0][1:]           # drop the eng_Latn language token
         return tok.decode(tok.convert_tokens_to_ids(out), skip_special_tokens=True)
 
-    translate("Բարև")                            # warm-up, not timed
+    translate("Ô²Õ¡Ö€Ö‡")                            # warm-up, not timed
 
     hyps, times = [], []
     for i, (s, r) in enumerate(zip(src, ref), 1):
@@ -5777,34 +5783,34 @@ C:\Users\Lenovo\Projects\mathrix-live-translate>findstr /n "translate_batch" src
 C:\Users\Lenovo\Projects\mathrix-live-translate>C:\ProgramData\anaconda3\envs\livetrans\python.exe -m livetrans.tools.mt_bench
 [transformers] PyTorch was not found. Models won't be available and only tokenizers, configuration and file/data utilities can be used.
 Downloading bytes:                                                                                 |  0.00B            Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.:   0%|                                                                          | 0/9 [00:00<?, ?it/s]
-Fetching 9 files: 100%|██████████████████████████████████████████████████████████████████| 9/9 [01:42<00:00, 11.39s/it]
-config.json: 100%|████████████████████████████████████████████████████████████████████████████| 846/846 [00:00<?, ?B/s]
-tokenizer_config.json: 100%|██████████████████████████████████████████████████████████| 564/564 [00:00<00:00, 36.0kB/s]
-special_tokens_map.json: 100%|████████████████████████████████████████████████████████████| 3.55k/3.55k [00:00<?, ?B/s]
-Download complete: ████████████████████████████████████████████████████████████████████████████████|  635MB, 5.98MB/s
-Reconstruction complete: 100%|████████████████████████████████████████████████████████████|  647MB /  647MB, 15.2MB/s
-1. [0.58 s] HY:  Բարև, ինչպե՞ս ես։
+Fetching 9 files: 100%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ| 9/9 [01:42<00:00, 11.39s/it]
+config.json: 100%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ| 846/846 [00:00<?, ?B/s]
+tokenizer_config.json: 100%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ| 564/564 [00:00<00:00, 36.0kB/s]
+special_tokens_map.json: 100%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ| 3.55k/3.55k [00:00<?, ?B/s]
+Download complete: â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ|  635MB, 5.98MB/s
+Reconstruction complete: 100%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ|  647MB /  647MB, 15.2MB/s
+1. [0.58 s] HY:  Ô²Õ¡Ö€Ö‡, Õ«Õ¶Õ¹ÕºÕ¥ÕžÕ½ Õ¥Õ½Ö‰
             EN:  Hi, how are you?
             REF: Hello, how are you?
-2. [1.05 s] HY:  Լավ եմ, շնորհակալություն, իսկ դու՞։
+2. [1.05 s] HY:  Ô¼Õ¡Õ¾ Õ¥Õ´, Õ·Õ¶Õ¸Ö€Õ°Õ¡Õ¯Õ¡Õ¬Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶, Õ«Õ½Õ¯ Õ¤Õ¸Ö‚ÕžÖ‰
             EN:  I'm fine, thank you. How about you?
             REF: I'm fine, thank you, and you?
-3. [0.96 s] HY:  Այսօր եղանակը շատ լավ է Երևանում։
+3. [0.96 s] HY:  Ô±ÕµÕ½Ö…Ö€ Õ¥Õ²Õ¡Õ¶Õ¡Õ¯Õ¨ Õ·Õ¡Õ¿ Õ¬Õ¡Õ¾ Õ§ ÔµÖ€Ö‡Õ¡Õ¶Õ¸Ö‚Õ´Ö‰
             EN:  Today the weather is very good in Yerevan.
             REF: Today the weather is very good in Yerevan.
-4. [1.06 s] HY:  Վաղը առավոտյան ժամը տասին հանդիպում ունենք։
+4. [1.06 s] HY:  ÕŽÕ¡Õ²Õ¨ Õ¡Õ¼Õ¡Õ¾Õ¸Õ¿ÕµÕ¡Õ¶ ÕªÕ¡Õ´Õ¨ Õ¿Õ¡Õ½Õ«Õ¶ Õ°Õ¡Õ¶Õ¤Õ«ÕºÕ¸Ö‚Õ´ Õ¸Ö‚Õ¶Õ¥Õ¶Ö„Ö‰
             EN:  We have a meeting tomorrow at 10 a.m.
             REF: Tomorrow morning at ten o'clock we have a meeting.
-5. [0.96 s] HY:  Ես աշխատում եմ ծրագրավորման նոր նախագծի վրա։
+5. [0.96 s] HY:  ÔµÕ½ Õ¡Õ·Õ­Õ¡Õ¿Õ¸Ö‚Õ´ Õ¥Õ´ Õ®Ö€Õ¡Õ£Ö€Õ¡Õ¾Õ¸Ö€Õ´Õ¡Õ¶ Õ¶Õ¸Ö€ Õ¶Õ¡Õ­Õ¡Õ£Õ®Õ« Õ¾Ö€Õ¡Ö‰
             EN:  I'm working on a new programming project.
             REF: I am working on a new programming project.
-6. [0.90 s] HY:  Կարո՞ղ ես ինձ ուղարկել փաստաթղթերը մինչև երեկո։
+6. [0.90 s] HY:  Ô¿Õ¡Ö€Õ¸ÕžÕ² Õ¥Õ½ Õ«Õ¶Õ± Õ¸Ö‚Õ²Õ¡Ö€Õ¯Õ¥Õ¬ ÖƒÕ¡Õ½Õ¿Õ¡Õ©Õ²Õ©Õ¥Ö€Õ¨ Õ´Õ«Õ¶Õ¹Ö‡ Õ¥Ö€Õ¥Õ¯Õ¸Ö‰
             EN:  Can you send me the documents by tonight?
             REF: Can you send me the documents by the evening?
-7. [1.06 s] HY:  Մենք պետք է որոշենք, թե որ մոդելն ենք օգտագործելու։
+7. [1.06 s] HY:  Õ„Õ¥Õ¶Ö„ ÕºÕ¥Õ¿Ö„ Õ§ Õ¸Ö€Õ¸Õ·Õ¥Õ¶Ö„, Õ©Õ¥ Õ¸Ö€ Õ´Õ¸Õ¤Õ¥Õ¬Õ¶ Õ¥Õ¶Ö„ Ö…Õ£Õ¿Õ¡Õ£Õ¸Ö€Õ®Õ¥Õ¬Õ¸Ö‚Ö‰
             EN:  We have to decide which model to use.
             REF: We need to decide which model we are going to use.
-8. [0.84 s] HY:  Շնորհակալ եմ, հաջողություն և ցտեսություն։
+8. [0.84 s] HY:  Õ‡Õ¶Õ¸Ö€Õ°Õ¡Õ¯Õ¡Õ¬ Õ¥Õ´, Õ°Õ¡Õ»Õ¸Õ²Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶ Ö‡ ÖÕ¿Õ¥Õ½Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶Ö‰
             EN:  Thank you, good luck and goodbye.
             REF: Thank you, good luck and goodbye.
 
@@ -5813,31 +5819,31 @@ load 112.4 s | per sentence: median 0.96 s, max 1.06 s | peak RAM 1051 MB | chrF
 
 C:\Users\Lenovo\Projects\mathrix-live-translate>C:\ProgramData\anaconda3\envs\livetrans\python.exe -m livetrans.tools.mt_bench --source eval/hy_test_asr.txt
 [transformers] PyTorch was not found. Models won't be available and only tokenizers, configuration and file/data utilities can be used.
-Fetching 9 files: 100%|█████████████████████████████████████████████████████████████████| 9/9 [00:00<00:00, 253.95it/s]
+Fetching 9 files: 100%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ| 9/9 [00:00<00:00, 253.95it/s]
 Reconstruction complete: |                                                                |  0.00B /  0.00B
 Download complete:                                                                                 |  0.00B
-1. [0.60 s] HY:  Բարեւ, ինչպես ես
+1. [0.60 s] HY:  Ô²Õ¡Ö€Õ¥Ö‚, Õ«Õ¶Õ¹ÕºÕ¥Õ½ Õ¥Õ½
             EN:  Hi, how are you?
             REF: Hello, how are you?
-2. [0.71 s] HY:  լավավ շնորհակալություն, իսկ դու
+2. [0.71 s] HY:  Õ¬Õ¡Õ¾Õ¡Õ¾ Õ·Õ¶Õ¸Ö€Õ°Õ¡Õ¯Õ¡Õ¬Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶, Õ«Õ½Õ¯ Õ¤Õ¸Ö‚
             EN:  Well, thank you, and you
             REF: I'm fine, thank you, and you?
-3. [0.97 s] HY:  այսօր եղանակը շատ լավ է Երեւանում,
+3. [0.97 s] HY:  Õ¡ÕµÕ½Ö…Ö€ Õ¥Õ²Õ¡Õ¶Õ¡Õ¯Õ¨ Õ·Õ¡Õ¿ Õ¬Õ¡Õ¾ Õ§ ÔµÖ€Õ¥Ö‚Õ¡Õ¶Õ¸Ö‚Õ´,
             EN:  Today the weather is very good in Yerevan.
             REF: Today the weather is very good in Yerevan.
-4. [1.28 s] HY:  Վաղը առավոտյան ժամը տասին հանդիպում ունեն
+4. [1.28 s] HY:  ÕŽÕ¡Õ²Õ¨ Õ¡Õ¼Õ¡Õ¾Õ¸Õ¿ÕµÕ¡Õ¶ ÕªÕ¡Õ´Õ¨ Õ¿Õ¡Õ½Õ«Õ¶ Õ°Õ¡Õ¶Õ¤Õ«ÕºÕ¸Ö‚Õ´ Õ¸Ö‚Õ¶Õ¥Õ¶
             EN:  Tomorrow at ten o'clock in the morning they have a meeting
             REF: Tomorrow morning at ten o'clock we have a meeting.
-5. [0.96 s] HY:  Ես աշխատում եմ ծրագրավորման նոր նախագծի վրա,
+5. [0.96 s] HY:  ÔµÕ½ Õ¡Õ·Õ­Õ¡Õ¿Õ¸Ö‚Õ´ Õ¥Õ´ Õ®Ö€Õ¡Õ£Ö€Õ¡Õ¾Õ¸Ö€Õ´Õ¡Õ¶ Õ¶Õ¸Ö€ Õ¶Õ¡Õ­Õ¡Õ£Õ®Õ« Õ¾Ö€Õ¡,
             EN:  I'm working on a new software project.
             REF: I am working on a new programming project.
-6. [0.89 s] HY:  կարո՞ղ ես ինձ ուղարկել փաստաթղթերը մինչեւ երեկո,
+6. [0.89 s] HY:  Õ¯Õ¡Ö€Õ¸ÕžÕ² Õ¥Õ½ Õ«Õ¶Õ± Õ¸Ö‚Õ²Õ¡Ö€Õ¯Õ¥Õ¬ ÖƒÕ¡Õ½Õ¿Õ¡Õ©Õ²Õ©Õ¥Ö€Õ¨ Õ´Õ«Õ¶Õ¹Õ¥Ö‚ Õ¥Ö€Õ¥Õ¯Õ¸,
             EN:  Can you send me the documents by tonight?
             REF: Can you send me the documents by the evening?
-7. [1.09 s] HY:  մենք պետք է որոշենք, թե որ մոդելն ենք օգտագործելու
+7. [1.09 s] HY:  Õ´Õ¥Õ¶Ö„ ÕºÕ¥Õ¿Ö„ Õ§ Õ¸Ö€Õ¸Õ·Õ¥Õ¶Ö„, Õ©Õ¥ Õ¸Ö€ Õ´Õ¸Õ¤Õ¥Õ¬Õ¶ Õ¥Õ¶Ö„ Ö…Õ£Õ¿Õ¡Õ£Õ¸Ö€Õ®Õ¥Õ¬Õ¸Ö‚
             EN:  We have to decide which model we're going to use.
             REF: We need to decide which model we are going to use.
-8. [0.50 s] HY:  Հաջողություն եւտես։
+8. [0.50 s] HY:  Õ€Õ¡Õ»Õ¸Õ²Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶ Õ¥Ö‚Õ¿Õ¥Õ½Ö‰
             EN:  Good luck to you.
             REF: Thank you, good luck and goodbye.
 
@@ -5861,18 +5867,18 @@ C:\Users\Lenovo\Projects\mathrix-live-translate>
 **From the correct Armenian (chrF 74.5):** I'd count **8 of 8** as understandable. Most are essentially perfect: 3, 5, 6 and 8, plus 1 ("Hi" instead of "Hello"). The others only differ in wording: "How about you?" and "We have a meeting tomorrow at 10 a.m."
 
 **From the ASR's real output (chrF 69.1):** I'd count **7 of 8** fully understandable. The translator passed on two ASR mistakes:
-- In sentence 4, the ASR heard "ունեն" ("they have") instead of "ունենք" ("we have"), so the translation correctly says *"they have a meeting"*. The translator was right; the ASR was wrong.
+- In sentence 4, the ASR heard "Õ¸Ö‚Õ¶Õ¥Õ¶" ("they have") instead of "Õ¸Ö‚Õ¶Õ¥Õ¶Ö„" ("we have"), so the translation correctly says *"they have a meeting"*. The translator was right; the ASR was wrong.
 - In sentence 8, the ASR lost "Thank you" and garbled "goodbye", so only *"Good luck to you."* survives.
 
 This tells us the **ASR is the weaker link**, which is useful for milestone M5 ("improve the weakest part").
 
 | Criterion | Target | Correct text | ASR text |
 |---|---|---|---|
-| Understandable | ≥ 6/8 | 8/8 | 7/8 |
-| Median time per sentence | ≤ 1.0 s | **0.96 s** | **0.92 s** |
-| Peak RAM | ≤ 1.2 GB | 1051 MB | 1037 MB |
+| Understandable | â‰¥ 6/8 | 8/8 | 7/8 |
+| Median time per sentence | â‰¤ 1.0 s | **0.96 s** | **0.92 s** |
+| Peak RAM | â‰¤ 1.2 GB | 1051 MB | 1037 MB |
 
-Speed passes, but only just: the median is close to 1 s, and the slowest sentence took 1.28 s. Rough budget for one phrase: VAD end-of-phrase wait ~0.5 s, ASR ~0.4 s, translation ~1.0–1.3 s, speaker identification (not built yet) maybe ~0.3 s. That's **about 2.5 s, comfortably under 5 s**. If we need headroom later, `--beam 1` will likely make translation faster at a small quality cost, and we can measure that.
+Speed passes, but only just: the median is close to 1 s, and the slowest sentence took 1.28 s. Rough budget for one phrase: VAD end-of-phrase wait ~0.5 s, ASR ~0.4 s, translation ~1.0â€“1.3 s, speaker identification (not built yet) maybe ~0.3 s. That's **about 2.5 s, comfortably under 5 s**. If we need headroom later, `--beam 1` will likely make translation faster at a small quality cost, and we can measure that.
 
 **Memory, together:** ASR (~0.9 GB) plus translation (~1.0 GB) adds up to roughly **2 GB**, before the speaker model. That needs **Chrome closed** during the demo. This goes into DECISIONS.md and the README.
 
@@ -5886,10 +5892,10 @@ C:\ProgramData\anaconda3\envs\livetrans\python.exe -m idlelib DECISIONS.md
 
 ```markdown
 
-## D7 — Translation: NLLB-200 distilled 600M, CTranslate2 int8 (2026-10-24)
+## D7 â€” Translation: NLLB-200 distilled 600M, CTranslate2 int8 (2026-10-24)
 - Test: the 8 test sentences, one sentence per call (as in the live app), beam 2, 4 threads.
-  Acceptance criteria set before testing: ≥ 6/8 understandable, median ≤ 1.0 s/sentence,
-  peak RAM ≤ 1.2 GB.
+  Acceptance criteria set before testing: â‰¥ 6/8 understandable, median â‰¤ 1.0 s/sentence,
+  peak RAM â‰¤ 1.2 GB.
 
 | Source text | chrF | Understandable | Median / max time | Peak RAM |
 |---|---|---|---|---|
@@ -5901,11 +5907,11 @@ C:\ProgramData\anaconda3\envs\livetrans\python.exe -m idlelib DECISIONS.md
   Runs on CTranslate2; transformers is used only for the tokenizer (no PyTorch).
 - License: CC-BY-NC-4.0 (non-commercial). Acceptable for this challenge; must be stated in README.
 - Alternatives: M2M100 418M (MIT license, generally weaker on low-resource languages, kept as
-  fallback); OPUS-MT mul→en (Apache-2.0, no published Armenian scores; no dedicated hy→en
+  fallback); OPUS-MT mulâ†’en (Apache-2.0, no published Armenian scores; no dedicated hyâ†’en
   model found); NLLB 1.3B and local LLMs (rejected: RAM).
-- Observation: remaining errors come mostly from ASR (sentence 4 "ունեն" → "they have";
+- Observation: remaining errors come mostly from ASR (sentence 4 "Õ¸Ö‚Õ¶Õ¥Õ¶" â†’ "they have";
   sentence 8 lost words), so ASR is the weaker link.
-- Memory: ASR ~0.9 GB + translation ~1.0 GB ≈ 2 GB → close Chrome during live use.
+- Memory: ASR ~0.9 GB + translation ~1.0 GB â‰ˆ 2 GB â†’ close Chrome during live use.
 ```
 
 Then check:
@@ -5917,7 +5923,7 @@ findstr /n /b "## D" DECISIONS.md
 findstr /n "__" DECISIONS.md
 ```
 
-Expected: **7 headings** (D1–D7) and **no output** from the second command.
+Expected: **7 headings** (D1â€“D7) and **no output** from the second command.
 
 **41b. Declare all dependencies in `pyproject.toml`**, so the project installs with one command. This replaces the whole file, so Ctrl+A is correct here:
 
@@ -6012,9 +6018,9 @@ C:\Users\Lenovo\Projects\mathrix-live-translate>git commit -m "Choose NLLB-600M 
 Here's the plan for M4, which follows your rule 8: get a minimal version working end to end first, then improve it based on measurements.
 
 ```
-mic ──┐                                  ┌─> ASR (FastConformer) ─> translate (NLLB) ─> print
-      ├─> Timeline ─> Segmenter (per source) ─> utterance queue ─> one worker thread
-sys ──┘   (done)       (new)                                       (new)
+mic â”€â”€â”                                  â”Œâ”€> ASR (FastConformer) â”€> translate (NLLB) â”€> print
+      â”œâ”€> Timeline â”€> Segmenter (per source) â”€> utterance queue â”€> one worker thread
+sys â”€â”€â”˜   (done)       (new)                                       (new)
 ```
 
 - **Segmenter**: cuts each source's stream into utterances, meaning complete phrases.
@@ -6024,7 +6030,7 @@ sys ──┘   (done)       (new)                                       (new)
 **A decision for the Segmenter, and why.** The proper tool for detecting speech is a voice-activity model like Silero VAD. But using it frame by frame from Python means either PyTorch (heavy) or relying on an internal, version-specific file inside faster-whisper (fragile, and I couldn't verify its interface). For M4, I suggest a **simple loudness threshold** instead.
 
 Your measurements support this:
-- Your room's background is about **−58 dB**, and your speech is about **−25 dB**. A threshold at **−40 dB** sits safely between them.
+- Your room's background is about **âˆ’58 dB**, and your speech is about **âˆ’25 dB**. A threshold at **âˆ’40 dB** sits safely between them.
 - System audio from a call is digital and clean, with complete silence between turns.
 
 It needs no new dependencies and is fully testable. If it turns out to be the weak part in M5, we replace it with Silero, based on evidence. The threshold will also be a command-line option, so you can adjust it without editing code.
@@ -6136,7 +6142,7 @@ class Segmenter:
         return Utterance(self.source, start * sec, (last + 1) * sec, np.concatenate(frames))
 ```
 
-**42b. The tests.** Instead of real speech, they use a 440 Hz tone at about −23 dB as "speech" and zeros as silence, so every case is exact and repeatable:
+**42b. The tests.** Instead of real speech, they use a 440 Hz tone at about âˆ’23 dB as "speech" and zeros as silence, so every case is exact and repeatable:
 
 ```cmd
 C:\ProgramData\anaconda3\envs\livetrans\python.exe -m idlelib tests\test_segmenter.py
@@ -6397,7 +6403,7 @@ C:\ProgramData\anaconda3\envs\livetrans\python.exe -m idlelib src\livetrans\outp
 """Terminal output in the format required by the brief:
 
     [00:01:12] Speaker 1
-    HY: Բարև, ինչպե՞ս ես։
+    HY: Ô²Õ¡Ö€Ö‡, Õ«Õ¶Õ¹ÕºÕ¥ÕžÕ½ Õ¥Õ½Ö‰
     EN: Hi, how are you?
 """
 from __future__ import annotations
@@ -6434,8 +6440,8 @@ def test_time_format_matches_brief():
 
 
 def test_segment_has_all_four_parts():
-    text = format_segment(72.4, "Speaker 1", "Բարև, ինչպե՞ս ես։", "Hi, how are you?")
-    assert text == "[00:01:12] Speaker 1\nHY: Բարև, ինչպե՞ս ես։\nEN: Hi, how are you?"
+    text = format_segment(72.4, "Speaker 1", "Ô²Õ¡Ö€Ö‡, Õ«Õ¶Õ¹ÕºÕ¥ÕžÕ½ Õ¥Õ½Ö‰", "Hi, how are you?")
+    assert text == "[00:01:12] Speaker 1\nHY: Ô²Õ¡Ö€Ö‡, Õ«Õ¶Õ¹ÕºÕ¥ÕžÕ½ Õ¥Õ½Ö‰\nEN: Hi, how are you?"
 
 
 def test_latency_is_shown_when_given():
@@ -6548,53 +6554,53 @@ C:\Users\Lenovo\Projects\mathrix-live-translate>C:\ProgramData\anaconda3\envs\li
 C:\Users\Lenovo\Projects\mathrix-live-translate>C:\ProgramData\anaconda3\envs\livetrans\python.exe -m livetrans.tools.run_file
 [transformers] PyTorch was not found. Models won't be available and only tokenizers, configuration and file/data utilities can be used.
 loading models ...
-Fetching 9 files: 100%|█████████████████████████████████████████████████████████████████| 9/9 [00:00<00:00, 330.97it/s]
+Fetching 9 files: 100%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ| 9/9 [00:00<00:00, 330.97it/s]
 Download complete:                                                                                 |  0.00B
 Reconstruction complete: |                                                                |  0.00B /  0.00B
 9 utterances found
 
 [00:00:01] Me
-HY: Բարեւ, ինչպե՞ս ես։
+HY: Ô²Õ¡Ö€Õ¥Ö‚, Õ«Õ¶Õ¹ÕºÕ¥ÕžÕ½ Õ¥Õ½Ö‰
 EN: Hi, how are you?
    (1.6 s audio | ASR 0.15 s | total 0.75 s)
 
 [00:00:03] Me
-HY: Լավ, շնորհակալություն, իսկ դուո՞ւ։
+HY: Ô¼Õ¡Õ¾, Õ·Õ¶Õ¸Ö€Õ°Õ¡Õ¯Õ¡Õ¬Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶, Õ«Õ½Õ¯ Õ¤Õ¸Ö‚Õ¸ÕžÖ‚Ö‰
 EN: Well, thank you, and you?
    (2.2 s audio | ASR 0.19 s | total 0.97 s)
 
 [00:00:07] Me
-HY: Այսօր եղանակը շատ լավ է Երեւանում։
+HY: Ô±ÕµÕ½Ö…Ö€ Õ¥Õ²Õ¡Õ¶Õ¡Õ¯Õ¨ Õ·Õ¡Õ¿ Õ¬Õ¡Õ¾ Õ§ ÔµÖ€Õ¥Ö‚Õ¡Õ¶Õ¸Ö‚Õ´Ö‰
 EN: Today the weather is very good in Yerevan.
    (2.6 s audio | ASR 0.21 s | total 1.13 s)
 
 [00:00:11] Me
-HY: Վաղը առավոտյան ժամը տասին հանդիպում ուն։
+HY: ÕŽÕ¡Õ²Õ¨ Õ¡Õ¼Õ¡Õ¾Õ¸Õ¿ÕµÕ¡Õ¶ ÕªÕ¡Õ´Õ¨ Õ¿Õ¡Õ½Õ«Õ¶ Õ°Õ¡Õ¶Õ¤Õ«ÕºÕ¸Ö‚Õ´ Õ¸Ö‚Õ¶Ö‰
 EN: You have a meeting at 10 a.m. tomorrow.
    (3.3 s audio | ASR 0.24 s | total 1.28 s)
 
 [00:00:15] Me
-HY: Ես աշխատում եմ ծրագրավորման նոր նախագծի վրա։
+HY: ÔµÕ½ Õ¡Õ·Õ­Õ¡Õ¿Õ¸Ö‚Õ´ Õ¥Õ´ Õ®Ö€Õ¡Õ£Ö€Õ¡Õ¾Õ¸Ö€Õ´Õ¡Õ¶ Õ¶Õ¸Ö€ Õ¶Õ¡Õ­Õ¡Õ£Õ®Õ« Õ¾Ö€Õ¡Ö‰
 EN: I'm working on a new programming project.
    (3.6 s audio | ASR 0.23 s | total 1.17 s)
 
 [00:00:20] Me
-HY: Կարո՞ղ ես ինձ ուղարկել փաստաթղթերը մինչեւ երեկո։
+HY: Ô¿Õ¡Ö€Õ¸ÕžÕ² Õ¥Õ½ Õ«Õ¶Õ± Õ¸Ö‚Õ²Õ¡Ö€Õ¯Õ¥Õ¬ ÖƒÕ¡Õ½Õ¿Õ¡Õ©Õ²Õ©Õ¥Ö€Õ¨ Õ´Õ«Õ¶Õ¹Õ¥Ö‚ Õ¥Ö€Õ¥Õ¯Õ¸Ö‰
 EN: Can you send me the documents by tonight?
    (3.5 s audio | ASR 0.23 s | total 1.11 s)
 
 [00:00:24] Me
-HY: Մենք պետք է որոշենք, թե որ մոդելն ենք օգտագործելու։
+HY: Õ„Õ¥Õ¶Ö„ ÕºÕ¥Õ¿Ö„ Õ§ Õ¸Ö€Õ¸Õ·Õ¥Õ¶Ö„, Õ©Õ¥ Õ¸Ö€ Õ´Õ¸Õ¤Õ¥Õ¬Õ¶ Õ¥Õ¶Ö„ Ö…Õ£Õ¿Õ¡Õ£Õ¸Ö€Õ®Õ¥Õ¬Õ¸Ö‚Ö‰
 EN: We have to decide which model to use.
    (3.4 s audio | ASR 0.24 s | total 1.27 s)
 
 [00:00:29] Me
-HY: Հնորհակալ Հաջողություն։
+HY: Õ€Õ¶Õ¸Ö€Õ°Õ¡Õ¯Õ¡Õ¬ Õ€Õ¡Õ»Õ¸Õ²Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶Ö‰
 EN: Thank you. Good luck.
    (1.7 s audio | ASR 0.15 s | total 0.74 s)
 
 [00:00:31] Me
-HY: Ե ստեղծ։
+HY: Ôµ Õ½Õ¿Õ¥Õ²Õ®Ö‰
 EN: And create.
    (1.1 s audio | ASR 0.12 s | total 0.55 s)
 
@@ -6614,10 +6620,10 @@ C:\Users\Lenovo\Projects\mathrix-live-translate>
 
 | Check | Result | Verdict |
 |---|---|---|
-| ASR on in-memory audio | **CER 0.072**, even slightly better than the whole-file 0.085 | ✅ works; shorter phrases help the model |
-| Segmenter on real speech | **9** utterances for 8 sentences | ⚠️ close. The last sentence was split in two ("Հնորհակալ Հաջողություն" + "Ե ստեղծ"), probably at a pause longer than 0.6 s in the middle of that sentence |
-| Processing per utterance | median **1.11 s**, max **1.28 s** (ASR only 0.12–0.24 s; translation is most of it) | ✅ |
-| Estimated max latency | **~1.9 s** (0.6 s end-of-phrase wait + processing) | ✅ well under 5 s |
+| ASR on in-memory audio | **CER 0.072**, even slightly better than the whole-file 0.085 | âœ… works; shorter phrases help the model |
+| Segmenter on real speech | **9** utterances for 8 sentences | âš ï¸ close. The last sentence was split in two ("Õ€Õ¶Õ¸Ö€Õ°Õ¡Õ¯Õ¡Õ¬ Õ€Õ¡Õ»Õ¸Õ²Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶" + "Ôµ Õ½Õ¿Õ¥Õ²Õ®"), probably at a pause longer than 0.6 s in the middle of that sentence |
+| Processing per utterance | median **1.11 s**, max **1.28 s** (ASR only 0.12â€“0.24 s; translation is most of it) | âœ… |
+| Estimated max latency | **~1.9 s** (0.6 s end-of-phrase wait + processing) | âœ… well under 5 s |
 
 Two observations to remember for M5:
 - **Translation now takes about 80% of the processing time**, so if we need speed, that's where to look.
@@ -6635,9 +6641,9 @@ git commit -m "Add ASR/translation modules, output format, file pipeline (CER 0.
 ```
 
 **44b. The live app.** It connects the pieces we've already tested:
-- capture → Timeline → Segmenter, for each source
-- **one worker thread** for ASR → translation → print
-- each segment shows its measured latency: end of phrase → printed
+- capture â†’ Timeline â†’ Segmenter, for each source
+- **one worker thread** for ASR â†’ translation â†’ print
+- each segment shows its measured latency: end of phrase â†’ printed
 - **Ctrl+C** prints latency statistics: median, 95th percentile, maximum, and how many went over 5 s
 - if work piles up (processing falls behind), it prints a **visible warning** rather than silently lagging
 
@@ -6790,7 +6796,7 @@ C:\ProgramData\anaconda3\envs\livetrans\python.exe -m livetrans.app
 
 When it says "listening":
 1. **Read the 8 sentences** into the mic, as in the test take, so we can compare.
-2. Then **play about 30–60 seconds of Armenian speech** on the computer (YouTube, a podcast, anything with talking). Use **headphones** if you have them; otherwise the laptop mic will also hear the speakers and print the same speech a second time as "Me". The brief says echo handling is out of scope, so that's expected, not a bug.
+2. Then **play about 30â€“60 seconds of Armenian speech** on the computer (YouTube, a podcast, anything with talking). Use **headphones** if you have them; otherwise the laptop mic will also hear the speakers and print the same speech a second time as "Me". The brief says echo handling is out of scope, so that's expected, not a bug.
 3. Press **Ctrl+C** to stop, and wait for the statistics line.
 
 Paste the whole output, including any warnings. What we're checking: lines appear in the brief's format, "Me" vs "Speaker 1" is correct, the latencies printed per line, and the final median, p95 and max latency. **Anything over 5 s is a failure we'll investigate**, not explain away.
@@ -6819,33 +6825,33 @@ C:\Users\Lenovo\Projects\mathrix-live-translate>C:\ProgramData\anaconda3\envs\li
 mic:    [9] Internal Microphone (Conexant 20751 SmartAudio HD)
 system: [10] Speakers (Conexant 20751 SmartAudio HD) [Loopback]
 loading models ...
-Fetching 9 files: 100%|█████████████████████████████████████████████████████████████████| 9/9 [00:00<00:00, 409.82it/s]
+Fetching 9 files: 100%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ| 9/9 [00:00<00:00, 409.82it/s]
 Download complete:                                                                                 |  0.00B
 Reconstruction complete: |                                                                |  0.00B /  0.00B
 listening - speak Armenian. Ctrl+C to stop.
 
 [00:00:56] Speaker 1   (latency 5.8 s)
-HY: Ժամանակ խնայեն, պարագ անեն գործը ու պրոդուկտիվ էֆեկտիվնորմալ խանդ տեսնեի։
+HY: ÔºÕ¡Õ´Õ¡Õ¶Õ¡Õ¯ Õ­Õ¶Õ¡ÕµÕ¥Õ¶, ÕºÕ¡Ö€Õ¡Õ£ Õ¡Õ¶Õ¥Õ¶ Õ£Õ¸Ö€Õ®Õ¨ Õ¸Ö‚ ÕºÖ€Õ¸Õ¤Õ¸Ö‚Õ¯Õ¿Õ«Õ¾ Õ§Ö†Õ¥Õ¯Õ¿Õ«Õ¾Õ¶Õ¸Ö€Õ´Õ¡Õ¬ Õ­Õ¡Õ¶Õ¤ Õ¿Õ¥Õ½Õ¶Õ¥Õ«Ö‰
 EN: Save time, get the job done, and see a productive, efficient, normal zeal.
 
 [00:01:08] Speaker 1   (latency 4.0 s)
-HY: Է բրուն, մեր վեսոր Հորին ամենա պիտ իմ ոչ։ սո, այ։
+HY: Ô· Õ¢Ö€Õ¸Ö‚Õ¶, Õ´Õ¥Ö€ Õ¾Õ¥Õ½Õ¸Ö€ Õ€Õ¸Ö€Õ«Õ¶ Õ¡Õ´Õ¥Õ¶Õ¡ ÕºÕ«Õ¿ Õ«Õ´ Õ¸Õ¹Ö‰ Õ½Õ¸, Õ¡ÕµÖ‰
 EN: Oh, bro, our father-in-law is the best of mine.
 
 [00:01:14] Speaker 1   (latency 3.3 s)
-HY: Նորմալ թվերե՞։
+HY: Õ†Õ¸Ö€Õ´Õ¡Õ¬ Õ©Õ¾Õ¥Ö€Õ¥ÕžÖ‰
 EN: What are normal numbers?
 
 [00:01:27] Speaker 1   (latency 4.9 s)
-HY: Մի պահ որ էփլը դեռ չէր թանկրել իրական փետռները մարդիկ մաքմիներ էին առնում մեջ ռռամերը հանում ծախում ավելի թանկ հա, չգիտեմ։
+HY: Õ„Õ« ÕºÕ¡Õ° Õ¸Ö€ Õ§ÖƒÕ¬Õ¨ Õ¤Õ¥Õ¼ Õ¹Õ§Ö€ Õ©Õ¡Õ¶Õ¯Ö€Õ¥Õ¬ Õ«Ö€Õ¡Õ¯Õ¡Õ¶ ÖƒÕ¥Õ¿Õ¼Õ¶Õ¥Ö€Õ¨ Õ´Õ¡Ö€Õ¤Õ«Õ¯ Õ´Õ¡Ö„Õ´Õ«Õ¶Õ¥Ö€ Õ§Õ«Õ¶ Õ¡Õ¼Õ¶Õ¸Ö‚Õ´ Õ´Õ¥Õ» Õ¼Õ¼Õ¡Õ´Õ¥Ö€Õ¨ Õ°Õ¡Õ¶Õ¸Ö‚Õ´ Õ®Õ¡Õ­Õ¸Ö‚Õ´ Õ¡Õ¾Õ¥Õ¬Õ« Õ©Õ¡Õ¶Õ¯ Õ°Õ¡, Õ¹Õ£Õ«Õ¿Õ¥Õ´Ö‰
 EN: At a time when Apple hadn't priced the real feathers, people were taking the rummers and selling them more expensive, I don't know.
 
 [00:01:39] Speaker 1   (latency 5.7 s)
-HY: Էդ ամենի հետեւում աճող մի մեզիջ եմ ես տեսնում աճող էյ դիմենտ էի կո պահանջարկի ավելացում, ու քանի որ շատ արագ ա էդ ամենը։
+HY: Ô·Õ¤ Õ¡Õ´Õ¥Õ¶Õ« Õ°Õ¥Õ¿Õ¥Ö‚Õ¸Ö‚Õ´ Õ¡Õ³Õ¸Õ² Õ´Õ« Õ´Õ¥Õ¦Õ«Õ» Õ¥Õ´ Õ¥Õ½ Õ¿Õ¥Õ½Õ¶Õ¸Ö‚Õ´ Õ¡Õ³Õ¸Õ² Õ§Õµ Õ¤Õ«Õ´Õ¥Õ¶Õ¿ Õ§Õ« Õ¯Õ¸ ÕºÕ¡Õ°Õ¡Õ¶Õ»Õ¡Ö€Õ¯Õ« Õ¡Õ¾Õ¥Õ¬Õ¡ÖÕ¸Ö‚Õ´, Õ¸Ö‚ Ö„Õ¡Õ¶Õ« Õ¸Ö€ Õ·Õ¡Õ¿ Õ¡Ö€Õ¡Õ£ Õ¡ Õ§Õ¤ Õ¡Õ´Õ¥Õ¶Õ¨Ö‰
 EN: I'm a growing nut behind it all, and I'm seeing a growing nut resistant to the growing demand, and because it's so fast, it's all over.
 
 [00:01:49] Speaker 1   (latency 5.4 s)
-HY: Զարգանում, ինքն էլ բերում ա իր ստեղծ ոնց որ չիպերի թանկացմանը, իսկ քո կարծիքով նա իմ, օրինակ ոնցորդ մեծ մոդելները, կոպիտ ասած Ամերիկայի մի քանի ընկերություններ ու։
+HY: Ô¶Õ¡Ö€Õ£Õ¡Õ¶Õ¸Ö‚Õ´, Õ«Õ¶Ö„Õ¶ Õ§Õ¬ Õ¢Õ¥Ö€Õ¸Ö‚Õ´ Õ¡ Õ«Ö€ Õ½Õ¿Õ¥Õ²Õ® Õ¸Õ¶Ö Õ¸Ö€ Õ¹Õ«ÕºÕ¥Ö€Õ« Õ©Õ¡Õ¶Õ¯Õ¡ÖÕ´Õ¡Õ¶Õ¨, Õ«Õ½Õ¯ Ö„Õ¸ Õ¯Õ¡Ö€Õ®Õ«Ö„Õ¸Õ¾ Õ¶Õ¡ Õ«Õ´, Ö…Ö€Õ«Õ¶Õ¡Õ¯ Õ¸Õ¶ÖÕ¸Ö€Õ¤ Õ´Õ¥Õ® Õ´Õ¸Õ¤Õ¥Õ¬Õ¶Õ¥Ö€Õ¨, Õ¯Õ¸ÕºÕ«Õ¿ Õ¡Õ½Õ¡Õ® Ô±Õ´Õ¥Ö€Õ«Õ¯Õ¡ÕµÕ« Õ´Õ« Ö„Õ¡Õ¶Õ« Õ¨Õ¶Õ¯Õ¥Ö€Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶Õ¶Õ¥Ö€ Õ¸Ö‚Ö‰
 EN: It's evolving, and it's bringing in the price of chips, and you think it's going to bring in the price of my, like the next big models, roughly a couple of American companies.
 
 
@@ -6866,13 +6872,13 @@ C:\Users\Lenovo\Projects\mathrix-live-translate>
 
 | | Result | Target |
 |---|---|---|
-| Median latency | **5.1 s** | ≤ 5 s |
-| Max latency | **5.8 s** | ≤ 5 s |
+| Median latency | **5.1 s** | â‰¤ 5 s |
+| Max latency | **5.8 s** | â‰¤ 5 s |
 | Segments over 5 s | **3 of 6** | 0 |
 
 That's far above the ~1.9 s we measured on your recorded take, so something differs between the two tests. Several explanations fit what we see, and I can't tell them apart from this output:
 
-1. **Long utterances.** A podcast has few pauses longer than 0.6 s, so the Segmenter cuts at the 12 s maximum. The Armenian text in the slowest lines is 2–4 times longer than your test sentences, and translation time grows with sentence length.
+1. **Long utterances.** A podcast has few pauses longer than 0.6 s, so the Segmenter cuts at the 12 s maximum. The Armenian text in the slowest lines is 2â€“4 times longer than your test sentences, and translation time grows with sentence length.
 2. **Queueing.** In continuous speech, the next utterance is ready before the previous one finishes processing, so it **waits** in line.
 3. **CPU competition.** If the video played in a browser, it uses one of your only two cores for video decoding.
 4. Some mix of all three.
@@ -7097,7 +7103,7 @@ The most common cause: closing IDLE triggers a dialog, *"Do you want to save cha
 2. Click inside the text, press **Ctrl+A** then **Delete**. The window must be **empty**.
 3. Paste the full new version from my previous message. It starts with `"""Live Armenian -> English transcription` and contains `--timing`.
 4. Look at the **title bar**: it now shows `*` around the file name, meaning there are unsaved changes.
-5. Press **Ctrl+S**. The `*` must **disappear**. If it doesn't, use the menu **File → Save**.
+5. Press **Ctrl+S**. The `*` must **disappear**. If it doesn't, use the menu **File â†’ Save**.
 6. Close IDLE. If it asks whether to save, click **Yes**.
 
 **Verify before running:**
@@ -7127,43 +7133,43 @@ C:\Users\Lenovo\Projects\mathrix-live-translate>C:\ProgramData\anaconda3\envs\li
 mic:    [9] Internal Microphone (Conexant 20751 SmartAudio HD)
 system: [10] Speakers (Conexant 20751 SmartAudio HD) [Loopback]
 loading models ...
-Fetching 9 files: 100%|█████████████████████████████████████████████████████████████████| 9/9 [00:00<00:00, 288.01it/s]
+Fetching 9 files: 100%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ| 9/9 [00:00<00:00, 288.01it/s]
 Download complete:                                                                                 |  0.00B
 Reconstruction complete: |                                                                |  0.00B /  0.00B
 listening - speak Armenian. Ctrl+C to stop.
 
 [00:00:05] Me   (latency 1.6 s)
-HY: ՀՄ.
+HY: Õ€Õ„.
 EN: H.M.: What is it?
    [audio 1.4 s | waited 0.6 s | ASR 0.19 s | MT 0.77 s]
 
 [00:00:12] Me   (latency 1.8 s)
-HY: Որ էլ ինչպե՞ս ես, լավ ի շնորհակալություն, իսկ դու՞ւ։
+HY: ÕˆÖ€ Õ§Õ¬ Õ«Õ¶Õ¹ÕºÕ¥ÕžÕ½ Õ¥Õ½, Õ¬Õ¡Õ¾ Õ« Õ·Õ¶Õ¸Ö€Õ°Õ¡Õ¯Õ¡Õ¬Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶, Õ«Õ½Õ¯ Õ¤Õ¸Ö‚ÕžÖ‚Ö‰
 EN: So how are you, thank you, and you?
    [audio 4.0 s | waited 0.6 s | ASR 0.25 s | MT 0.92 s]
 
 [00:00:16] Me   (latency 1.6 s)
-HY: Այս տեսակը շատ լավ է Երեւանում։
+HY: Ô±ÕµÕ½ Õ¿Õ¥Õ½Õ¡Õ¯Õ¨ Õ·Õ¡Õ¿ Õ¬Õ¡Õ¾ Õ§ ÔµÖ€Õ¥Ö‚Õ¡Õ¶Õ¸Ö‚Õ´Ö‰
 EN: It's very good in Yerevan.
    [audio 3.3 s | waited 0.6 s | ASR 0.22 s | MT 0.84 s]
 
 [00:00:19] Me   (latency 1.9 s)
-HY: Վաղը առավոսյան ժամը տասին հանդիպում ունենք։
+HY: ÕŽÕ¡Õ²Õ¨ Õ¡Õ¼Õ¡Õ¾Õ¸Õ½ÕµÕ¡Õ¶ ÕªÕ¡Õ´Õ¨ Õ¿Õ¡Õ½Õ«Õ¶ Õ°Õ¡Õ¶Õ¤Õ«ÕºÕ¸Ö‚Õ´ Õ¸Ö‚Õ¶Õ¥Õ¶Ö„Ö‰
 EN: We have a meeting tomorrow at 10 o'clock.
    [audio 4.1 s | waited 0.6 s | ASR 0.25 s | MT 1.02 s]
 
 [00:00:25] Me   (latency 1.7 s)
-HY: Կարո՞ ես ինձ ուղարկել թարցաթղերը մինչեւ երեկո։
+HY: Ô¿Õ¡Ö€Õ¸Õž Õ¥Õ½ Õ«Õ¶Õ± Õ¸Ö‚Õ²Õ¡Ö€Õ¯Õ¥Õ¬ Õ©Õ¡Ö€ÖÕ¡Õ©Õ²Õ¥Ö€Õ¨ Õ´Õ«Õ¶Õ¹Õ¥Ö‚ Õ¥Ö€Õ¥Õ¯Õ¸Ö‰
 EN: Can you send me the cards by tonight?
    [audio 4.6 s | waited 0.6 s | ASR 0.28 s | MT 0.81 s]
 
 [00:00:32] Me   (latency 1.6 s)
-HY: Մենք եւ որոշենք ենք օգտագործելու։
+HY: Õ„Õ¥Õ¶Ö„ Õ¥Ö‚ Õ¸Ö€Õ¸Õ·Õ¥Õ¶Ö„ Õ¥Õ¶Ö„ Ö…Õ£Õ¿Õ¡Õ£Õ¸Ö€Õ®Õ¥Õ¬Õ¸Ö‚Ö‰
 EN: We're going to use it.
    [audio 5.3 s | waited 0.6 s | ASR 0.33 s | MT 0.70 s]
 
 [00:00:39] Me   (latency 1.5 s)
-HY: Հություն եւ Սություն։
+HY: Õ€Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶ Õ¥Ö‚ ÕÕ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶Ö‰
 EN: What is the meaning of this verse?
    [audio 3.4 s | waited 0.6 s | ASR 0.23 s | MT 0.69 s]
 
@@ -7189,17 +7195,17 @@ C:\Users\Lenovo\Projects\mathrix-live-translate>
 
 | | Result | Target |
 |---|---|---|
-| Median latency (mic) | **1.6 s** | ≤ 5 s ✅ |
-| Max latency (mic) | **1.9 s** | ≤ 5 s ✅ |
+| Median latency (mic) | **1.6 s** | â‰¤ 5 s âœ… |
+| Max latency (mic) | **1.9 s** | â‰¤ 5 s âœ… |
 | Where the time goes | waited 0.6 s (end-of-phrase detection) + ASR 0.25 s + translation 0.81 s | |
 
 That matches the ~1.9 s estimate from the recorded take. So the pipeline itself is fast for sentence-length phrases. This run had **0 system segments**, though; the video part didn't happen. The latency failure we saw was **only on the system side**, so that's the test we still need.
 
 Quality observations from this run, for M5:
 - **Sentences 1 and 2 merged** into one line, because your pause between them was shorter than 0.6 s. The last sentence was split in the earlier run. Both come from the same `end_silence` setting.
-- **Sentence 5 ("Ես աշխատում եմ…") is missing entirely.** Either it wasn't read, or, more likely, the ASR returned empty text and the worker **silently skipped it**. That's exactly the kind of hidden failure your rule 13 forbids, so in the next code change, skipped utterances will be reported under `--timing`.
-- Live recognition is noticeably worse than on the recorded take, for example "Այս տեսակը" instead of "Այսօր եղանակը", and the last sentence garbled. Speaking pace and level vary in live use. We'll measure this properly in M5 rather than guess.
-- The first line "ՀՄ" was probably a breath or "hmm" before you started. It's a typical false trigger of a simple loudness threshold.
+- **Sentence 5 ("ÔµÕ½ Õ¡Õ·Õ­Õ¡Õ¿Õ¸Ö‚Õ´ Õ¥Õ´â€¦") is missing entirely.** Either it wasn't read, or, more likely, the ASR returned empty text and the worker **silently skipped it**. That's exactly the kind of hidden failure your rule 13 forbids, so in the next code change, skipped utterances will be reported under `--timing`.
+- Live recognition is noticeably worse than on the recorded take, for example "Ô±ÕµÕ½ Õ¿Õ¥Õ½Õ¡Õ¯Õ¨" instead of "Ô±ÕµÕ½Ö…Ö€ Õ¥Õ²Õ¡Õ¶Õ¡Õ¯Õ¨", and the last sentence garbled. Speaking pace and level vary in live use. We'll measure this properly in M5 rather than guess.
+- The first line "Õ€Õ„" was probably a breath or "hmm" before you started. It's a typical false trigger of a simple loudness threshold.
 
 (The `4` at the end was just a stray keypress, so ignore it.)
 
@@ -7223,10 +7229,10 @@ C:\ProgramData\anaconda3\envs\livetrans\python.exe -m livetrans.app --timing
 When it says "listening", **don't speak**. Just play **the same Armenian video for about 60 seconds**, then press Ctrl+C and wait for both summary lines.
 
 The timing lines will show which part causes the extra latency:
-- **"audio" around 12 s** → the long-utterance problem: the podcast has no pauses, so it's cut at the maximum.
-- **"waited" much more than 0.6 s** → the queue problem: utterances wait for each other.
-- **Large "MT" times** → long sentences make translation slow.
-- **ASR and MT both much slower than in the mic run** → CPU competition with the video player.
+- **"audio" around 12 s** â†’ the long-utterance problem: the podcast has no pauses, so it's cut at the maximum.
+- **"waited" much more than 0.6 s** â†’ the queue problem: utterances wait for each other.
+- **Large "MT" times** â†’ long sentences make translation slow.
+- **ASR and MT both much slower than in the mic run** â†’ CPU competition with the video player.
 
 Paste the full output, and tell me **where the video plays**: which browser, or which player.
 
@@ -7236,43 +7242,43 @@ Paste the full output, and tell me **where the video plays**: which browser, or 
 ### 141. User (2026-10-24 14:24 UTC)
 
 ```text
-Fetching 9 files: 100%|█████████████████████████████████████████████████████████████████| 9/9 [00:00<00:00, 288.28it/s]
+Fetching 9 files: 100%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ| 9/9 [00:00<00:00, 288.28it/s]
 Download complete:                                                                                 |  0.00B
 Reconstruction complete: |                                                                |  0.00B /  0.00B
 listening - speak Armenian. Ctrl+C to stop.
 
 [00:00:08] Me   (latency 1.5 s)
-HY: Ինչպե՞ս ես։
+HY: Ô»Õ¶Õ¹ÕºÕ¥ÕžÕ½ Õ¥Õ½Ö‰
 EN: How are you?
    [audio 2.4 s | waited 0.7 s | ASR 0.25 s | MT 0.53 s]
 
 [00:00:13] Me   (latency 1.9 s)
-HY: Լավ եմ, շնորհակալություն, իսկ դու՞ւ։
+HY: Ô¼Õ¡Õ¾ Õ¥Õ´, Õ·Õ¶Õ¸Ö€Õ°Õ¡Õ¯Õ¡Õ¬Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶, Õ«Õ½Õ¯ Õ¤Õ¸Ö‚ÕžÖ‚Ö‰
 EN: I'm fine, thank you. How about you?
    [audio 3.0 s | waited 0.7 s | ASR 0.20 s | MT 1.00 s]
 
 [00:00:20] Me   (latency 1.9 s)
-HY: Այսօր եղանակը շատ լավ է Երեւանում։
+HY: Ô±ÕµÕ½Ö…Ö€ Õ¥Õ²Õ¡Õ¶Õ¡Õ¯Õ¨ Õ·Õ¡Õ¿ Õ¬Õ¡Õ¾ Õ§ ÔµÖ€Õ¥Ö‚Õ¡Õ¶Õ¸Ö‚Õ´Ö‰
 EN: Today the weather is very good in Yerevan.
    [audio 3.6 s | waited 0.7 s | ASR 0.27 s | MT 0.92 s]
 
 [00:00:26] Me   (latency 1.8 s)
-HY: Ես աշխատում եմ ծրագրավորման նոր նախագծի վրա։
+HY: ÔµÕ½ Õ¡Õ·Õ­Õ¡Õ¿Õ¸Ö‚Õ´ Õ¥Õ´ Õ®Ö€Õ¡Õ£Ö€Õ¡Õ¾Õ¸Ö€Õ´Õ¡Õ¶ Õ¶Õ¸Ö€ Õ¶Õ¡Õ­Õ¡Õ£Õ®Õ« Õ¾Ö€Õ¡Ö‰
 EN: I'm working on a new programming project.
    [audio 4.1 s | waited 0.7 s | ASR 0.23 s | MT 0.92 s]
 
 [00:00:34] Me   (latency 2.0 s)
-HY: Կարոող ես ինձ ուղարկել փաստաթղթերը մինչեւ երեկո։
+HY: Ô¿Õ¡Ö€Õ¸Õ¸Õ² Õ¥Õ½ Õ«Õ¶Õ± Õ¸Ö‚Õ²Õ¡Ö€Õ¯Õ¥Õ¬ ÖƒÕ¡Õ½Õ¿Õ¡Õ©Õ²Õ©Õ¥Ö€Õ¨ Õ´Õ«Õ¶Õ¹Õ¥Ö‚ Õ¥Ö€Õ¥Õ¯Õ¸Ö‰
 EN: You could have sent me the papers by tonight.
    [audio 4.7 s | waited 0.7 s | ASR 0.31 s | MT 0.95 s]
 
 [00:00:42] Me   (latency 1.6 s)
-HY: Մենք պետք է որոշենք, թե որ մոդեն օգտագործելու։
+HY: Õ„Õ¥Õ¶Ö„ ÕºÕ¥Õ¿Ö„ Õ§ Õ¸Ö€Õ¸Õ·Õ¥Õ¶Ö„, Õ©Õ¥ Õ¸Ö€ Õ´Õ¸Õ¤Õ¥Õ¶ Ö…Õ£Õ¿Õ¡Õ£Õ¸Ö€Õ®Õ¥Õ¬Õ¸Ö‚Ö‰
 EN: We have to decide which model to use.
    [audio 4.1 s | waited 0.6 s | ASR 0.23 s | MT 0.81 s]
 
 [00:00:48] Me   (latency 1.6 s)
-HY: Շնորհակալ Հաջողություն եւ ցտեսություն։
+HY: Õ‡Õ¶Õ¸Ö€Õ°Õ¡Õ¯Õ¡Õ¬ Õ€Õ¡Õ»Õ¸Õ²Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶ Õ¥Ö‚ ÖÕ¿Õ¥Õ½Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶Ö‰
 EN: Thank you. Good luck and goodbye.
    [audio 4.0 s | waited 0.6 s | ASR 0.20 s | MT 0.78 s]
 
@@ -7295,7 +7301,7 @@ This run is the **best one so far.** Latency is **median 1.8 s, max 2.0 s**, and
 But two things stand out:
 
 1. **This was a mic test again.** There are 0 system segments, so the video part still hasn't been tested. That's the part that failed latency, so it's the most important open question.
-2. **One sentence is missing again**, this time sentence 4, "Վաղը առավոտյան ժամը տասին…". (Sentence 1 also lost "Բարև".) A missing sentence in two runs in a row is a pattern. The likely cause is the one I suspected: the ASR returned empty text for that utterance, and the worker **skipped it without saying anything**. We'll make that visible next. But first the system test, so we don't mix two problems.
+2. **One sentence is missing again**, this time sentence 4, "ÕŽÕ¡Õ²Õ¨ Õ¡Õ¼Õ¡Õ¾Õ¸Õ¿ÕµÕ¡Õ¶ ÕªÕ¡Õ´Õ¨ Õ¿Õ¡Õ½Õ«Õ¶â€¦". (Sentence 1 also lost "Ô²Õ¡Ö€Ö‡".) A missing sentence in two runs in a row is a pattern. The likely cause is the one I suspected: the ASR returned empty text for that utterance, and the worker **skipped it without saying anything**. We'll make that visible next. But first the system test, so we don't mix two problems.
 
 **Step 47: Test system audio only, with no speaking**
 
@@ -7327,40 +7333,40 @@ C:\Users\Lenovo\Projects\mathrix-live-translate>C:\ProgramData\anaconda3\envs\li
 mic:    [9] Internal Microphone (Conexant 20751 SmartAudio HD)
 system: [10] Speakers (Conexant 20751 SmartAudio HD) [Loopback]
 loading models ...
-Fetching 9 files: 100%|█████████████████████████████████████████████████████████████████| 9/9 [00:00<00:00, 221.95it/s]
+Fetching 9 files: 100%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ| 9/9 [00:00<00:00, 221.95it/s]
 Download complete:                                                                                 |  0.00B
 Reconstruction complete: |                                                                |  0.00B /  0.00B
 listening - speak Armenian. Ctrl+C to stop.
 
 [00:00:08] Me   (latency 1.9 s)
-HY: Լավ, հա։
+HY: Ô¼Õ¡Õ¾, Õ°Õ¡Ö‰
 EN: All right, there you go.
    [audio 2.9 s | waited 0.6 s | ASR 0.30 s | MT 1.00 s]
 
 [00:00:13] Speaker 1   (latency 2.1 s)
-HY: Փոքր երկրները, ոնց կանանես խաղի մեջ մնան ու շահեն։
+HY: Õ“Õ¸Ö„Ö€ Õ¥Ö€Õ¯Ö€Õ¶Õ¥Ö€Õ¨, Õ¸Õ¶Ö Õ¯Õ¡Õ¶Õ¡Õ¶Õ¥Õ½ Õ­Õ¡Õ²Õ« Õ´Õ¥Õ» Õ´Õ¶Õ¡Õ¶ Õ¸Ö‚ Õ·Õ¡Õ°Õ¥Õ¶Ö‰
 EN: Small countries like this stay in the game and win.
    [audio 5.8 s | waited 0.6 s | ASR 0.36 s | MT 1.12 s]
 
 [00:00:19] Speaker 1   (latency 4.2 s)
-HY: Չույնիտեմ ձեր օրինակով կարող ասես կամ մեր օրինակով ասեմ, պետք է գտնել ինչ֊որ նիշա։
+HY: Õ‰Õ¸Ö‚ÕµÕ¶Õ«Õ¿Õ¥Õ´ Õ±Õ¥Ö€ Ö…Ö€Õ«Õ¶Õ¡Õ¯Õ¸Õ¾ Õ¯Õ¡Ö€Õ¸Õ² Õ¡Õ½Õ¥Õ½ Õ¯Õ¡Õ´ Õ´Õ¥Ö€ Ö…Ö€Õ«Õ¶Õ¡Õ¯Õ¸Õ¾ Õ¡Õ½Õ¥Õ´, ÕºÕ¥Õ¿Ö„ Õ§ Õ£Õ¿Õ¶Õ¥Õ¬ Õ«Õ¶Õ¹ÖŠÕ¸Ö€ Õ¶Õ«Õ·Õ¡Ö‰
 EN: I don't know, you could say by your example, or you could say by our example, we need to find a pattern.
    [audio 6.8 s | waited 0.6 s | ASR 0.42 s | MT 3.14 s]
 
 [00:00:29] Me   (latency 1.3 s)
-HY: Ինչ։
+HY: Ô»Õ¶Õ¹Ö‰
 EN: What?
    [audio 2.2 s | waited 0.6 s | ASR 0.20 s | MT 0.52 s]
 
 [00:00:25] Speaker 1   (latency 3.1 s)
-HY: Թիրախային, լսարան, ով կարող է դառնալ քո հաճախորդ ու էդ հաճախորդի համար ստեղծած լուծումներ, որը տարբերվում է գլոբալ։
+HY: Ô¹Õ«Ö€Õ¡Õ­Õ¡ÕµÕ«Õ¶, Õ¬Õ½Õ¡Ö€Õ¡Õ¶, Õ¸Õ¾ Õ¯Õ¡Ö€Õ¸Õ² Õ§ Õ¤Õ¡Õ¼Õ¶Õ¡Õ¬ Ö„Õ¸ Õ°Õ¡Õ³Õ¡Õ­Õ¸Ö€Õ¤ Õ¸Ö‚ Õ§Õ¤ Õ°Õ¡Õ³Õ¡Õ­Õ¸Ö€Õ¤Õ« Õ°Õ¡Õ´Õ¡Ö€ Õ½Õ¿Õ¥Õ²Õ®Õ¡Õ® Õ¬Õ¸Ö‚Õ®Õ¸Ö‚Õ´Õ¶Õ¥Ö€, Õ¸Ö€Õ¨ Õ¿Õ¡Ö€Õ¢Õ¥Ö€Õ¾Õ¸Ö‚Õ´ Õ§ Õ£Õ¬Õ¸Õ¢Õ¡Õ¬Ö‰
 EN: A target audience that can become your customer and you create solutions for the customer that are different globally.
    [audio 9.3 s | waited 0.6 s | ASR 0.67 s | MT 1.83 s]
 
 
 stopping ...
 [00:00:35] Speaker 1   (latency 3.9 s)
-HY: Ոնց որ լուծումներից, օրինակ, տենց մի քանի նշաներ մենք գտել ենք, պատկերացր աշխարհում կան տասնյակ հարյուր հազարամ։
+HY: ÕˆÕ¶Ö Õ¸Ö€ Õ¬Õ¸Ö‚Õ®Õ¸Ö‚Õ´Õ¶Õ¥Ö€Õ«Ö, Ö…Ö€Õ«Õ¶Õ¡Õ¯, Õ¿Õ¥Õ¶Ö Õ´Õ« Ö„Õ¡Õ¶Õ« Õ¶Õ·Õ¡Õ¶Õ¥Ö€ Õ´Õ¥Õ¶Ö„ Õ£Õ¿Õ¥Õ¬ Õ¥Õ¶Ö„, ÕºÕ¡Õ¿Õ¯Õ¥Ö€Õ¡ÖÖ€ Õ¡Õ·Õ­Õ¡Ö€Õ°Õ¸Ö‚Õ´ Õ¯Õ¡Õ¶ Õ¿Õ¡Õ½Õ¶ÕµÕ¡Õ¯ Õ°Õ¡Ö€ÕµÕ¸Ö‚Ö€ Õ°Õ¡Õ¦Õ¡Ö€Õ¡Õ´Ö‰
 EN: So, as we've found, for example, a few of these signs, imagine that there are tens of hundreds of thousands of them in the world.
    [audio 8.4 s | waited 0.6 s | ASR 0.58 s | MT 2.73 s]
 
@@ -7388,7 +7394,7 @@ C:\Users\Lenovo\Projects\mathrix-live-translate>
 
 | Audio length | ASR | Translation (MT) | Latency |
 |---|---|---|---|
-| 2–4 s (your sentences) | 0.2–0.3 s | 0.5–1.0 s | ~1.5–2 s |
+| 2â€“4 s (your sentences) | 0.2â€“0.3 s | 0.5â€“1.0 s | ~1.5â€“2 s |
 | 6.8 s | 0.42 s | **3.14 s** | 4.2 s |
 | 8.4 s | 0.58 s | **2.73 s** | 3.9 s |
 | 9.3 s | 0.67 s | 1.83 s | 3.1 s |
@@ -7621,23 +7627,23 @@ mic:    [9] Internal Microphone (Conexant 20751 SmartAudio HD)
 system: [10] Speakers (Conexant 20751 SmartAudio HD) [Loopback]
 settings: end-silence 0.6 s, max utterance 12.0 s, MT beam 2
 loading models ...
-Fetching 9 files: 100%|█████████████████████████████████████████████████████████████████| 9/9 [00:00<00:00, 288.35it/s]
+Fetching 9 files: 100%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ| 9/9 [00:00<00:00, 288.35it/s]
 Download complete:                                                                                 |  0.00B
 Reconstruction complete: |                                                                |  0.00B /  0.00B
 listening - speak Armenian. Ctrl+C to stop.
 
 [00:00:04] Speaker 1   (latency 3.2 s)
-HY: Որ օրինակ երաժշտական արտիստներ, ովքեր երգեր են անում, դիջեյները երգեր են ստեղծում կամ մի քսում ու իրանց պետք ա երաժշտական վիդոներ, մենք տենց։
+HY: ÕˆÖ€ Ö…Ö€Õ«Õ¶Õ¡Õ¯ Õ¥Ö€Õ¡ÕªÕ·Õ¿Õ¡Õ¯Õ¡Õ¶ Õ¡Ö€Õ¿Õ«Õ½Õ¿Õ¶Õ¥Ö€, Õ¸Õ¾Ö„Õ¥Ö€ Õ¥Ö€Õ£Õ¥Ö€ Õ¥Õ¶ Õ¡Õ¶Õ¸Ö‚Õ´, Õ¤Õ«Õ»Õ¥ÕµÕ¶Õ¥Ö€Õ¨ Õ¥Ö€Õ£Õ¥Ö€ Õ¥Õ¶ Õ½Õ¿Õ¥Õ²Õ®Õ¸Ö‚Õ´ Õ¯Õ¡Õ´ Õ´Õ« Ö„Õ½Õ¸Ö‚Õ´ Õ¸Ö‚ Õ«Ö€Õ¡Õ¶Ö ÕºÕ¥Õ¿Ö„ Õ¡ Õ¥Ö€Õ¡ÕªÕ·Õ¿Õ¡Õ¯Õ¡Õ¶ Õ¾Õ«Õ¤Õ¸Õ¶Õ¥Ö€, Õ´Õ¥Õ¶Ö„ Õ¿Õ¥Õ¶ÖÖ‰
 EN: Like musicians who do songs, DJs who make songs, or do something, and they need music videos, we need them.
    [audio 12.0 s | waited 0.0 s | ASR 0.73 s | MT 2.45 s]
 
 [00:00:16] Speaker 1   (latency 5.9 s)
-HY: Չէինք հետաքրքիր գքը թե մարդու մեր մոտ գալիս ա, ապրրո ա անում, վեր բեռնում ա իր երգի ֆայլը, մենք տակից լիրիկան անալիզ ենք անում, հասկանում ենք երգըի մասին ա, եթե լիրիկա կա ու։
+HY: Õ‰Õ§Õ«Õ¶Ö„ Õ°Õ¥Õ¿Õ¡Ö„Ö€Ö„Õ«Ö€ Õ£Ö„Õ¨ Õ©Õ¥ Õ´Õ¡Ö€Õ¤Õ¸Ö‚ Õ´Õ¥Ö€ Õ´Õ¸Õ¿ Õ£Õ¡Õ¬Õ«Õ½ Õ¡, Õ¡ÕºÖ€Ö€Õ¸ Õ¡ Õ¡Õ¶Õ¸Ö‚Õ´, Õ¾Õ¥Ö€ Õ¢Õ¥Õ¼Õ¶Õ¸Ö‚Õ´ Õ¡ Õ«Ö€ Õ¥Ö€Õ£Õ« Ö†Õ¡ÕµÕ¬Õ¨, Õ´Õ¥Õ¶Ö„ Õ¿Õ¡Õ¯Õ«Ö Õ¬Õ«Ö€Õ«Õ¯Õ¡Õ¶ Õ¡Õ¶Õ¡Õ¬Õ«Õ¦ Õ¥Õ¶Ö„ Õ¡Õ¶Õ¸Ö‚Õ´, Õ°Õ¡Õ½Õ¯Õ¡Õ¶Õ¸Ö‚Õ´ Õ¥Õ¶Ö„ Õ¥Ö€Õ£Õ¨Õ« Õ´Õ¡Õ½Õ«Õ¶ Õ¡, Õ¥Õ©Õ¥ Õ¬Õ«Ö€Õ«Õ¯Õ¡ Õ¯Õ¡ Õ¸Ö‚Ö‰
 EN: It wasn't interesting that a person came to us, did it live, uploaded their song file, we analyzed the lyrics, we understood the song, if there were any lyrics.
    [audio 12.0 s | waited 0.0 s | ASR 0.78 s | MT 5.08 s]
 
 [00:00:28] Speaker 1   (latency 4.5 s)
-HY: Ու ավտոմատ գեներացնում ենք էդ երեք֊չորսհինգ րոպեանոց վիդեոն, որը իմաստալ ա, այսինքն՝ ամբողջ։
+HY: ÕˆÖ‚ Õ¡Õ¾Õ¿Õ¸Õ´Õ¡Õ¿ Õ£Õ¥Õ¶Õ¥Ö€Õ¡ÖÕ¶Õ¸Ö‚Õ´ Õ¥Õ¶Ö„ Õ§Õ¤ Õ¥Ö€Õ¥Ö„ÖŠÕ¹Õ¸Ö€Õ½Õ°Õ«Õ¶Õ£ Ö€Õ¸ÕºÕ¥Õ¡Õ¶Õ¸Ö Õ¾Õ«Õ¤Õ¥Õ¸Õ¶, Õ¸Ö€Õ¨ Õ«Õ´Õ¡Õ½Õ¿Õ¡Õ¬ Õ¡, Õ¡ÕµÕ½Õ«Õ¶Ö„Õ¶Õ Õ¡Õ´Õ¢Õ¸Õ²Õ»Ö‰
 EN: And we're automatically generating that three, four, five minute video, which makes sense, which is the whole thing.
    [audio 6.9 s | waited 0.6 s | ASR 0.45 s | MT 3.41 s]
 
@@ -7687,17 +7693,17 @@ Paste both full outputs. I'll also watch whether the translations get noticeably
 
 ```text
 [00:00:04] Speaker 1   (latency 3.2 s)
-HY: Որ օրինակ երաժշտական արտիստներ, ովքեր երգեր են անում, դիջեյները երգեր են ստեղծում կամ մի քսում ու իրանց պետք ա երաժշտական վիդոներ, մենք տենց։
+HY: ÕˆÖ€ Ö…Ö€Õ«Õ¶Õ¡Õ¯ Õ¥Ö€Õ¡ÕªÕ·Õ¿Õ¡Õ¯Õ¡Õ¶ Õ¡Ö€Õ¿Õ«Õ½Õ¿Õ¶Õ¥Ö€, Õ¸Õ¾Ö„Õ¥Ö€ Õ¥Ö€Õ£Õ¥Ö€ Õ¥Õ¶ Õ¡Õ¶Õ¸Ö‚Õ´, Õ¤Õ«Õ»Õ¥ÕµÕ¶Õ¥Ö€Õ¨ Õ¥Ö€Õ£Õ¥Ö€ Õ¥Õ¶ Õ½Õ¿Õ¥Õ²Õ®Õ¸Ö‚Õ´ Õ¯Õ¡Õ´ Õ´Õ« Ö„Õ½Õ¸Ö‚Õ´ Õ¸Ö‚ Õ«Ö€Õ¡Õ¶Ö ÕºÕ¥Õ¿Ö„ Õ¡ Õ¥Ö€Õ¡ÕªÕ·Õ¿Õ¡Õ¯Õ¡Õ¶ Õ¾Õ«Õ¤Õ¸Õ¶Õ¥Ö€, Õ´Õ¥Õ¶Ö„ Õ¿Õ¥Õ¶ÖÖ‰
 EN: Like musicians who do songs, DJs who make songs, or do something, and they need music videos, we need them.
    [audio 12.0 s | waited 0.0 s | ASR 0.73 s | MT 2.45 s]
 
 [00:00:16] Speaker 1   (latency 5.9 s)
-HY: Չէինք հետաքրքիր գքը թե մարդու մեր մոտ գալիս ա, ապրրո ա անում, վեր բեռնում ա իր երգի ֆայլը, մենք տակից լիրիկան անալիզ ենք անում, հասկանում ենք երգըի մասին ա, եթե լիրիկա կա ու։
+HY: Õ‰Õ§Õ«Õ¶Ö„ Õ°Õ¥Õ¿Õ¡Ö„Ö€Ö„Õ«Ö€ Õ£Ö„Õ¨ Õ©Õ¥ Õ´Õ¡Ö€Õ¤Õ¸Ö‚ Õ´Õ¥Ö€ Õ´Õ¸Õ¿ Õ£Õ¡Õ¬Õ«Õ½ Õ¡, Õ¡ÕºÖ€Ö€Õ¸ Õ¡ Õ¡Õ¶Õ¸Ö‚Õ´, Õ¾Õ¥Ö€ Õ¢Õ¥Õ¼Õ¶Õ¸Ö‚Õ´ Õ¡ Õ«Ö€ Õ¥Ö€Õ£Õ« Ö†Õ¡ÕµÕ¬Õ¨, Õ´Õ¥Õ¶Ö„ Õ¿Õ¡Õ¯Õ«Ö Õ¬Õ«Ö€Õ«Õ¯Õ¡Õ¶ Õ¡Õ¶Õ¡Õ¬Õ«Õ¦ Õ¥Õ¶Ö„ Õ¡Õ¶Õ¸Ö‚Õ´, Õ°Õ¡Õ½Õ¯Õ¡Õ¶Õ¸Ö‚Õ´ Õ¥Õ¶Ö„ Õ¥Ö€Õ£Õ¨Õ« Õ´Õ¡Õ½Õ«Õ¶ Õ¡, Õ¥Õ©Õ¥ Õ¬Õ«Ö€Õ«Õ¯Õ¡ Õ¯Õ¡ Õ¸Ö‚Ö‰
 EN: It wasn't interesting that a person came to us, did it live, uploaded their song file, we analyzed the lyrics, we understood the song, if there were any lyrics.
    [audio 12.0 s | waited 0.0 s | ASR 0.78 s | MT 5.08 s]
 
 [00:00:28] Speaker 1   (latency 4.5 s)
-HY: Ու ավտոմատ գեներացնում ենք էդ երեք֊չորսհինգ րոպեանոց վիդեոն, որը իմաստալ ա, այսինքն՝ ամբողջ։
+HY: ÕˆÖ‚ Õ¡Õ¾Õ¿Õ¸Õ´Õ¡Õ¿ Õ£Õ¥Õ¶Õ¥Ö€Õ¡ÖÕ¶Õ¸Ö‚Õ´ Õ¥Õ¶Ö„ Õ§Õ¤ Õ¥Ö€Õ¥Ö„ÖŠÕ¹Õ¸Ö€Õ½Õ°Õ«Õ¶Õ£ Ö€Õ¸ÕºÕ¥Õ¡Õ¶Õ¸Ö Õ¾Õ«Õ¤Õ¥Õ¸Õ¶, Õ¸Ö€Õ¨ Õ«Õ´Õ¡Õ½Õ¿Õ¡Õ¬ Õ¡, Õ¡ÕµÕ½Õ«Õ¶Ö„Õ¶Õ Õ¡Õ´Õ¢Õ¸Õ²Õ»Ö‰
 EN: And we're automatically generating that three, four, five minute video, which makes sense, which is the whole thing.
    [audio 6.9 s | waited 0.6 s | ASR 0.45 s | MT 3.41 s]
 
@@ -7714,30 +7720,30 @@ mic:    [9] Internal Microphone (Conexant 20751 SmartAudio HD)
 system: [10] Speakers (Conexant 20751 SmartAudio HD) [Loopback]
 settings: end-silence 0.6 s, max utterance 12.0 s, MT beam 1
 loading models ...
-Fetching 9 files: 100%|█████████████████████████████████████████████████████████████████| 9/9 [00:00<00:00, 369.31it/s]
+Fetching 9 files: 100%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ| 9/9 [00:00<00:00, 369.31it/s]
 Download complete:                                                                                 |  0.00B
 Reconstruction complete: |                                                                |  0.00B /  0.00B
 listening - speak Armenian. Ctrl+C to stop.
 
 [00:00:00] Me   (latency 2.4 s)
-HY: Էս մի բան եսով ա խոս։
+HY: Ô·Õ½ Õ´Õ« Õ¢Õ¡Õ¶ Õ¥Õ½Õ¸Õ¾ Õ¡ Õ­Õ¸Õ½Ö‰
 EN: I'm just saying something.
    [audio 3.9 s | waited 0.6 s | ASR 0.72 s | MT 1.14 s]
 
 [00:00:03] Speaker 1   (latency 5.5 s)
-HY: Իարության մեջ ա, էն, ինչ որ ես գիտեի, էն ինչ որ ես անում էի Հայաստանում, ստեղ բացարձեք ոչ մեկին չի հետաքրքրում, մարդային ռեսուրսների կառավարումը, ինքը մարդկանց մասին ա եւ բիզնեսի մասին մենք շատ։
+HY: Ô»Õ¡Ö€Õ¸Ö‚Õ©ÕµÕ¡Õ¶ Õ´Õ¥Õ» Õ¡, Õ§Õ¶, Õ«Õ¶Õ¹ Õ¸Ö€ Õ¥Õ½ Õ£Õ«Õ¿Õ¥Õ«, Õ§Õ¶ Õ«Õ¶Õ¹ Õ¸Ö€ Õ¥Õ½ Õ¡Õ¶Õ¸Ö‚Õ´ Õ§Õ« Õ€Õ¡ÕµÕ¡Õ½Õ¿Õ¡Õ¶Õ¸Ö‚Õ´, Õ½Õ¿Õ¥Õ² Õ¢Õ¡ÖÕ¡Ö€Õ±Õ¥Ö„ Õ¸Õ¹ Õ´Õ¥Õ¯Õ«Õ¶ Õ¹Õ« Õ°Õ¥Õ¿Õ¡Ö„Ö€Ö„Ö€Õ¸Ö‚Õ´, Õ´Õ¡Ö€Õ¤Õ¡ÕµÕ«Õ¶ Õ¼Õ¥Õ½Õ¸Ö‚Ö€Õ½Õ¶Õ¥Ö€Õ« Õ¯Õ¡Õ¼Õ¡Õ¾Õ¡Ö€Õ¸Ö‚Õ´Õ¨, Õ«Õ¶Ö„Õ¨ Õ´Õ¡Ö€Õ¤Õ¯Õ¡Õ¶Ö Õ´Õ¡Õ½Õ«Õ¶ Õ¡ Õ¥Ö‚ Õ¢Õ«Õ¦Õ¶Õ¥Õ½Õ« Õ´Õ¡Õ½Õ«Õ¶ Õ´Õ¥Õ¶Ö„ Õ·Õ¡Õ¿Ö‰
 EN: In the realm of, uh, that's what I knew, that's what I was doing in Armenia, and no one really cares about human resource management, it's about people and business, and we're very concerned about it.
    [audio 12.0 s | waited 0.0 s | ASR 0.89 s | MT 4.56 s]
 
 [00:00:15] Speaker 1   (latency 4.9 s)
-HY: Բազմակողմանի իրար հետ երբեմն կապ չունեցող հմտություններ ունենք, շատ էի֊որ մասնագետներից եմ լսել, որ մարկետինգետ դժվար է աշխատելը չի ստացվում ցանկացած բիզնես։
+HY: Ô²Õ¡Õ¦Õ´Õ¡Õ¯Õ¸Õ²Õ´Õ¡Õ¶Õ« Õ«Ö€Õ¡Ö€ Õ°Õ¥Õ¿ Õ¥Ö€Õ¢Õ¥Õ´Õ¶ Õ¯Õ¡Õº Õ¹Õ¸Ö‚Õ¶Õ¥ÖÕ¸Õ² Õ°Õ´Õ¿Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶Õ¶Õ¥Ö€ Õ¸Ö‚Õ¶Õ¥Õ¶Ö„, Õ·Õ¡Õ¿ Õ§Õ«ÖŠÕ¸Ö€ Õ´Õ¡Õ½Õ¶Õ¡Õ£Õ¥Õ¿Õ¶Õ¥Ö€Õ«Ö Õ¥Õ´ Õ¬Õ½Õ¥Õ¬, Õ¸Ö€ Õ´Õ¡Ö€Õ¯Õ¥Õ¿Õ«Õ¶Õ£Õ¥Õ¿ Õ¤ÕªÕ¾Õ¡Ö€ Õ§ Õ¡Õ·Õ­Õ¡Õ¿Õ¥Õ¬Õ¨ Õ¹Õ« Õ½Õ¿Õ¡ÖÕ¾Õ¸Ö‚Õ´ ÖÕ¡Õ¶Õ¯Õ¡ÖÕ¡Õ® Õ¢Õ«Õ¦Õ¶Õ¥Õ½Ö‰
 EN: We have a lot of interdisciplinary skills that are sometimes unrelated, and I've heard from many experts that marketing is hard to do, and that's not what any business can do.
    [audio 12.0 s | waited 0.0 s | ASR 1.02 s | MT 3.91 s]
 
 
 stopping ...
 [00:00:27] Speaker 1   (latency 4.5 s)
-HY: Մարդկանց շուրջ ա, մենք իրականում շատ բան սովորել ենք մեր նախկին աշխատողներից, Գը տ բրենդավորման առաջադրանքը Է չարինն ա, էն ընկերություն, որտեղ որ էդ վստահության, ներգրավվածության բացույց։
+HY: Õ„Õ¡Ö€Õ¤Õ¯Õ¡Õ¶Ö Õ·Õ¸Ö‚Ö€Õ» Õ¡, Õ´Õ¥Õ¶Ö„ Õ«Ö€Õ¡Õ¯Õ¡Õ¶Õ¸Ö‚Õ´ Õ·Õ¡Õ¿ Õ¢Õ¡Õ¶ Õ½Õ¸Õ¾Õ¸Ö€Õ¥Õ¬ Õ¥Õ¶Ö„ Õ´Õ¥Ö€ Õ¶Õ¡Õ­Õ¯Õ«Õ¶ Õ¡Õ·Õ­Õ¡Õ¿Õ¸Õ²Õ¶Õ¥Ö€Õ«Ö, Ô³Õ¨ Õ¿ Õ¢Ö€Õ¥Õ¶Õ¤Õ¡Õ¾Õ¸Ö€Õ´Õ¡Õ¶ Õ¡Õ¼Õ¡Õ»Õ¡Õ¤Ö€Õ¡Õ¶Ö„Õ¨ Ô· Õ¹Õ¡Ö€Õ«Õ¶Õ¶ Õ¡, Õ§Õ¶ Õ¨Õ¶Õ¯Õ¥Ö€Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶, Õ¸Ö€Õ¿Õ¥Õ² Õ¸Ö€ Õ§Õ¤ Õ¾Õ½Õ¿Õ¡Õ°Õ¸Ö‚Õ©ÕµÕ¡Õ¶, Õ¶Õ¥Ö€Õ£Ö€Õ¡Õ¾Õ¾Õ¡Õ®Õ¸Ö‚Õ©ÕµÕ¡Õ¶ Õ¢Õ¡ÖÕ¸Ö‚ÕµÖÖ‰
 EN: And people around us, and we've actually learned a lot from our former employees, and the branding task is to be a bad company, a company where you're a trusted, engaged company.
    [audio 12.0 s | waited -0.0 s | ASR 0.56 s | MT 3.94 s]
 
@@ -7761,12 +7767,12 @@ Run 2, **beam 1, doesn't fix it**:
 
 | Run | Utterance length | MT time | Max latency | Over 5 s |
 |---|---|---|---|---|
-| 1: beam 2, max 12 s | mostly 12.0 s | 2.45–5.08 s (median 3.41) | 5.9 s | 1 of 3 |
-| 2: beam 1, max 12 s | all 12.0 s | 3.91–4.56 s (median 3.92) | 5.5 s | 1 of 3 |
+| 1: beam 2, max 12 s | mostly 12.0 s | 2.45â€“5.08 s (median 3.41) | 5.9 s | 1 of 3 |
+| 2: beam 1, max 12 s | all 12.0 s | 3.91â€“4.56 s (median 3.92) | 5.5 s | 1 of 3 |
 
-With 12-second pieces, translation still takes about 4–4.5 s, whatever the beam. On long input, generating the long English sentence is what costs time, not the beam search. This run also played a **different part of the video** (different content), so the two aren't perfectly comparable. But both show the same pattern: **the 12 s utterance length is the real problem.**
+With 12-second pieces, translation still takes about 4â€“4.5 s, whatever the beam. On long input, generating the long English sentence is what costs time, not the beam search. This run also played a **different part of the video** (different content), so the two aren't perfectly comparable. But both show the same pattern: **the 12 s utterance length is the real problem.**
 
-Quality with beam 1 looks similar in style to beam 2. Some sentences are good ("I've heard from many experts that marketing is hard…"), and the last one has a clear ASR error that becomes a strange translation ("the branding task is to be a bad company").
+Quality with beam 1 looks similar in style to beam 2. Some sentences are good ("I've heard from many experts that marketing is hardâ€¦"), and the last one has a clear ASR error that becomes a strange translation ("the branding task is to be a bad company").
 
 One small, harmless detail: `waited -0.0 s` is a rounding artifact. The measured wait was a tiny negative number (a fraction of a millisecond) because the cut happened in the same instant. It doesn't affect anything.
 
@@ -7797,30 +7803,30 @@ mic:    [9] Internal Microphone (Conexant 20751 SmartAudio HD)
 system: [10] Speakers (Conexant 20751 SmartAudio HD) [Loopback]
 settings: end-silence 0.6 s, max utterance 12.0 s, MT beam 1
 loading models ...
-Fetching 9 files: 100%|█████████████████████████████████████████████████████████████████| 9/9 [00:00<00:00, 369.31it/s]
+Fetching 9 files: 100%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ| 9/9 [00:00<00:00, 369.31it/s]
 Download complete:                                                                                 |  0.00B
 Reconstruction complete: |                                                                |  0.00B /  0.00B
 listening - speak Armenian. Ctrl+C to stop.
 
 [00:00:00] Me   (latency 2.4 s)
-HY: Էս մի բան եսով ա խոս։
+HY: Ô·Õ½ Õ´Õ« Õ¢Õ¡Õ¶ Õ¥Õ½Õ¸Õ¾ Õ¡ Õ­Õ¸Õ½Ö‰
 EN: I'm just saying something.
    [audio 3.9 s | waited 0.6 s | ASR 0.72 s | MT 1.14 s]
 
 [00:00:03] Speaker 1   (latency 5.5 s)
-HY: Իարության մեջ ա, էն, ինչ որ ես գիտեի, էն ինչ որ ես անում էի Հայաստանում, ստեղ բացարձեք ոչ մեկին չի հետաքրքրում, մարդային ռեսուրսների կառավարումը, ինքը մարդկանց մասին ա եւ բիզնեսի մասին մենք շատ։
+HY: Ô»Õ¡Ö€Õ¸Ö‚Õ©ÕµÕ¡Õ¶ Õ´Õ¥Õ» Õ¡, Õ§Õ¶, Õ«Õ¶Õ¹ Õ¸Ö€ Õ¥Õ½ Õ£Õ«Õ¿Õ¥Õ«, Õ§Õ¶ Õ«Õ¶Õ¹ Õ¸Ö€ Õ¥Õ½ Õ¡Õ¶Õ¸Ö‚Õ´ Õ§Õ« Õ€Õ¡ÕµÕ¡Õ½Õ¿Õ¡Õ¶Õ¸Ö‚Õ´, Õ½Õ¿Õ¥Õ² Õ¢Õ¡ÖÕ¡Ö€Õ±Õ¥Ö„ Õ¸Õ¹ Õ´Õ¥Õ¯Õ«Õ¶ Õ¹Õ« Õ°Õ¥Õ¿Õ¡Ö„Ö€Ö„Ö€Õ¸Ö‚Õ´, Õ´Õ¡Ö€Õ¤Õ¡ÕµÕ«Õ¶ Õ¼Õ¥Õ½Õ¸Ö‚Ö€Õ½Õ¶Õ¥Ö€Õ« Õ¯Õ¡Õ¼Õ¡Õ¾Õ¡Ö€Õ¸Ö‚Õ´Õ¨, Õ«Õ¶Ö„Õ¨ Õ´Õ¡Ö€Õ¤Õ¯Õ¡Õ¶Ö Õ´Õ¡Õ½Õ«Õ¶ Õ¡ Õ¥Ö‚ Õ¢Õ«Õ¦Õ¶Õ¥Õ½Õ« Õ´Õ¡Õ½Õ«Õ¶ Õ´Õ¥Õ¶Ö„ Õ·Õ¡Õ¿Ö‰
 EN: In the realm of, uh, that's what I knew, that's what I was doing in Armenia, and no one really cares about human resource management, it's about people and business, and we're very concerned about it.
    [audio 12.0 s | waited 0.0 s | ASR 0.89 s | MT 4.56 s]
 
 [00:00:15] Speaker 1   (latency 4.9 s)
-HY: Բազմակողմանի իրար հետ երբեմն կապ չունեցող հմտություններ ունենք, շատ էի֊որ մասնագետներից եմ լսել, որ մարկետինգետ դժվար է աշխատելը չի ստացվում ցանկացած բիզնես։
+HY: Ô²Õ¡Õ¦Õ´Õ¡Õ¯Õ¸Õ²Õ´Õ¡Õ¶Õ« Õ«Ö€Õ¡Ö€ Õ°Õ¥Õ¿ Õ¥Ö€Õ¢Õ¥Õ´Õ¶ Õ¯Õ¡Õº Õ¹Õ¸Ö‚Õ¶Õ¥ÖÕ¸Õ² Õ°Õ´Õ¿Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶Õ¶Õ¥Ö€ Õ¸Ö‚Õ¶Õ¥Õ¶Ö„, Õ·Õ¡Õ¿ Õ§Õ«ÖŠÕ¸Ö€ Õ´Õ¡Õ½Õ¶Õ¡Õ£Õ¥Õ¿Õ¶Õ¥Ö€Õ«Ö Õ¥Õ´ Õ¬Õ½Õ¥Õ¬, Õ¸Ö€ Õ´Õ¡Ö€Õ¯Õ¥Õ¿Õ«Õ¶Õ£Õ¥Õ¿ Õ¤ÕªÕ¾Õ¡Ö€ Õ§ Õ¡Õ·Õ­Õ¡Õ¿Õ¥Õ¬Õ¨ Õ¹Õ« Õ½Õ¿Õ¡ÖÕ¾Õ¸Ö‚Õ´ ÖÕ¡Õ¶Õ¯Õ¡ÖÕ¡Õ® Õ¢Õ«Õ¦Õ¶Õ¥Õ½Ö‰
 EN: We have a lot of interdisciplinary skills that are sometimes unrelated, and I've heard from many experts that marketing is hard to do, and that's not what any business can do.
    [audio 12.0 s | waited 0.0 s | ASR 1.02 s | MT 3.91 s]
 
 
 stopping ...
 [00:00:27] Speaker 1   (latency 4.5 s)
-HY: Մարդկանց շուրջ ա, մենք իրականում շատ բան սովորել ենք մեր նախկին աշխատողներից, Գը տ բրենդավորման առաջադրանքը Է չարինն ա, էն ընկերություն, որտեղ որ էդ վստահության, ներգրավվածության բացույց։
+HY: Õ„Õ¡Ö€Õ¤Õ¯Õ¡Õ¶Ö Õ·Õ¸Ö‚Ö€Õ» Õ¡, Õ´Õ¥Õ¶Ö„ Õ«Ö€Õ¡Õ¯Õ¡Õ¶Õ¸Ö‚Õ´ Õ·Õ¡Õ¿ Õ¢Õ¡Õ¶ Õ½Õ¸Õ¾Õ¸Ö€Õ¥Õ¬ Õ¥Õ¶Ö„ Õ´Õ¥Ö€ Õ¶Õ¡Õ­Õ¯Õ«Õ¶ Õ¡Õ·Õ­Õ¡Õ¿Õ¸Õ²Õ¶Õ¥Ö€Õ«Ö, Ô³Õ¨ Õ¿ Õ¢Ö€Õ¥Õ¶Õ¤Õ¡Õ¾Õ¸Ö€Õ´Õ¡Õ¶ Õ¡Õ¼Õ¡Õ»Õ¡Õ¤Ö€Õ¡Õ¶Ö„Õ¨ Ô· Õ¹Õ¡Ö€Õ«Õ¶Õ¶ Õ¡, Õ§Õ¶ Õ¨Õ¶Õ¯Õ¥Ö€Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶, Õ¸Ö€Õ¿Õ¥Õ² Õ¸Ö€ Õ§Õ¤ Õ¾Õ½Õ¿Õ¡Õ°Õ¸Ö‚Õ©ÕµÕ¡Õ¶, Õ¶Õ¥Ö€Õ£Ö€Õ¡Õ¾Õ¾Õ¡Õ®Õ¸Ö‚Õ©ÕµÕ¡Õ¶ Õ¢Õ¡ÖÕ¸Ö‚ÕµÖÖ‰
 EN: And people around us, and we've actually learned a lot from our former employees, and the branding task is to be a bad company, a company where you're a trusted, engaged company.
    [audio 12.0 s | waited -0.0 s | ASR 0.56 s | MT 3.94 s]
 
@@ -7834,68 +7840,68 @@ mic:    [9] Internal Microphone (Conexant 20751 SmartAudio HD)
 system: [10] Speakers (Conexant 20751 SmartAudio HD) [Loopback]
 settings: end-silence 0.6 s, max utterance 7.0 s, MT beam 2
 loading models ...
-Fetching 9 files: 100%|█████████████████████████████████████████████████████████████████| 9/9 [00:00<00:00, 283.42it/s]
+Fetching 9 files: 100%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ| 9/9 [00:00<00:00, 283.42it/s]
 Download complete:                                                                                 |  0.00B
 Reconstruction complete: |                                                                |  0.00B /  0.00B
 listening - speak Armenian. Ctrl+C to stop.
 
 [00:00:00] Me   (latency 2.0 s)
-HY: ֊ Հ։
+HY: ÖŠ Õ€Ö‰
 EN: What is it?
    [audio 2.9 s | waited 0.6 s | ASR 0.55 s | MT 0.88 s]
 
 [00:00:02] Speaker 1   (latency 2.4 s)
-HY: Զարգացող փոխվել ա բիզնեսը, աշխարհն ա փոխվում, արի գիտես ինչը սկսենք արի սկսենք։
+HY: Ô¶Õ¡Ö€Õ£Õ¡ÖÕ¸Õ² ÖƒÕ¸Õ­Õ¾Õ¥Õ¬ Õ¡ Õ¢Õ«Õ¦Õ¶Õ¥Õ½Õ¨, Õ¡Õ·Õ­Õ¡Ö€Õ°Õ¶ Õ¡ ÖƒÕ¸Õ­Õ¾Õ¸Ö‚Õ´, Õ¡Ö€Õ« Õ£Õ«Õ¿Õ¥Õ½ Õ«Õ¶Õ¹Õ¨ Õ½Õ¯Õ½Õ¥Õ¶Ö„ Õ¡Ö€Õ« Õ½Õ¯Õ½Õ¥Õ¶Ö„Ö‰
 EN: Developing business is changing, the world is changing, so you know what to start doing, start doing.
    [audio 7.0 s | waited 0.0 s | ASR 0.45 s | MT 1.95 s]
 
 [00:00:09] Speaker 1   (latency 2.8 s)
-HY: Ոոնց ընդհանրապես ռենդերֆորիստը սկսեց, ինչի մասին էր ու հետո գանք, կհասանանք հիմա ինչ ա, պիտի վերադառնանք։
+HY: ÕˆÕ¸Õ¶Ö Õ¨Õ¶Õ¤Õ°Õ¡Õ¶Ö€Õ¡ÕºÕ¥Õ½ Õ¼Õ¥Õ¶Õ¤Õ¥Ö€Ö†Õ¸Ö€Õ«Õ½Õ¿Õ¨ Õ½Õ¯Õ½Õ¥Ö, Õ«Õ¶Õ¹Õ« Õ´Õ¡Õ½Õ«Õ¶ Õ§Ö€ Õ¸Ö‚ Õ°Õ¥Õ¿Õ¸ Õ£Õ¡Õ¶Ö„, Õ¯Õ°Õ¡Õ½Õ¡Õ¶Õ¡Õ¶Ö„ Õ°Õ«Õ´Õ¡ Õ«Õ¶Õ¹ Õ¡, ÕºÕ«Õ¿Õ« Õ¾Õ¥Ö€Õ¡Õ¤Õ¡Õ¼Õ¶Õ¡Õ¶Ö„Ö‰
 EN: And then we'll find out what it is, and then we'll go back.
    [audio 7.0 s | waited 0.0 s | ASR 0.38 s | MT 2.39 s]
 
 [00:00:16] Speaker 1   (latency 3.4 s)
-HY: Երկու հազար տասներեք թվական երեւի, տասներեք տարի, խագանցության էդ տարիները, քանի տարեկան էիր։
+HY: ÔµÖ€Õ¯Õ¸Ö‚ Õ°Õ¡Õ¦Õ¡Ö€ Õ¿Õ¡Õ½Õ¶Õ¥Ö€Õ¥Ö„ Õ©Õ¾Õ¡Õ¯Õ¡Õ¶ Õ¥Ö€Õ¥Ö‚Õ«, Õ¿Õ¡Õ½Õ¶Õ¥Ö€Õ¥Ö„ Õ¿Õ¡Ö€Õ«, Õ­Õ¡Õ£Õ¡Õ¶ÖÕ¸Ö‚Õ©ÕµÕ¡Õ¶ Õ§Õ¤ Õ¿Õ¡Ö€Õ«Õ¶Õ¥Ö€Õ¨, Ö„Õ¡Õ¶Õ« Õ¿Õ¡Ö€Õ¥Õ¯Õ¡Õ¶ Õ§Õ«Ö€Ö‰
 EN: Two thousand thirteen years, perhaps, thirteen years, the years of madness, how old were you?
    [audio 7.0 s | waited 0.0 s | ASR 0.48 s | MT 2.95 s]
 
 [00:00:23] Speaker 1   (latency 3.0 s)
-HY: Քսան մեկ, այսինքն տենց է պատմությունների նման երիտասարդ հիմնադիր էիր։
+HY: Õ”Õ½Õ¡Õ¶ Õ´Õ¥Õ¯, Õ¡ÕµÕ½Õ«Õ¶Ö„Õ¶ Õ¿Õ¥Õ¶Ö Õ§ ÕºÕ¡Õ¿Õ´Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶Õ¶Õ¥Ö€Õ« Õ¶Õ´Õ¡Õ¶ Õ¥Ö€Õ«Õ¿Õ¡Õ½Õ¡Ö€Õ¤ Õ°Õ«Õ´Õ¶Õ¡Õ¤Õ«Ö€ Õ§Õ«Ö€Ö‰
 EN: Twenty-one, that's how young you were, the founder of stories.
    [audio 7.0 s | waited 0.0 s | ASR 0.53 s | MT 2.44 s]
 
 [00:00:30] Speaker 1   (latency 3.4 s)
-HY: Չայլ ասել հա միդիան, ինչպես միշտ, ինչպես շատ ստարտափներում, կյանքիս ծնվեց, էդ ժամանակ վիդո։
+HY: Õ‰Õ¡ÕµÕ¬ Õ¡Õ½Õ¥Õ¬ Õ°Õ¡ Õ´Õ«Õ¤Õ«Õ¡Õ¶, Õ«Õ¶Õ¹ÕºÕ¥Õ½ Õ´Õ«Õ·Õ¿, Õ«Õ¶Õ¹ÕºÕ¥Õ½ Õ·Õ¡Õ¿ Õ½Õ¿Õ¡Ö€Õ¿Õ¡ÖƒÕ¶Õ¥Ö€Õ¸Ö‚Õ´, Õ¯ÕµÕ¡Õ¶Ö„Õ«Õ½ Õ®Õ¶Õ¾Õ¥Ö, Õ§Õ¤ ÕªÕ¡Õ´Õ¡Õ¶Õ¡Õ¯ Õ¾Õ«Õ¤Õ¸Ö‰
 EN: I mean, the media, like so many startups, was born into my life, that's when the video was born.
    [audio 7.0 s | waited 0.0 s | ASR 0.45 s | MT 2.95 s]
 
 [00:00:37] Speaker 1   (latency 3.5 s)
-HY: Խրադաքշն կարելի ասել ստուդիային, ստեղծում ենք վիդեոներ ձեռքով, անիմացիան էր մեծամասամբ։
+HY: Ô½Ö€Õ¡Õ¤Õ¡Ö„Õ·Õ¶ Õ¯Õ¡Ö€Õ¥Õ¬Õ« Õ¡Õ½Õ¥Õ¬ Õ½Õ¿Õ¸Ö‚Õ¤Õ«Õ¡ÕµÕ«Õ¶, Õ½Õ¿Õ¥Õ²Õ®Õ¸Ö‚Õ´ Õ¥Õ¶Ö„ Õ¾Õ«Õ¤Õ¥Õ¸Õ¶Õ¥Ö€ Õ±Õ¥Õ¼Ö„Õ¸Õ¾, Õ¡Õ¶Õ«Õ´Õ¡ÖÕ«Õ¡Õ¶ Õ§Ö€ Õ´Õ¥Õ®Õ¡Õ´Õ¡Õ½Õ¡Õ´Õ¢Ö‰
 EN: You could tell the studio that the script was animation, we made videos by hand, mostly.
    [audio 6.8 s | waited 0.6 s | ASR 0.50 s | MT 2.39 s]
 
 [00:00:44] Speaker 1   (latency 2.2 s)
-HY: Իդեա առաջացավ ավտոմատացնել մեր գործը։
+HY: Ô»Õ¤Õ¥Õ¡ Õ¡Õ¼Õ¡Õ»Õ¡ÖÕ¡Õ¾ Õ¡Õ¾Õ¿Õ¸Õ´Õ¡Õ¿Õ¡ÖÕ¶Õ¥Õ¬ Õ´Õ¥Ö€ Õ£Õ¸Ö€Õ®Õ¨Ö‰
 EN: The idea came up to automate our work.
    [audio 3.1 s | waited 0.6 s | ASR 0.28 s | MT 1.31 s]
 
 [00:00:47] Speaker 1   (latency 2.9 s)
-HY: Ուդ ժամանակ նոր էր դեռ զարգանում տեխնոլոգիաները բրաուզերի մեջ խմբագրում վիդեոների։
+HY: ÕˆÖ‚Õ¤ ÕªÕ¡Õ´Õ¡Õ¶Õ¡Õ¯ Õ¶Õ¸Ö€ Õ§Ö€ Õ¤Õ¥Õ¼ Õ¦Õ¡Ö€Õ£Õ¡Õ¶Õ¸Ö‚Õ´ Õ¿Õ¥Õ­Õ¶Õ¸Õ¬Õ¸Õ£Õ«Õ¡Õ¶Õ¥Ö€Õ¨ Õ¢Ö€Õ¡Õ¸Ö‚Õ¦Õ¥Ö€Õ« Õ´Õ¥Õ» Õ­Õ´Õ¢Õ¡Õ£Ö€Õ¸Ö‚Õ´ Õ¾Õ«Õ¤Õ¥Õ¸Õ¶Õ¥Ö€Õ«Ö‰
 EN: At the time, the technology for editing videos in browsers was still in its infancy.
    [audio 7.0 s | waited 0.0 s | ASR 0.44 s | MT 2.41 s]
 
 [00:00:54] Speaker 1   (latency 2.6 s)
-HY: Մշակում ամբողջովին նորեր։
+HY: Õ„Õ·Õ¡Õ¯Õ¸Ö‚Õ´ Õ¡Õ´Õ¢Õ¸Õ²Õ»Õ¸Õ¾Õ«Õ¶ Õ¶Õ¸Ö€Õ¥Ö€Ö‰
 EN: I'm developing completely new ones.
    [audio 2.1 s | waited 1.4 s | ASR 0.19 s | MT 1.02 s]
 
 [00:00:56] Speaker 1   (latency 4.3 s)
-HY: Մտանք էդ ոլորտ ու սկսվեց՝ երկու տարի դոլոման, երկու երկու տարի դոլոպման, իսկ հիմա։
+HY: Õ„Õ¿Õ¡Õ¶Ö„ Õ§Õ¤ Õ¸Õ¬Õ¸Ö€Õ¿ Õ¸Ö‚ Õ½Õ¯Õ½Õ¾Õ¥ÖÕ Õ¥Ö€Õ¯Õ¸Ö‚ Õ¿Õ¡Ö€Õ« Õ¤Õ¸Õ¬Õ¸Õ´Õ¡Õ¶, Õ¥Ö€Õ¯Õ¸Ö‚ Õ¥Ö€Õ¯Õ¸Ö‚ Õ¿Õ¡Ö€Õ« Õ¤Õ¸Õ¬Õ¸ÕºÕ´Õ¡Õ¶, Õ«Õ½Õ¯ Õ°Õ«Õ´Õ¡Ö‰
 EN: So we went back to the realm, and we started with two years in the dollar, two years in the dollar, and now.
    [audio 7.0 s | waited 0.0 s | ASR 0.50 s | MT 3.77 s]
 
 [00:01:03] Speaker 1   (latency 4.0 s)
-HY: Էպիսի դեւոփնթը եւ մի շաբաթ Երկու տարի դեւալոգմանթից հետո երկու հազար տասնհինգ թվականի հունվարին մտանք։
+HY: Ô·ÕºÕ«Õ½Õ« Õ¤Õ¥Ö‚Õ¸ÖƒÕ¶Õ©Õ¨ Õ¥Ö‚ Õ´Õ« Õ·Õ¡Õ¢Õ¡Õ© ÔµÖ€Õ¯Õ¸Ö‚ Õ¿Õ¡Ö€Õ« Õ¤Õ¥Ö‚Õ¡Õ¬Õ¸Õ£Õ´Õ¡Õ¶Õ©Õ«Ö Õ°Õ¥Õ¿Õ¸ Õ¥Ö€Õ¯Õ¸Ö‚ Õ°Õ¡Õ¦Õ¡Ö€ Õ¿Õ¡Õ½Õ¶Õ°Õ«Õ¶Õ£ Õ©Õ¾Õ¡Õ¯Õ¡Õ¶Õ« Õ°Õ¸Ö‚Õ¶Õ¾Õ¡Ö€Õ«Õ¶ Õ´Õ¿Õ¡Õ¶Ö„Ö‰
 EN: This is the day of the week, and after two years of devaluation, we're in January of two thousand and fifteen.
    [audio 7.0 s | waited 0.0 s | ASR 0.52 s | MT 3.44 s]
 
@@ -7923,7 +7929,7 @@ medians: audio 7.0 s | waited 0.0 s | ASR 0.47 s | MT 2.40 s (max MT 3.77 s)
 | 2 | beam 1, max 12 s | 3 | 4.7 s | 5.5 s | **5.5 s** | 1 | 4.56 s |
 | 3 | **beam 2, max 7 s** | 12 | **2.9 s** | **4.0 s** | **4.3 s** | **0** | 3.77 s |
 
-**Quality with 7 s pieces:** most lines are coherent, readable English, for example "At the time, the technology for editing videos in browsers was still in its infancy" and "The idea came up to automate our work." Shorter input seems to help NLLB stay on track. The downside is that some sentences get cut mid-thought ("…and now."). That's a fair price for staying under 5 s.
+**Quality with 7 s pieces:** most lines are coherent, readable English, for example "At the time, the technology for editing videos in browsers was still in its infancy" and "The idea came up to automate our work." Shorter input seems to help NLLB stay on track. The downside is that some sentences get cut mid-thought ("â€¦and now."). That's a fair price for staying under 5 s.
 
 **Decision: maximum utterance 7 s, beam 2.** It's the only measured setting with no failures, and the translations hold up.
 
@@ -7952,10 +7958,10 @@ C:\ProgramData\anaconda3\envs\livetrans\python.exe -m idlelib DECISIONS.md
 
 ```markdown
 
-## D8 — Latency: cut utterances at 7 s, translation beam 2 (2026-10-24)
-- Requirement R6: ≤ 5 s from end of phrase to printed line.
-- Mic test (read sentences, 2–5 s each): median 1.6–1.8 s, max 2.0 s. Breakdown: end-of-phrase
-  wait 0.6 s + ASR ~0.25 s + translation ~0.8–1.0 s.
+## D8 â€” Latency: cut utterances at 7 s, translation beam 2 (2026-10-24)
+- Requirement R6: â‰¤ 5 s from end of phrase to printed line.
+- Mic test (read sentences, 2â€“5 s each): median 1.6â€“1.8 s, max 2.0 s. Breakdown: end-of-phrase
+  wait 0.6 s + ASR ~0.25 s + translation ~0.8â€“1.0 s.
 - System test (Armenian podcast, continuous speech, ~60 s per run, `--timing`):
 
 | Run | Settings | Segments | Median | p95 | Max | Over 5 s | Max MT |
@@ -7969,8 +7975,8 @@ C:\ProgramData\anaconda3\envs\livetrans\python.exe -m idlelib DECISIONS.md
 - Decision: default max utterance 7 s (`--max-utterance-s`), beam 2. Shorter input also
   gave more coherent translations; cost: some sentences are cut mid-thought.
 - Risks: margin ~0.7 s; one segment waited 1.4 s in the queue; the video player (and at the
-  interview, the call app) competes for the 2 CPU cores → re-measure during the rehearsal;
-  6 s is the next lever. Echo: the mic hears the speakers → use headphones.
+  interview, the call app) competes for the 2 CPU cores â†’ re-measure during the rehearsal;
+  6 s is the next lever. Echo: the mic hears the speakers â†’ use headphones.
 - Also fixed: utterances where ASR finds no words were dropped silently; they are now
   counted in the summary and shown with `--timing`.
 ```
@@ -7987,7 +7993,7 @@ git add src\livetrans\app.py DECISIONS.md
 git commit -m "Live app: 7 s max utterance (max latency 4.3 s), timing, report skipped utterances; D8"
 ```
 
-Paste the outputs. **That completes M4**: a working live pipeline within the latency limit. Next is **M6, telling call speakers apart** (Speaker 1, Speaker 2…). It's the last required feature, and the brief's interview test uses at least two people on the call side.
+Paste the outputs. **That completes M4**: a working live pipeline within the latency limit. Next is **M6, telling call speakers apart** (Speaker 1, Speaker 2â€¦). It's the last required feature, and the brief's interview test uses at least two people on the call side.
 
 
 ---
@@ -8035,28 +8041,28 @@ Labels never change once printed, which satisfies the brief's "same label for th
 
 | Option | Size | License | Fits this laptop? | Trade-offs |
 |---|---|---|---|---|
-| **A. sherpa-onnx + a small ONNX voiceprint model** (WeSpeaker ResNet34, 26 MB, or 3D-Speaker CAM++, 28 MB) | tiny | sherpa-onnx: Apache-2.0. Models trained on VoxCeleb: **CC-BY-4.0** ([WeSpeaker pretrained models](https://github.com/wenet-e2e/wespeaker/blob/master/docs/pretrained.md)) | **Yes.** No PyTorch, small RAM, likely well under 0.2 s per utterance (to be measured) | sherpa-onnx handles the audio features internally. Its API order (create stream → feed audio → finish → compute) is confirmed by its C interface ([sherpa-rs-sys docs](https://docs.rs/sherpa-rs-sys)) and the official diarization demo ([k2-fsa speaker-diarization](https://huggingface.co/spaces/k2-fsa/speaker-diarization/blob/main/model.py)). Models are downloaded from `csukuangfj/speaker-embedding-models` |
+| **A. sherpa-onnx + a small ONNX voiceprint model** (WeSpeaker ResNet34, 26 MB, or 3D-Speaker CAM++, 28 MB) | tiny | sherpa-onnx: Apache-2.0. Models trained on VoxCeleb: **CC-BY-4.0** ([WeSpeaker pretrained models](https://github.com/wenet-e2e/wespeaker/blob/master/docs/pretrained.md)) | **Yes.** No PyTorch, small RAM, likely well under 0.2 s per utterance (to be measured) | sherpa-onnx handles the audio features internally. Its API order (create stream â†’ feed audio â†’ finish â†’ compute) is confirmed by its C interface ([sherpa-rs-sys docs](https://docs.rs/sherpa-rs-sys)) and the official diarization demo ([k2-fsa speaker-diarization](https://huggingface.co/spaces/k2-fsa/speaker-diarization/blob/main/model.py)). Models are downloaded from `csukuangfj/speaker-embedding-models` |
 | B. The same WeSpeaker ONNX via onnxruntime directly | tiny | same | Yes | No new library, but we'd have to reproduce the exact audio features (Kaldi fbank) ourselves. A subtle mismatch would silently degrade results, so it's riskier |
 | C. pyannote, SpeechBrain, Resemblyzer | large | various | **No:** all need PyTorch (GBs of install, more RAM next to our ~2 GB of models) | Rejected for this hardware |
-| D. sherpa-onnx's complete offline diarization pipeline | — | — | Built for whole recordings, not live | Rejected; we do our own live (online) assignment |
+| D. sherpa-onnx's complete offline diarization pipeline | â€” | â€” | Built for whole recordings, not live | Rejected; we do our own live (online) assignment |
 
 **One caveat to state openly:** these voiceprint models were trained mostly on English-language celebrity speech (VoxCeleb). Voice identity is largely independent of language, so they should work on Armenian, but **we'll measure that, not assume it.** Video-call audio is also compressed, which can make voices harder to tell apart. We'll check that in the interview rehearsal.
 
 **Design details for reliability:**
-- A **new speaker is created only from an utterance of at least ~1.5 s**. Very short utterances ("Հա", "Ինչ") give unreliable voiceprints, so they're assigned to the closest existing speaker instead of inventing new ones.
+- A **new speaker is created only from an utterance of at least ~1.5 s**. Very short utterances ("Õ€Õ¡", "Ô»Õ¶Õ¹") give unreliable voiceprints, so they're assigned to the closest existing speaker instead of inventing new ones.
 - The similarity **threshold** will be chosen from measurements on real two-person Armenian audio, not guessed.
 
 ## Plan and acceptance criteria, set before testing
 
 1. **Record test data:** about **3 minutes of system audio** with **two Armenian speakers taking turns**, such as an interview or podcast with a host and a guest. This WAV stays local, never in Git.
-2. **Offline tool:** segment the recording → voiceprints → assignment at several thresholds → print each utterance with time, label and Armenian text, so **you** can judge which labels are right (you understand the speakers; I can't hear them).
+2. **Offline tool:** segment the recording â†’ voiceprints â†’ assignment at several thresholds â†’ print each utterance with time, label and Armenian text, so **you** can judge which labels are right (you understand the speakers; I can't hear them).
 3. Then plug the chosen setting into the live app.
 
 **Pass criteria:**
-- **≥ 85%** of utterances get the correct speaker label (judged by you)
+- **â‰¥ 85%** of utterances get the correct speaker label (judged by you)
 - at most **one extra, wrong speaker** created in 3 minutes
-- voiceprint time **≤ 0.2 s** per utterance, so latency stays under 5 s
-- **≤ 150 MB** extra RAM
+- voiceprint time **â‰¤ 0.2 s** per utterance, so latency stays under 5 s
+- **â‰¤ 150 MB** extra RAM
 
 **Step 50 (can start now; no code changes):** find a video with **two Armenian speakers alternating**. The podcast you used may work, if it's a host and a guest. Then record 3 minutes of it:
 
@@ -8064,7 +8070,7 @@ Labels never change once printed, which satisfies the brief's "same label for th
 C:\ProgramData\anaconda3\envs\livetrans\python.exe -m livetrans.tools.record --seconds 180
 ```
 
-Don't speak during it. Paste the two "saved…" lines, and tell me roughly **how many different people speak** in that clip.
+Don't speak during it. Paste the two "savedâ€¦" lines, and tell me roughly **how many different people speak** in that clip.
 
 Reply **"go A"** if you agree with option A, or tell me what you'd change. I'll then give you the install command and the offline tool.
 
@@ -8104,7 +8110,7 @@ Now two things from you to start M6:
    C:\ProgramData\anaconda3\envs\livetrans\python.exe -m livetrans.tools.record --seconds 180
    ```
 
-   Don't speak during the 3 minutes. Then paste the two "saved…" lines, and tell me **how many different people speak** in that clip, roughly.
+   Don't speak during the 3 minutes. Then paste the two "savedâ€¦" lines, and tell me **how many different people speak** in that clip, roughly.
 
 You can do both in one reply. While you record, nothing else needs to run.
 
@@ -8130,7 +8136,7 @@ C:\Users\Lenovo\Projects\mathrix-live-translate>
 
 ### 156. Claude (2026-10-24 14:46 UTC)
 
-**Recording done:** 180 s of system audio, with only 2.9 s of silence filled in, so the clip is almost continuous speech. That's good test material. The mic stayed silent (−58.7 dB), so there's no echo in this recording.
+**Recording done:** 180 s of system audio, with only 2.9 s of silence filled in, so the clip is almost continuous speech. That's good test material. The mic stayed silent (âˆ’58.7 dB), so there's no echo in this recording.
 
 I'll take the recording as your go-ahead for **option A**. Stop me if you'd prefer otherwise. And please tell me **how many different people speak** in this clip; I need that to judge the results.
 
@@ -8440,7 +8446,7 @@ C:\ProgramData\anaconda3\envs\livetrans\python.exe -m livetrans.tools.speakers_b
 - pytest: expect **29 passed**.
 - The tool downloads the 26 MB model once, then prints:
   - how many speakers each threshold produces
-  - a table with **one row per utterance**: number, time, duration, its label at each threshold (columns `t0.30` … `t0.70`), and the start of its Armenian text
+  - a table with **one row per utterance**: number, time, duration, its label at each threshold (columns `t0.30` â€¦ `t0.70`), and the start of its Armenian text
 
 **How to judge it:** play `samples\speakers_test.wav` (`start samples\speakers_test.wav`). For each row, decide who is really speaking, using the time and text. The best threshold column is the one where **the same person always has the same number** and different people have different numbers.
 
@@ -8519,8 +8525,8 @@ C:\Users\Lenovo\Projects\mathrix-live-translate>C:\ProgramData\anaconda3\envs\li
 C:\Users\Lenovo\Projects\mathrix-live-translate>C:\ProgramData\anaconda3\envs\livetrans\python.exe -m livetrans.tools.speakers_bench --asr
 27 utterances in 180 s
 Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
-wespeaker_en_voxceleb_resnet34_LM.onnx: downloading bytes: ████████████████████████████████████████| 25.2MB, 1.89MB/s
-wespeaker_en_voxceleb_resnet34_LM.onnx: reconstructing file: 100%|████████████████████████| 26.5MB / 26.5MB, 2.27MB/s
+wespeaker_en_voxceleb_resnet34_LM.onnx: downloading bytes: â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ| 25.2MB, 1.89MB/s
+wespeaker_en_voxceleb_resnet34_LM.onnx: reconstructing file: 100%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ| 26.5MB / 26.5MB, 2.27MB/s
 model wespeaker_en_voxceleb_resnet34_LM.onnx loaded in 8.2 s
 voiceprint time per utterance: median 0.315 s, max 0.352 s | extra RAM ~128 MB
 
@@ -8531,33 +8537,33 @@ threshold 0.60: 1 speakers
 threshold 0.70: 1 speakers
 
   #  time      dur  t0.30 t0.40 t0.50 t0.60 t0.70
-  1  00:00:02   7.0      1     1     1     1     1  Գունային պալիտաները եւ ամեն ինչ մանր կետրով ու էդ ամենը տեւում է ամիսն
-  2  00:00:09   7.0      1     1     1     1     1  Հետո փորձարկում ես օգտատերերի վրա, ավելի ես լավացնում ու որ հիմա նայու
-  3  00:00:16   4.4      1     1     1     1     1  Կես տարվա ընթացքում ինչ ենք ստացի, ինքը բավական տարբերվում ա։
-  4  00:00:21   3.2      1     1     1     1     1  Իսկ ովքե՞ են հիմա հիմնական մրցակիցները։
-  5  00:00:24   7.0      1     1     1     1     1  Հիմնական մրցակիցները շատ֊շատ են դժվար կլինի անուն թվարկել, որովհետեւ ո
-  6  00:00:31   7.0      1     1     1     1     1  Բավականին ընդլայնվել ու զարգացել ա, շատ ընկերություններ նույնիսկ տրանս
-  7  00:00:38   7.0      1     1     1     1     1  Բայց աշխարհը այնպես ա փոխվել, որ մեծամասամբ օգտատերը արդեն փնտրում են
-  8  00:00:45   3.7      1     1     1     1     1  Բայց էդքան կոմպտեն տով անելու։
-  9  00:00:48   7.0      1     1     1     1     1  Ոնց որ ահռելի քանակությամբ վիցիա ա ստեղծվում, աուիա ա ստեղծվում մի քան
- 10  00:00:55   7.0      1     1     1     1     1  Չ Իլեւն լավ սով էի խաղանում, հայերենից անգլերեն արդեն նենց որակի դափին
- 11  00:01:02   7.0      1     1     1     1     1  Այն անգլերեն դա վարեցի, պոտկաստի մի կտոր, կնոջս միացրեցի ու չէի ասօր է
- 12  00:01:10   5.0      1     1     1     1     1  Ասեց, ոնց որ քո ձենն ա, բայց մի քիչ ոնց որ ուրիշ ձեւը լինի։
- 13  00:01:15   7.0      1     1     1     1     1  Նենց ուզում էր ստուգեի, դամ կ կհասկանանա, որ էի արդեն էնքաներ որակավաց
- 14  00:01:21   7.0      1     1     1     1     1  Որ դա կարող ա քո ձենը չլինի, Մ մոտ էլ կա դա կարաս փորձես հա, հա հա, բա
- 15  00:01:28   7.0      1     1     1     1     1  Բայց ասեմ, դու հիմա թվերին ես նայում, հունվարին մենք եւ օրեկան մեր մոտ
- 16  00:01:35   7.0      1     1     1     1     1  Այով գեներացված վիդեո։ էսօր էդ թիվը երեսուն հազար է, ամեն օր, օրը երես
- 17  00:01:42   7.0      1     1     1     1     1  Սկսած հինգ վայրկյանից մինչեւ մի քանի րոպե, նա ամսական էդ մեկ միլիոնից
- 18  00:01:49   7.0      1     1     1     1     1  Դիոանում ու էս պահի դրությամբ մենակ ամեն շաբաթ ավելի շատագ գ հեռացվում
- 19  00:01:56   7.0      1     1     1     1     1  Նշանակում է, ինչքան էլ շատ գեներացվի, առաջարկ պահանջարկ հարաբերակցությ
- 20  00:02:03   7.0      1     1     1     1     1  Գեներացնեմ։ Հետաքրքիր ա, բայց, օրինակ, յութութու տենած կա, օրինակ, յու
- 21  00:02:10   7.0      1     1     1     1     1  Բայցից ավելի անգամ հազար դ հազար դիտում չի հավաքում, այսինքն՝ մեկ մինչ
- 22  00:02:17   7.0      1     1     1     1     1  Է ստեղծում, քան երբեւէ մարդկությունը կարար նաեր ու մեկ այդ կոնտենտի ստ
- 23  00:02:24   7.0      1     1     1     1     1  Սենց հետաքրքիր էլի՝ որտեղ այդ շուկա շուկա է տեկվելիբրեմ էդ երբ կգա, որ
- 24  00:02:32   7.0      1     1     1     1     1  Կոնտենտիկ կարիք կարող ա չլինի կամ կարող ա երբեք էդ չկա, որովհետեւ անըն
- 25  00:02:39   7.0      1     1     1     1     1  Գիտե՞, որ սենց նայում ես մեր նախկին թվեր ու հիմիկվա թվերը, ուղղակի սեն
- 26  00:02:46   7.0      1     1     1     1     1  Խաչաձեւ իրար հատվում են Էա ու կաղապարները, նույն նախկինում երկու տարի
- 27  00:02:53   7.0      1     1     1     1     1  Տրական ստեղծում ուղղակի վիդաթեմփլետներով, հետոը զարգացավ, սկսեց դոփը,
+  1  00:00:02   7.0      1     1     1     1     1  Ô³Õ¸Ö‚Õ¶Õ¡ÕµÕ«Õ¶ ÕºÕ¡Õ¬Õ«Õ¿Õ¡Õ¶Õ¥Ö€Õ¨ Õ¥Ö‚ Õ¡Õ´Õ¥Õ¶ Õ«Õ¶Õ¹ Õ´Õ¡Õ¶Ö€ Õ¯Õ¥Õ¿Ö€Õ¸Õ¾ Õ¸Ö‚ Õ§Õ¤ Õ¡Õ´Õ¥Õ¶Õ¨ Õ¿Õ¥Ö‚Õ¸Ö‚Õ´ Õ§ Õ¡Õ´Õ«Õ½Õ¶
+  2  00:00:09   7.0      1     1     1     1     1  Õ€Õ¥Õ¿Õ¸ ÖƒÕ¸Ö€Õ±Õ¡Ö€Õ¯Õ¸Ö‚Õ´ Õ¥Õ½ Ö…Õ£Õ¿Õ¡Õ¿Õ¥Ö€Õ¥Ö€Õ« Õ¾Ö€Õ¡, Õ¡Õ¾Õ¥Õ¬Õ« Õ¥Õ½ Õ¬Õ¡Õ¾Õ¡ÖÕ¶Õ¸Ö‚Õ´ Õ¸Ö‚ Õ¸Ö€ Õ°Õ«Õ´Õ¡ Õ¶Õ¡ÕµÕ¸Ö‚
+  3  00:00:16   4.4      1     1     1     1     1  Ô¿Õ¥Õ½ Õ¿Õ¡Ö€Õ¾Õ¡ Õ¨Õ¶Õ©Õ¡ÖÖ„Õ¸Ö‚Õ´ Õ«Õ¶Õ¹ Õ¥Õ¶Ö„ Õ½Õ¿Õ¡ÖÕ«, Õ«Õ¶Ö„Õ¨ Õ¢Õ¡Õ¾Õ¡Õ¯Õ¡Õ¶ Õ¿Õ¡Ö€Õ¢Õ¥Ö€Õ¾Õ¸Ö‚Õ´ Õ¡Ö‰
+  4  00:00:21   3.2      1     1     1     1     1  Ô»Õ½Õ¯ Õ¸Õ¾Ö„Õ¥Õž Õ¥Õ¶ Õ°Õ«Õ´Õ¡ Õ°Õ«Õ´Õ¶Õ¡Õ¯Õ¡Õ¶ Õ´Ö€ÖÕ¡Õ¯Õ«ÖÕ¶Õ¥Ö€Õ¨Ö‰
+  5  00:00:24   7.0      1     1     1     1     1  Õ€Õ«Õ´Õ¶Õ¡Õ¯Õ¡Õ¶ Õ´Ö€ÖÕ¡Õ¯Õ«ÖÕ¶Õ¥Ö€Õ¨ Õ·Õ¡Õ¿ÖŠÕ·Õ¡Õ¿ Õ¥Õ¶ Õ¤ÕªÕ¾Õ¡Ö€ Õ¯Õ¬Õ«Õ¶Õ« Õ¡Õ¶Õ¸Ö‚Õ¶ Õ©Õ¾Õ¡Ö€Õ¯Õ¥Õ¬, Õ¸Ö€Õ¸Õ¾Õ°Õ¥Õ¿Õ¥Ö‚ Õ¸
+  6  00:00:31   7.0      1     1     1     1     1  Ô²Õ¡Õ¾Õ¡Õ¯Õ¡Õ¶Õ«Õ¶ Õ¨Õ¶Õ¤Õ¬Õ¡ÕµÕ¶Õ¾Õ¥Õ¬ Õ¸Ö‚ Õ¦Õ¡Ö€Õ£Õ¡ÖÕ¥Õ¬ Õ¡, Õ·Õ¡Õ¿ Õ¨Õ¶Õ¯Õ¥Ö€Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶Õ¶Õ¥Ö€ Õ¶Õ¸Ö‚ÕµÕ¶Õ«Õ½Õ¯ Õ¿Ö€Õ¡Õ¶Õ½
+  7  00:00:38   7.0      1     1     1     1     1  Ô²Õ¡ÕµÖ Õ¡Õ·Õ­Õ¡Ö€Õ°Õ¨ Õ¡ÕµÕ¶ÕºÕ¥Õ½ Õ¡ ÖƒÕ¸Õ­Õ¾Õ¥Õ¬, Õ¸Ö€ Õ´Õ¥Õ®Õ¡Õ´Õ¡Õ½Õ¡Õ´Õ¢ Ö…Õ£Õ¿Õ¡Õ¿Õ¥Ö€Õ¨ Õ¡Ö€Õ¤Õ¥Õ¶ ÖƒÕ¶Õ¿Ö€Õ¸Ö‚Õ´ Õ¥Õ¶
+  8  00:00:45   3.7      1     1     1     1     1  Ô²Õ¡ÕµÖ Õ§Õ¤Ö„Õ¡Õ¶ Õ¯Õ¸Õ´ÕºÕ¿Õ¥Õ¶ Õ¿Õ¸Õ¾ Õ¡Õ¶Õ¥Õ¬Õ¸Ö‚Ö‰
+  9  00:00:48   7.0      1     1     1     1     1  ÕˆÕ¶Ö Õ¸Ö€ Õ¡Õ°Õ¼Õ¥Õ¬Õ« Ö„Õ¡Õ¶Õ¡Õ¯Õ¸Ö‚Õ©ÕµÕ¡Õ´Õ¢ Õ¾Õ«ÖÕ«Õ¡ Õ¡ Õ½Õ¿Õ¥Õ²Õ®Õ¾Õ¸Ö‚Õ´, Õ¡Õ¸Ö‚Õ«Õ¡ Õ¡ Õ½Õ¿Õ¥Õ²Õ®Õ¾Õ¸Ö‚Õ´ Õ´Õ« Ö„Õ¡Õ¶
+ 10  00:00:55   7.0      1     1     1     1     1  Õ‰ Ô»Õ¬Õ¥Ö‚Õ¶ Õ¬Õ¡Õ¾ Õ½Õ¸Õ¾ Õ§Õ« Õ­Õ¡Õ²Õ¡Õ¶Õ¸Ö‚Õ´, Õ°Õ¡ÕµÕ¥Ö€Õ¥Õ¶Õ«Ö Õ¡Õ¶Õ£Õ¬Õ¥Ö€Õ¥Õ¶ Õ¡Ö€Õ¤Õ¥Õ¶ Õ¶Õ¥Õ¶Ö Õ¸Ö€Õ¡Õ¯Õ« Õ¤Õ¡ÖƒÕ«Õ¶
+ 11  00:01:02   7.0      1     1     1     1     1  Ô±ÕµÕ¶ Õ¡Õ¶Õ£Õ¬Õ¥Ö€Õ¥Õ¶ Õ¤Õ¡ Õ¾Õ¡Ö€Õ¥ÖÕ«, ÕºÕ¸Õ¿Õ¯Õ¡Õ½Õ¿Õ« Õ´Õ« Õ¯Õ¿Õ¸Ö€, Õ¯Õ¶Õ¸Õ»Õ½ Õ´Õ«Õ¡ÖÖ€Õ¥ÖÕ« Õ¸Ö‚ Õ¹Õ§Õ« Õ¡Õ½Ö…Ö€ Õ§
+ 12  00:01:10   5.0      1     1     1     1     1  Ô±Õ½Õ¥Ö, Õ¸Õ¶Ö Õ¸Ö€ Ö„Õ¸ Õ±Õ¥Õ¶Õ¶ Õ¡, Õ¢Õ¡ÕµÖ Õ´Õ« Ö„Õ«Õ¹ Õ¸Õ¶Ö Õ¸Ö€ Õ¸Ö‚Ö€Õ«Õ· Õ±Õ¥Ö‚Õ¨ Õ¬Õ«Õ¶Õ«Ö‰
+ 13  00:01:15   7.0      1     1     1     1     1  Õ†Õ¥Õ¶Ö Õ¸Ö‚Õ¦Õ¸Ö‚Õ´ Õ§Ö€ Õ½Õ¿Õ¸Ö‚Õ£Õ¥Õ«, Õ¤Õ¡Õ´ Õ¯ Õ¯Õ°Õ¡Õ½Õ¯Õ¡Õ¶Õ¡Õ¶Õ¡, Õ¸Ö€ Õ§Õ« Õ¡Ö€Õ¤Õ¥Õ¶ Õ§Õ¶Ö„Õ¡Õ¶Õ¥Ö€ Õ¸Ö€Õ¡Õ¯Õ¡Õ¾Õ¡Ö
+ 14  00:01:21   7.0      1     1     1     1     1  ÕˆÖ€ Õ¤Õ¡ Õ¯Õ¡Ö€Õ¸Õ² Õ¡ Ö„Õ¸ Õ±Õ¥Õ¶Õ¨ Õ¹Õ¬Õ«Õ¶Õ«, Õ„ Õ´Õ¸Õ¿ Õ§Õ¬ Õ¯Õ¡ Õ¤Õ¡ Õ¯Õ¡Ö€Õ¡Õ½ ÖƒÕ¸Ö€Õ±Õ¥Õ½ Õ°Õ¡, Õ°Õ¡ Õ°Õ¡, Õ¢Õ¡
+ 15  00:01:28   7.0      1     1     1     1     1  Ô²Õ¡ÕµÖ Õ¡Õ½Õ¥Õ´, Õ¤Õ¸Ö‚ Õ°Õ«Õ´Õ¡ Õ©Õ¾Õ¥Ö€Õ«Õ¶ Õ¥Õ½ Õ¶Õ¡ÕµÕ¸Ö‚Õ´, Õ°Õ¸Ö‚Õ¶Õ¾Õ¡Ö€Õ«Õ¶ Õ´Õ¥Õ¶Ö„ Õ¥Ö‚ Ö…Ö€Õ¥Õ¯Õ¡Õ¶ Õ´Õ¥Ö€ Õ´Õ¸Õ¿
+ 16  00:01:35   7.0      1     1     1     1     1  Ô±ÕµÕ¸Õ¾ Õ£Õ¥Õ¶Õ¥Ö€Õ¡ÖÕ¾Õ¡Õ® Õ¾Õ«Õ¤Õ¥Õ¸Ö‰ Õ§Õ½Ö…Ö€ Õ§Õ¤ Õ©Õ«Õ¾Õ¨ Õ¥Ö€Õ¥Õ½Õ¸Ö‚Õ¶ Õ°Õ¡Õ¦Õ¡Ö€ Õ§, Õ¡Õ´Õ¥Õ¶ Ö…Ö€, Ö…Ö€Õ¨ Õ¥Ö€Õ¥Õ½
+ 17  00:01:42   7.0      1     1     1     1     1  ÕÕ¯Õ½Õ¡Õ® Õ°Õ«Õ¶Õ£ Õ¾Õ¡ÕµÖ€Õ¯ÕµÕ¡Õ¶Õ«Ö Õ´Õ«Õ¶Õ¹Õ¥Ö‚ Õ´Õ« Ö„Õ¡Õ¶Õ« Ö€Õ¸ÕºÕ¥, Õ¶Õ¡ Õ¡Õ´Õ½Õ¡Õ¯Õ¡Õ¶ Õ§Õ¤ Õ´Õ¥Õ¯ Õ´Õ«Õ¬Õ«Õ¸Õ¶Õ«Ö
+ 18  00:01:49   7.0      1     1     1     1     1  Ô´Õ«Õ¸Õ¡Õ¶Õ¸Ö‚Õ´ Õ¸Ö‚ Õ§Õ½ ÕºÕ¡Õ°Õ« Õ¤Ö€Õ¸Ö‚Õ©ÕµÕ¡Õ´Õ¢ Õ´Õ¥Õ¶Õ¡Õ¯ Õ¡Õ´Õ¥Õ¶ Õ·Õ¡Õ¢Õ¡Õ© Õ¡Õ¾Õ¥Õ¬Õ« Õ·Õ¡Õ¿Õ¡Õ£ Õ£ Õ°Õ¥Õ¼Õ¡ÖÕ¾Õ¸Ö‚Õ´
+ 19  00:01:56   7.0      1     1     1     1     1  Õ†Õ·Õ¡Õ¶Õ¡Õ¯Õ¸Ö‚Õ´ Õ§, Õ«Õ¶Õ¹Ö„Õ¡Õ¶ Õ§Õ¬ Õ·Õ¡Õ¿ Õ£Õ¥Õ¶Õ¥Ö€Õ¡ÖÕ¾Õ«, Õ¡Õ¼Õ¡Õ»Õ¡Ö€Õ¯ ÕºÕ¡Õ°Õ¡Õ¶Õ»Õ¡Ö€Õ¯ Õ°Õ¡Ö€Õ¡Õ¢Õ¥Ö€Õ¡Õ¯ÖÕ¸Ö‚Õ©Õµ
+ 20  00:02:03   7.0      1     1     1     1     1  Ô³Õ¥Õ¶Õ¥Ö€Õ¡ÖÕ¶Õ¥Õ´Ö‰ Õ€Õ¥Õ¿Õ¡Ö„Ö€Ö„Õ«Ö€ Õ¡, Õ¢Õ¡ÕµÖ, Ö…Ö€Õ«Õ¶Õ¡Õ¯, ÕµÕ¸Ö‚Õ©Õ¸Ö‚Õ©Õ¸Ö‚ Õ¿Õ¥Õ¶Õ¡Õ® Õ¯Õ¡, Ö…Ö€Õ«Õ¶Õ¡Õ¯, ÕµÕ¸Ö‚
+ 21  00:02:10   7.0      1     1     1     1     1  Ô²Õ¡ÕµÖÕ«Ö Õ¡Õ¾Õ¥Õ¬Õ« Õ¡Õ¶Õ£Õ¡Õ´ Õ°Õ¡Õ¦Õ¡Ö€ Õ¤ Õ°Õ¡Õ¦Õ¡Ö€ Õ¤Õ«Õ¿Õ¸Ö‚Õ´ Õ¹Õ« Õ°Õ¡Õ¾Õ¡Ö„Õ¸Ö‚Õ´, Õ¡ÕµÕ½Õ«Õ¶Ö„Õ¶Õ Õ´Õ¥Õ¯ Õ´Õ«Õ¶Õ¹
+ 22  00:02:17   7.0      1     1     1     1     1  Ô· Õ½Õ¿Õ¥Õ²Õ®Õ¸Ö‚Õ´, Ö„Õ¡Õ¶ Õ¥Ö€Õ¢Õ¥Ö‚Õ§ Õ´Õ¡Ö€Õ¤Õ¯Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶Õ¨ Õ¯Õ¡Ö€Õ¡Ö€ Õ¶Õ¡Õ¥Ö€ Õ¸Ö‚ Õ´Õ¥Õ¯ Õ¡ÕµÕ¤ Õ¯Õ¸Õ¶Õ¿Õ¥Õ¶Õ¿Õ« Õ½Õ¿
+ 23  00:02:24   7.0      1     1     1     1     1  ÕÕ¥Õ¶Ö Õ°Õ¥Õ¿Õ¡Ö„Ö€Ö„Õ«Ö€ Õ§Õ¬Õ«Õ Õ¸Ö€Õ¿Õ¥Õ² Õ¡ÕµÕ¤ Õ·Õ¸Ö‚Õ¯Õ¡ Õ·Õ¸Ö‚Õ¯Õ¡ Õ§ Õ¿Õ¥Õ¯Õ¾Õ¥Õ¬Õ«Õ¢Ö€Õ¥Õ´ Õ§Õ¤ Õ¥Ö€Õ¢ Õ¯Õ£Õ¡, Õ¸Ö€
+ 24  00:02:32   7.0      1     1     1     1     1  Ô¿Õ¸Õ¶Õ¿Õ¥Õ¶Õ¿Õ«Õ¯ Õ¯Õ¡Ö€Õ«Ö„ Õ¯Õ¡Ö€Õ¸Õ² Õ¡ Õ¹Õ¬Õ«Õ¶Õ« Õ¯Õ¡Õ´ Õ¯Õ¡Ö€Õ¸Õ² Õ¡ Õ¥Ö€Õ¢Õ¥Ö„ Õ§Õ¤ Õ¹Õ¯Õ¡, Õ¸Ö€Õ¸Õ¾Õ°Õ¥Õ¿Õ¥Ö‚ Õ¡Õ¶Õ¨Õ¶
+ 25  00:02:39   7.0      1     1     1     1     1  Ô³Õ«Õ¿Õ¥Õž, Õ¸Ö€ Õ½Õ¥Õ¶Ö Õ¶Õ¡ÕµÕ¸Ö‚Õ´ Õ¥Õ½ Õ´Õ¥Ö€ Õ¶Õ¡Õ­Õ¯Õ«Õ¶ Õ©Õ¾Õ¥Ö€ Õ¸Ö‚ Õ°Õ«Õ´Õ«Õ¯Õ¾Õ¡ Õ©Õ¾Õ¥Ö€Õ¨, Õ¸Ö‚Õ²Õ²Õ¡Õ¯Õ« Õ½Õ¥Õ¶
+ 26  00:02:46   7.0      1     1     1     1     1  Ô½Õ¡Õ¹Õ¡Õ±Õ¥Ö‚ Õ«Ö€Õ¡Ö€ Õ°Õ¡Õ¿Õ¾Õ¸Ö‚Õ´ Õ¥Õ¶ Ô·Õ¡ Õ¸Ö‚ Õ¯Õ¡Õ²Õ¡ÕºÕ¡Ö€Õ¶Õ¥Ö€Õ¨, Õ¶Õ¸Ö‚ÕµÕ¶ Õ¶Õ¡Õ­Õ¯Õ«Õ¶Õ¸Ö‚Õ´ Õ¥Ö€Õ¯Õ¸Ö‚ Õ¿Õ¡Ö€Õ«
+ 27  00:02:53   7.0      1     1     1     1     1  ÕÖ€Õ¡Õ¯Õ¡Õ¶ Õ½Õ¿Õ¥Õ²Õ®Õ¸Ö‚Õ´ Õ¸Ö‚Õ²Õ²Õ¡Õ¯Õ« Õ¾Õ«Õ¤Õ¡Õ©Õ¥Õ´ÖƒÕ¬Õ¥Õ¿Õ¶Õ¥Ö€Õ¸Õ¾, Õ°Õ¥Õ¿Õ¸Õ¨ Õ¦Õ¡Ö€Õ£Õ¡ÖÕ¡Õ¾, Õ½Õ¯Õ½Õ¥Ö Õ¤Õ¸ÖƒÕ¨,
 
 C:\Users\Lenovo\Projects\mathrix-live-translate>
 ```
@@ -8571,9 +8577,9 @@ C:\Users\Lenovo\Projects\mathrix-live-translate>
 
 ### 160. Claude (2026-10-24 14:50 UTC)
 
-**sherpa-onnx 2.0 works.** The calls ran without errors, voiceprints were computed for all 27 utterances, and the extra RAM is only **128 MB** (target ≤ 150 MB ✅). But the result **fails**, and so does the speed target:
+**sherpa-onnx 2.0 works.** The calls ran without errors, voiceprints were computed for all 27 utterances, and the extra RAM is only **128 MB** (target â‰¤ 150 MB âœ…). But the result **fails**, and so does the speed target:
 
-1. **Every threshold, even the strict 0.70, found only 1 speaker.** Yet the clip clearly has at least two people. Row 4, *"Իսկ ովքե՞ր են հիմա հիմնական մրցակիցները։"* ("And who are the main competitors now?"), is a host asking a question, and row 5 is someone else answering it. Similar voices usually score around 0.6–0.8 on this kind of model, and different voices much lower. If *everything* scores at least 0.70 against speaker 1, the voiceprints of different people come out nearly identical. That's not normal, so we need to find out why rather than lowering the threshold blindly.
+1. **Every threshold, even the strict 0.70, found only 1 speaker.** Yet the clip clearly has at least two people. Row 4, *"Ô»Õ½Õ¯ Õ¸Õ¾Ö„Õ¥ÕžÖ€ Õ¥Õ¶ Õ°Õ«Õ´Õ¡ Õ°Õ«Õ´Õ¶Õ¡Õ¯Õ¡Õ¶ Õ´Ö€ÖÕ¡Õ¯Õ«ÖÕ¶Õ¥Ö€Õ¨Ö‰"* ("And who are the main competitors now?"), is a host asking a question, and row 5 is someone else answering it. Similar voices usually score around 0.6â€“0.8 on this kind of model, and different voices much lower. If *everything* scores at least 0.70 against speaker 1, the voiceprints of different people come out nearly identical. That's not normal, so we need to find out why rather than lowering the threshold blindly.
 2. **Voiceprint time: median 0.315 s**, above the 0.2 s target. That's a smaller problem, but it adds to latency.
 
 Possible causes, which need different fixes:
@@ -8718,8 +8724,8 @@ C:\ProgramData\anaconda3\envs\livetrans\python.exe -m livetrans.tools.speakers_b
 ```
 
 How to read the key line, **"similarity clip vs samples/hy_test.wav"**:
-- **Low median (below ~0.3)** → the model can tell different people apart. Then the podcast voices are the problem (cause A/B), and we look at the `sim#4` column: the host's other questions should score higher than the guest's answers.
-- **High median (above ~0.6)** → even you and the podcast guest look alike to it. Then our audio feeding is wrong (cause C), and we fix that first.
+- **Low median (below ~0.3)** â†’ the model can tell different people apart. Then the podcast voices are the problem (cause A/B), and we look at the `sim#4` column: the host's other questions should score higher than the guest's answers.
+- **High median (above ~0.6)** â†’ even you and the podcast guest look alike to it. Then our audio feeding is wrong (cause C), and we fix that first.
 
 The second run also tells us whether **CAM++** separates voices better, and whether it's **faster** than 0.315 s.
 
@@ -8782,8 +8788,8 @@ threshold 0.70: 1 speakers
 C:\Users\Lenovo\Projects\mathrix-live-translate>C:\ProgramData\anaconda3\envs\livetrans\python.exe -m livetrans.tools.speakers_bench --ref-utt 4 --audio2 samples/hy_test.wav --model 3dspeaker_speech_campplus_sv_en_voxceleb_16k.onnx
 27 utterances in samples/speakers_test.wav
 Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
-3dspeaker_speech_campplus_sv_en_voxceleb(…): downloading bytes: ███████████████████████████████████| 28.3MB, 2.05MB/s
-3dspeaker_speech_campplus_sv_en_voxceleb(…): reconstructing file: 100%|███████████████████| 29.6MB / 29.6MB, 2.51MB/s
+3dspeaker_speech_campplus_sv_en_voxceleb(â€¦): downloading bytes: â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ| 28.3MB, 2.05MB/s
+3dspeaker_speech_campplus_sv_en_voxceleb(â€¦): reconstructing file: 100%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ| 29.6MB / 29.6MB, 2.51MB/s
 model 3dspeaker_speech_campplus_sv_en_voxceleb_16k.onnx loaded in 9.3 s
 voiceprint time per utterance: median 0.140 s, max 0.173 s | extra RAM ~130 MB
 pairwise similarity within the clip: min 0.06, median 0.83, max 0.96
@@ -8841,12 +8847,12 @@ Both models now give real numbers, and the picture is clearer:
 
 | | ResNet34 | CAM++ |
 |---|---|---|
-| Time per utterance | 0.310 s ❌ (target 0.2) | **0.140 s** ✅ |
-| Extra RAM | 116 MB ✅ | 130 MB ✅ |
+| Time per utterance | 0.310 s âŒ (target 0.2) | **0.140 s** âœ… |
+| Extra RAM | 116 MB âœ… | 130 MB âœ… |
 | Similarity **within** the podcast clip (median) | **0.92** | 0.83 |
 | Similarity podcast **vs your voice** (median) | **0.57** | 0.64 |
 | Similarity within your own recording (median) | 0.77 | 0.61 |
-| Speakers found | 1 at every threshold | 2–3; it isolated row 8 and, at 0.70, row 4 |
+| Speakers found | 1 at every threshold | 2â€“3; it isolated row 8 and, at 0.70, row 4 |
 
 What this tells us:
 
@@ -9022,7 +9028,7 @@ Paste the output **together with your ground truth from 54a**. The ground truth 
 Using the times in the table, tell me:
 
 * How many different people speak in it?  NO
-* Which rows are mostly the host (the questioner)? For example: “2 people; host = rows 4, 25; everything else is the guest.” 
+* Which rows are mostly the host (the questioner)? For example: â€œ2 people; host = rows 4, 25; everything else is the guest.â€
 * Do some 7 s rows contain both voices?  NO
 ```
 
@@ -9072,7 +9078,7 @@ C:\ProgramData\anaconda3\envs\livetrans\python.exe -m livetrans.tools.speakers_b
 
 (If you haven't pasted `speakers_bench.py` with the `--center` option from my previous message yet, do that first. Check it with `findstr /n "args.center" src\livetrans\tools\speakers_bench.py`, which should print 1 line.)
 
-In each run, the important line is **"similarity clip vs samples/speaker_b.wav … [within …]"**, along with the "pairwise similarity within the clip" line above it. Also, all rows of the table should get label **1**, since file A is one person.
+In each run, the important line is **"similarity clip vs samples/speaker_b.wav â€¦ [within â€¦]"**, along with the "pairwise similarity within the clip" line above it. Also, all rows of the table should get label **1**, since file A is one person.
 
 Paste all outputs, and tell me in one line what A and B are, e.g. "A = male news presenter, B = male vlogger".
 
@@ -9091,8 +9097,8 @@ Paste all outputs, and tell me in one line what A and B are, e.g. "A = male news
 C:\Users\Lenovo\Projects\mathrix-live-translate>C:\ProgramData\anaconda3\envs\livetrans\python.exe -m livetrans.tools.speakers_bench --ref-utt 4 --audio2 samples/hy_test.wav --model 3dspeaker_speech_campplus_sv_en_voxceleb_16k.onnx
 27 utterances in samples/speakers_test.wav
 Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
-3dspeaker_speech_campplus_sv_en_voxceleb(…): downloading bytes: ███████████████████████████████████| 28.3MB, 2.05MB/s
-3dspeaker_speech_campplus_sv_en_voxceleb(…): reconstructing file: 100%|███████████████████| 29.6MB / 29.6MB, 2.51MB/s
+3dspeaker_speech_campplus_sv_en_voxceleb(â€¦): downloading bytes: â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ| 28.3MB, 2.05MB/s
+3dspeaker_speech_campplus_sv_en_voxceleb(â€¦): reconstructing file: 100%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ| 29.6MB / 29.6MB, 2.51MB/s
 model 3dspeaker_speech_campplus_sv_en_voxceleb_16k.onnx loaded in 9.3 s
 voiceprint time per utterance: median 0.140 s, max 0.173 s | extra RAM ~130 MB
 pairwise similarity within the clip: min 0.06, median 0.83, max 0.96
@@ -9196,12 +9202,12 @@ The centering result is **very encouraging**, and it shows exactly why we need t
 
 | | Raw (ResNet34) | **Centered** |
 |---|---|---|
-| Podcast vs **your voice** (different people) | 0.57 | **−0.47** |
+| Podcast vs **your voice** (different people) | 0.57 | **âˆ’0.47** |
 | Within your own recording (same person) | 0.77 | **0.57** |
-| Within the podcast clip | 0.92 (everything looks alike) | 0.30 (min −0.55, max 0.76) |
+| Within the podcast clip | 0.92 (everything looks alike) | 0.30 (min âˆ’0.55, max 0.76) |
 
-- **Centering separates different people by a wide margin.** You versus the podcast went from 0.57 (barely distinguishable) to **−0.47**, while your own sentences still match each other at 0.57. That gap is what a threshold needs.
-- **Within the podcast, two groups appear at threshold 0.30**, in long consistent runs. Rows 1–2, 5–7, 13–19 and 25–26 form one group; rows 3–4, 8–12 and 20–24 form the other. That *could* be two real speakers. But I can't confirm it without ground truth, and higher thresholds split the clip into far too many "speakers" (5, 13, 21).
+- **Centering separates different people by a wide margin.** You versus the podcast went from 0.57 (barely distinguishable) to **âˆ’0.47**, while your own sentences still match each other at 0.57. That gap is what a threshold needs.
+- **Within the podcast, two groups appear at threshold 0.30**, in long consistent runs. Rows 1â€“2, 5â€“7, 13â€“19 and 25â€“26 form one group; rows 3â€“4, 8â€“12 and 20â€“24 form the other. That *could* be two real speakers. But I can't confirm it without ground truth, and higher thresholds split the clip into far too many "speakers" (5, 13, 21).
 
 **A caution, so we don't fool ourselves:** centering on a clip's *own* average always pushes its utterances into opposing groups, **even if only one person speaks**, because it amplifies whatever small differences exist. So "2 groups at 0.30" isn't proof of two speakers. That's precisely why the **A/B test (Step 55)** is the right next step: there, we *know* the answer.
 
@@ -9321,14 +9327,14 @@ Thanks. These two clips give the clearest picture yet, and it's a **negative res
 |---|---|---|
 | Within A (same person) | 0.96 | 0.34 |
 | Within B (same person) | 0.86 | **0.04** |
-| **A vs B (different people)** | **0.88** | −0.27 |
+| **A vs B (different people)** | **0.88** | âˆ’0.27 |
 | Speakers found in A (truth: 1) | 1 at all thresholds | 2 to 8 (wrong) |
 
 - **Raw voiceprints can't tell A from B.** A versus B (0.88) is as similar as B to itself (0.86). With no gap, no threshold can work.
 - **Centering doesn't rescue it.** It pushes A and B apart, but it also scatters B's own utterances (0.04), so B would be split into many "speakers". With only two groups in the data, centering separates them almost by construction, so it isn't a real fix.
 - **The earlier result (your voice vs the podcast, 0.57)** was probably helped by the **different recording channel**: laptop mic versus system audio. That's not available in the interview, where all callers arrive through the same system audio.
 
-Before concluding "the model can't do it", there's one cheap check of **our own code** (cause C again, sharper this time). The WeSpeaker models were trained with audio in **16-bit integer scale** (values up to ±32768), while we pass values between −1 and 1. sherpa-onnx is supposed to handle that conversion itself, but I haven't been able to verify that for version 2.0. If it doesn't, the model sees audio about 90 dB too quiet, and every voice would look similar, which is exactly the symptom we have. It's a one-number test.
+Before concluding "the model can't do it", there's one cheap check of **our own code** (cause C again, sharper this time). The WeSpeaker models were trained with audio in **16-bit integer scale** (values up to Â±32768), while we pass values between âˆ’1 and 1. sherpa-onnx is supposed to handle that conversion itself, but I haven't been able to verify that for version 2.0. If it doesn't, the model sees audio about 90 dB too quiet, and every voice would look similar, which is exactly the symptom we have. It's a one-number test.
 
 **Step 56: Describe A/B, and test the audio scale**
 
@@ -9436,7 +9442,7 @@ C:\Users\Lenovo\Projects\mathrix-live-translate>
 
 ### 172. Claude (2026-10-24 15:05 UTC)
 
-Clear answer: **the scale was already right.** At ×32768 everything got *more* alike (0.96–0.99), because the model now sees heavily overdriven audio. So sherpa-onnx does handle the conversion itself, and our original input at scale 1.0 is correct. **Cause C is ruled out for good.** That's useful to know, and we keep the default.
+Clear answer: **the scale was already right.** At Ã—32768 everything got *more* alike (0.96â€“0.99), because the model now sees heavily overdriven audio. So sherpa-onnx does handle the conversion itself, and our original input at scale 1.0 is correct. **Cause C is ruled out for good.** That's useful to know, and we keep the default.
 
 So the honest conclusion so far: **with this model (ResNet34) on these two clips, there's no gap between "same person" and "different person".** Before deciding anything, I still need your **description of A and B**:
 - If they're **very different voices** (for example male vs female) and still score 0.88, the model is weak on this kind of audio.
@@ -9483,8 +9489,8 @@ Paste the three outputs, plus the A/B description and whether there's background
 C:\Users\Lenovo\Projects\mathrix-live-translate>C:\ProgramData\anaconda3\envs\livetrans\python.exe -m livetrans.tools.speakers_bench --audio samples/speaker_a.wav --audio2 samples/speaker_b.wav --model nemo_en_titanet_small.onnx
 9 utterances in samples/speaker_a.wav
 Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
-nemo_en_titanet_small.onnx: downloading bytes: ████████████████████████████████████████████████████| 38.5MB, 2.60MB/s
-nemo_en_titanet_small.onnx: reconstructing file: 100%|████████████████████████████████████| 40.3MB / 40.3MB, 3.35MB/s
+nemo_en_titanet_small.onnx: downloading bytes: â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ| 38.5MB, 2.60MB/s
+nemo_en_titanet_small.onnx: reconstructing file: 100%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ| 40.3MB / 40.3MB, 3.35MB/s
 model nemo_en_titanet_small.onnx loaded in 10.2 s
 voiceprint time per utterance: median 0.127 s, max 0.155 s | extra RAM ~191 MB
 pairwise similarity within the clip: min 0.47, median 0.80, max 0.88
@@ -9510,8 +9516,8 @@ threshold 0.70: 2 speakers
 C:\Users\Lenovo\Projects\mathrix-live-translate>C:\ProgramData\anaconda3\envs\livetrans\python.exe -m livetrans.tools.speakers_bench --audio samples/speaker_a.wav --audio2 samples/speaker_b.wav --model 3dspeaker_speech_eres2net_sv_en_voxceleb_16k.onnx
 9 utterances in samples/speaker_a.wav
 Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
-3dspeaker_speech_eres2net_sv_en_voxceleb(…): downloading bytes: ███████████████████████████████████| 25.2MB, 1.89MB/s
-3dspeaker_speech_eres2net_sv_en_voxceleb(…): reconstructing file: 100%|███████████████████| 26.5MB / 26.5MB, 2.29MB/s
+3dspeaker_speech_eres2net_sv_en_voxceleb(â€¦): downloading bytes: â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ| 25.2MB, 1.89MB/s
+3dspeaker_speech_eres2net_sv_en_voxceleb(â€¦): reconstructing file: 100%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ| 26.5MB / 26.5MB, 2.29MB/s
 model 3dspeaker_speech_eres2net_sv_en_voxceleb_16k.onnx loaded in 7.9 s
 voiceprint time per utterance: median 0.453 s, max 0.498 s | extra RAM ~196 MB
 pairwise similarity within the clip: min 0.53, median 0.81, max 0.89
@@ -9537,8 +9543,8 @@ threshold 0.70: 2 speakers
 C:\Users\Lenovo\Projects\mathrix-live-translate>C:\ProgramData\anaconda3\envs\livetrans\python.exe -m livetrans.tools.speakers_bench --audio samples/speaker_a.wav --audio2 samples/speaker_b.wav --model nemo_en_titanet_large.onnx
 9 utterances in samples/speaker_a.wav
 Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
-nemo_en_titanet_large.onnx: downloading bytes: ████████████████████████████████████████████████████| 97.2MB, 4.50MB/s
-nemo_en_titanet_large.onnx: reconstructing file: 100%|████████████████████████████████████|  101MB /  101MB, 7.63MB/s
+nemo_en_titanet_large.onnx: downloading bytes: â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ| 97.2MB, 4.50MB/s
+nemo_en_titanet_large.onnx: reconstructing file: 100%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ|  101MB /  101MB, 7.63MB/s
 model nemo_en_titanet_large.onnx loaded in 40.0 s
 voiceprint time per utterance: median 0.385 s, max 0.447 s | extra RAM ~253 MB
 pairwise similarity within the clip: min 0.59, median 0.82, max 0.88
@@ -9577,19 +9583,19 @@ threshold 0.70: 1 speakers
 | Model | Within A | Within B | **A vs B** | Gap* | Time / utterance | Extra RAM |
 |---|---|---|---|---|---|---|
 | WeSpeaker ResNet34 | 0.96 | 0.86 | **0.88** | none | 0.31 s | 116 MB |
-| **NeMo TitaNet-small** | 0.80 | 0.50 | **0.12** (max 0.25) | **0.38** | **0.13 s** ✅ | 191 MB |
-| 3D-Speaker ERes2Net | 0.81 | 0.52 | 0.17 (max 0.30) | 0.35 | 0.45 s ❌ | 196 MB |
+| **NeMo TitaNet-small** | 0.80 | 0.50 | **0.12** (max 0.25) | **0.38** | **0.13 s** âœ… | 191 MB |
+| 3D-Speaker ERes2Net | 0.81 | 0.52 | 0.17 (max 0.30) | 0.35 | 0.45 s âŒ | 196 MB |
 | NeMo TitaNet-large | 0.82 | 0.47 | 0.12 (max 0.26) | 0.35 | 0.39 s | 253 MB |
 
 \*Gap = within B (the lower "same person" number) minus A vs B.
 
-- With TitaNet-small, **different people score about 0.1–0.25 and the same person about 0.5–0.8.** There's now room for a threshold in between, roughly 0.3–0.4.
+- With TitaNet-small, **different people score about 0.1â€“0.25 and the same person about 0.5â€“0.8.** There's now room for a threshold in between, roughly 0.3â€“0.4.
 - It's **faster than our 0.2 s target** (0.13 s), so it adds almost nothing to latency.
 - The large model isn't better, so there's no reason to pay for it.
 - A plausible reason it works where ResNet34 failed: NVIDIA trained it not only on VoxCeleb but also on **telephone speech (Fisher, Switchboard) and noise** ([NGC model card](https://catalog.ngc.nvidia.com/orgs/nvidia/nemo/models/titanet_small)). That's much closer to compressed system audio. Its license is that of the NeMo Toolkit, which is Apache-2.0; we'll note it in DECISIONS.md.
-- One criterion is **slightly missed: extra RAM is 191 MB versus the 150 MB target.** Total memory would be about 0.9 (ASR) + 1.0 (translation) + 0.2 GB ≈ **2.1 GB**. I think that's acceptable with Chrome closed, but it's your call. I'll record it honestly either way.
+- One criterion is **slightly missed: extra RAM is 191 MB versus the 150 MB target.** Total memory would be about 0.9 (ASR) + 1.0 (translation) + 0.2 GB â‰ˆ **2.1 GB**. I think that's acceptable with Chrome closed, but it's your call. I'll record it honestly either way.
 
-**The decisive test is still missing:** speaker *labelling* accuracy on a mixed sequence, which is what the live app actually does. Similarity statistics are encouraging, but the real question is whether the **clusterer** assigns A and B correctly when they alternate, as in a conversation. We can test that exactly, because we know who is who: I'll build an alternating sequence A₁ B₁ A₂ B₂ … from your two clips and score it automatically at several thresholds.
+**The decisive test is still missing:** speaker *labelling* accuracy on a mixed sequence, which is what the live app actually does. Similarity statistics are encouraging, but the real question is whether the **clusterer** assigns A and B correctly when they alternate, as in a conversation. We can test that exactly, because we know who is who: I'll build an alternating sequence Aâ‚ Bâ‚ Aâ‚‚ Bâ‚‚ â€¦ from your two clips and score it automatically at several thresholds.
 
 **Step 58: Automatic labelling-accuracy test**
 
@@ -9754,7 +9760,7 @@ if __name__ == "__main__":
 C:\ProgramData\anaconda3\envs\livetrans\python.exe -m livetrans.tools.speakers_bench --audio samples/speaker_a.wav --audio2 samples/speaker_b.wav --model nemo_en_titanet_small.onnx
 ```
 
-What to look for in the **"interleaved A/B test"** block: the right answer is **2 speakers** with labels alternating **`1212121212…`**. We want a range of thresholds where that holds with **≥ 85% accuracy**, and we'll pick a threshold in the middle of that range, for safety on unseen voices.
+What to look for in the **"interleaved A/B test"** block: the right answer is **2 speakers** with labels alternating **`1212121212â€¦`**. We want a range of thresholds where that holds with **â‰¥ 85% accuracy**, and we'll pick a threshold in the middle of that range, for safety on unseen voices.
 
 Also, a caution for honesty: this is **one** A/B pair with ~9 utterances each. It's good evidence, but small. The interview rehearsal with real callers (M7) will be the real check.
 
@@ -9801,7 +9807,7 @@ dir C:\ProgramData\anaconda3\envs\livetrans\python.exe
 - **`--version`**: if this also says "Access is denied", Python itself is blocked, so the problem isn't the script or IDLE.
 - **`tasklist | findstr /i "python"`**: lists any Python processes still running, for example a live app or IDLE window left open in the background.
 - **`attrib`**: shows whether the script is marked read-only (`R`) or otherwise unusual.
-- **`dir … python.exe`**: shows whether `python.exe` still exists. Antivirus sometimes removes executables.
+- **`dir â€¦ python.exe`**: shows whether `python.exe` still exists. Antivirus sometimes removes executables.
 
 Also, please check whether **Windows Security showed a notification** in the last few minutes, such as "Threat blocked" or "Protection history" (bottom-right corner, or the Windows Security app). If so, tell me exactly what file it names.
 
@@ -9836,7 +9842,7 @@ Output text from earlier runs was **pasted back into cmd as commands**. Most of 
 C:\Users\Lenovo\Projects\mathrix-live-translate>C:\ProgramData\anaconda3\envs\livetrans\python.exe -m ...
 ```
 
-means to cmd: *run `C:\Users\…\mathrix-live-translate` and write its output **into `python.exe`***. The command fails, but **cmd empties the target file first**. That overwrites `python.exe` with nothing, and Windows then says *"This app can't run on your PC"*. The window title also shows **"Administrator: Command Prompt"**, which removes the protection that might otherwise have blocked this.
+means to cmd: *run `C:\Users\â€¦\mathrix-live-translate` and write its output **into `python.exe`***. The command fails, but **cmd empties the target file first**. That overwrites `python.exe` with nothing, and Windows then says *"This app can't run on your PC"*. The window title also shows **"Administrator: Command Prompt"**, which removes the protection that might otherwise have blocked this.
 
 My diagnosis needs confirming, and the fix is simple: restore `python.exe` from Anaconda's own package cache, the **exact same build** (3.11.17, `hb00fc5c_0`) we installed earlier. Your installed libraries and models aren't affected.
 
@@ -9880,7 +9886,7 @@ dir /b
 git status
 ```
 
-**Then close this Administrator window** and open a **normal** cmd window (Start → type `cmd` → Enter) for everything else. Nothing in this project needs admin rights.
+**Then close this Administrator window** and open a **normal** cmd window (Start â†’ type `cmd` â†’ Enter) for everything else. Nothing in this project needs admin rights.
 
 **To prevent this from happening again:**
 - Copy and paste **only the commands I give you**, one at a time, from the gray boxes.
@@ -10196,12 +10202,12 @@ C:\Users\Lenovo\Projects\mathrix-live-translate>
 
 conda rebuilt the file from the package archive without downloading anything, and none of your libraries or models had to be reinstalled.
 
-The renamed `…hb00fc5c_0.broken` folder in Anaconda's cache is harmless leftover. We can delete it at the end of the project; it doesn't affect anything.
+The renamed `â€¦hb00fc5c_0.broken` folder in Anaconda's cache is harmless leftover. We can delete it at the end of the project; it doesn't affect anything.
 
 **Step 59: Back to a normal window, check for stray files**
 
 1. **Close the Administrator window.**
-2. Open a **normal** cmd window: Start → type `cmd` → Enter.
+2. Open a **normal** cmd window: Start â†’ type `cmd` â†’ Enter.
 3. Go to the project:
 
 ```cmd
@@ -10611,17 +10617,17 @@ C:\Users\Lenovo\Projects\mathrix-live-translate>
 
 **This is the decisive result, and it's a pass:**
 
-| Threshold | Speakers found (truth: 2) | Labels (truth: `121212…`) |
+| Threshold | Speakers found (truth: 2) | Labels (truth: `121212â€¦`) |
 |---|---|---|
-| 0.20 | **2** ✅ | `121212121212121212` |
-| 0.25 | **2** ✅ | `121212121212121212` |
-| 0.30 | **2** ✅ | `121212121212121212` |
-| 0.35 to 0.60 | 3 ❌ | `121213131312…`: speaker B gets split into "2" and "3" |
+| 0.20 | **2** âœ… | `121212121212121212` |
+| 0.25 | **2** âœ… | `121212121212121212` |
+| 0.30 | **2** âœ… | `121212121212121212` |
+| 0.35 to 0.60 | 3 âŒ | `121213131312â€¦`: speaker B gets split into "2" and "3" |
 
 - **Thresholds from 0.20 to 0.30 label all 18 alternating utterances perfectly**, with exactly 2 speakers. Speaker A alone stays 1 speaker at every threshold.
 - **Above 0.30, speaker B gets split into two "people".** B's voice varies more (its own similarity is lower), so a stricter threshold stops recognising it. One honest note about my tool: the "accuracy 100%" shown on those rows is misleading, because my scoring only checks that each label contains one true person and doesn't penalise splitting. The **speaker count** column is the real signal there, and it says 3, which is wrong.
 - **Decision: threshold 0.25**, the middle of the working range, so there's room for error in both directions.
-- Voiceprint time is **0.12 s** ✅. Extra RAM is **179 MB**, slightly above the 150 MB target. Total memory is about 2.1 GB, which works with Chrome closed. I'll record that honestly.
+- Voiceprint time is **0.12 s** âœ…. Extra RAM is **179 MB**, slightly above the 150 MB target. Total memory is about 2.1 GB, which works with Chrome closed. I'll record that honestly.
 - The caveat: this is **one pair of voices** and 18 utterances. The live test below and the interview rehearsal are the real checks.
 
 **Step 62: Put speaker identification into the live app**
@@ -10664,7 +10670,7 @@ Expected: **29 passed**, pip ending with "Successfully installed livetrans-0.1.0
 C:\ProgramData\anaconda3\envs\livetrans\python.exe -m livetrans.app --timing
 ```
 
-Then play **A for ~20 s → pause → B for ~20 s → pause → A again for ~20 s**, and press **Ctrl+C**.
+Then play **A for ~20 s â†’ pause â†’ B for ~20 s â†’ pause â†’ A again for ~20 s**, and press **Ctrl+C**.
 
 Expected: lines labelled **Speaker 1**, then **Speaker 2**, then **Speaker 1 again**. The summary should say **2 call speakers**, and latency should stay under 5 s.
 
@@ -10679,27 +10685,27 @@ Paste all outputs into this chat, plus one line on **who A and B are** (male/fem
 [audio 7.0 s | waited 0.0 s | ASR 0.47 s | MT 2.33 s]
 
 [00:00:13] Speaker 1   (latency 2.4 s)
-HY: Մլ սիրում որ զրույցներն արագեն ու գերազանցիկների երկխոսության են նմանվումա երբ։
+HY: Õ„Õ¬ Õ½Õ«Ö€Õ¸Ö‚Õ´ Õ¸Ö€ Õ¦Ö€Õ¸Ö‚ÕµÖÕ¶Õ¥Ö€Õ¶ Õ¡Ö€Õ¡Õ£Õ¥Õ¶ Õ¸Ö‚ Õ£Õ¥Ö€Õ¡Õ¦Õ¡Õ¶ÖÕ«Õ¯Õ¶Õ¥Ö€Õ« Õ¥Ö€Õ¯Õ­Õ¸Õ½Õ¸Ö‚Õ©ÕµÕ¡Õ¶ Õ¥Õ¶ Õ¶Õ´Õ¡Õ¶Õ¾Õ¸Ö‚Õ´Õ¡ Õ¥Ö€Õ¢Ö‰
 EN: He likes to speed up conversations and be like a superhero when he's talking.
    [audio 7.0 s | waited -0.0 s | ASR 0.34 s | MT 2.02 s]
 
 [00:00:20] Speaker 1   (latency 2.5 s)
-HY: Արդացի ձեր որդիների անուն պատրաստվելիս Սամվել Արամ շատ խորապես հայկական անուններ եւ։
+HY: Ô±Ö€Õ¤Õ¡ÖÕ« Õ±Õ¥Ö€ Õ¸Ö€Õ¤Õ«Õ¶Õ¥Ö€Õ« Õ¡Õ¶Õ¸Ö‚Õ¶ ÕºÕ¡Õ¿Ö€Õ¡Õ½Õ¿Õ¾Õ¥Õ¬Õ«Õ½ ÕÕ¡Õ´Õ¾Õ¥Õ¬ Ô±Ö€Õ¡Õ´ Õ·Õ¡Õ¿ Õ­Õ¸Ö€Õ¡ÕºÕ¥Õ½ Õ°Õ¡ÕµÕ¯Õ¡Õ¯Õ¡Õ¶ Õ¡Õ¶Õ¸Ö‚Õ¶Õ¶Õ¥Ö€ Õ¥Ö‚Ö‰
 EN: Just when you're preparing your sons' names Samuel Aram very deeply Armenian names and.
    [audio 7.0 s | waited -0.0 s | ASR 0.47 s | MT 2.03 s]
 
 [00:00:27] Speaker 1   (latency 2.4 s)
-HY: Սամվելին, եթե չեմ սխալվում՝ կոչել եք ձեր հոր նաեւ անունով՝ արդյոք կարծում եք, որ անունը։
+HY: ÕÕ¡Õ´Õ¾Õ¥Õ¬Õ«Õ¶, Õ¥Õ©Õ¥ Õ¹Õ¥Õ´ Õ½Õ­Õ¡Õ¬Õ¾Õ¸Ö‚Õ´Õ Õ¯Õ¸Õ¹Õ¥Õ¬ Õ¥Ö„ Õ±Õ¥Ö€ Õ°Õ¸Ö€ Õ¶Õ¡Õ¥Ö‚ Õ¡Õ¶Õ¸Ö‚Õ¶Õ¸Õ¾Õ Õ¡Ö€Õ¤ÕµÕ¸Ö„ Õ¯Õ¡Ö€Õ®Õ¸Ö‚Õ´ Õ¥Ö„, Õ¸Ö€ Õ¡Õ¶Õ¸Ö‚Õ¶Õ¨Ö‰
 EN: Samuel, if I'm not mistaken, you called your father by that name too, do you think?
    [audio 7.0 s | waited 0.0 s | ASR 0.36 s | MT 2.05 s]
 
 [00:00:34] Speaker 1   (latency 2.5 s)
-HY: Ինչ֊որ բան է ասում, կամ ինչ֊որ բան է փոխանցում, կամ արդյոք Սամվելը ունի իր վրա սերնդ։
+HY: Ô»Õ¶Õ¹ÖŠÕ¸Ö€ Õ¢Õ¡Õ¶ Õ§ Õ¡Õ½Õ¸Ö‚Õ´, Õ¯Õ¡Õ´ Õ«Õ¶Õ¹ÖŠÕ¸Ö€ Õ¢Õ¡Õ¶ Õ§ ÖƒÕ¸Õ­Õ¡Õ¶ÖÕ¸Ö‚Õ´, Õ¯Õ¡Õ´ Õ¡Ö€Õ¤ÕµÕ¸Ö„ ÕÕ¡Õ´Õ¾Õ¥Õ¬Õ¨ Õ¸Ö‚Õ¶Õ« Õ«Ö€ Õ¾Ö€Õ¡ Õ½Õ¥Ö€Õ¶Õ¤Ö‰
 EN: He's saying something, or he's conveying something, or whether Samuel has a seed on him.
    [audio 7.0 s | waited -0.0 s | ASR 0.36 s | MT 2.20 s]
 
 [00:00:41] Speaker 1   (latency 2.4 s)
-HY: Սերունդ ինչ֊որ բան փոխանցելու լուռ առաքելություն, թե ազատե ամեն տեսակ ակնկալիքների։
+HY: ÕÕ¥Ö€Õ¸Ö‚Õ¶Õ¤ Õ«Õ¶Õ¹ÖŠÕ¸Ö€ Õ¢Õ¡Õ¶ ÖƒÕ¸Õ­Õ¡Õ¶ÖÕ¥Õ¬Õ¸Ö‚ Õ¬Õ¸Ö‚Õ¼ Õ¡Õ¼Õ¡Ö„Õ¥Õ¬Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶, Õ©Õ¥ Õ¡Õ¦Õ¡Õ¿Õ¥ Õ¡Õ´Õ¥Õ¶ Õ¿Õ¥Õ½Õ¡Õ¯ Õ¡Õ¯Õ¶Õ¯Õ¡Õ¬Õ«Ö„Õ¶Õ¥Ö€Õ«Ö‰
 EN: A silent mission to pass on something to a generation, to free all kinds of expectations.
    [audio 7.0 s | waited 0.0 s | ASR 0.36 s | MT 2.02 s]
 ```
@@ -10713,7 +10719,7 @@ Thanks, but this output tells me the **new app isn't running yet**. Look at the 
 
 `[audio 7.0 s | waited 0.0 s | ASR 0.47 s | MT 2.33 s]`
 
-The new version prints a **speaker** part as well, like `… | speaker 0.12 s (similarity 0.83) | MT …`. That's missing here, so this is still the **old `app.py`**, the one that labels all system audio "Speaker 1". So these lines can't tell us anything about speaker separation yet.
+The new version prints a **speaker** part as well, like `â€¦ | speaker 0.12 s (similarity 0.83) | MT â€¦`. That's missing here, so this is still the **old `app.py`**, the one that labels all system audio "Speaker 1". So these lines can't tell us anything about speaker separation yet.
 
 Most likely, Step 62a (the long command that writes the three files) wasn't run, or didn't succeed.
 
@@ -10725,8 +10731,8 @@ Most likely, Step 62a (the long command that writes the three files) wasn't run,
 findstr /n "SpeakerEmbedder speaker-threshold" src\livetrans\app.py
 ```
 
-- **Several lines** printed → the new app is there; go to step 3.
-- **Nothing printed** → it's still the old app; do step 2.
+- **Several lines** printed â†’ the new app is there; go to step 3.
+- **Nothing printed** â†’ it's still the old app; do step 2.
 
 **2. Run Step 62a**: the long command from my previous message that starts with `C:\ProgramData\anaconda3\envs\livetrans\python.exe -c "import zlib, base64, json, hashlib, pathlib; ...`. It must print exactly these three lines:
 - `src/livetrans/speakers.py c55c6d722836 3414`
@@ -10747,7 +10753,7 @@ C:\ProgramData\anaconda3\envs\livetrans\python.exe -m pytest -q
 C:\ProgramData\anaconda3\envs\livetrans\python.exe -m livetrans.app --timing
 ```
 
-The **settings** line at the top should now also say `speaker threshold 0.25`. Then play **A ~20 s → B ~20 s → A ~20 s**, and press Ctrl+C.
+The **settings** line at the top should now also say `speaker threshold 0.25`. Then play **A ~20 s â†’ B ~20 s â†’ A ~20 s**, and press Ctrl+C.
 
 Please paste the output **from the very start** (including the settings line) **to the end** (including both summary lines). Without the start and end, I can't tell which version ran or what the totals were.
 
@@ -10768,72 +10774,72 @@ Also, one line: **who are A and B?** The lines above sound like an interviewer a
 listening - speak Armenian. Ctrl+C to stop.
 
 [00:00:00] Me   (latency 3.1 s)
-HY: Է էքքանե՞ պիտիոհ օր նայելու։
+HY: Ô· Õ§Ö„Ö„Õ¡Õ¶Õ¥Õž ÕºÕ«Õ¿Õ«Õ¸Õ° Ö…Ö€ Õ¶Õ¡ÕµÕ¥Õ¬Õ¸Ö‚Ö‰
 EN: How many days do you have to look?
    [audio 1.7 s | waited 0.7 s | ASR 1.12 s | MT 1.25 s]
 
 [00:00:06] Me   (latency 2.2 s)
-HY: Ժություն։
+HY: ÔºÕ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶Ö‰
 EN: What is it?
    [audio 1.8 s | waited 0.6 s | ASR 0.38 s | MT 1.19 s]
 
 [00:00:07] Speaker 1   (latency 3.8 s)
-HY: Պատ գտնտնելուց, Պատկերացրու դու սկսնակ ես, գիտես, որ հաստատ ուզում ես ծրագրավորող աշխատել։
+HY: ÕŠÕ¡Õ¿ Õ£Õ¿Õ¶Õ¿Õ¶Õ¥Õ¬Õ¸Ö‚Ö, ÕŠÕ¡Õ¿Õ¯Õ¥Ö€Õ¡ÖÖ€Õ¸Ö‚ Õ¤Õ¸Ö‚ Õ½Õ¯Õ½Õ¶Õ¡Õ¯ Õ¥Õ½, Õ£Õ«Õ¿Õ¥Õ½, Õ¸Ö€ Õ°Õ¡Õ½Õ¿Õ¡Õ¿ Õ¸Ö‚Õ¦Õ¸Ö‚Õ´ Õ¥Õ½ Õ®Ö€Õ¡Õ£Ö€Õ¡Õ¾Õ¸Ö€Õ¸Õ² Õ¡Õ·Õ­Õ¡Õ¿Õ¥Õ¬Ö‰
 EN: When you find a wall, imagine you're a beginner, you know you definitely want to work as a programmer.
    [audio 7.0 s | waited 0.0 s | ASR 0.69 s | MT 3.06 s]
 
 [00:00:14] Speaker 1   (latency 4.2 s)
-HY: Ինչքան պետք ա ինքնակրթվել ես ու ժամանակն ա, որ գործ գտնես գործատուների մեծ մասը հիմնականում ուզում է։
+HY: Ô»Õ¶Õ¹Ö„Õ¡Õ¶ ÕºÕ¥Õ¿Ö„ Õ¡ Õ«Õ¶Ö„Õ¶Õ¡Õ¯Ö€Õ©Õ¾Õ¥Õ¬ Õ¥Õ½ Õ¸Ö‚ ÕªÕ¡Õ´Õ¡Õ¶Õ¡Õ¯Õ¶ Õ¡, Õ¸Ö€ Õ£Õ¸Ö€Õ® Õ£Õ¿Õ¶Õ¥Õ½ Õ£Õ¸Ö€Õ®Õ¡Õ¿Õ¸Ö‚Õ¶Õ¥Ö€Õ« Õ´Õ¥Õ® Õ´Õ¡Õ½Õ¨ Õ°Õ«Õ´Õ¶Õ¡Õ¯Õ¡Õ¶Õ¸Ö‚Õ´ Õ¸Ö‚Õ¦Õ¸Ö‚Õ´ Õ§Ö‰
 EN: How self-educated you need to be, and it's time to find work that most employers want.
    [audio 7.0 s | waited -0.0 s | ASR 1.02 s | MT 3.23 s]
 
 [00:00:21] Speaker 1   (latency 3.5 s)
-HY: Քանի տարի տարվա աշխատանքային փորձ։
+HY: Õ”Õ¡Õ¶Õ« Õ¿Õ¡Ö€Õ« Õ¿Õ¡Ö€Õ¾Õ¡ Õ¡Õ·Õ­Õ¡Õ¿Õ¡Õ¶Ö„Õ¡ÕµÕ«Õ¶ ÖƒÕ¸Ö€Õ±Ö‰
 EN: Years of work experience.
    [audio 2.5 s | waited 2.4 s | ASR 0.20 s | MT 0.89 s]
 
 [00:00:24] Speaker 1   (latency 3.1 s)
-HY: Ի՞նչ կանեիր դու, եթե քո առաջին աշխատանքը հիմա գտնեիր կամ ինթրորշիփը։
+HY: Ô»ÕžÕ¶Õ¹ Õ¯Õ¡Õ¶Õ¥Õ«Ö€ Õ¤Õ¸Ö‚, Õ¥Õ©Õ¥ Ö„Õ¸ Õ¡Õ¼Õ¡Õ»Õ«Õ¶ Õ¡Õ·Õ­Õ¡Õ¿Õ¡Õ¶Ö„Õ¨ Õ°Õ«Õ´Õ¡ Õ£Õ¿Õ¶Õ¥Õ«Ö€ Õ¯Õ¡Õ´ Õ«Õ¶Õ©Ö€Õ¸Ö€Õ·Õ«ÖƒÕ¨Ö‰
 EN: What would you do if you found your first job right now, or your ship?
    [audio 7.0 s | waited -0.0 s | ASR 0.52 s | MT 2.62 s]
 
 [00:00:31] Speaker 1   (latency 4.1 s)
-HY: Ու նաեւ հաշվի առեմ։
+HY: ÕˆÖ‚ Õ¶Õ¡Õ¥Ö‚ Õ°Õ¡Õ·Õ¾Õ« Õ¡Õ¼Õ¥Õ´Ö‰
 EN: And I'll take that into account.
    [audio 2.3 s | waited 1.4 s | ASR 0.22 s | MT 2.47 s]
 
 [00:00:35] Speaker 1   (latency 4.1 s)
-HY: Միրխանյան եւ մեր գործընկեր Ամոնձե Ակբայի հետ շարունակում ենք փողի մասին մեր հաղորդումը, այսօր մեր հաղորդման հյուրն։
+HY: Õ„Õ«Ö€Õ­Õ¡Õ¶ÕµÕ¡Õ¶ Õ¥Ö‚ Õ´Õ¥Ö€ Õ£Õ¸Ö€Õ®Õ¨Õ¶Õ¯Õ¥Ö€ Ô±Õ´Õ¸Õ¶Õ±Õ¥ Ô±Õ¯Õ¢Õ¡ÕµÕ« Õ°Õ¥Õ¿ Õ·Õ¡Ö€Õ¸Ö‚Õ¶Õ¡Õ¯Õ¸Ö‚Õ´ Õ¥Õ¶Ö„ ÖƒÕ¸Õ²Õ« Õ´Õ¡Õ½Õ«Õ¶ Õ´Õ¥Ö€ Õ°Õ¡Õ²Õ¸Ö€Õ¤Õ¸Ö‚Õ´Õ¨, Õ¡ÕµÕ½Ö…Ö€ Õ´Õ¥Ö€ Õ°Õ¡Õ²Õ¸Ö€Õ¤Õ´Õ¡Õ¶ Õ°ÕµÕ¸Ö‚Ö€Õ¶Ö‰
 EN: With Mirkhanyan and our colleague, Amode Akba, we continue our talk about money, today our guest on the show.
    [audio 7.0 s | waited 0.0 s | ASR 0.70 s | MT 3.41 s]
 
 [00:00:42] Speaker 1   (latency 3.0 s)
-HY: Մեր ռդինվեստի համահիմնադիր եւ տնօրեն Արսեն Ավետիսյանը,֊ Արսենի հետ զրուցել ենք փող աշխատելու փողի մասին։
+HY: Õ„Õ¥Ö€ Õ¼Õ¤Õ«Õ¶Õ¾Õ¥Õ½Õ¿Õ« Õ°Õ¡Õ´Õ¡Õ°Õ«Õ´Õ¶Õ¡Õ¤Õ«Ö€ Õ¥Ö‚ Õ¿Õ¶Ö…Ö€Õ¥Õ¶ Ô±Ö€Õ½Õ¥Õ¶ Ô±Õ¾Õ¥Õ¿Õ«Õ½ÕµÕ¡Õ¶Õ¨,ÖŠ Ô±Ö€Õ½Õ¥Õ¶Õ« Õ°Õ¥Õ¿ Õ¦Ö€Õ¸Ö‚ÖÕ¥Õ¬ Õ¥Õ¶Ö„ ÖƒÕ¸Õ² Õ¡Õ·Õ­Õ¡Õ¿Õ¥Õ¬Õ¸Ö‚ ÖƒÕ¸Õ²Õ« Õ´Õ¡Õ½Õ«Õ¶Ö‰
 EN: Arsen Avetisyan, co-founder and CEO of our Rhinvest, and Arsen, we talked about how to make money.
    [audio 7.0 s | waited -0.0 s | ASR 0.36 s | MT 2.69 s]
 
 [00:00:49] Speaker 1   (latency 3.8 s)
-HY: Էին միլիոնատեր դառնալու, կապիտալ ստեղծելու եւ նոր տեխնոլոգիաների այս աշխարհում ինչպես։
+HY: Ô·Õ«Õ¶ Õ´Õ«Õ¬Õ«Õ¸Õ¶Õ¡Õ¿Õ¥Ö€ Õ¤Õ¡Õ¼Õ¶Õ¡Õ¬Õ¸Ö‚, Õ¯Õ¡ÕºÕ«Õ¿Õ¡Õ¬ Õ½Õ¿Õ¥Õ²Õ®Õ¥Õ¬Õ¸Ö‚ Õ¥Ö‚ Õ¶Õ¸Ö€ Õ¿Õ¥Õ­Õ¶Õ¸Õ¬Õ¸Õ£Õ«Õ¡Õ¶Õ¥Ö€Õ« Õ¡ÕµÕ½ Õ¡Õ·Õ­Õ¡Ö€Õ°Õ¸Ö‚Õ´ Õ«Õ¶Õ¹ÕºÕ¥Õ½Ö‰
 EN: It was like becoming a millionaire, creating capital and new technology in this world.
    [audio 7.0 s | waited 0.2 s | ASR 0.47 s | MT 3.06 s]
 
 [00:00:57] Speaker 1   (latency 3.1 s)
-HY: Էն փաստը, որ դու չունես ծանոթ, ոչ մի տեղ, որոնք են քո քայլերը վերջի բան, որ նշեցի, շատ։
+HY: Ô·Õ¶ ÖƒÕ¡Õ½Õ¿Õ¨, Õ¸Ö€ Õ¤Õ¸Ö‚ Õ¹Õ¸Ö‚Õ¶Õ¥Õ½ Õ®Õ¡Õ¶Õ¸Õ©, Õ¸Õ¹ Õ´Õ« Õ¿Õ¥Õ², Õ¸Ö€Õ¸Õ¶Ö„ Õ¥Õ¶ Ö„Õ¸ Ö„Õ¡ÕµÕ¬Õ¥Ö€Õ¨ Õ¾Õ¥Ö€Õ»Õ« Õ¢Õ¡Õ¶, Õ¸Ö€ Õ¶Õ·Õ¥ÖÕ«, Õ·Õ¡Õ¿Ö‰
 EN: It's the fact that you don't know, nowhere, what your steps are the last thing I mentioned, a lot.
    [audio 7.0 s | waited 0.0 s | ASR 0.47 s | MT 2.62 s]
 
 [00:01:04] Speaker 1   (latency 2.2 s)
-HY: Կարեւոր այլ, եթե չունես ծանոթ պետք ա անպայման աչքի տակ առնել բոլոր։
+HY: Ô¿Õ¡Ö€Õ¥Ö‚Õ¸Ö€ Õ¡ÕµÕ¬, Õ¥Õ©Õ¥ Õ¹Õ¸Ö‚Õ¶Õ¥Õ½ Õ®Õ¡Õ¶Õ¸Õ© ÕºÕ¥Õ¿Ö„ Õ¡ Õ¡Õ¶ÕºÕ¡ÕµÕ´Õ¡Õ¶ Õ¡Õ¹Ö„Õ« Õ¿Õ¡Õ¯ Õ¡Õ¼Õ¶Õ¥Õ¬ Õ¢Õ¸Õ¬Õ¸Ö€Ö‰
 EN: Importantly, if you don't have any acquaintances, you need to keep an eye on everyone.
    [audio 7.0 s | waited 0.0 s | ASR 0.30 s | MT 1.86 s]
 
 [00:01:11] Speaker 1   (latency 4.0 s)
-HY: Իիվեններ այի այթի այթում դեռ չգիտեմ ասենք ամեն տարի Բարքեմփ ա լինում ջավասկիտ կոնֆ։
+HY: Ô»Õ«Õ¾Õ¥Õ¶Õ¶Õ¥Ö€ Õ¡ÕµÕ« Õ¡ÕµÕ©Õ« Õ¡ÕµÕ©Õ¸Ö‚Õ´ Õ¤Õ¥Õ¼ Õ¹Õ£Õ«Õ¿Õ¥Õ´ Õ¡Õ½Õ¥Õ¶Ö„ Õ¡Õ´Õ¥Õ¶ Õ¿Õ¡Ö€Õ« Ô²Õ¡Ö€Ö„Õ¥Õ´Öƒ Õ¡ Õ¬Õ«Õ¶Õ¸Ö‚Õ´ Õ»Õ¡Õ¾Õ¡Õ½Õ¯Õ«Õ¿ Õ¯Õ¸Õ¶Ö†Ö‰
 EN: I don't know yet, but I've got a couple of years to tell you that every year, BarkCamp has a Javascript Confection.
    [audio 7.0 s | waited 0.0 s | ASR 0.39 s | MT 3.62 s]
 
 [00:01:18] Speaker 1   (latency 3.1 s)
-HY: Ա սամից ու էդ մենակ ճավասկիտ։
+HY: Ô± Õ½Õ¡Õ´Õ«Ö Õ¸Ö‚ Õ§Õ¤ Õ´Õ¥Õ¶Õ¡Õ¯ Õ³Õ¡Õ¾Õ¡Õ½Õ¯Õ«Õ¿Ö‰
 EN: You're the only one who can't.
    [audio 3.1 s | waited 1.5 s | ASR 0.23 s | MT 1.39 s]
 
@@ -10890,7 +10896,7 @@ C:\ProgramData\anaconda3\envs\livetrans\python.exe -m pytest -q
 
 Expected: **several lines** from `findstr`, then **29 passed**.
 
-**Please paste the outputs of 1–4 here before starting the live test.** If a fingerprint differs or `findstr` prints nothing, we'll know exactly which file didn't arrive. Once they're confirmed, we'll do the A → B → A live test.
+**Please paste the outputs of 1â€“4 here before starting the live test.** If a fingerprint differs or `findstr` prints nothing, we'll know exactly which file didn't arrive. Once they're confirmed, we'll do the A â†’ B â†’ A live test.
 
 
 ---
@@ -10937,7 +10943,7 @@ C:\Users\Lenovo\Projects\mathrix-live-tra
 
 All three files arrived **byte for byte**: every fingerprint matches (`c55c6d722836`, `75ff8c504bea`, `2dbc25ab47c8`). `findstr` confirms the speaker code is in `app.py`, and **all 29 tests pass**. The new app is ready.
 
-**Step 63: Live speaker test, A → B → A**
+**Step 63: Live speaker test, A â†’ B â†’ A**
 
 Have your **Speaker A** and **Speaker B** videos ready. Don't speak, or wear headphones. Then run:
 
@@ -10954,7 +10960,7 @@ When it says "listening":
 What to look for:
 - The **settings line** at the top should say `speaker threshold 0.25`. That confirms the new app is running.
 - Lines should be labelled **Speaker 1** (A), then **Speaker 2** (B), then **Speaker 1 again** (A). That last part is the real test: whether the same person keeps the same label.
-- Each timing line now includes `speaker 0.1x s (similarity …)`. The similarity shows how confident each assignment was.
+- Each timing line now includes `speaker 0.1x s (similarity â€¦)`. The similarity shows how confident each assignment was.
 - The summary should say **2 call speakers**, with latency still under 5 s.
 
 Paste the **whole output, from the first line to the last**, into this chat. And in one line: **who are A and B** (male/female, what kind of video)?
@@ -10966,47 +10972,47 @@ Paste the **whole output, from the first line to the last**, into this chat. And
 
 ```text
 [00:00:00] Speaker 1   (latency 3.2 s)
-HY: Գործելու սխալների մասին, Հիմնականում կենտրոնանալու եք ծրագրավորման վրա ու եթե մինչեւ վերջս փոթք հասթ։
+HY: Ô³Õ¸Ö€Õ®Õ¥Õ¬Õ¸Ö‚ Õ½Õ­Õ¡Õ¬Õ¶Õ¥Ö€Õ« Õ´Õ¡Õ½Õ«Õ¶, Õ€Õ«Õ´Õ¶Õ¡Õ¯Õ¡Õ¶Õ¸Ö‚Õ´ Õ¯Õ¥Õ¶Õ¿Ö€Õ¸Õ¶Õ¡Õ¶Õ¡Õ¬Õ¸Ö‚ Õ¥Ö„ Õ®Ö€Õ¡Õ£Ö€Õ¡Õ¾Õ¸Ö€Õ´Õ¡Õ¶ Õ¾Ö€Õ¡ Õ¸Ö‚ Õ¥Õ©Õ¥ Õ´Õ«Õ¶Õ¹Õ¥Ö‚ Õ¾Õ¥Ö€Õ»Õ½ ÖƒÕ¸Õ©Ö„ Õ°Õ¡Õ½Õ©Ö‰
 EN: You're basically going to focus on programming, and if you fail by the end.
    [audio 7.0 s | waited -0.0 s | ASR 0.58 s | speaker 0.20 s (similarity 1.00) | MT 2.47 s]
 
 [00:00:06] Speaker 1   (latency 2.7 s)
-HY: Տես, ապա պատկերացում կկազմես, թե ինչպես կարող ես գտնել քո առաջին աշխատանքը այթի ոլորտում։ Նաայիրի ջան։
+HY: ÕÕ¥Õ½, Õ¡ÕºÕ¡ ÕºÕ¡Õ¿Õ¯Õ¥Ö€Õ¡ÖÕ¸Ö‚Õ´ Õ¯Õ¯Õ¡Õ¦Õ´Õ¥Õ½, Õ©Õ¥ Õ«Õ¶Õ¹ÕºÕ¥Õ½ Õ¯Õ¡Ö€Õ¸Õ² Õ¥Õ½ Õ£Õ¿Õ¶Õ¥Õ¬ Ö„Õ¸ Õ¡Õ¼Õ¡Õ»Õ«Õ¶ Õ¡Õ·Õ­Õ¡Õ¿Õ¡Õ¶Ö„Õ¨ Õ¡ÕµÕ©Õ« Õ¸Õ¬Õ¸Ö€Õ¿Õ¸Ö‚Õ´Ö‰ Õ†Õ¡Õ¡ÕµÕ«Ö€Õ« Õ»Õ¡Õ¶Ö‰
 EN: See, then you'll have an idea of how you can find your first job in the field of yoga.
    [audio 7.0 s | waited 0.0 s | ASR 0.31 s | speaker 0.17 s (similarity 0.84) | MT 2.16 s]
 
 [00:00:13] Speaker 1   (latency 3.1 s)
-HY: Ինչպես միշտ սկսում ենք հյուրին ներկայացնելով, նենցց որ մի հատ խնդրում եմ պատմի քո մասին նախ շնորհակալություն։
+HY: Ô»Õ¶Õ¹ÕºÕ¥Õ½ Õ´Õ«Õ·Õ¿ Õ½Õ¯Õ½Õ¸Ö‚Õ´ Õ¥Õ¶Ö„ Õ°ÕµÕ¸Ö‚Ö€Õ«Õ¶ Õ¶Õ¥Ö€Õ¯Õ¡ÕµÕ¡ÖÕ¶Õ¥Õ¬Õ¸Õ¾, Õ¶Õ¥Õ¶ÖÖ Õ¸Ö€ Õ´Õ« Õ°Õ¡Õ¿ Õ­Õ¶Õ¤Ö€Õ¸Ö‚Õ´ Õ¥Õ´ ÕºÕ¡Õ¿Õ´Õ« Ö„Õ¸ Õ´Õ¡Õ½Õ«Õ¶ Õ¶Õ¡Õ­ Õ·Õ¶Õ¸Ö€Õ°Õ¡Õ¯Õ¡Õ¬Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶Ö‰
 EN: As we always do, we start by introducing a guest, and I ask someone to tell us about you first, thank you.
    [audio 7.0 s | waited 0.0 s | ASR 0.47 s | speaker 0.17 s (similarity 0.78) | MT 2.39 s]
 
 [00:00:20] Speaker 2   (latency 4.4 s)
-HY: Որ որ հրավիրել ես ու հետաքրքիր թեմա, ինձ թվում ա շատերին ա հետաքրքիր, որովհետեւ լիք։
+HY: ÕˆÖ€ Õ¸Ö€ Õ°Ö€Õ¡Õ¾Õ«Ö€Õ¥Õ¬ Õ¥Õ½ Õ¸Ö‚ Õ°Õ¥Õ¿Õ¡Ö„Ö€Ö„Õ«Ö€ Õ©Õ¥Õ´Õ¡, Õ«Õ¶Õ± Õ©Õ¾Õ¸Ö‚Õ´ Õ¡ Õ·Õ¡Õ¿Õ¥Ö€Õ«Õ¶ Õ¡ Õ°Õ¥Õ¿Õ¡Ö„Ö€Ö„Õ«Ö€, Õ¸Ö€Õ¸Õ¾Õ°Õ¥Õ¿Õ¥Ö‚ Õ¬Õ«Ö„Ö‰
 EN: And the fact that you're inviting a topic that's interesting, I think it's interesting to a lot of people, because it's full.
    [audio 7.0 s | waited -0.0 s | ASR 0.34 s | speaker 0.20 s (similarity 1.00) | MT 3.91 s]
 
 [00:00:27] Speaker 2   (latency 3.5 s)
-HY: Մարդը Հայաստանում, որ ուզում ա այթի մտնի ու տենց տարբեր խնդիրների ա բախվում կամ չգիտիտի, որ բախվելու ա։
+HY: Õ„Õ¡Ö€Õ¤Õ¨ Õ€Õ¡ÕµÕ¡Õ½Õ¿Õ¡Õ¶Õ¸Ö‚Õ´, Õ¸Ö€ Õ¸Ö‚Õ¦Õ¸Ö‚Õ´ Õ¡ Õ¡ÕµÕ©Õ« Õ´Õ¿Õ¶Õ« Õ¸Ö‚ Õ¿Õ¥Õ¶Ö Õ¿Õ¡Ö€Õ¢Õ¥Ö€ Õ­Õ¶Õ¤Õ«Ö€Õ¶Õ¥Ö€Õ« Õ¡ Õ¢Õ¡Õ­Õ¾Õ¸Ö‚Õ´ Õ¯Õ¡Õ´ Õ¹Õ£Õ«Õ¿Õ«Õ¿Õ«, Õ¸Ö€ Õ¢Õ¡Õ­Õ¾Õ¥Õ¬Õ¸Ö‚ Õ¡Ö‰
 EN: A person in Armenia who wants to get into a business and has a lot of problems or doesn't know what they're going to have.
    [audio 7.0 s | waited 0.0 s | ASR 0.42 s | speaker 0.19 s (similarity 0.89) | MT 2.89 s]
 
 [00:00:34] Speaker 2   (latency 2.5 s)
-HY: Ու արժ ես թեմով խոսել ես Նայիրին եմ մասնագիտությամբ բեքենդ ծրագրավորող։
+HY: ÕˆÖ‚ Õ¡Ö€Õª Õ¥Õ½ Õ©Õ¥Õ´Õ¸Õ¾ Õ­Õ¸Õ½Õ¥Õ¬ Õ¥Õ½ Õ†Õ¡ÕµÕ«Ö€Õ«Õ¶ Õ¥Õ´ Õ´Õ¡Õ½Õ¶Õ¡Õ£Õ«Õ¿Õ¸Ö‚Õ©ÕµÕ¡Õ´Õ¢ Õ¢Õ¥Ö„Õ¥Õ¶Õ¤ Õ®Ö€Õ¡Õ£Ö€Õ¡Õ¾Õ¸Ö€Õ¸Õ²Ö‰
 EN: And to speak for myself, I'm Nairi, a computer programmer by profession.
    [audio 7.0 s | waited 0.2 s | ASR 0.38 s | speaker 0.19 s (similarity 0.93) | MT 1.75 s]
 
 [00:00:41] Speaker 2   (latency 2.8 s)
-HY: Ու աշխատում եմ տենց պրոֆեշըն էքսփիրենս ունեմ մոտ ինը տարվա ու ջավասկ։
+HY: ÕˆÖ‚ Õ¡Õ·Õ­Õ¡Õ¿Õ¸Ö‚Õ´ Õ¥Õ´ Õ¿Õ¥Õ¶Ö ÕºÖ€Õ¸Ö†Õ¥Õ·Õ¨Õ¶ Õ§Ö„Õ½ÖƒÕ«Ö€Õ¥Õ¶Õ½ Õ¸Ö‚Õ¶Õ¥Õ´ Õ´Õ¸Õ¿ Õ«Õ¶Õ¨ Õ¿Õ¡Ö€Õ¾Õ¡ Õ¸Ö‚ Õ»Õ¡Õ¾Õ¡Õ½Õ¯Ö‰
 EN: And I've been working this profession for about nine years, and I'm a professional.
    [audio 7.0 s | waited 0.0 s | ASR 0.36 s | speaker 0.17 s (similarity 0.91) | MT 2.22 s]
 
 [00:00:48] Speaker 2   (latency 3.3 s)
-HY: Որրքմինույթի հիմնադիրն եմ Հայաստանում, տարբեր կոնֆերանսներ են կազմակերպում, տենց իվենթներ եւ այլն։
+HY: ÕˆÖ€Ö€Ö„Õ´Õ«Õ¶Õ¸Ö‚ÕµÕ©Õ« Õ°Õ«Õ´Õ¶Õ¡Õ¤Õ«Ö€Õ¶ Õ¥Õ´ Õ€Õ¡ÕµÕ¡Õ½Õ¿Õ¡Õ¶Õ¸Ö‚Õ´, Õ¿Õ¡Ö€Õ¢Õ¥Ö€ Õ¯Õ¸Õ¶Ö†Õ¥Ö€Õ¡Õ¶Õ½Õ¶Õ¥Ö€ Õ¥Õ¶ Õ¯Õ¡Õ¦Õ´Õ¡Õ¯Õ¥Ö€ÕºÕ¸Ö‚Õ´, Õ¿Õ¥Õ¶Ö Õ«Õ¾Õ¥Õ¶Õ©Õ¶Õ¥Ö€ Õ¥Ö‚ Õ¡ÕµÕ¬Õ¶Ö‰
 EN: I'm the founder of Quarkminua in Armenia, they organize various conferences, events and so on.
    [audio 7.0 s | waited -0.0 s | ASR 0.42 s | speaker 0.16 s (similarity 0.90) | MT 2.78 s]
 
 [00:00:55] Speaker 1   (latency 2.0 s)
-HY: Արի սկսենք հենց տիմ նշած թեմայից աշխատանք գտնելուց։
+HY: Ô±Ö€Õ« Õ½Õ¯Õ½Õ¥Õ¶Ö„ Õ°Õ¥Õ¶Ö Õ¿Õ«Õ´ Õ¶Õ·Õ¡Õ® Õ©Õ¥Õ´Õ¡ÕµÕ«Ö Õ¡Õ·Õ­Õ¡Õ¿Õ¡Õ¶Ö„ Õ£Õ¿Õ¶Õ¥Õ¬Õ¸Ö‚ÖÖ‰
 EN: Let's start with finding work on the topic I mentioned.
    [audio 7.0 s | waited 0.0 s | ASR 0.38 s | speaker 0.17 s (similarity 0.80) | MT 1.41 s]
 
@@ -11032,13 +11038,13 @@ Yes, it works, and the content proves it. This podcast is a **host interviewing 
 
 | Lines | Who it is, from the content | Label |
 |---|---|---|
-| 1–3 | **Host**: introduces the topic, then says "Նաիրի ջան, … tell us about yourself" | **Speaker 1** |
-| 4–8 | **Guest**: thanks the host, "I'm Nairi, a backend programmer…", founder of a community | **Speaker 2** |
-| 9 | **Host** again: "Let's start with the topic you mentioned…" | **Speaker 1** ✅ |
+| 1â€“3 | **Host**: introduces the topic, then says "Õ†Õ¡Õ«Ö€Õ« Õ»Õ¡Õ¶, â€¦ tell us about yourself" | **Speaker 1** |
+| 4â€“8 | **Guest**: thanks the host, "I'm Nairi, a backend programmerâ€¦", founder of a community | **Speaker 2** |
+| 9 | **Host** again: "Let's start with the topic you mentionedâ€¦" | **Speaker 1** âœ… |
 
 **9 of 9 segments got the right speaker**, including the most important case: **the host returning after the guest was recognised as Speaker 1 again** (similarity 0.80, well above the 0.25 threshold). Latency stayed at **max 4.4 s, median 3.1 s**, and the speaker step takes only **0.17 s**.
 
-One honest detail: line 3 ends with "…նախ շնորհակալություն" ("first of all, thank you"), which is the **guest's** first words. The 7-second cut caught the end of the host and the start of the guest in one piece, so that piece got the host's label. It's a small, known limitation of fixed-length cuts, and it goes into DECISIONS.md.
+One honest detail: line 3 ends with "â€¦Õ¶Õ¡Õ­ Õ·Õ¶Õ¸Ö€Õ°Õ¡Õ¯Õ¡Õ¬Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶" ("first of all, thank you"), which is the **guest's** first words. The 7-second cut caught the end of the host and the start of the guest in one piece, so that piece got the host's label. It's a small, known limitation of fixed-length cuts, and it goes into DECISIONS.md.
 
 **With that, all required features from the brief work together:** both audio sources, Armenian transcription, English translation, "Me" plus Speaker 1/2, and timestamped output under 5 s.
 
@@ -11096,28 +11102,28 @@ C:\Users\Lenovo\Projects\mathrix-live-translate>C:\ProgramData\anaconda3\envs\li
 appended D9 + N1 da03e3dfb138
 
 C:\Users\Lenovo\Projects\mathrix-live-translate>findstr /n /b "## D ## N" DECISIONS.md
-5:## D1 ΓÇö Python 3.11 in a dedicated conda env `livetrans` (2026-10-24)
-12:## D2 ΓÇö Tooling: cmd.exe and IDLE (2026-10-24)
-17:## D3 ΓÇö System audio via WASAPI loopback with PyAudioWPatch
-22:## D4 ΓÇö Fill silence gaps with a per-source Timeline (2026-10-24)
-34:## D5 ΓÇö Microphone level for the internal Conexant mic (2026-10-24)
-41:## D6 ΓÇö ASR model: NVIDIA FastConformer Armenian via ONNX + onnx-asr (2026-10-24)
-66:## D7 ΓÇö Translation: NLLB-200 distilled 600M, CTranslate2 int8 (2026-10-24)
-87:## D8 ΓÇö Latency: cut utterances at 7 s, translation beam 2 (2026-10-24)
-109:## D9 ΓÇö Speaker identification: TitaNet-small voiceprints + online clustering, threshold 0.25 (2026-10-24)
-140:## N1 ΓÇö Incident: python.exe emptied by pasted output (2026-10-24)
+5:## D1 Î“Ã‡Ã¶ Python 3.11 in a dedicated conda env `livetrans` (2026-10-24)
+12:## D2 Î“Ã‡Ã¶ Tooling: cmd.exe and IDLE (2026-10-24)
+17:## D3 Î“Ã‡Ã¶ System audio via WASAPI loopback with PyAudioWPatch
+22:## D4 Î“Ã‡Ã¶ Fill silence gaps with a per-source Timeline (2026-10-24)
+34:## D5 Î“Ã‡Ã¶ Microphone level for the internal Conexant mic (2026-10-24)
+41:## D6 Î“Ã‡Ã¶ ASR model: NVIDIA FastConformer Armenian via ONNX + onnx-asr (2026-10-24)
+66:## D7 Î“Ã‡Ã¶ Translation: NLLB-200 distilled 600M, CTranslate2 int8 (2026-10-24)
+87:## D8 Î“Ã‡Ã¶ Latency: cut utterances at 7 s, translation beam 2 (2026-10-24)
+109:## D9 Î“Ã‡Ã¶ Speaker identification: TitaNet-small voiceprints + online clustering, threshold 0.25 (2026-10-24)
+140:## N1 Î“Ã‡Ã¶ Incident: python.exe emptied by pasted output (2026-10-24)
 
 C:\Users\Lenovo\Projects\mathrix-live-translate>findstr /n /b "## D ## N" DECISIONS.md
-5:## D1 ΓÇö Python 3.11 in a dedicated conda env `livetrans` (2026-10-24)
-12:## D2 ΓÇö Tooling: cmd.exe and IDLE (2026-10-24)
-17:## D3 ΓÇö System audio via WASAPI loopback with PyAudioWPatch
-22:## D4 ΓÇö Fill silence gaps with a per-source Timeline (2026-10-24)
-34:## D5 ΓÇö Microphone level for the internal Conexant mic (2026-10-24)
-41:## D6 ΓÇö ASR model: NVIDIA FastConformer Armenian via ONNX + onnx-asr (2026-10-24)
-66:## D7 ΓÇö Translation: NLLB-200 distilled 600M, CTranslate2 int8 (2026-10-24)
-87:## D8 ΓÇö Latency: cut utterances at 7 s, translation beam 2 (2026-10-24)
-109:## D9 ΓÇö Speaker identification: TitaNet-small voiceprints + online clustering, threshold 0.25 (2026-10-24)
-140:## N1 ΓÇö Incident: python.exe emptied by pasted output (2026-10-24)
+5:## D1 Î“Ã‡Ã¶ Python 3.11 in a dedicated conda env `livetrans` (2026-10-24)
+12:## D2 Î“Ã‡Ã¶ Tooling: cmd.exe and IDLE (2026-10-24)
+17:## D3 Î“Ã‡Ã¶ System audio via WASAPI loopback with PyAudioWPatch
+22:## D4 Î“Ã‡Ã¶ Fill silence gaps with a per-source Timeline (2026-10-24)
+34:## D5 Î“Ã‡Ã¶ Microphone level for the internal Conexant mic (2026-10-24)
+41:## D6 Î“Ã‡Ã¶ ASR model: NVIDIA FastConformer Armenian via ONNX + onnx-asr (2026-10-24)
+66:## D7 Î“Ã‡Ã¶ Translation: NLLB-200 distilled 600M, CTranslate2 int8 (2026-10-24)
+87:## D8 Î“Ã‡Ã¶ Latency: cut utterances at 7 s, translation beam 2 (2026-10-24)
+109:## D9 Î“Ã‡Ã¶ Speaker identification: TitaNet-small voiceprints + online clustering, threshold 0.25 (2026-10-24)
+140:## N1 Î“Ã‡Ã¶ Incident: python.exe emptied by pasted output (2026-10-24)
 
 C:\Users\Lenovo\Projects\mathrix-live-translate>git add src\livetrans\speakers.py src\livetrans\app.py pyproject.toml src\livetrans\tools\speakers_bench.py tests\test_speakers.py DECISIONS.md
 warning: in the working copy of 'DECISIONS.md', LF will be replaced by CRLF the next time Git touches it
@@ -11150,23 +11156,23 @@ C:\Users\Lenovo\Projects\mathrix-live-translate>
 
 ### 206. Claude (2026-10-24 15:46 UTC)
 
-**Milestone committed: `f5e73db`.** It has 6 files, the working tree is clean, and DECISIONS.md now has all 10 entries (D1–D9 plus N1). The first attempt of the long command was cut off during copying and failed with a syntax error, **without changing anything**. That's the safety design working as intended. The second attempt applied it with the correct fingerprint.
+**Milestone committed: `f5e73db`.** It has 6 files, the working tree is clean, and DECISIONS.md now has all 10 entries (D1â€“D9 plus N1). The first attempt of the long command was cut off during copying and failed with a syntax error, **without changing anything**. That's the safety design working as intended. The second attempt applied it with the correct fingerprint.
 
 ## Where the project stands
 
 | Requirement (brief) | Status | Evidence |
 |---|---|---|
-| Mic + system audio together, device choice | ✅ | `--list`, `--mic`, `--loopback`; Timeline fix (D4) |
-| Armenian transcription | ✅ | FastConformer, CER 0.072–0.085 (D6) |
-| English translation | ✅ | NLLB-600M, chrF 74.5 / 69.1 (D7) |
-| Me / Speaker 1, 2… stable | ✅ | A/B test 100%, live host/guest correct (D9) |
-| Timestamped terminal output | ✅ | brief's format, tested |
-| ≤ 5 s latency | ✅ | live: max 4.2–4.4 s, 0 over 5 s (D8) |
-| Local models only | ✅ | all run on CPU, no cloud APIs |
-| **Real video-call rehearsal** | ⏳ | still to do |
-| **TESTS.md** (your rule 7) | ⏳ | the tests exist, but the checklist file doesn't yet |
-| **README** | ⏳ | still to do |
-| **Chat exports in `chats/`** | ⏳ | at the end |
+| Mic + system audio together, device choice | âœ… | `--list`, `--mic`, `--loopback`; Timeline fix (D4) |
+| Armenian transcription | âœ… | FastConformer, CER 0.072â€“0.085 (D6) |
+| English translation | âœ… | NLLB-600M, chrF 74.5 / 69.1 (D7) |
+| Me / Speaker 1, 2â€¦ stable | âœ… | A/B test 100%, live host/guest correct (D9) |
+| Timestamped terminal output | âœ… | brief's format, tested |
+| â‰¤ 5 s latency | âœ… | live: max 4.2â€“4.4 s, 0 over 5 s (D8) |
+| Local models only | âœ… | all run on CPU, no cloud APIs |
+| **Real video-call rehearsal** | â³ | still to do |
+| **TESTS.md** (your rule 7) | â³ | the tests exist, but the checklist file doesn't yet |
+| **README** | â³ | still to do |
+| **Chat exports in `chats/`** | â³ | at the end |
 
 ## Suggested order for the remaining work (deadline ~Oct 28)
 
@@ -11215,7 +11221,7 @@ Please work directly in my existing Mathrix AI project workspace.
 Requirements:
 
 1. Map every challenge requirement to the relevant automated tests or manual verification steps.
-2. Include the actual measured results already documented in `DECISIONS.md`—do not invent or estimate results.
+2. Include the actual measured results already documented in `DECISIONS.md`â€”do not invent or estimate results.
 3. Clearly distinguish automated tests from manual tests that are still pending.
 4. Include the current test command and its latest verified result.
 5. Mark the real video-call rehearsal with at least two Armenian-speaking participants as pending until it is actually completed.
@@ -11237,7 +11243,7 @@ So I've done the part I can do here, **writing TESTS.md**, and you'll run the wr
 **What's in TESTS.md:**
 - **Automated tests:** the exact command, the latest verified result (**29 passed**, on the code committed as `f5e73db`), and a table of all 5 test files with their counts (5 + 7 + 8 + 3 + 6 = 29) and which requirement each covers.
 - **Measurement tools:** the 7 re-runnable scripts and what each measures.
-- **Requirement map R1–R10:** every challenge requirement with its automated tests, completed manual checks, and **only numbers already recorded in DECISIONS.md** (D3–D9) or in verified test runs. Where something was a judgement rather than a measurement, it says so. For example, the "8/8 understandable" translation count is marked as the assessment recorded in D7, with your own count still to be confirmed.
+- **Requirement map R1â€“R10:** every challenge requirement with its automated tests, completed manual checks, and **only numbers already recorded in DECISIONS.md** (D3â€“D9) or in verified test runs. Where something was a judgement rather than a measurement, it says so. For example, the "8/8 understandable" translation count is marked as the assessment recorded in D7, with your own count still to be confirmed.
 - **Pending manual tests**, clearly separated:
   - **M1, the real video-call rehearsal with at least two Armenian-speaking participants: PENDING**
   - M2, an offline run with the network disconnected, which proves "local only"
@@ -11316,10 +11322,10 @@ All numbers come from measurements already recorded in DECISIONS.md or from veri
 ## TESTS.md content
 
 ```markdown
-# TESTS — mathrix-live-translate
+# TESTS â€” mathrix-live-translate
 
-Requirement → test map. Every number below is copied from a measurement recorded in
-DECISIONS.md (D1–D9) or from a test run in the project chat; nothing is estimated.
+Requirement â†’ test map. Every number below is copied from a measurement recorded in
+DECISIONS.md (D1â€“D9) or from a test run in the project chat; nothing is estimated.
 Measurements were made on the interview laptop (Windows 10 21H2, i5-4200M, 2 cores,
 5.9 GB RAM, no GPU), 2026-10-24.
 
@@ -11335,14 +11341,14 @@ Latest verified result: **29 passed** (2026-10-24, at commit f5e73db).
 |---|---|---|
 | tests/test_timeline.py | 5 | R1, R5: silence gaps in loopback audio are filled, so timestamps stay correct |
 | tests/test_segmenter.py | 7 | R5, R6: phrase boundaries, pre-roll, end-of-phrase wait, 7 s / 12 s cuts, chunk-size independence |
-| tests/test_metrics.py | 8 | R2: CER/WER used to choose models (Armenian punctuation, "և" = "եւ") |
+| tests/test_metrics.py | 8 | R2: CER/WER used to choose models (Armenian punctuation, "Ö‡" = "Õ¥Ö‚") |
 | tests/test_output.py | 3 | R5: time, speaker, HY and EN lines in the brief's format |
-| tests/test_speakers.py | 6 | R4: new voice → new label, same voice keeps its label, short clips cannot create speakers |
+| tests/test_speakers.py | 6 | R4: new voice â†’ new label, same voice keeps its label, short clips cannot create speakers |
 
 The automated tests cover pure logic only. Audio devices and models are covered by the
 measurement tools and manual checks below.
 
-## 2. Measurement tools (re-runnable, need audio files in samples/ — not committed)
+## 2. Measurement tools (re-runnable, need audio files in samples/ â€” not committed)
 
 | Tool | Measures |
 |---|---|
@@ -11359,14 +11365,14 @@ eval/hy_test_reference_en.txt (English), eval/hy_test_asr.txt (real ASR output).
 
 ## 3. Requirement map with results
 
-### R1 — Mic and system audio at the same time; user picks devices
+### R1 â€” Mic and system audio at the same time; user picks devices
 - Automated: tests/test_timeline.py (5).
 - Manual, done: `record --list` shows the mic [9] and the speakers' loopback [10];
   `--mic` / `--loopback` select devices (D3).
 - Manual, done: 20 s recording with no playback gave a 0.0 s system file before the fix;
   after the fix both files were 20.0 s (system: 4.6 s silence inserted) (D4).
 
-### R2 — Armenian transcription
+### R2 â€” Armenian transcription
 - Automated: tests/test_metrics.py (8).
 - Measured on a 60 s take of 8 read sentences (D6):
 
@@ -11374,13 +11380,13 @@ eval/hy_test_reference_en.txt (English), eval/hy_test_asr.txt (real ASR output).
 |---|---|---|---|---|---|
 | Whisper tiny | 0.993 | 1.000 | 0.31 | 297 MB | rejected |
 | Whisper base | 0.807 | 0.979 | 0.87 | 462 MB | rejected |
-| FastConformer hy (ONNX) | 0.085 | 0.146 | 0.06–0.07 | 917 MB | chosen |
+| FastConformer hy (ONNX) | 0.085 | 0.146 | 0.06â€“0.07 | 917 MB | chosen |
 
 - Full pipeline on the same take (`run_file`): 9 utterances for 8 sentences (one sentence
   split at a pause), CER 0.072.
-- Known errors: "լավ եմ" → "լավավ", "ունենք" → "ունեն", last sentence partly lost.
+- Known errors: "Õ¬Õ¡Õ¾ Õ¥Õ´" â†’ "Õ¬Õ¡Õ¾Õ¡Õ¾", "Õ¸Ö‚Õ¶Õ¥Õ¶Ö„" â†’ "Õ¸Ö‚Õ¶Õ¥Õ¶", last sentence partly lost.
 
-### R3 — English translation
+### R3 â€” English translation
 - Measured on the 8 sentences, one call per sentence, beam 2 (D7):
 
 | Source text | chrF | Understandable | Median / max time | Peak RAM |
@@ -11391,22 +11397,22 @@ eval/hy_test_reference_en.txt (English), eval/hy_test_asr.txt (real ASR output).
 - The "understandable" counts are the assessment recorded in D7; the developer's own
   count is still to be confirmed.
 
-### R4 — Speakers: mic = "Me", call side = "Speaker 1", "Speaker 2", stable for the session
+### R4 â€” Speakers: mic = "Me", call side = "Speaker 1", "Speaker 2", stable for the session
 - Automated: tests/test_speakers.py (6).
 - Measured, two single-speaker clips A and B recorded through system audio (D9):
   TitaNet-small, A vs B similarity 0.12 (max 0.25), within A 0.80, within B 0.50;
-  interleaved A/B test (18 utterances): thresholds 0.20–0.30 → 2 speakers, all labels
-  correct; >= 0.35 → B split into two speakers. Chosen threshold: 0.25.
-- Live, done: two-person Armenian podcast (host + guest): 9 segments, host → Speaker 1,
-  guest → Speaker 2, host returning → Speaker 1 again (similarity 0.80) (D9).
+  interleaved A/B test (18 utterances): thresholds 0.20â€“0.30 â†’ 2 speakers, all labels
+  correct; >= 0.35 â†’ B split into two speakers. Chosen threshold: 0.25.
+- Live, done: two-person Armenian podcast (host + guest): 9 segments, host â†’ Speaker 1,
+  guest â†’ Speaker 2, host returning â†’ Speaker 1 again (similarity 0.80) (D9).
 - Known limitation: one 7 s cut contained the end of the host and the start of the guest.
 
-### R5 — Live terminal output with time, speaker, Armenian and English
+### R5 â€” Live terminal output with time, speaker, Armenian and English
 - Automated: tests/test_output.py (3), tests/test_timeline.py (5), tests/test_segmenter.py (7).
 - Manual, done: live runs print the format from the brief.
 
-### R6 — Latency at most 5 s (end of phrase → English line printed)
-- Mic, read sentences: median 1.6–1.8 s, max 2.0 s (D8).
+### R6 â€” Latency at most 5 s (end of phrase â†’ English line printed)
+- Mic, read sentences: median 1.6â€“1.8 s, max 2.0 s (D8).
 - System audio, continuous podcast speech (D8):
 
 | Settings | Segments | Median | p95 | Max | Over 5 s |
@@ -11417,22 +11423,22 @@ eval/hy_test_reference_en.txt (English), eval/hy_test_asr.txt (real ASR output).
 
 - With speaker identification (D9): 9 segments, median 3.1 s, max 4.4 s, 0 over 5 s;
   speaker step median 0.17 s.
-- Margin is about 0.6–0.7 s; must be re-measured under real call conditions (see M1).
+- Margin is about 0.6â€“0.7 s; must be re-measured under real call conditions (see M1).
 
-### R7 — Local models only
+### R7 â€” Local models only
 - Manual, done: all models run on the CPU of this laptop through onnx-asr, CTranslate2
   and sherpa-onnx; no cloud speech or translation API is called in the code.
 - Note: models are downloaded once from Hugging Face into the user cache.
 - Pending: run once with the network disconnected (see M2).
 
-### R8 — Runs on the interview laptop
+### R8 â€” Runs on the interview laptop
 - Manual, done: every measurement above was made on this laptop.
-- Memory: ASR ~0.9 GB + translation ~1.0 GB + speakers ~0.2 GB ≈ 2.1 GB → close Chrome.
+- Memory: ASR ~0.9 GB + translation ~1.0 GB + speakers ~0.2 GB â‰ˆ 2.1 GB â†’ close Chrome.
 
-### R9 — Deliverables
+### R9 â€” Deliverables
 - README: pending. Chat exports in chats/ (one .md per session): pending.
 
-### R10 — No model weights, audio recordings or API keys in Git
+### R10 â€” No model weights, audio recordings or API keys in Git
 - .gitignore excludes .venv, samples/*, models/, *.wav, *.bin, *.safetensors, *.pt, .env.
 - Pending: final check before submission (see M4).
 
@@ -11442,7 +11448,7 @@ eval/hy_test_reference_en.txt (English), eval/hy_test_asr.txt (real ASR output).
 |---|---|---|---|
 | M1 | Interview rehearsal: real video call with **at least two Armenian-speaking participants** on the call side, headphones on my side, `python -m livetrans.app --timing` | each caller keeps one "Speaker N" label; "Me" only for my voice; 0 segments over 5 s; English understandable | **PENDING** |
 | M2 | Offline run: disconnect the network, start the app, speak and play audio | app loads cached models and works without network | PENDING |
-| M3 | Mic level check before the interview (Windows Sound → Recording → Levels, see D5) | `record` take: clipped < 0.1 %, speech p90 between −25 and −12 dB | PENDING (re-check on the day) |
+| M3 | Mic level check before the interview (Windows Sound â†’ Recording â†’ Levels, see D5) | `record` take: clipped < 0.1 %, speech p90 between âˆ’25 and âˆ’12 dB | PENDING (re-check on the day) |
 | M4 | Repository check: `git ls-files` contains no .wav, .onnx, .bin or other model/audio files | no such files listed | PENDING |
 ```
 
@@ -11461,7 +11467,7 @@ find /c /v "" TESTS.md
 ```cmd
 findstr /n "PENDING" TESTS.md
 ```
-Expected: about **128** lines, and **4** lines containing `PENDING` (M1–M4).
+Expected: about **128** lines, and **4** lines containing `PENDING` (M1â€“M4).
 
 **3. Run the tests:**
 ```cmd
@@ -11488,7 +11494,7 @@ git commit -m "Add TESTS.md: requirement-to-test map with measured results; call
 git log --oneline -3
 ```
 
-Paste the outputs of steps 2–5 here. I'll confirm the result from your actual terminal output.
+Paste the outputs of steps 2â€“5 here. I'll confirm the result from your actual terminal output.
 
 
 ---
@@ -11535,7 +11541,7 @@ The save step (step 1) didn't happen, or IDLE saved somewhere else or didn't sav
 C:\ProgramData\anaconda3\envs\livetrans\python.exe -m idlelib TESTS.md
 ```
 - Check the IDLE **title bar**: it should show `TESTS.md - C:\Users\Lenovo\Projects\mathrix-live-translate\TESTS.md`. If it shows a different folder, close it and tell me.
-- Paste the full content from my previous message: everything inside the box, from `# TESTS — mathrix-live-translate` to the line starting `| M4 |`.
+- Paste the full content from my previous message: everything inside the box, from `# TESTS â€” mathrix-live-translate` to the line starting `| M4 |`.
 - The title bar now shows `*` around the name, meaning unsaved changes.
 - Press **Ctrl+S**. The `*` must **disappear**. If an encoding question appears, choose **UTF-8**.
 - Close IDLE. If it asks whether to save, click **Yes**.
@@ -11550,7 +11556,7 @@ find /c /v "" TESTS.md
 ```cmd
 findstr /n "PENDING" TESTS.md
 ```
-Expected: `dir` shows the file with a size of several KB, `find` reports about **128** lines, and `findstr` shows **4** lines (M1–M4).
+Expected: `dir` shows the file with a size of several KB, `find` reports about **128** lines, and `findstr` shows **4** lines (M1â€“M4).
 
 **If `dir` says "File Not Found", stop there** and tell me what the IDLE title bar showed.
 
@@ -11591,7 +11597,7 @@ C:\Users\Lenovo\Projects\mathrix-live-translate>find /c /v "" TESTS.md
 C:\Users\Lenovo\Projects\mathrix-live-translate>findstr /n "PENDING" TESTS.md
 125:| M1 | Interview rehearsal: real video call with **at least two Armenian-speaking participants** on the call side, headphones on my side, `python -m livetrans.app --timing` | each caller keeps one "Speaker N" label; "Me" only for my voice; 0 segments over 5 s; English understandable | **PENDING** |
 126:| M2 | Offline run: disconnect the network, start the app, speak and play audio | app loads cached models and works without network | PENDING |
-127:| M3 | Mic level check before the interview (Windows Sound ΓåÆ Recording ΓåÆ Levels, see D5) | `record` take: clipped < 0.1 %, speech p90 between ΓêÆ25 and ΓêÆ12 dB | PENDING (re-check on the day) |
+127:| M3 | Mic level check before the interview (Windows Sound Î“Ã¥Ã† Recording Î“Ã¥Ã† Levels, see D5) | `record` take: clipped < 0.1 %, speech p90 between Î“ÃªÃ†25 and Î“ÃªÃ†12 dB | PENDING (re-check on the day) |
 128:| M4 | Repository check: `git ls-files` contains no .wav, .onnx, .bin or other model/audio files | no such files listed | PENDING |
 
 C:\Users\Lenovo\Projects\mathrix-live-translate>C:\ProgramData\anaconda3\envs\livetrans\python.exe -m pytest -q
@@ -11632,18 +11638,18 @@ Confirmed from your terminal output: **TESTS.md is created and committed.**
 
 | Check | Result |
 |---|---|
-| File | `TESTS.md`, **128 lines**, with all **4** pending manual tests (M1–M4) marked `PENDING` |
+| File | `TESTS.md`, **128 lines**, with all **4** pending manual tests (M1â€“M4) marked `PENDING` |
 | Tests | **29 passed** in 0.25 s |
 | Diff before commit | only `TESTS.md`, 1 file, 128 insertions; no application code touched |
 | **New commit** | **`b862666`**: "Add TESTS.md: requirement-to-test map with measured results; call rehearsal pending" |
 
-(The odd characters on line 127, such as `ΓåÆ` and `ΓêÆ`, are just cmd failing to display "→" and "−". The file itself is correct UTF-8.)
+(The odd characters on line 127, such as `Î“Ã¥Ã†` and `Î“ÃªÃ†`, are just cmd failing to display "â†’" and "âˆ’". The file itself is correct UTF-8.)
 
 ## Next step: the interview rehearsal (M1)
 
 This is the most important remaining test, because it's the only one that reproduces the interview exactly. What you need:
 
-- **Two Armenian-speaking friends** on a video call (Zoom, Google Meet or Telegram), about 10–15 minutes.
+- **Two Armenian-speaking friends** on a video call (Zoom, Google Meet or Telegram), about 10â€“15 minutes.
 - **Headphones** on your side, so their voices don't leak into your mic as "Me".
 - **As little else running as possible.** If the call runs in Chrome, keep only that one tab open, since memory is tight (~2.1 GB for the models).
 
@@ -11676,11 +11682,11 @@ C:\ProgramData\anaconda3\envs\livetrans\python.exe -m livetrans.app --list
 - **System audio:** the `*` (default) loopback should now be the **headphones'** loopback. That's correct, because that's where the call audio will go.
 - **Mic:** if your headphones have a built-in mic, Windows may have switched to it. Its level has **not** been calibrated, so either use the laptop mic you calibrated (`--mic 9`), or do a quick level check (M3) with the headset mic first.
 
-**2. Quick mic check (M3).** Speak 2–3 sentences normally:
+**2. Quick mic check (M3).** Speak 2â€“3 sentences normally:
 ```cmd
 C:\ProgramData\anaconda3\envs\livetrans\python.exe -m livetrans.tools.record --seconds 20
 ```
-The live bar should mostly show **−30 to −10 dB** while you speak and never reach 0 dB. If it clips or is very quiet, adjust as in D5 first.
+The live bar should mostly show **âˆ’30 to âˆ’10 dB** while you speak and never reach 0 dB. If it clips or is very quiet, adjust as in D5 first.
 
 **3. Close everything you don't need.** If the call runs in a browser, keep only the call tab open.
 
@@ -11697,12 +11703,12 @@ Tell your friends beforehand: **speak Armenian, one person at a time, normal pac
 | Part | Who speaks | What it tests |
 |---|---|---|
 | 1. Introductions (1 min) | A, then B, then you: each says their name and one sentence about themselves | first labels: A should become Speaker 1, B Speaker 2, you "Me" |
-| 2. Turn-taking (4 min) | **A → B → you**, repeated **3 rounds**, 2–3 sentences each. Topic suggestion: weekend plans, work, food | **labels stay stable** over many turns |
-| 3. Quick replies (2 min) | short back-and-forth between A and B ("Հա", "Իսկ դու՞", one-line answers) | short utterances shouldn't create new speakers |
+| 2. Turn-taking (4 min) | **A â†’ B â†’ you**, repeated **3 rounds**, 2â€“3 sentences each. Topic suggestion: weekend plans, work, food | **labels stay stable** over many turns |
+| 3. Quick replies (2 min) | short back-and-forth between A and B ("Õ€Õ¡", "Ô»Õ½Õ¯ Õ¤Õ¸Ö‚Õž", one-line answers) | short utterances shouldn't create new speakers |
 | 4. Monologue (1 min) | A speaks continuously for about 1 minute | 7 s cuts and latency under load |
 | 5. Return test (1 min) | B speaks for ~30 s, then **A again** | A must get **the same label as before** |
 
-**During the call, make a simple note of the speaking order** (for example "A, B, me, A, B, me…"). That's your ground truth for checking the labels afterwards.
+**During the call, make a simple note of the speaking order** (for example "A, B, me, A, B, meâ€¦"). That's your ground truth for checking the labels afterwards.
 
 Then press **Ctrl+C** and wait for the two summary lines.
 
@@ -11772,51 +11778,51 @@ mic:    [9] Internal Microphone (Conexant 20751 SmartAudio HD)
 system: [10] Speakers (Conexant 20751 SmartAudio HD) [Loopback]
 settings: end-silence 0.6 s, max utterance 7.0 s, MT beam 2, speaker threshold 0.25
 loading models ...
-Fetching 9 files: 100%|█████████████████████████████████████████████████████████████████| 9/9 [00:00<00:00, 238.35it/s]
+Fetching 9 files: 100%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ| 9/9 [00:00<00:00, 238.35it/s]
 Download complete:                                                                                 |  0.00B
 Reconstruction complete: |                                                                |  0.00B /  0.00B
 Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
 listening - speak Armenian. Ctrl+C to stop.
 
 [00:00:01] Me   (latency 2.3 s)
-HY: Սաղ խաչին նվիրված հայկական։
+HY: ÕÕ¡Õ² Õ­Õ¡Õ¹Õ«Õ¶ Õ¶Õ¾Õ«Ö€Õ¾Õ¡Õ® Õ°Õ¡ÕµÕ¯Õ¡Õ¯Õ¡Õ¶Ö‰
 EN: Armenian dedicated to the Red Cross.
    [audio 2.0 s | waited 0.7 s | ASR 0.45 s | speaker 0.00 s | MT 1.14 s]
 
 [00:00:04] Me   (latency 1.7 s)
-HY: Ամենը վերջին բան...
+HY: Ô±Õ´Õ¥Õ¶Õ¨ Õ¾Õ¥Ö€Õ»Õ«Õ¶ Õ¢Õ¡Õ¶...
 EN: It's the last thing...
    [audio 3.1 s | waited 0.7 s | ASR 0.31 s | speaker 0.00 s | MT 0.72 s]
 
 [00:00:21] Me   (latency 1.5 s)
-HY: Պ։
+HY: ÕŠÖ‰
 EN: What is the meaning of this?
    [audio 1.4 s | waited 0.7 s | ASR 0.14 s | speaker 0.00 s | MT 0.70 s]
 
 [00:00:23] Me   (latency 1.4 s)
-HY: Հովհ։.
+HY: Õ€Õ¸Õ¾Õ°Ö‰.
 EN: John: What is it?
    [audio 1.2 s | waited 0.7 s | ASR 0.12 s | speaker 0.00 s | MT 0.56 s]
 
 [00:00:24] Me   (latency 1.5 s)
-HY: Լավ,։
+HY: Ô¼Õ¡Õ¾,Ö‰
 EN: I'm going to go.
    [audio 1.6 s | waited 0.7 s | ASR 0.12 s | speaker 0.00 s | MT 0.69 s]
 
 [00:00:26] Me   (latency 1.3 s)
-HY: Ո շնորհակալ եմ։
+HY: Õˆ Õ·Õ¶Õ¸Ö€Õ°Õ¡Õ¯Õ¡Õ¬ Õ¥Õ´Ö‰
 EN: Oh, thank you.
    [audio 2.4 s | waited 0.7 s | ASR 0.17 s | speaker 0.00 s | MT 0.48 s]
 
 [00:00:29] Me   (latency 1.8 s)
-HY: Այսօր լավ է եղանակը, չէ՞։
+HY: Ô±ÕµÕ½Ö…Ö€ Õ¬Õ¡Õ¾ Õ§ Õ¥Õ²Õ¡Õ¶Õ¡Õ¯Õ¨, Õ¹Õ§ÕžÖ‰
 EN: It's good weather today, isn't it?
    [audio 2.5 s | waited 0.7 s | ASR 0.19 s | speaker 0.00 s | MT 0.97 s]
 
 
 stopping ...
 [00:00:32] Me   (latency 1.9 s)
-HY: Վաղ, գնանք զբոսանք։
+HY: ÕŽÕ¡Õ², Õ£Õ¶Õ¡Õ¶Ö„ Õ¦Õ¢Õ¸Õ½Õ¡Õ¶Ö„Ö‰
 EN: In the morning, let's go for a walk.
    [audio 3.7 s | waited 0.7 s | ASR 0.20 s | speaker 0.00 s | MT 0.98 s]
 
@@ -11846,8 +11852,8 @@ What the dry run does confirm:
 - The full app starts with **all three models**, including the speaker model, and the settings line shows `speaker threshold 0.25`.
 - Your voice is correctly labelled **"Me"**, and the speaker step correctly takes **0.00 s** for the mic, since the voiceprint model is only used for the call side.
 - Latency on your side: **median 1.6 s, max 2.3 s, 0 over 5 s**.
-- Mic level during the check reached about −14.8 dB, which is within the target range. (For the full M3 check we'd also want the clipping figure, but that can wait until the real rehearsal.)
-- The very short fragments ("Պ", "Հովհ", "Լավ,") show that one-word utterances get weak transcriptions and odd translations. Worth a line in the README's limitations.
+- Mic level during the check reached about âˆ’14.8 dB, which is within the target range. (For the full M3 check we'd also want the clipping figure, but that can wait until the real rehearsal.)
+- The very short fragments ("ÕŠ", "Õ€Õ¸Õ¾Õ°", "Ô¼Õ¡Õ¾,") show that one-word utterances get weak transcriptions and odd translations. Worth a line in the README's limitations.
 
 So **M1 stays PENDING**. To complete it, you need:
 1. **Two Armenian-speaking friends** in a real video call
@@ -11863,37 +11869,37 @@ So **M1 stays PENDING**. To complete it, you need:
 
 ```text
 [00:00:00] Speaker 1   (latency 3.1 s)
-HY: Նստտած եմ վառարանի, առաջ՝ սուրճ եմ եփում։
+HY: Õ†Õ½Õ¿Õ¿Õ¡Õ® Õ¥Õ´ Õ¾Õ¡Õ¼Õ¡Ö€Õ¡Õ¶Õ«, Õ¡Õ¼Õ¡Õ»Õ Õ½Õ¸Ö‚Ö€Õ³ Õ¥Õ´ Õ¥ÖƒÕ¸Ö‚Õ´Ö‰
 EN: I'm sitting in the fireplace, first making coffee.
    [audio 3.1 s | waited 0.6 s | ASR 0.59 s | speaker 0.16 s (similarity 1.00) | MT 1.70 s]
 
 [00:00:04] Me   (latency 2.3 s)
-HY: Այստեղ եղանակը հրաշալի էր, իսկ քո՞։
+HY: Ô±ÕµÕ½Õ¿Õ¥Õ² Õ¥Õ²Õ¡Õ¶Õ¡Õ¯Õ¨ Õ°Ö€Õ¡Õ·Õ¡Õ¬Õ« Õ§Ö€, Õ«Õ½Õ¯ Ö„Õ¸ÕžÖ‰
 EN: The weather here was wonderful, but how were you?
    [audio 3.5 s | waited 0.6 s | ASR 0.38 s | speaker 0.00 s | MT 1.28 s]
 
 [00:00:08] Speaker 1   (latency 2.1 s)
-HY: Իմ մոտ նույնպես հրաշալի էր։
+HY: Ô»Õ´ Õ´Õ¸Õ¿ Õ¶Õ¸Ö‚ÕµÕ¶ÕºÕ¥Õ½ Õ°Ö€Õ¡Õ·Õ¡Õ¬Õ« Õ§Ö€Ö‰
 EN: It was great for me, too.
    [audio 3.1 s | waited 0.6 s | ASR 0.25 s | speaker 0.17 s (similarity 0.59) | MT 1.05 s]
 
 [00:00:11] Speaker 1   (latency 1.9 s)
-HY: Ուժեղ արեւ էր եւ տաք եղանակ։
+HY: ÕˆÖ‚ÕªÕ¥Õ² Õ¡Ö€Õ¥Ö‚ Õ§Ö€ Õ¥Ö‚ Õ¿Õ¡Ö„ Õ¥Õ²Õ¡Õ¶Õ¡Õ¯Ö‰
 EN: The sun was hot and the weather was hot.
    [audio 2.5 s | waited 0.6 s | ASR 0.25 s | speaker 0.08 s (similarity 0.70) | MT 0.98 s]
 
 [00:00:14] Me   (latency 1.4 s)
-HY: Վրաստանի է։
+HY: ÕŽÖ€Õ¡Õ½Õ¿Õ¡Õ¶Õ« Õ§Ö‰
 EN: It's from Georgia.
    [audio 1.8 s | waited 0.6 s | ASR 0.19 s | speaker 0.00 s | MT 0.61 s]
 
 [00:00:16] Me   (latency 1.3 s)
-HY: Ինչպե՞ս են գործերը։
+HY: Ô»Õ¶Õ¹ÕºÕ¥ÕžÕ½ Õ¥Õ¶ Õ£Õ¸Ö€Õ®Õ¥Ö€Õ¨Ö‰
 EN: How are things going?
    [audio 1.9 s | waited 0.6 s | ASR 0.16 s | speaker 0.00 s | MT 0.55 s]
 
 [00:00:18] Speaker 1   (latency 1.5 s)
-HY: Լաւվ են։
+HY: Ô¼Õ¡Ö‚Õ¾ Õ¥Õ¶Ö‰
 EN: They're good.
    [audio 1.9 s | waited 0.6 s | ASR 0.19 s | speaker 0.06 s (similarity 0.46) | MT 0.67 s]
 
@@ -11915,18 +11921,18 @@ This is a **real call**, and it went well, but with **one** caller rather than t
 
 | Check | Result |
 |---|---|
-| Caller labelling | all **4** call-side lines → **Speaker 1** (similarity 1.00, 0.59, 0.70, 0.46; all well above the 0.25 threshold) |
-| Your voice | all **3** of your lines → **Me** |
+| Caller labelling | all **4** call-side lines â†’ **Speaker 1** (similarity 1.00, 0.59, 0.70, 0.46; all well above the 0.25 threshold) |
+| Your voice | all **3** of your lines â†’ **Me** |
 | Echo | none: no duplicate "Me" lines from the caller's voice. Were you wearing headphones? |
 | Latency | **median 1.9 s, max 3.1 s, 0 over 5 s** |
 | Speaker step | median 0.06 s |
-| Translation | mostly understandable, e.g. "How are things going?" / "They're good." Two noticeable errors: "Նստած եմ վառարանի առաջ" became *"sitting in the fireplace"* (it means *in front of* it), and the fragment "Վրաստանի է" lost its context |
+| Translation | mostly understandable, e.g. "How are things going?" / "They're good." Two noticeable errors: "Õ†Õ½Õ¿Õ¡Õ® Õ¥Õ´ Õ¾Õ¡Õ¼Õ¡Ö€Õ¡Õ¶Õ« Õ¡Õ¼Õ¡Õ»" became *"sitting in the fireplace"* (it means *in front of* it), and the fragment "ÕŽÖ€Õ¡Õ½Õ¿Õ¡Õ¶Õ« Õ§" lost its context |
 
 This is good evidence that the app works with **real call audio**: the call app's compression didn't break transcription, labelling or latency. But **M1 requires at least two Armenian speakers on the call side**, because the main risk is telling *two* callers apart through call compression. With one caller, that part isn't tested yet. So, honestly: **M1 is still PENDING**, and this run counts as a **partial rehearsal (1 caller), passed**.
 
 To record it accurately, please tell me:
 1. **Was all the call-side speech from one person?** If yes, the labels were 4/4 correct.
-2. **Which call app** did you use (Zoom, Meet, Telegram…)? And were you wearing **headphones**?
+2. **Which call app** did you use (Zoom, Meet, Telegramâ€¦)? And were you wearing **headphones**?
 3. **Can a second Armenian speaker join** a follow-up call? Even a short 5-minute call with two friends alternating would complete M1, using the same script: introductions, turn-taking, the "return" test.
 
 When the two-caller call is done, paste its output, and we'll update TESTS.md with both runs (this partial one and the full M1) in one commit.
@@ -11938,8 +11944,8 @@ When the two-caller call is done, paste its output, and we'll update TESTS.md wi
 
 ```text
 1. Was all the call-side speech from one person? If yes, the labels were 4/4 correct.  One person
-2. Which call app did you use (Zoom, Meet, Telegram…)? And were you wearing headphones?Meet
-3. Can a second Armenian speaker join a follow-up call? Even a short 5-minute call with two friends alternating would complete M1, using the same script: introductions, turn-taking, the “return” test. Yes
+2. Which call app did you use (Zoom, Meet, Telegramâ€¦)? And were you wearing headphones?Meet
+3. Can a second Armenian speaker join a follow-up call? Even a short 5-minute call with two friends alternating would complete M1, using the same script: introductions, turn-taking, the â€œreturnâ€ test. Yes
 ```
 
 
@@ -11968,13 +11974,13 @@ Great that a second speaker can join. Here's the short version for the **full M1
    C:\ProgramData\anaconda3\envs\livetrans\python.exe -m livetrans.app --timing
    ```
 
-**Call script, about 5–10 minutes:**
+**Call script, about 5â€“10 minutes:**
 1. **Introductions:** Friend A, then Friend B, then you; one sentence each.
-2. **Turn-taking:** A → B → you, **3 rounds**, 2–3 sentences each.
+2. **Turn-taking:** A â†’ B â†’ you, **3 rounds**, 2â€“3 sentences each.
 3. **Quick replies:** a short back-and-forth between A and B.
 4. **Return test:** B talks for ~30 s, then **A again**.
 
-**Write down the speaking order** as you go (A, B, me, …), then press **Ctrl+C**.
+**Write down the speaking order** as you go (A, B, me, â€¦), then press **Ctrl+C**.
 
 **Send me:** the `--list` output, the full app output (settings line to summary), your speaking-order notes, whether you wore headphones, and your impression of the English. Then we'll update TESTS.md with both rehearsals in one commit.
 
@@ -11985,32 +11991,32 @@ Great that a second speaker can join. Here's the short version for the **full M1
 
 ```text
 [00:00:00] Me   (latency 3.3 s)
-HY: Հրաշալի է, իսկ ձեզ մոտ՞։
+HY: Õ€Ö€Õ¡Õ·Õ¡Õ¬Õ« Õ§, Õ«Õ½Õ¯ Õ±Õ¥Õ¦ Õ´Õ¸Õ¿ÕžÖ‰
 EN: It's great, but what about you?
    [audio 2.4 s | waited 0.7 s | ASR 0.64 s | speaker 0.00 s | MT 1.92 s]
 
 [00:00:02] Speaker 1   (latency 2.9 s)
-HY: Մեզ մոտ կրկին լավ է, երկուսով նստած, սպասում ենք անդնդրանիկին։
+HY: Õ„Õ¥Õ¦ Õ´Õ¸Õ¿ Õ¯Ö€Õ¯Õ«Õ¶ Õ¬Õ¡Õ¾ Õ§, Õ¥Ö€Õ¯Õ¸Ö‚Õ½Õ¸Õ¾ Õ¶Õ½Õ¿Õ¡Õ®, Õ½ÕºÕ¡Õ½Õ¸Ö‚Õ´ Õ¥Õ¶Ö„ Õ¡Õ¶Õ¤Õ¶Õ¤Ö€Õ¡Õ¶Õ«Õ¯Õ«Õ¶Ö‰
 EN: We're good again, sitting alone, waiting for the next one.
    [audio 7.0 s | waited 0.4 s | ASR 0.55 s | speaker 0.25 s (similarity 1.00) | MT 1.70 s]
 
 [00:00:10] Me   (latency 1.7 s)
-HY: Հրաշանի էլի՞ն ինչպես է։
+HY: Õ€Ö€Õ¡Õ·Õ¡Õ¶Õ« Õ§Õ¬Õ«ÕžÕ¶ Õ«Õ¶Õ¹ÕºÕ¥Õ½ Õ§Ö‰
 EN: What about the miracle?
    [audio 2.8 s | waited 0.7 s | ASR 0.27 s | speaker 0.00 s | MT 0.73 s]
 
 [00:00:13] Speaker 1   (latency 2.3 s)
-HY: Լավ եմ շնորհակալություն, դաս եմ սովորում։
+HY: Ô¼Õ¡Õ¾ Õ¥Õ´ Õ·Õ¶Õ¸Ö€Õ°Õ¡Õ¯Õ¡Õ¬Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶, Õ¤Õ¡Õ½ Õ¥Õ´ Õ½Õ¸Õ¾Õ¸Ö€Õ¸Ö‚Õ´Ö‰
 EN: Thank you very much. I'm learning a lesson.
    [audio 4.6 s | waited 0.6 s | ASR 0.28 s | speaker 0.16 s (similarity 0.38) | MT 1.25 s]
 
 [00:00:21] Me   (latency 2.9 s)
-HY: Չէհասկացավ՝ լավ ցտեսություն, շնորհակալություն։
+HY: Õ‰Õ§Õ°Õ¡Õ½Õ¯Õ¡ÖÕ¡Õ¾Õ Õ¬Õ¡Õ¾ ÖÕ¿Õ¥Õ½Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶, Õ·Õ¶Õ¸Ö€Õ°Õ¡Õ¯Õ¡Õ¬Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶Ö‰
 EN: I didn't get it. Good bye, thank you.
    [audio 4.1 s | waited 0.7 s | ASR 0.41 s | speaker 0.00 s | MT 1.78 s]
 
 [00:00:24] Speaker 1   (latency 2.5 s)
-HY: Խնդրեմ, գնացի վաղ, գնաց։
+HY: Ô½Õ¶Õ¤Ö€Õ¥Õ´, Õ£Õ¶Õ¡ÖÕ« Õ¾Õ¡Õ², Õ£Õ¶Õ¡ÖÖ‰
 EN: Please, I left early, I left.
    [audio 5.3 s | waited 1.0 s | ASR 0.33 s | speaker 0.14 s (similarity 0.38) | MT 1.06 s]
 
@@ -12030,15 +12036,15 @@ C:\Users\Lenovo\Projects\mathrix-live-translate>
 
 Thank you. Before I interpret this run, I need one fact that the output can't tell me, because it decides whether this is a **pass or a failure**.
 
-Line 2 says **"Մեզ մոտ … երկուսով նստած"** ("we're sitting here, **the two of us**"). So your two friends seem to be **in the same room, on one device**, sharing one microphone. All three call-side lines were labelled **Speaker 1**, and two of them have a fairly low similarity (**0.38**).
+Line 2 says **"Õ„Õ¥Õ¦ Õ´Õ¸Õ¿ â€¦ Õ¥Ö€Õ¯Õ¸Ö‚Õ½Õ¸Õ¾ Õ¶Õ½Õ¿Õ¡Õ®"** ("we're sitting here, **the two of us**"). So your two friends seem to be **in the same room, on one device**, sharing one microphone. All three call-side lines were labelled **Speaker 1**, and two of them have a fairly low similarity (**0.38**).
 
 **Who said each call-side line?**
 
 | Line | Text | Who? |
 |---|---|---|
-| [00:00:02] | "Մեզ մոտ կրկին լավ է, երկուսով նստած…" | A or B? |
-| [00:00:13] | "Լավ եմ շնորհակալություն, դաս եմ սովորում։" | A or B? |
-| [00:00:24] | "Խնդրեմ, գնացի վաղ, գնաց։" | A or B? |
+| [00:00:02] | "Õ„Õ¥Õ¦ Õ´Õ¸Õ¿ Õ¯Ö€Õ¯Õ«Õ¶ Õ¬Õ¡Õ¾ Õ§, Õ¥Ö€Õ¯Õ¸Ö‚Õ½Õ¸Õ¾ Õ¶Õ½Õ¿Õ¡Õ®â€¦" | A or B? |
+| [00:00:13] | "Ô¼Õ¡Õ¾ Õ¥Õ´ Õ·Õ¶Õ¸Ö€Õ°Õ¡Õ¯Õ¡Õ¬Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶, Õ¤Õ¡Õ½ Õ¥Õ´ Õ½Õ¸Õ¾Õ¸Ö€Õ¸Ö‚Õ´Ö‰" | A or B? |
+| [00:00:24] | "Ô½Õ¶Õ¤Ö€Õ¥Õ´, Õ£Õ¶Õ¡ÖÕ« Õ¾Õ¡Õ², Õ£Õ¶Õ¡ÖÖ‰" | A or B? |
 
 - **If one person said all three**, labelling was correct (3/3), but M1 still needs a call where **both** friends speak.
 - **If both friends spoke**, the app **merged two people into Speaker 1**. That would be a real failure of R4 for this setup, and we'd investigate it the same way we did before, with measurements rather than by guessing a new threshold. Two people sharing one mic and room sound more alike to the voiceprint model than two separate callers, so this is a plausible weakness.
@@ -12048,7 +12054,7 @@ Please also answer:
 2. **Were you wearing headphones?**
 3. Was the call long enough for both friends to speak? This run is about 25 seconds, so the script (3 rounds plus the return test) didn't happen yet.
 
-A small note for the README regardless: "սպասում ենք Անդրանիկին" ("we're waiting for Andranik") became *"waiting for the next one"*. **Personal names** are a known weak spot of the translation.
+A small note for the README regardless: "Õ½ÕºÕ¡Õ½Õ¸Ö‚Õ´ Õ¥Õ¶Ö„ Ô±Õ¶Õ¤Ö€Õ¡Õ¶Õ«Õ¯Õ«Õ¶" ("we're waiting for Andranik") became *"waiting for the next one"*. **Personal names** are a known weak spot of the translation.
 
 M1 remains **PENDING** until we have a call where both friends speak, with known ground truth. Once you answer the questions above, I'll tell you exactly what to do next: either repeat the call with the full script, or, if the labels merged, a short measured test to find out why.
 
@@ -12074,16 +12080,16 @@ When a call-side utterance arrives, `SpeakerClusterer.assign()` in `speakers.py`
 
 1. The **first** voice ever becomes **Speaker 1**. That's why the first line shows `similarity 1.00`.
 2. Every later utterance is compared with each known speaker's **average voiceprint**.
-3. If the best similarity is **≥ 0.25** (the threshold), it's assigned to that speaker.
+3. If the best similarity is **â‰¥ 0.25** (the threshold), it's assigned to that speaker.
 4. **Only if** the similarity is **< 0.25** *and* the utterance is **at least 1.5 s** long is a **new speaker** created.
 
 ## What happened in your run
 
 | Line | Audio | Similarity to Speaker 1 | Decision by the rule |
 |---|---|---|---|
-| [00:00:02] | 7.0 s | 1.00 | first voice → Speaker 1 |
-| [00:00:13] | 4.6 s | **0.38** | 0.38 ≥ 0.25 → Speaker 1 |
-| [00:00:24] | 5.3 s | **0.38** | 0.38 ≥ 0.25 → Speaker 1 |
+| [00:00:02] | 7.0 s | 1.00 | first voice â†’ Speaker 1 |
+| [00:00:13] | 4.6 s | **0.38** | 0.38 â‰¥ 0.25 â†’ Speaker 1 |
+| [00:00:24] | 5.3 s | **0.38** | 0.38 â‰¥ 0.25 â†’ Speaker 1 |
 
 So the code did exactly what it was designed to do. Both later utterances were long enough to create a new speaker, but their similarity (0.38) was above the threshold. The real question is **whether 0.38 means "same person" or "different person"**.
 
@@ -12094,7 +12100,7 @@ Compare 0.38 with what we've measured so far:
 | Situation | Similarity measured |
 |---|---|
 | **Different** people (A vs B clips) | median 0.12, **max 0.25** |
-| **Same** person vs their speaker average, earlier runs | 0.46, 0.59, 0.70 (Meet caller); 0.80–0.93 (podcast) |
+| **Same** person vs their speaker average, earlier runs | 0.46, 0.59, 0.70 (Meet caller); 0.80â€“0.93 (podcast) |
 | **This run** | **0.38, 0.38** |
 
 **0.38 falls in the gap**: higher than any different-person score we've measured, but lower than any same-person score. Both explanations remain possible:
@@ -12109,9 +12115,9 @@ There's also a third mechanism to keep in mind: the first line is a **7.0 s forc
 Please answer these four questions:
 
 1. **Who said each call-side line?**
-   - [00:00:02] "Մեզ մոտ կրկին լավ է, երկուսով նստած…": friend A or B?
-   - [00:00:13] "Լավ եմ շնորհակալություն, դաս եմ սովորում։": A or B?
-   - [00:00:24] "Խնդրեմ, գնացի վաղ, գնաց։": A or B?
+   - [00:00:02] "Õ„Õ¥Õ¦ Õ´Õ¸Õ¿ Õ¯Ö€Õ¯Õ«Õ¶ Õ¬Õ¡Õ¾ Õ§, Õ¥Ö€Õ¯Õ¸Ö‚Õ½Õ¸Õ¾ Õ¶Õ½Õ¿Õ¡Õ®â€¦": friend A or B?
+   - [00:00:13] "Ô¼Õ¡Õ¾ Õ¥Õ´ Õ·Õ¶Õ¸Ö€Õ°Õ¡Õ¯Õ¡Õ¬Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶, Õ¤Õ¡Õ½ Õ¥Õ´ Õ½Õ¸Õ¾Õ¸Ö€Õ¸Ö‚Õ´Ö‰": A or B?
+   - [00:00:24] "Ô½Õ¶Õ¤Ö€Õ¥Õ´, Õ£Õ¶Õ¡ÖÕ« Õ¾Õ¡Õ², Õ£Õ¶Õ¡ÖÖ‰": A or B?
 2. In the **first** line (7 s), did **both** friends talk, or only one?
 3. Were your friends **on one device in the same room**, or on **two separate devices**?
 4. Were you wearing **headphones**?
@@ -12124,8 +12130,8 @@ Based on your answers, the next step will be either a properly structured two-sp
 ### 229. User (2026-10-24 16:52 UTC)
 
 ```text
-* [00:00:02] "Մեզ մոտ կրկին լավ է, երկուսով նստած…": friend A or B? A
-* [00:00:13] "Լավ եմ շնորհակալություն, դաս եմ սովորում։": A or B?   B
+* [00:00:02] "Õ„Õ¥Õ¦ Õ´Õ¸Õ¿ Õ¯Ö€Õ¯Õ«Õ¶ Õ¬Õ¡Õ¾ Õ§, Õ¥Ö€Õ¯Õ¸Ö‚Õ½Õ¸Õ¾ Õ¶Õ½Õ¿Õ¡Õ®â€¦": friend A or B? A
+* [00:00:13] "Ô¼Õ¡Õ¾ Õ¥Õ´ Õ·Õ¶Õ¸Ö€Õ°Õ¡Õ¯Õ¡Õ¬Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶, Õ¤Õ¡Õ½ Õ¥Õ´ Õ½Õ¸Õ¾Õ¸Ö€Õ¸Ö‚Õ´Ö‰": A or B?   B
 
 
 
@@ -12174,9 +12180,9 @@ C:\ProgramData\anaconda3\envs\livetrans\python.exe -m livetrans.tools.speakers_b
 
 What we'll look for:
 - **"clip vs samples/meet_b.wav"**: how similar A and B are in this setup, compared with "within" A and B. If A vs B is close to the "within" numbers, no threshold can separate them reliably with this model, and we document that as a limitation with evidence.
-- **The interleaved A/B test**: whether there's a threshold range that gives **exactly 2 speakers** with labels alternating `1212…`.
+- **The interleaved A/B test**: whether there's a threshold range that gives **exactly 2 speakers** with labels alternating `1212â€¦`.
 
-Paste the two "saved…" lines, the two "copied…" lines and the full benchmark output here. Also tell me whether you were wearing **headphones**. **M1 stays PENDING**, and no code or threshold changes until we've seen this evidence.
+Paste the two "savedâ€¦" lines, the two "copiedâ€¦" lines and the full benchmark output here. Also tell me whether you were wearing **headphones**. **M1 stays PENDING**, and no code or threshold changes until we've seen this evidence.
 
 
 ---
@@ -12235,7 +12241,7 @@ This is a clear and important measurement. Before drawing the final conclusion, 
 | **A vs B (different people)** | median **0.74**, max **0.87** | **0.12** (max 0.25) |
 
 - **A and B score 0.74 against each other**, which is *higher* than A against itself (0.62) and almost as high as B against itself (0.83). In this setup, the model hears your two friends as **essentially the same voice**.
-- That's why the **interleaved test never produces the alternating `1212…` pattern at any threshold**. The only "Speaker 2" it ever creates is **utterance 3 of clip A**, which also shows up as a separate speaker in "A alone".
+- That's why the **interleaved test never produces the alternating `1212â€¦` pattern at any threshold**. The only "Speaker 2" it ever creates is **utterance 3 of clip A**, which also shows up as a separate speaker in "A alone".
 - So this isn't a threshold problem: **no threshold can separate A and B in this data.** Raising it to 0.45 or 0.6 wouldn't have helped. It would only have split A into two "people", as the table shows.
 
 This is very different from D9, where two separately recorded voices scored 0.12. The most likely reason is the setup: **one shared microphone, one room, and Meet's processing** (noise suppression, compression) applied to both voices identically.
@@ -12258,7 +12264,7 @@ start samples\meet_b.wav
 ```
 
 Then please tell me:
-1. Does **meet_a.wav** contain **only friend A's voice**? In particular, who speaks around **00:17–00:23**, utterance 3?
+1. Does **meet_a.wav** contain **only friend A's voice**? In particular, who speaks around **00:17â€“00:23**, utterance 3?
 2. Does **meet_b.wav** contain **only friend B's voice**?
 3. Are A and B the **same gender and similar age**? For example, two young women.
 4. Were you wearing **headphones** during these calls?
@@ -12271,8 +12277,8 @@ If both clips turn out to be clean, then we have a **measured, honest finding**:
 ### 233. User (2026-10-24 17:09 UTC)
 
 ```text
-1. Does meet_a.wav contain only friend A’s voice? In particular, who speaks around 00:17–00:23, utterance 3?
-2. Does meet_b.wav contain only friend B’s voice
+1. Does meet_a.wav contain only friend Aâ€™s voice? In particular, who speaks around 00:17â€“00:23, utterance 3?
+2. Does meet_b.wav contain only friend Bâ€™s voice
 
 nooo
 ```
@@ -12353,7 +12359,7 @@ So the live merge (A and B both labelled Speaker 1, at similarity 0.38) is **mor
 2. **Meet's processing** (noise suppression, compression) on one shared device makes the voices more alike than usual. That's possible, but less likely to fully erase a male/female difference.
 
 **Clean single-voice clips (Step 4) will tell these two apart:**
-- If clean A vs B scores **low** (around 0.1–0.3, like in D9), the model *can* separate your friends, and the problem was **mixed audio in the first utterance**. Then we'd focus on how utterances are cut and how a speaker's first voiceprint is formed.
+- If clean A vs B scores **low** (around 0.1â€“0.3, like in D9), the model *can* separate your friends, and the problem was **mixed audio in the first utterance**. Then we'd focus on how utterances are cut and how a speaker's first voiceprint is formed.
 - If clean A vs B still scores **high**, the channel (shared device plus Meet) is the problem, and we'd document that as a limitation with evidence.
 
 So please continue with **Step 4** from my previous message: record A alone (B out of the room), listen; record B alone (A out of the room), listen; then run the benchmark. Paste the output with your confirmation that each clip contains only one voice, and tell me whether you wore **headphones**.
@@ -12386,7 +12392,7 @@ C:\ProgramData\anaconda3\envs\livetrans\python.exe -m livetrans.tools.record --s
 
 Then the copy command for that friend (`meet_a.wav` for A, `meet_b.wav` for B, as in Step 4), listen with `start`, and only when both clips are confirmed to contain one voice each, run the benchmark.
 
-If you already recorded 15-second clips, paste their output anyway. I'll tell you whether they're usable, but I'd expect we need to redo them at 30–45 s.
+If you already recorded 15-second clips, paste their output anyway. I'll tell you whether they're usable, but I'd expect we need to redo them at 30â€“45 s.
 
 
 ---
@@ -12408,7 +12414,7 @@ saved samples\20261024-222025_system.wav  (45.0 s, silence inserted 6.2 s)
 
 ### 240. Claude (2026-10-24 18:20 UTC)
 
-The recording worked: **45.0 s** of system audio, with 6.2 s of silence filled where nobody spoke. The mic stayed quiet (−53.5 dB), so you weren't talking. The system side still uses **Speakers**, so you weren't on headphones for this one. That's fine for this measurement, because we only use the system-audio file.
+The recording worked: **45.0 s** of system audio, with 6.2 s of silence filled where nobody spoke. The mic stayed quiet (âˆ’53.5 dB), so you weren't talking. The system side still uses **Speakers**, so you weren't on headphones for this one. That's fine for this measurement, because we only use the system-audio file.
 
 **Which friend was speaking in this recording, A or B?** If it was **A**:
 
@@ -12491,14 +12497,14 @@ Thanks. The new clip A was used, but this comparison still **isn't valid yet**, 
 
 | Rows | Time | Similarity to row 1 | Reading |
 |---|---|---|---|
-| 1–6 | 00:05–00:40 | **0.65–0.84** | one consistent voice ✅ |
-| 7 | **00:40–00:45** | **0.05** | a clearly **different** sound or voice ❌ |
+| 1â€“6 | 00:05â€“00:40 | **0.65â€“0.84** | one consistent voice âœ… |
+| 7 | **00:40â€“00:45** | **0.05** | a clearly **different** sound or voice âŒ |
 
 So friend A's own voice is very consistent, which is good. But something else is in the last 5 seconds: maybe friend B coming back into the room, someone saying "OK, done", or a noise.
 
 **Step 5: Check the end of clip A, then record a clean clip B**
 
-**5a.** Play `meet_a.wav` again and listen to the **last 5 seconds** (from 0:40). **Whose voice is it?** If it's not A, that's fine: we can simply ignore that row, since rows 1–6 are clean A. You don't need to re-record A.
+**5a.** Play `meet_a.wav` again and listen to the **last 5 seconds** (from 0:40). **Whose voice is it?** If it's not A, that's fine: we can simply ignore that row, since rows 1â€“6 are clean A. You don't need to re-record A.
 
 **5b. Record friend B alone**, 45 s, with friend A out of the room and you silent:
 ```cmd
@@ -12574,11 +12580,11 @@ C:\Users\Lenovo\Projects\mathrix-live-translate>
 | Within A (same person) | 0.62 | **0.69** |
 | Within B (same person) | 0.83 | **0.67** (min 0.56) |
 | **A vs B (different people)** | 0.74 | **0.12** (median) |
-| Interleaved A/B test | never alternates | **`1212121212122`** at **every** threshold 0.20–0.60 |
+| Interleaved A/B test | never alternates | **`1212121212122`** at **every** threshold 0.20â€“0.60 |
 
-**With clean audio, the model separates your two friends clearly, even on one shared device through Meet.** A vs B (0.12) is far below either "same person" score (0.67–0.69), the same picture as D9. The interleaved test gets **12 of 13 labels right**, and the current threshold (0.25) sits comfortably inside the working range.
+**With clean audio, the model separates your two friends clearly, even on one shared device through Meet.** A vs B (0.12) is far below either "same person" score (0.67â€“0.69), the same picture as D9. The interleaved test gets **12 of 13 labels right**, and the current threshold (0.25) sits comfortably inside the working range.
 
-The single "wrong" label is the **last piece of clip A** (00:40–00:45, similarity 0.05 to A). That's the piece I asked you about. **If that was friend B's voice** (for example, B coming back into the room), the app labelled it **correctly** as Speaker 2, and the score is actually **13/13**. It probably also explains the "max 0.66" in A vs B. **Who is speaking in those last 5 seconds?** Also, please confirm that the new `meet_b.wav` contains **only B's voice**.
+The single "wrong" label is the **last piece of clip A** (00:40â€“00:45, similarity 0.05 to A). That's the piece I asked you about. **If that was friend B's voice** (for example, B coming back into the room), the app labelled it **correctly** as Speaker 2, and the score is actually **13/13**. It probably also explains the "max 0.66" in A vs B. **Who is speaking in those last 5 seconds?** Also, please confirm that the new `meet_b.wav` contains **only B's voice**.
 
 ## What this means for the live merge
 
@@ -12597,7 +12603,7 @@ Run the same app, unchanged:
 C:\ProgramData\anaconda3\envs\livetrans\python.exe -m livetrans.app --timing
 ```
 
-One rule matters most: **one person speaks at a time, with a clear pause (about 1–2 s) between speakers. No talking over each other.** Then follow the script: introductions (A, B, you), 3 rounds of A → B → you, then B for ~30 s followed by A again. **Write down the speaking order.**
+One rule matters most: **one person speaks at a time, with a clear pause (about 1â€“2 s) between speakers. No talking over each other.** Then follow the script: introductions (A, B, you), 3 rounds of A â†’ B â†’ you, then B for ~30 s followed by A again. **Write down the speaking order.**
 
 - **If A and B get different labels and keep them**, M1 passes for turn-taking with pauses. We'll record that, *and* record the quick-turn/overlap weakness as a known limitation.
 - **If they merge again**, the hypothesis is incomplete, and we'll capture the audio for analysis.
@@ -12648,86 +12654,86 @@ mic:    [9] Internal Microphone (Conexant 20751 SmartAudio HD)
 system: [10] Speakers (Conexant 20751 SmartAudio HD) [Loopback]
 settings: end-silence 0.6 s, max utterance 7.0 s, MT beam 2, speaker threshold 0.25
 loading models ...
-Fetching 9 files: 100%|█████████████████████████████████████████████████████████████████| 9/9 [00:00<00:00, 192.16it/s]
+Fetching 9 files: 100%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ| 9/9 [00:00<00:00, 192.16it/s]
 Download complete:                                                                                 |  0.00B
 Reconstruction complete: |                                                                |  0.00B /  0.00B
 Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
 listening - speak Armenian. Ctrl+C to stop.
 
 [00:00:00] Me   (latency 2.5 s)
-HY: Ա։
+HY: Ô±Ö‰
 EN: A: What is it?
    [audio 1.3 s | waited 0.7 s | ASR 0.61 s | speaker 0.00 s | MT 1.19 s]
 
 [00:00:02] Me   (latency 1.7 s)
-HY: Նոր։
+HY: Õ†Õ¸Ö€Ö‰
 EN: It's a new one.
    [audio 2.6 s | waited 0.6 s | ASR 0.20 s | speaker 0.00 s | MT 0.91 s]
 
 [00:00:03] Speaker 1   (latency 4.3 s)
-HY: Տեւեք իմ ինստագրամյան էջին եւ նաեւ հետեւեք յութույան ալիքին, այսօրվա իմ հյուրը բոլորիս կողմից սիրված Գարիկ Դանիելյան։
+HY: ÕÕ¥Ö‚Õ¥Ö„ Õ«Õ´ Õ«Õ¶Õ½Õ¿Õ¡Õ£Ö€Õ¡Õ´ÕµÕ¡Õ¶ Õ§Õ»Õ«Õ¶ Õ¥Ö‚ Õ¶Õ¡Õ¥Ö‚ Õ°Õ¥Õ¿Õ¥Ö‚Õ¥Ö„ ÕµÕ¸Ö‚Õ©Õ¸Ö‚ÕµÕ¡Õ¶ Õ¡Õ¬Õ«Ö„Õ«Õ¶, Õ¡ÕµÕ½Ö…Ö€Õ¾Õ¡ Õ«Õ´ Õ°ÕµÕ¸Ö‚Ö€Õ¨ Õ¢Õ¸Õ¬Õ¸Ö€Õ«Õ½ Õ¯Õ¸Õ²Õ´Õ«Ö Õ½Õ«Ö€Õ¾Õ¡Õ® Ô³Õ¡Ö€Õ«Õ¯ Ô´Õ¡Õ¶Õ«Õ¥Õ¬ÕµÕ¡Õ¶Ö‰
 EN: Follow my Instagram page and also follow the social media channel, my guest today is Garik Danielyan, whom we all love.
    [audio 7.0 s | waited 0.0 s | ASR 0.42 s | speaker 0.22 s (similarity 1.00) | MT 3.62 s]
 
 [00:00:10] Speaker 1   (latency 3.5 s)
-HY: Գնա, պարեւ Գարիկ ջան, պարես Սարգիսյան, շնորհակալ եմ հրավերի համար, շնորհակալ եմ ես նույնպես որ չմերժեցիր ու։
+HY: Ô³Õ¶Õ¡, ÕºÕ¡Ö€Õ¥Ö‚ Ô³Õ¡Ö€Õ«Õ¯ Õ»Õ¡Õ¶, ÕºÕ¡Ö€Õ¥Õ½ ÕÕ¡Ö€Õ£Õ«Õ½ÕµÕ¡Õ¶, Õ·Õ¶Õ¸Ö€Õ°Õ¡Õ¯Õ¡Õ¬ Õ¥Õ´ Õ°Ö€Õ¡Õ¾Õ¥Ö€Õ« Õ°Õ¡Õ´Õ¡Ö€, Õ·Õ¶Õ¸Ö€Õ°Õ¡Õ¯Õ¡Õ¬ Õ¥Õ´ Õ¥Õ½ Õ¶Õ¸Ö‚ÕµÕ¶ÕºÕ¥Õ½ Õ¸Ö€ Õ¹Õ´Õ¥Ö€ÕªÕ¥ÖÕ«Ö€ Õ¸Ö‚Ö‰
 EN: Go, Mr. Garik, Mr. Sargsyan, thank you for inviting me, thank you for not refusing.
    [audio 7.0 s | waited 0.0 s | ASR 0.41 s | speaker 0.22 s (similarity 0.64) | MT 2.84 s]
 
 [00:00:17] Speaker 1   (latency 2.3 s)
-HY: Էսօր էս զրույցը ունենք մենք, կարարիժմ բոլորը քեզ ճանաչում են որպես անշարժ գույքի, բրոգկերական տենց թեթեյնը փարսնենցեցի։
+HY: Ô·Õ½Ö…Ö€ Õ§Õ½ Õ¦Ö€Õ¸Ö‚ÕµÖÕ¨ Õ¸Ö‚Õ¶Õ¥Õ¶Ö„ Õ´Õ¥Õ¶Ö„, Õ¯Õ¡Ö€Õ¡Ö€Õ«ÕªÕ´ Õ¢Õ¸Õ¬Õ¸Ö€Õ¨ Ö„Õ¥Õ¦ Õ³Õ¡Õ¶Õ¡Õ¹Õ¸Ö‚Õ´ Õ¥Õ¶ Õ¸Ö€ÕºÕ¥Õ½ Õ¡Õ¶Õ·Õ¡Ö€Õª Õ£Õ¸Ö‚ÕµÖ„Õ«, Õ¢Ö€Õ¸Õ£Õ¯Õ¥Ö€Õ¡Õ¯Õ¡Õ¶ Õ¿Õ¥Õ¶Ö Õ©Õ¥Õ©Õ¥ÕµÕ¶Õ¨ ÖƒÕ¡Ö€Õ½Õ¶Õ¥Õ¶ÖÕ¥ÖÕ«Ö‰
 EN: We're having this conversation today, and everybody knows you as a real estate broker.
    [audio 7.0 s | waited 0.0 s | ASR 0.34 s | speaker 0.16 s (similarity 0.81) | MT 1.80 s]
 
 [00:00:24] Speaker 1   (latency 2.3 s)
-HY: Հիմնադիր, բայց իմ հարցը առաջին, որ ես քեզ ուզում եմ տամ։
+HY: Õ€Õ«Õ´Õ¶Õ¡Õ¤Õ«Ö€, Õ¢Õ¡ÕµÖ Õ«Õ´ Õ°Õ¡Ö€ÖÕ¨ Õ¡Õ¼Õ¡Õ»Õ«Õ¶, Õ¸Ö€ Õ¥Õ½ Ö„Õ¥Õ¦ Õ¸Ö‚Õ¦Õ¸Ö‚Õ´ Õ¥Õ´ Õ¿Õ¡Õ´Ö‰
 EN: Fundamental, but my first question is that I want to ask you.
    [audio 4.3 s | waited 0.6 s | ASR 0.36 s | speaker 0.09 s (similarity 0.83) | MT 1.27 s]
 
 [00:00:29] Me   (latency 1.2 s)
-HY: Բ բոլորի։
+HY: Ô² Õ¢Õ¸Õ¬Õ¸Ö€Õ«Ö‰
 EN: B to all.
    [audio 2.4 s | waited 0.6 s | ASR 0.19 s | speaker 0.00 s | MT 0.42 s]
 
 [00:00:35] Speaker 1   (latency 7.6 s)
-HY: Ու բլոգերս հիմա, թե՛ բրոկկեր եւ եւ Սարգիս ջան, էդ հարցը էլի է ինձ հնչեց։
+HY: ÕˆÖ‚ Õ¢Õ¬Õ¸Õ£Õ¥Ö€Õ½ Õ°Õ«Õ´Õ¡, Õ©Õ¥Õ› Õ¢Ö€Õ¸Õ¯Õ¯Õ¥Ö€ Õ¥Ö‚ Õ¥Ö‚ ÕÕ¡Ö€Õ£Õ«Õ½ Õ»Õ¡Õ¶, Õ§Õ¤ Õ°Õ¡Ö€ÖÕ¨ Õ§Õ¬Õ« Õ§ Õ«Õ¶Õ± Õ°Õ¶Õ¹Õ¥ÖÖ‰
 EN: And my bloggers now, and the broker and Sarkissian, that's the question that came to me.
    [audio 7.0 s | waited 0.0 s | ASR 1.27 s | speaker 0.22 s (similarity 0.62) | MT 6.14 s]
 
 [00:00:42] Speaker 1   (latency 9.4 s)
-HY: Էլ ես ինքս էլ շատ ժամանակ մտ։
+HY: Ô·Õ¬ Õ¥Õ½ Õ«Õ¶Ö„Õ½ Õ§Õ¬ Õ·Õ¡Õ¿ ÕªÕ¡Õ´Õ¡Õ¶Õ¡Õ¯ Õ´Õ¿Ö‰
 EN: I've spent a lot of time there myself.
    [audio 2.2 s | waited 6.0 s | ASR 0.58 s | speaker 0.17 s (similarity 0.46) | MT 2.70 s]
 
 [00:00:45] Speaker 1   (latency 7.8 s)
-HY: Թվայում Նինի ուժեի միիցսենիստ։ Դ պրոստի, Վոնիիս պպոյեզեր, պատվիչեի նրարոսը, պագեյբրեն։
+HY: Ô¹Õ¾Õ¡ÕµÕ¸Ö‚Õ´ Õ†Õ«Õ¶Õ« Õ¸Ö‚ÕªÕ¥Õ« Õ´Õ«Õ«ÖÕ½Õ¥Õ¶Õ«Õ½Õ¿Ö‰ Ô´ ÕºÖ€Õ¸Õ½Õ¿Õ«, ÕŽÕ¸Õ¶Õ«Õ«Õ½ ÕºÕºÕ¸ÕµÕ¥Õ¦Õ¥Ö€, ÕºÕ¡Õ¿Õ¾Õ«Õ¹Õ¥Õ« Õ¶Ö€Õ¡Ö€Õ¸Õ½Õ¨, ÕºÕ¡Õ£Õ¥ÕµÕ¢Ö€Õ¥Õ¶Ö‰
 EN: He was a missionary for the Nine Inch Nails in Taiwan.
    [audio 6.7 s | waited 2.2 s | ASR 0.62 s | speaker 0.30 s (similarity 0.44) | MT 4.70 s]
 
 [00:00:52] Speaker 2   (latency 4.2 s)
-HY: Մեր ուժերի վրա մենք ինքներս սկսում ենք արդեն չվախենալ, ոչ թե մի ուժեղ մասնագետից, ոչ մեկ ուրիշից եւ այլն, բայց։
+HY: Õ„Õ¥Ö€ Õ¸Ö‚ÕªÕ¥Ö€Õ« Õ¾Ö€Õ¡ Õ´Õ¥Õ¶Ö„ Õ«Õ¶Ö„Õ¶Õ¥Ö€Õ½ Õ½Õ¯Õ½Õ¸Ö‚Õ´ Õ¥Õ¶Ö„ Õ¡Ö€Õ¤Õ¥Õ¶ Õ¹Õ¾Õ¡Õ­Õ¥Õ¶Õ¡Õ¬, Õ¸Õ¹ Õ©Õ¥ Õ´Õ« Õ¸Ö‚ÕªÕ¥Õ² Õ´Õ¡Õ½Õ¶Õ¡Õ£Õ¥Õ¿Õ«Ö, Õ¸Õ¹ Õ´Õ¥Õ¯ Õ¸Ö‚Ö€Õ«Õ·Õ«Ö Õ¥Ö‚ Õ¡ÕµÕ¬Õ¶, Õ¢Õ¡ÕµÖÖ‰
 EN: We're starting to stop being afraid of our own strengths, not of one strong expert, not of anyone else, and so on.
    [audio 7.0 s | waited 0.3 s | ASR 0.70 s | speaker 0.31 s (similarity 1.00) | MT 2.92 s]
 
 [00:00:59] Speaker 2   (latency 3.2 s)
-HY: Այն դեպքում ենթադրենք չունենք էդ վստահությունը, ենթադրենք դեռեւս նոր ենք, շատ կարեւոր է հասկանալ ինչպես։
+HY: Ô±ÕµÕ¶ Õ¤Õ¥ÕºÖ„Õ¸Ö‚Õ´ Õ¥Õ¶Õ©Õ¡Õ¤Ö€Õ¥Õ¶Ö„ Õ¹Õ¸Ö‚Õ¶Õ¥Õ¶Ö„ Õ§Õ¤ Õ¾Õ½Õ¿Õ¡Õ°Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶Õ¨, Õ¥Õ¶Õ©Õ¡Õ¤Ö€Õ¥Õ¶Ö„ Õ¤Õ¥Õ¼Õ¥Ö‚Õ½ Õ¶Õ¸Ö€ Õ¥Õ¶Ö„, Õ·Õ¡Õ¿ Õ¯Õ¡Ö€Õ¥Ö‚Õ¸Ö€ Õ§ Õ°Õ¡Õ½Õ¯Õ¡Õ¶Õ¡Õ¬ Õ«Õ¶Õ¹ÕºÕ¥Õ½Ö‰
 EN: So if you're not confident, if you're new, it's very important to understand how.
    [audio 7.0 s | waited 0.0 s | ASR 0.52 s | speaker 0.23 s (similarity 0.87) | MT 2.41 s]
 
 [00:01:06] Speaker 2   (latency 3.0 s)
-HY: Այլ ընդհանրապես փորձված, երբեմն ավելի տարիքով, երբեմն ավելի երկար տարիների փորձ ունեցող մարդավոր, որ հենց էդ թիմ։
+HY: Ô±ÕµÕ¬ Õ¨Õ¶Õ¤Õ°Õ¡Õ¶Ö€Õ¡ÕºÕ¥Õ½ ÖƒÕ¸Ö€Õ±Õ¾Õ¡Õ®, Õ¥Ö€Õ¢Õ¥Õ´Õ¶ Õ¡Õ¾Õ¥Õ¬Õ« Õ¿Õ¡Ö€Õ«Ö„Õ¸Õ¾, Õ¥Ö€Õ¢Õ¥Õ´Õ¶ Õ¡Õ¾Õ¥Õ¬Õ« Õ¥Ö€Õ¯Õ¡Ö€ Õ¿Õ¡Ö€Õ«Õ¶Õ¥Ö€Õ« ÖƒÕ¸Ö€Õ± Õ¸Ö‚Õ¶Õ¥ÖÕ¸Õ² Õ´Õ¡Ö€Õ¤Õ¡Õ¾Õ¸Ö€, Õ¸Ö€ Õ°Õ¥Õ¶Ö Õ§Õ¤ Õ©Õ«Õ´Ö‰
 EN: You're a person with a lot of experience, sometimes older, sometimes more years of experience than you're a team.
    [audio 7.0 s | waited 0.0 s | ASR 0.34 s | speaker 0.16 s (similarity 0.91) | MT 2.48 s]
 
 [00:01:13] Speaker 2   (latency 2.2 s)
-HY: Համմ աշխատատում է, ֆունտամենտալ արժեք է։
+HY: Õ€Õ¡Õ´Õ´ Õ¡Õ·Õ­Õ¡Õ¿Õ¡Õ¿Õ¸Ö‚Õ´ Õ§, Ö†Õ¸Ö‚Õ¶Õ¿Õ¡Õ´Õ¥Õ¶Õ¿Õ¡Õ¬ Õ¡Ö€ÕªÕ¥Ö„ Õ§Ö‰
 EN: It works, it's a fundamental value.
    [audio 4.4 s | waited 0.7 s | ASR 0.41 s | speaker 0.17 s (similarity 0.87) | MT 0.97 s]
 
 
 stopping ...
 [00:01:17] Me   (latency 1.2 s)
-HY: Ըական դա։
+HY: Ô¸Õ¡Õ¯Õ¡Õ¶ Õ¤Õ¡Ö‰
 EN: Choose that.
    [audio 3.1 s | waited 0.6 s | ASR 0.20 s | speaker 0.00 s | MT 0.42 s]
 
@@ -12748,7 +12754,7 @@ C:\Users\Lenovo\Projects\mathrix-live-translate>
 
 ### 246. Claude (2026-10-24 18:27 UTC)
 
-This run gives two important findings, but first one question, because it changes how we read everything: **what was playing?** The text sounds like a **YouTube interview**, not your friends' call: *"follow my Instagram page… my guest today is Garik Danielyan"*, then "Բարև Գարիկ ջան, բարև Սարգիս ջան" (greetings between a host, Sargis, and a guest, Garik). Was this a video, or your friends' Meet call? Also, were the `Me` lines "Ա", "Նոր", "Բ" you saying letters aloud to mark the order?
+This run gives two important findings, but first one question, because it changes how we read everything: **what was playing?** The text sounds like a **YouTube interview**, not your friends' call: *"follow my Instagram pageâ€¦ my guest today is Garik Danielyan"*, then "Ô²Õ¡Ö€Ö‡ Ô³Õ¡Ö€Õ«Õ¯ Õ»Õ¡Õ¶, Õ¢Õ¡Ö€Ö‡ ÕÕ¡Ö€Õ£Õ«Õ½ Õ»Õ¡Õ¶" (greetings between a host, Sargis, and a guest, Garik). Was this a video, or your friends' Meet call? Also, were the `Me` lines "Ô±", "Õ†Õ¸Ö€", "Ô²" you saying letters aloud to mark the order?
 
 Either way, the output shows two real problems. Nothing has been changed; this is diagnosis only.
 
@@ -12759,12 +12765,12 @@ My reading of who speaks, from the content. **Please correct it if you know bett
 | Time | Content | Probably | Label |
 |---|---|---|---|
 | 00:03 | "my guest today is Garik Danielyan" | host | Speaker 1 |
-| 00:10 | "Hi Garik jan, hi Sargis jan, thanks for inviting me… thank you for not refusing" | **both voices in one 7 s piece** | Speaker 1 (0.64) |
-| 00:17–00:24 | "everybody knows you as a real estate broker… my first question" | host | Speaker 1 |
-| 00:35–00:45 | "and a blogger now… Sargis jan, that question…" | guest answering | **Speaker 1** (0.62, 0.46, 0.44) |
-| 00:52–01:13 | long answer about confidence and experience | guest | **Speaker 2** |
+| 00:10 | "Hi Garik jan, hi Sargis jan, thanks for inviting meâ€¦ thank you for not refusing" | **both voices in one 7 s piece** | Speaker 1 (0.64) |
+| 00:17â€“00:24 | "everybody knows you as a real estate brokerâ€¦ my first question" | host | Speaker 1 |
+| 00:35â€“00:45 | "and a blogger nowâ€¦ Sargis jan, that questionâ€¦" | guest answering | **Speaker 1** (0.62, 0.46, 0.44) |
+| 00:52â€“01:13 | long answer about confidence and experience | guest | **Speaker 2** |
 
-If that's right, the guest was labelled **Speaker 1 at first and Speaker 2 later**, which breaks the "same label for the whole session" rule. This matches the hypothesis from the clean clips: the **00:10 piece mixed both voices**, so Speaker 1's average became a blend, and the guest's first answers matched that blend (0.44–0.62) before a clean, long stretch created Speaker 2. The clean-clip test showed the model *can* separate voices. The weak point is **mixed pieces feeding the speaker averages**.
+If that's right, the guest was labelled **Speaker 1 at first and Speaker 2 later**, which breaks the "same label for the whole session" rule. This matches the hypothesis from the clean clips: the **00:10 piece mixed both voices**, so Speaker 1's average became a blend, and the guest's first answers matched that blend (0.44â€“0.62) before a clean, long stretch created Speaker 2. The clean-clip test showed the model *can* separate voices. The weak point is **mixed pieces feeding the speaker averages**.
 
 ## Finding 2: Latency went over 5 s three times (R6 failure)
 
@@ -12779,7 +12785,7 @@ The 00:35 piece produced a **short** English sentence, yet translation took 6.1 
 ## Step 7: Answer three questions (no commands)
 
 1. **What was the audio source?** A YouTube or other video, or your friends' Meet call? If it was a video, which app played it (Chrome, Edge, a media player), and was Meet also open?
-2. **Is my speaker reading in the table right?** Especially: is 00:35–00:45 the **guest** (Garik)?
+2. **Is my speaker reading in the table right?** Especially: is 00:35â€“00:45 the **guest** (Garik)?
 3. **What else was running** at the time (browser tabs, Meet, other programs)?
 
 **Status: M1 remains PENDING**, since this wasn't a passed two-speaker call. These two findings, **speaker averages contaminated by mixed pieces** and **latency spikes under CPU competition**, become the concrete "weakest parts" for M5. Once you answer, I'll propose measured fixes for each and their trade-offs. No code changes until you agree.
@@ -12801,16 +12807,16 @@ YouTube , two different videod and me
 Thanks, that makes the run much clearer. So the system audio was **two different YouTube videos, one after the other**, and the mic was you.
 
 That means:
-- **Video 1** (00:03–00:45) is itself an **interview with two people**: host Sargis and guest Garik.
+- **Video 1** (00:03â€“00:45) is itself an **interview with two people**: host Sargis and guest Garik.
 - **Video 2** (from 00:52) is a **third person**, talking about confidence and experience.
 
 | True speaker | Label they got | Correct? |
 |---|---|---|
-| Video 1, host | Speaker 1 | ✅ |
-| Video 1, guest | Speaker 1 | ❌ **merged with the host** |
-| Video 2, speaker | Speaker 2 | ✅ (consistent: 0.87–0.91) |
+| Video 1, host | Speaker 1 | âœ… |
+| Video 1, guest | Speaker 1 | âŒ **merged with the host** |
+| Video 2, speaker | Speaker 2 | âœ… (consistent: 0.87â€“0.91) |
 
-So it's **3 people, 2 labels**: the two voices in video 1 were merged. The 00:10 piece contained both of them greeting each other, which fits the "mixed piece contaminates the speaker average" explanation. And the **latency spike (00:35–00:50) happened right around the switch to the second video.** Loading a new YouTube page in the browser is CPU-heavy, which fits the "CPU competition" explanation.
+So it's **3 people, 2 labels**: the two voices in video 1 were merged. The 00:10 piece contained both of them greeting each other, which fits the "mixed piece contaminates the speaker average" explanation. And the **latency spike (00:35â€“00:50) happened right around the switch to the second video.** Loading a new YouTube page in the browser is CPU-heavy, which fits the "CPU competition" explanation.
 
 This wasn't the friends' call, so **M1 stays PENDING**.
 
@@ -12878,7 +12884,7 @@ Agreed on the plan. I've written the evaluation tool and its tests, and checked 
 If you want the host and guest included, we can add clean stretches of each later with `--clips`.
 
 **How the tool works:** it cuts each clean recording into pieces like the live system side does (keeping pieces of at least 2 s), then builds three repeatable scenarios with a known speaker for every piece:
-- **turns**: clean pieces only, speakers take turns (A B C D …)
+- **turns**: clean pieces only, speakers take turns (A B C D â€¦)
 - **mixed-start**: the **first** piece mixes A and B, like two people greeting each other (reproduces the live failure), then clean turns
 - **handovers**: clean turns, plus a mixed piece (the end of one speaker + the start of the next) at every second change of speaker
 
@@ -13240,9 +13246,9 @@ That's an important finding, and it affects more than this benchmark.
 
 **2. For D9, which I need to flag honestly:** D9's A/B test used this same file as **"speaker B"**. If it contains two people, then:
 - its "within B" score (median 0.50, min 0.17) wasn't one person's consistency, but partly two people.
-- the D9 interleaved test counted "both B people under one label" as **correct**. So the "100% at thresholds 0.20–0.30" is weaker evidence than I described, and the claim that "0.35 splits speaker B" may actually mean **0.35 correctly separated two different people**.
+- the D9 interleaved test counted "both B people under one label" as **correct**. So the "100% at thresholds 0.20â€“0.30" is weaker evidence than I described, and the claim that "0.35 splits speaker B" may actually mean **0.35 correctly separated two different people**.
 
-The other D9 evidence still stands (the clean friends' clips separating at 0.12 vs 0.67–0.69, and the podcast host/guest live run). But D9 needs a **correction note** once we have clean results. We won't edit DECISIONS.md or commit anything yet, as agreed. I'll include the correction when we review the measurements.
+The other D9 evidence still stands (the clean friends' clips separating at 0.12 vs 0.67â€“0.69, and the podcast host/guest live run). But D9 needs a **correction note** once we have clean results. We won't edit DECISIONS.md or commit anything yet, as agreed. I'll include the correction when we review the measurements.
 
 ## Step 11: Verify clip C, then rerun the baseline with clean clips only
 
@@ -13496,10 +13502,10 @@ This sweep answers the question clearly.
 
 | Threshold | turns | mixed-start | handovers | Verdict |
 |---|---|---|---|---|
-| 0.25, 0.30 | 100% | **67%**, merge | **67%**, merge | ❌ mixed pieces merge people |
-| **0.35 – 0.50** | **100%** | **100%** | **100%** | ✅ exactly 3 speakers everywhere |
-| 0.55 | 100% | 100% | 100%, but **4 found** | ⚠️ a mixed piece creates a **ghost "Speaker 4"** |
-| 0.60 | 100% | 92%, **split** | 100%, **5 found** | ❌ people split, ghosts appear |
+| 0.25, 0.30 | 100% | **67%**, merge | **67%**, merge | âŒ mixed pieces merge people |
+| **0.35 â€“ 0.50** | **100%** | **100%** | **100%** | âœ… exactly 3 speakers everywhere |
+| 0.55 | 100% | 100% | 100%, but **4 found** | âš ï¸ a mixed piece creates a **ghost "Speaker 4"** |
+| 0.60 | 100% | 92%, **split** | 100%, **5 found** | âŒ people split, ghosts appear |
 
 **The working range is 0.35 to 0.50**: no merges, no splits, no ghost speakers in any scenario. That's a reasonably wide band, which supports fixing this with the **simple** option, a threshold change, rather than adding the A1 consistency check now.
 
@@ -13508,7 +13514,7 @@ This sweep answers the question clearly.
 The benchmark alone would suggest the middle (~0.42). But we also have **real live measurements of the same person's similarity** to their own speaker average:
 
 - Meet call, one friend: **0.46**, 0.59, 0.70 (the 0.46 was a short 1.9 s line)
-- Podcast host and guest: 0.80–0.93
+- Podcast host and guest: 0.80â€“0.93
 
 A threshold of 0.45 would sit **just below 0.46**, so a real caller on Meet could easily be split into two "speakers". **0.40** is inside the benchmark's safe range (0.05 above the merge edge, 0.10 below the ghost edge) and still **below every same-person score we've seen live**.
 
@@ -13562,7 +13568,7 @@ What was already correct:
 - **Accuracy, splits and merges** were computed from **clean pieces only**, so mixed pieces never counted as ordinary single-speaker turns.
 
 What was **misleading**, and I've fixed:
-- **"found"** counted labels from *all* pieces, including mixed ones, without saying so. A label created **only** by a mixed piece is a **ghost speaker**: in the live app it would print a "Speaker 4" who isn't a real person. In the sweep, at 0.55 handovers showed **"found 4, accuracy 100%"**. The accuracy was true for clean pieces, but the ghost was only visible if you noticed that 4 ≠ 3.
+- **"found"** counted labels from *all* pieces, including mixed ones, without saying so. A label created **only** by a mixed piece is a **ghost speaker**: in the live app it would print a "Speaker 4" who isn't a real person. In the sweep, at 0.55 handovers showed **"found 4, accuracy 100%"**. The accuracy was true for clean pieces, but the ghost was only visible if you noticed that 4 â‰  3.
 - **Mixed pieces themselves were not reported at all.**
 
 The updated scoring reports, separately:
@@ -13876,7 +13882,7 @@ C:\Users\Lenovo\Projects\mathrix-live-translate>
 
 The error explains itself: **the test code ended up inside the tool file.**
 
-Look at the traceback: `src\livetrans\tools\speakers_eval.py:5` contains `from livetrans.tools.speakers_eval import …`. That's the first line of the **test** file. The `findstr` output confirms it: the "ghosts" lines it found in `speakers_eval.py` are `assert` lines from the tests. So the tool file now imports *itself*, which Python reports as a "circular import". The paste for 15a most likely received the test code instead of the tool code. Nothing else is affected.
+Look at the traceback: `src\livetrans\tools\speakers_eval.py:5` contains `from livetrans.tools.speakers_eval import â€¦`. That's the first line of the **test** file. The `findstr` output confirms it: the "ghosts" lines it found in `speakers_eval.py` are `assert` lines from the tests. So the tool file now imports *itself*, which Python reports as a "circular import". The paste for 15a most likely received the test code instead of the tool code. Nothing else is affected.
 
 **Step 15 (repair)**
 
@@ -13996,7 +14002,7 @@ C:\ProgramData\anaconda3\envs\livetrans\python.exe -m pytest -q
 Expected: **9** `def test_` lines and **38 passed**. **Stop here if it isn't 38**, and paste the output.
 
 **16b. Save the edit script, outside the project.** It makes exactly the approved changes and refuses if anything isn't as expected:
-1. `speakers.py`: one line, `DEFAULT_THRESHOLD` 0.25 → 0.40
+1. `speakers.py`: one line, `DEFAULT_THRESHOLD` 0.25 â†’ 0.40
 2. `DECISIONS.md`: a **correction line at the end of D9** (the two-person clip), and a **new D10** at the end
 3. `TESTS.md`: the R4 section updated with the D10 evidence, and the new test file added to the test table
 
@@ -14031,19 +14037,19 @@ D9_CORRECTION = """- Correction (2026-10-24, see D10): samples/speaker_b.wav, us
   later confirmed on clean single-voice clips (D10)."""
 
 D10 = """
-## D10 — Speaker threshold 0.25 → 0.40, from a known-truth evaluation (2026-10-24)
+## D10 â€” Speaker threshold 0.25 â†’ 0.40, from a known-truth evaluation (2026-10-24)
 - Live failures at 0.25:
-  - Friends' call (two people on one device, Google Meet): A's first piece → Speaker 1,
-    then B scored 0.38 against it → B labelled Speaker 1 too (merge).
-  - Two YouTube videos: host and guest of video 1 both → Speaker 1 (their greeting was one
-    mixed 7 s piece); the speaker of video 2 → Speaker 2, consistently.
+  - Friends' call (two people on one device, Google Meet): A's first piece â†’ Speaker 1,
+    then B scored 0.38 against it â†’ B labelled Speaker 1 too (merge).
+  - Two YouTube videos: host and guest of video 1 both â†’ Speaker 1 (their greeting was one
+    mixed 7 s piece); the speaker of video 2 â†’ Speaker 2, consistently.
 - Model check on clean clips: friend A and friend B recorded one at a time through the same
-  Meet setup: within A 0.69, within B 0.67, A vs B 0.12 → TitaNet-small separates them.
+  Meet setup: within A 0.69, within B 0.67, A vs B 0.12 â†’ TitaNet-small separates them.
   (The first recordings of the friends contained both voices and were discarded.)
 - Cause: a piece that contains two voices becomes or updates a speaker's average; later
   pieces of both people then match that blend above 0.25.
 - Tool: `python -m livetrans.tools.speakers_eval` (tests/test_speakers_eval.py). Builds
-  sequences with known truth from verified single-voice clips: samples/meet_a.wav 0–40 s,
+  sequences with known truth from verified single-voice clips: samples/meet_a.wav 0â€“40 s,
   samples/meet_b.wav, samples/speaker_a.wav (samples/speaker_b.wav excluded: two people).
   Scenarios: turns (clean only), mixed-start (first piece mixes two people), handovers
   (mixed piece at every second change of speaker; 3 clean pieces reused). Accuracy, splits
@@ -14053,12 +14059,12 @@ D10 = """
 | Threshold | turns | mixed-start | handovers |
 |---|---|---|---|
 | 0.25, 0.30 | 100 %, 3 speakers | 67 %, 2 speakers (merge) | 67 %, 2 speakers (merge) |
-| 0.35 – 0.50 | 100 %, 3 speakers | 100 %, 3 speakers | 100 %, 3 speakers |
+| 0.35 â€“ 0.50 | 100 %, 3 speakers | 100 %, 3 speakers | 100 %, 3 speakers |
 | 0.55 | 100 %, 3 speakers | 100 %, 3 speakers | 100 %, 4 found (ghost from a mixed piece) |
 | 0.60 | 100 %, 3 speakers | 92 %, 4 found (split) | 100 %, 5 found (ghosts) |
 
 - Decision: default threshold 0.40 (`--speaker-threshold` still overrides it). It is inside
-  the safe range 0.35–0.50 and below the lowest same-person score seen live (0.46, a 1.9 s
+  the safe range 0.35â€“0.50 and below the lowest same-person score seen live (0.46, a 1.9 s
   line in a Meet call), so a real caller should not be split.
 - Not done: A1 (check whether the start and end of a piece have the same voice). Not needed
   on this data; kept as a possible improvement if mixed pieces still cause errors live.
@@ -14070,12 +14076,12 @@ ROW_ANCHOR = "| tests/test_speakers.py | 6 |"
 NEW_ROW = ("| tests/test_speakers_eval.py | 9 | R4: scores of the known-truth speaker evaluation "
            "(splits, merges, ghost speakers, mixed pieces kept out of accuracy) |\n")
 
-R4_NEW = """### R4 — Speakers: mic = "Me", call side = "Speaker 1", "Speaker 2", stable for the session
+R4_NEW = """### R4 â€” Speakers: mic = "Me", call side = "Speaker 1", "Speaker 2", stable for the session
 - Automated: tests/test_speakers.py (6); tests/test_speakers_eval.py (9) for the evaluation scores.
-- Known-truth evaluation (D10), verified single-voice clips (friend A 0–40 s, friend B, clip C),
+- Known-truth evaluation (D10), verified single-voice clips (friend A 0â€“40 s, friend B, clip C),
   `python -m livetrans.tools.speakers_eval`:
-  thresholds 0.35–0.50 → 100 % and exactly 3 speakers in all scenarios (turns, mixed-start,
-  handovers); 0.25–0.30 → merges after mixed pieces (67 %); 0.55–0.60 → ghost speakers or splits.
+  thresholds 0.35â€“0.50 â†’ 100 % and exactly 3 speakers in all scenarios (turns, mixed-start,
+  handovers); 0.25â€“0.30 â†’ merges after mixed pieces (67 %); 0.55â€“0.60 â†’ ghost speakers or splits.
   Default threshold changed from 0.25 to 0.40.
 - Model check (D10): friends recorded separately via Meet: A vs B 0.12, within A 0.69, within B 0.67.
 - Live, done (D9, at 0.25): podcast host and guest labelled correctly (9 segments).
@@ -14131,7 +14137,7 @@ if __name__ == "__main__":
 ```cmd
 C:\ProgramData\anaconda3\envs\livetrans\python.exe %TEMP%\apply_d10.py
 ```
-Expected: three `updated …` lines. If it prints **"nothing changed"** with a reason, paste that; it means a file isn't as expected, and nothing was touched.
+Expected: three `updated â€¦` lines. If it prints **"nothing changed"** with a reason, paste that; it means a file isn't as expected, and nothing was touched.
 
 **16d. Verify and review. Don't commit:**
 ```cmd
@@ -14154,7 +14160,7 @@ Expected:
 - **38 passed**
 - the evaluation now runs at the **new default 0.40**, with 3 found, 0 merges and 0 ghosts in every scenario
 - `git status` shows `speakers.py`, `DECISIONS.md` and `TESTS.md` as modified, and the evaluation tool and its tests as untracked
-- the `speakers.py` diff is **exactly one line**, 0.25 → 0.40
+- the `speakers.py` diff is **exactly one line**, 0.25 â†’ 0.40
 
 Paste all outputs. We review them together, and only then commit.
 
@@ -14316,15 +14322,15 @@ Reviewed. Everything matches the approved change, with one small stale line left
 
 | Check | Result | Verdict |
 |---|---|---|
-| Tests | **38 passed** (29 + 9 new evaluation tests) | ✅ |
-| Speaker evaluation at the **new default 0.40** | all 3 scenarios: **3 found, 0 splits, 0 merges, 0 ghosts, 100%**; mixed pieces 1/1 and 5/5 | ✅ |
-| `speakers.py` diff | **exactly one line**: 0.25 → 0.40, with the D10 reference | ✅ |
-| `DECISIONS.md` | +39 lines, **0 deletions**: the D9 correction plus D10, nothing existing removed | ✅ |
-| `TESTS.md` | 13 lines added, 8 removed: the old R4 block replaced, plus the new table row | ✅ |
-| Untracked files | the evaluation tool and its tests, as expected | ✅ |
-| Latency code | untouched | ✅ |
+| Tests | **38 passed** (29 + 9 new evaluation tests) | âœ… |
+| Speaker evaluation at the **new default 0.40** | all 3 scenarios: **3 found, 0 splits, 0 merges, 0 ghosts, 100%**; mixed pieces 1/1 and 5/5 | âœ… |
+| `speakers.py` diff | **exactly one line**: 0.25 â†’ 0.40, with the D10 reference | âœ… |
+| `DECISIONS.md` | +39 lines, **0 deletions**: the D9 correction plus D10, nothing existing removed | âœ… |
+| `TESTS.md` | 13 lines added, 8 removed: the old R4 block replaced, plus the new table row | âœ… |
+| Untracked files | the evaluation tool and its tests, as expected | âœ… |
+| Latency code | untouched | âœ… |
 
-The DECISIONS.md figure follows from the totals: 53 insertions and 9 deletions overall, of which `speakers.py` accounts for 1/1 and `TESTS.md` for 13/8. That leaves DECISIONS.md at **+39/−0**, purely additive.
+The DECISIONS.md figure follows from the totals: 53 insertions and 9 deletions overall, of which `speakers.py` accounts for 1/1 and `TESTS.md` for 13/8. That leaves DECISIONS.md at **+39/âˆ’0**, purely additive.
 
 **The stale line:** TESTS.md section 1 still says *"Latest verified result: **29 passed** (2026-10-24, at commit f5e73db)"*. You've just verified **38 passed**, so it should say that. This one-line edit refuses if the old text isn't found exactly once:
 
@@ -14372,7 +14378,7 @@ ok
 
 C:\Users\Lenovo\Projects\mathrix-live-translate>findstr /n "Latest verified" TESTS.md
 14:Latest verified result: **38 passed** (2026-10-24, with the D10 threshold change).
-79:- Known-truth evaluation (D10), verified single-voice clips (friend A 0ΓÇô40 s, friend B, clip C),
+79:- Known-truth evaluation (D10), verified single-voice clips (friend A 0Î“Ã‡Ã´40 s, friend B, clip C),
 
 C:\Users\Lenovo\Projects\mathrix-live-translate>git add src\livetrans\speakers.py DECISIONS.md TESTS.md src\livetrans\tools\speakers_eval.py tests\test_speakers_eval.py
 warning: in the working copy of 'DECISIONS.md', LF will be replaced by CRLF the next time Git touches it
@@ -14444,7 +14450,7 @@ wmic process where name="python.exe" get ProcessId,Priority
 `32768` is Windows' code for "above normal". The check should show `Priority 10`. Then play the same videos the same way, and Ctrl+C at about 120 s.
 
 **What to send me for each run:**
-1. the `wmic … get` output, which proves which priority was used
+1. the `wmic â€¦ get` output, which proves which priority was used
 2. both **summary lines** from the app (median, p95, max, over 5 s, ASR/MT medians, max MT); the full output is better
 3. **your observation:** did the YouTube **video or audio stutter**, freeze or skip, especially in run 2? That's our stand-in for "call quality not harmed"
 
@@ -14472,8 +14478,8 @@ Expected: one line with `Priority 8` (normal). Then play the videos as described
 
 Thanks for the screenshot. Two things went differently from the plan, so this run **can't be used as the B1 baseline yet**:
 
-1. **The priority check ran after the app had already stopped.** "No Instance(s) Available" means no `python.exe` was running at that moment. Window 1 already shows "stopping…" and the summary. The `wmic` check has to happen **while the app is running**: after "listening" appears, and before you press Ctrl+C.
-2. **Both windows are "Administrator: Command Prompt".** After the python.exe incident (N1), we agreed to use **normal** cmd windows only, and nothing in this experiment needs admin rights. Please close both and open two **normal** cmd windows (Start → type `cmd` → Enter, not "Run as administrator").
+1. **The priority check ran after the app had already stopped.** "No Instance(s) Available" means no `python.exe` was running at that moment. Window 1 already shows "stoppingâ€¦" and the summary. The `wmic` check has to happen **while the app is running**: after "listening" appears, and before you press Ctrl+C.
+2. **Both windows are "Administrator: Command Prompt".** After the python.exe incident (N1), we agreed to use **normal** cmd windows only, and nothing in this experiment needs admin rights. Please close both and open two **normal** cmd windows (Start â†’ type `cmd` â†’ Enter, not "Run as administrator").
 
 From what's visible, that run was also shorter than the protocol: 8 segments, about 50 s, and 1 call speaker. So it probably didn't include the switch to video 2, which is the moment the latency spike happened before. For the record only, it showed **max 4.5 s, 0 over 5 s**, with max MT 3.95 s, but we won't use it for the comparison.
 
@@ -14544,39 +14550,39 @@ I'd suggest finishing B1 quickly today, with Run 1 and Run 2 only, and repeating
 
 ```text
 [00:00:00] Speaker 1   (latency 2.6 s)
-HY: Տեկ այդ բառը շատ մի ասեք պետք ա տեղին ասել՝ կաալ լավը, կա լավից լավը։
+HY: ÕÕ¥Õ¯ Õ¡ÕµÕ¤ Õ¢Õ¡Õ¼Õ¨ Õ·Õ¡Õ¿ Õ´Õ« Õ¡Õ½Õ¥Ö„ ÕºÕ¥Õ¿Ö„ Õ¡ Õ¿Õ¥Õ²Õ«Õ¶ Õ¡Õ½Õ¥Õ¬Õ Õ¯Õ¡Õ¡Õ¬ Õ¬Õ¡Õ¾Õ¨, Õ¯Õ¡ Õ¬Õ¡Õ¾Õ«Ö Õ¬Õ¡Õ¾Õ¨Ö‰
 EN: Don't say that word too much, but just say it right.
    [audio 7.0 s | waited 0.0 s | ASR 0.42 s | speaker 0.20 s (similarity 1.00) | MT 1.98 s]
 
 [00:00:06] Speaker 1   (latency 3.4 s)
-HY: Եվ եթե չենք ասում, իդեալական չի նշանակում, այլ դրական կողմեր չկա ասելու կամ առավելություններ չունի այդ։
+HY: ÔµÕ¾ Õ¥Õ©Õ¥ Õ¹Õ¥Õ¶Ö„ Õ¡Õ½Õ¸Ö‚Õ´, Õ«Õ¤Õ¥Õ¡Õ¬Õ¡Õ¯Õ¡Õ¶ Õ¹Õ« Õ¶Õ·Õ¡Õ¶Õ¡Õ¯Õ¸Ö‚Õ´, Õ¡ÕµÕ¬ Õ¤Ö€Õ¡Õ¯Õ¡Õ¶ Õ¯Õ¸Õ²Õ´Õ¥Ö€ Õ¹Õ¯Õ¡ Õ¡Õ½Õ¥Õ¬Õ¸Ö‚ Õ¯Õ¡Õ´ Õ¡Õ¼Õ¡Õ¾Õ¥Õ¬Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶Õ¶Õ¥Ö€ Õ¹Õ¸Ö‚Õ¶Õ« Õ¡ÕµÕ¤Ö‰
 EN: And if we don't say that's ideal, it doesn't mean that there's no other positive side to it or no advantages to it.
    [audio 7.0 s | waited -0.0 s | ASR 0.38 s | speaker 0.17 s (similarity 0.83) | MT 2.91 s]
 
 [00:00:13] Speaker 1   (latency 2.1 s)
-HY: Գույքը, հա՞, մեզտեղ ուղղակի պետք է լիներ անկեղծ։
+HY: Ô³Õ¸Ö‚ÕµÖ„Õ¨, Õ°Õ¡Õž, Õ´Õ¥Õ¦Õ¿Õ¥Õ² Õ¸Ö‚Õ²Õ²Õ¡Õ¯Õ« ÕºÕ¥Õ¿Ö„ Õ§ Õ¬Õ«Õ¶Õ¥Ö€ Õ¡Õ¶Õ¯Õ¥Õ²Õ®Ö‰
 EN: Property, you know, we just have to be honest.
    [audio 4.2 s | waited 0.6 s | ASR 0.28 s | speaker 0.09 s (similarity 0.67) | MT 1.11 s]
 
 [00:00:18] Speaker 1   (latency 2.5 s)
-HY: Ես անգամ երբեմն կաշկամբվածություն ունենում եմ, իհարկե, քանի որ կա։
+HY: ÔµÕ½ Õ¡Õ¶Õ£Õ¡Õ´ Õ¥Ö€Õ¢Õ¥Õ´Õ¶ Õ¯Õ¡Õ·Õ¯Õ¡Õ´Õ¢Õ¾Õ¡Õ®Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶ Õ¸Ö‚Õ¶Õ¥Õ¶Õ¸Ö‚Õ´ Õ¥Õ´, Õ«Õ°Õ¡Ö€Õ¯Õ¥, Ö„Õ¡Õ¶Õ« Õ¸Ö€ Õ¯Õ¡Ö‰
 EN: I even get skin rashes sometimes, of course, because there are.
    [audio 7.0 s | waited 0.7 s | ASR 0.38 s | speaker 0.16 s (similarity 0.88) | MT 1.27 s]
 
 [00:00:35] Speaker 1   (latency 3.1 s)
-HY: Ցանկություն սեփականատիրոջ, որը չես կարող անտեսել, բայց սիրում եմ է սեփականատերերին ու արդյունավետալ։
+HY: Õ‘Õ¡Õ¶Õ¯Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶ Õ½Õ¥ÖƒÕ¡Õ¯Õ¡Õ¶Õ¡Õ¿Õ«Ö€Õ¸Õ», Õ¸Ö€Õ¨ Õ¹Õ¥Õ½ Õ¯Õ¡Ö€Õ¸Õ² Õ¡Õ¶Õ¿Õ¥Õ½Õ¥Õ¬, Õ¢Õ¡ÕµÖ Õ½Õ«Ö€Õ¸Ö‚Õ´ Õ¥Õ´ Õ§ Õ½Õ¥ÖƒÕ¡Õ¯Õ¡Õ¶Õ¡Õ¿Õ¥Ö€Õ¥Ö€Õ«Õ¶ Õ¸Ö‚ Õ¡Ö€Õ¤ÕµÕ¸Ö‚Õ¶Õ¡Õ¾Õ¥Õ¿Õ¡Õ¬Ö‰
 EN: It's a desire of the owner that you can't ignore, but I love the owners and being productive.
    [audio 7.0 s | waited 0.0 s | ASR 0.44 s | speaker 0.17 s (similarity 0.87) | MT 2.52 s]
 
 [00:00:42] Speaker 1   (latency 3.3 s)
-HY: Կ ու գովազդ ասենք, թե կոնտենտենն մարդկանց համար, ովքեր, օրինակ,, ինչ ուզում ես արա, ուզում ես վատ աս։
+HY: Ô¿ Õ¸Ö‚ Õ£Õ¸Õ¾Õ¡Õ¦Õ¤ Õ¡Õ½Õ¥Õ¶Ö„, Õ©Õ¥ Õ¯Õ¸Õ¶Õ¿Õ¥Õ¶Õ¿Õ¥Õ¶Õ¶ Õ´Õ¡Ö€Õ¤Õ¯Õ¡Õ¶Ö Õ°Õ¡Õ´Õ¡Ö€, Õ¸Õ¾Ö„Õ¥Ö€, Ö…Ö€Õ«Õ¶Õ¡Õ¯,, Õ«Õ¶Õ¹ Õ¸Ö‚Õ¦Õ¸Ö‚Õ´ Õ¥Õ½ Õ¡Ö€Õ¡, Õ¸Ö‚Õ¦Õ¸Ö‚Õ´ Õ¥Õ½ Õ¾Õ¡Õ¿ Õ¡Õ½Ö‰
 EN: And let's say advertising, or content for people who, for example, say, "Whatever you want to do, you want to say bad".
    [audio 7.0 s | waited 0.0 s | ASR 0.42 s | speaker 0.16 s (similarity 0.89) | MT 2.75 s]
 
 
 stopping ...
 [00:00:49] Speaker 1   (latency 4.6 s)
-HY: Լավ ա ասա, ինչ տեսնում ես, ասա, ուզում ես հումոր արա, նման կոնտենտները ես կաշկադված չեմ լինում, ինձ ազատ եմ։
+HY: Ô¼Õ¡Õ¾ Õ¡ Õ¡Õ½Õ¡, Õ«Õ¶Õ¹ Õ¿Õ¥Õ½Õ¶Õ¸Ö‚Õ´ Õ¥Õ½, Õ¡Õ½Õ¡, Õ¸Ö‚Õ¦Õ¸Ö‚Õ´ Õ¥Õ½ Õ°Õ¸Ö‚Õ´Õ¸Ö€ Õ¡Ö€Õ¡, Õ¶Õ´Õ¡Õ¶ Õ¯Õ¸Õ¶Õ¿Õ¥Õ¶Õ¿Õ¶Õ¥Ö€Õ¨ Õ¥Õ½ Õ¯Õ¡Õ·Õ¯Õ¡Õ¤Õ¾Õ¡Õ® Õ¹Õ¥Õ´ Õ¬Õ«Õ¶Õ¸Ö‚Õ´, Õ«Õ¶Õ± Õ¡Õ¦Õ¡Õ¿ Õ¥Õ´Ö‰
 EN: It's okay to say what you see, to say what you want to do, to make fun of it, I'm not ashamed of this stuff, I'm free.
    [audio 7.0 s | waited 0.0 s | ASR 0.50 s | speaker 0.19 s (similarity 0.88) | MT 3.92 s]
 
@@ -14609,7 +14615,7 @@ Thanks. Here's what these two pieces show.
 
 **Run 1 (normal priority) is valid, but shorter than planned:**
 - **7 segments, 0 over 5 s, median 3.1 s, p95 4.6 s, max 4.6 s**, with max translation time 3.92 s.
-- It ended at about **50 s**, and all 7 segments were **one speaker** (similarity 0.67–0.89 to Speaker 1). So it looks like **video 2 never played**, and the video switch, which caused the earlier spike, isn't in this run.
+- It ended at about **50 s**, and all 7 segments were **one speaker** (similarity 0.67â€“0.89 to Speaker 1). So it looks like **video 2 never played**, and the video switch, which caused the earlier spike, isn't in this run.
 - A useful side result: one person talking for 50 s stayed **one speaker at the new 0.40 threshold**, with the lowest score 0.67. So no split, which supports D10.
 
 **The "run 2" check isn't a second run yet:**
@@ -14618,11 +14624,11 @@ Thanks. Here's what these two pieces show.
 
 To compare fairly, both runs must follow the **same protocol**, including the switch. To save time, here's a shorter version, about 90 s per run.
 
-**Protocol, the same for both runs:** start video 1 → at about **45 s** switch to video 2 (open its page in the same tab) → at about **90 s** press **Ctrl+C**.
+**Protocol, the same for both runs:** start video 1 â†’ at about **45 s** switch to video 2 (open its page in the same tab) â†’ at about **90 s** press **Ctrl+C**.
 
 **Run 1 again (normal), with the switch.** Normal cmd windows, both in the project folder:
 - Window 1: `C:\ProgramData\anaconda3\envs\livetrans\python.exe -m livetrans.app --timing`
-- Window 2, at "listening": `wmic process where name="python.exe" get ProcessId,Priority` → expect **8**
+- Window 2, at "listening": `wmic process where name="python.exe" get ProcessId,Priority` â†’ expect **8**
 - Play the protocol, then Ctrl+C.
 
 **Run 2 (above normal):**
@@ -14634,7 +14640,7 @@ To compare fairly, both runs must follow the **same protocol**, including the sw
   ```cmd
   wmic process where name="python.exe" get ProcessId,Priority
   ```
-  → expect **Priority 10**, and a **different ProcessId** from run 1
+  â†’ expect **Priority 10**, and a **different ProcessId** from run 1
 - Play the same protocol, then Ctrl+C.
 
 For each run, paste the `wmic` check and the app output, including both summary lines, and say whether the video **stuttered**. The run should show a **Speaker 2** appearing after the switch; that also tells us the switch really happened.
@@ -14670,97 +14676,97 @@ C:\Users\Lenovo\Projects\mathrix-live-translate>
 ```text
 
 [00:00:47] Speaker 1   (latency 3.2 s)
-HY: Մեկ տարեկանի, ինքը հիմնականում ն՝ բրոոկկերների մոտ ոնց ա հայտարարություն ես տեղադրում, բրոկիրես զանգում։
+HY: Õ„Õ¥Õ¯ Õ¿Õ¡Ö€Õ¥Õ¯Õ¡Õ¶Õ«, Õ«Õ¶Ö„Õ¨ Õ°Õ«Õ´Õ¶Õ¡Õ¯Õ¡Õ¶Õ¸Ö‚Õ´ Õ¶Õ Õ¢Ö€Õ¸Õ¸Õ¯Õ¯Õ¥Ö€Õ¶Õ¥Ö€Õ« Õ´Õ¸Õ¿ Õ¸Õ¶Ö Õ¡ Õ°Õ¡ÕµÕ¿Õ¡Ö€Õ¡Ö€Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶ Õ¥Õ½ Õ¿Õ¥Õ²Õ¡Õ¤Ö€Õ¸Ö‚Õ´, Õ¢Ö€Õ¸Õ¯Õ«Ö€Õ¥Õ½ Õ¦Õ¡Õ¶Õ£Õ¸Ö‚Õ´Ö‰
 EN: One-year-old, he's basically the one who puts the ad in the brokerage, the brokerage call.
    [audio 7.0 s | waited 0.0 s | ASR 0.44 s | speaker 0.17 s (similarity 0.45) | MT 2.59 s]
 
 [00:00:54] Speaker 1   (latency 3.5 s)
-HY: Տվյալ արդեն մարդուն ոնց են ձեզ գտնում, ոնց են քեզ դում, էս պահին արդեն պարզ ա քեզ ոնց են դիմում, հեշտացել, էս պահ։
+HY: ÕÕ¾ÕµÕ¡Õ¬ Õ¡Ö€Õ¤Õ¥Õ¶ Õ´Õ¡Ö€Õ¤Õ¸Ö‚Õ¶ Õ¸Õ¶Ö Õ¥Õ¶ Õ±Õ¥Õ¦ Õ£Õ¿Õ¶Õ¸Ö‚Õ´, Õ¸Õ¶Ö Õ¥Õ¶ Ö„Õ¥Õ¦ Õ¤Õ¸Ö‚Õ´, Õ§Õ½ ÕºÕ¡Õ°Õ«Õ¶ Õ¡Ö€Õ¤Õ¥Õ¶ ÕºÕ¡Ö€Õ¦ Õ¡ Ö„Õ¥Õ¦ Õ¸Õ¶Ö Õ¥Õ¶ Õ¤Õ«Õ´Õ¸Ö‚Õ´, Õ°Õ¥Õ·Õ¿Õ¡ÖÕ¥Õ¬, Õ§Õ½ ÕºÕ¡Õ°Ö‰
 EN: The data is already on what people find you, what people put you in, it's already clear, it's easier, it's easy.
    [audio 7.0 s | waited 0.0 s | ASR 0.39 s | speaker 0.16 s (similarity 0.60) | MT 2.91 s]
 
 [00:01:01] Speaker 1   (latency 1.8 s)
-HY: Չամ էլ ենք քաշատեն, դու առաջիններից էիր, որ էդ վարձով տները կամ վաճառքի բնակարանները։
+HY: Õ‰Õ¡Õ´ Õ§Õ¬ Õ¥Õ¶Ö„ Ö„Õ¡Õ·Õ¡Õ¿Õ¥Õ¶, Õ¤Õ¸Ö‚ Õ¡Õ¼Õ¡Õ»Õ«Õ¶Õ¶Õ¥Ö€Õ«Ö Õ§Õ«Ö€, Õ¸Ö€ Õ§Õ¤ Õ¾Õ¡Ö€Õ±Õ¸Õ¾ Õ¿Õ¶Õ¥Ö€Õ¨ Õ¯Õ¡Õ´ Õ¾Õ¡Õ³Õ¡Õ¼Ö„Õ« Õ¢Õ¶Õ¡Õ¯Õ¡Ö€Õ¡Õ¶Õ¶Õ¥Ö€Õ¨Ö‰
 EN: You're the first person to rent or sell apartments.
    [audio 7.0 s | waited 0.0 s | ASR 0.39 s | speaker 0.19 s (similarity 0.75) | MT 1.22 s]
 
 [00:01:08] Speaker 1   (latency 3.1 s)
-HY: Ինքըդ էր էդ ոն որ ասում ա ամբինգանում, ներկայացնում, դու կամ առաջինն էր, եթե չասեմ առաջին, բայց առաջիններից է ես քեզ։
+HY: Ô»Õ¶Ö„Õ¨Õ¤ Õ§Ö€ Õ§Õ¤ Õ¸Õ¶ Õ¸Ö€ Õ¡Õ½Õ¸Ö‚Õ´ Õ¡ Õ¡Õ´Õ¢Õ«Õ¶Õ£Õ¡Õ¶Õ¸Ö‚Õ´, Õ¶Õ¥Ö€Õ¯Õ¡ÕµÕ¡ÖÕ¶Õ¸Ö‚Õ´, Õ¤Õ¸Ö‚ Õ¯Õ¡Õ´ Õ¡Õ¼Õ¡Õ»Õ«Õ¶Õ¶ Õ§Ö€, Õ¥Õ©Õ¥ Õ¹Õ¡Õ½Õ¥Õ´ Õ¡Õ¼Õ¡Õ»Õ«Õ¶, Õ¢Õ¡ÕµÖ Õ¡Õ¼Õ¡Õ»Õ«Õ¶Õ¶Õ¥Ö€Õ«Ö Õ§ Õ¥Õ½ Ö„Õ¥Õ¦Ö‰
 EN: You were the one who said in the audience, representing, you were the first, if not the first, but I'm the first.
    [audio 7.0 s | waited 0.0 s | ASR 0.39 s | speaker 0.16 s (similarity 0.75) | MT 2.56 s]
 
 [00:01:15] Speaker 1   (latency 5.7 s)
-HY: Որապես առաջին եմ ճանաչում, ոնց ես ընդունում, որ Էդ նույն ստանդարտը հիմա օգտագործում ա նաեւ այլ անշարժ գույ։
+HY: ÕˆÖ€Õ¡ÕºÕ¥Õ½ Õ¡Õ¼Õ¡Õ»Õ«Õ¶ Õ¥Õ´ Õ³Õ¡Õ¶Õ¡Õ¹Õ¸Ö‚Õ´, Õ¸Õ¶Ö Õ¥Õ½ Õ¨Õ¶Õ¤Õ¸Ö‚Õ¶Õ¸Ö‚Õ´, Õ¸Ö€ Ô·Õ¤ Õ¶Õ¸Ö‚ÕµÕ¶ Õ½Õ¿Õ¡Õ¶Õ¤Õ¡Ö€Õ¿Õ¨ Õ°Õ«Õ´Õ¡ Ö…Õ£Õ¿Õ¡Õ£Õ¸Ö€Õ®Õ¸Ö‚Õ´ Õ¡ Õ¶Õ¡Õ¥Ö‚ Õ¡ÕµÕ¬ Õ¡Õ¶Õ·Õ¡Ö€Õª Õ£Õ¸Ö‚ÕµÖ‰
 EN: I'm the first to recognize, as I'm admitting, that Ed is now using the same standard and a different color.
    [audio 7.0 s | waited 0.0 s | ASR 0.47 s | speaker 0.20 s (similarity 0.80) | MT 5.06 s]
 
 [00:01:22] Speaker 1   (latency 5.9 s)
-HY: Միո գործընկերո ընկերներով։ ու նորմալ։
+HY: Õ„Õ«Õ¸ Õ£Õ¸Ö€Õ®Õ¨Õ¶Õ¯Õ¥Ö€Õ¸ Õ¨Õ¶Õ¯Õ¥Ö€Õ¶Õ¥Ö€Õ¸Õ¾Ö‰ Õ¸Ö‚ Õ¶Õ¸Ö€Õ´Õ¡Õ¬Ö‰
 EN: My partner's friends. And that's fine.
    [audio 3.7 s | waited 2.6 s | ASR 0.72 s | speaker 0.12 s (similarity 0.55) | MT 2.41 s]
 
 [00:01:26] Speaker 2   (latency 4.2 s)
-HY: Իր ուժերի վրա մենք ինքներս սկսում ենք արդեն չվախենալ, ոչ թեի ուժեղ մասնագետից, ոչ մեկ ուրիշից եւ այլն։
+HY: Ô»Ö€ Õ¸Ö‚ÕªÕ¥Ö€Õ« Õ¾Ö€Õ¡ Õ´Õ¥Õ¶Ö„ Õ«Õ¶Ö„Õ¶Õ¥Ö€Õ½ Õ½Õ¯Õ½Õ¸Ö‚Õ´ Õ¥Õ¶Ö„ Õ¡Ö€Õ¤Õ¥Õ¶ Õ¹Õ¾Õ¡Õ­Õ¥Õ¶Õ¡Õ¬, Õ¸Õ¹ Õ©Õ¥Õ« Õ¸Ö‚ÕªÕ¥Õ² Õ´Õ¡Õ½Õ¶Õ¡Õ£Õ¥Õ¿Õ«Ö, Õ¸Õ¹ Õ´Õ¥Õ¯ Õ¸Ö‚Ö€Õ«Õ·Õ«Ö Õ¥Ö‚ Õ¡ÕµÕ¬Õ¶Ö‰
 EN: We're not afraid of our own strengths anymore, not of a strong expert, not of anyone else, and so on.
    [audio 7.0 s | waited -0.0 s | ASR 0.56 s | speaker 0.25 s (similarity 1.00) | MT 3.38 s]
 
 [00:01:33] Speaker 2   (latency 4.7 s)
-HY: Բայց ամեն դեպքում ենթադրենք չունենք էդ վստահությունը, ենթադրենք դեռեւս նոր ենք, շատ կարեւոր է հասկանալ ինչպես։
+HY: Ô²Õ¡ÕµÖ Õ¡Õ´Õ¥Õ¶ Õ¤Õ¥ÕºÖ„Õ¸Ö‚Õ´ Õ¥Õ¶Õ©Õ¡Õ¤Ö€Õ¥Õ¶Ö„ Õ¹Õ¸Ö‚Õ¶Õ¥Õ¶Ö„ Õ§Õ¤ Õ¾Õ½Õ¿Õ¡Õ°Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶Õ¨, Õ¥Õ¶Õ©Õ¡Õ¤Ö€Õ¥Õ¶Ö„ Õ¤Õ¥Õ¼Õ¥Ö‚Õ½ Õ¶Õ¸Ö€ Õ¥Õ¶Ö„, Õ·Õ¡Õ¿ Õ¯Õ¡Ö€Õ¥Ö‚Õ¸Ö€ Õ§ Õ°Õ¡Õ½Õ¯Õ¡Õ¶Õ¡Õ¬ Õ«Õ¶Õ¹ÕºÕ¥Õ½Ö‰
 EN: But let's say we're not confident, let's say we're new, it's very important to understand how.
    [audio 7.0 s | waited 0.0 s | ASR 0.67 s | speaker 0.25 s (similarity 0.86) | MT 3.72 s]
 
 [00:01:40] Speaker 2   (latency 2.9 s)
-HY: Աատել ընդհանրապես փորձված, երբեմն ավելի տարիքով, երբեմն ավելի երկար տարիների փորձ ունեցող մարդավոր, որ հենց էդ։
+HY: Ô±Õ¡Õ¿Õ¥Õ¬ Õ¨Õ¶Õ¤Õ°Õ¡Õ¶Ö€Õ¡ÕºÕ¥Õ½ ÖƒÕ¸Ö€Õ±Õ¾Õ¡Õ®, Õ¥Ö€Õ¢Õ¥Õ´Õ¶ Õ¡Õ¾Õ¥Õ¬Õ« Õ¿Õ¡Ö€Õ«Ö„Õ¸Õ¾, Õ¥Ö€Õ¢Õ¥Õ´Õ¶ Õ¡Õ¾Õ¥Õ¬Õ« Õ¥Ö€Õ¯Õ¡Ö€ Õ¿Õ¡Ö€Õ«Õ¶Õ¥Ö€Õ« ÖƒÕ¸Ö€Õ± Õ¸Ö‚Õ¶Õ¥ÖÕ¸Õ² Õ´Õ¡Ö€Õ¤Õ¡Õ¾Õ¸Ö€, Õ¸Ö€ Õ°Õ¥Õ¶Ö Õ§Õ¤Ö‰
 EN: To hate a person who is more experienced, sometimes older, sometimes more experienced than you are.
    [audio 7.0 s | waited 0.0 s | ASR 0.53 s | speaker 0.23 s (similarity 0.90) | MT 2.14 s]
 
 [00:01:47] Speaker 2   (latency 2.8 s)
-HY: Թիմում աշխատում է ֆունտամենտալ արժեք է վարքագծի մեջ ակնհայտ պետք է, իհարկե, դա դրսեւորվի։
+HY: Ô¹Õ«Õ´Õ¸Ö‚Õ´ Õ¡Õ·Õ­Õ¡Õ¿Õ¸Ö‚Õ´ Õ§ Ö†Õ¸Ö‚Õ¶Õ¿Õ¡Õ´Õ¥Õ¶Õ¿Õ¡Õ¬ Õ¡Ö€ÕªÕ¥Ö„ Õ§ Õ¾Õ¡Ö€Ö„Õ¡Õ£Õ®Õ« Õ´Õ¥Õ» Õ¡Õ¯Õ¶Õ°Õ¡ÕµÕ¿ ÕºÕ¥Õ¿Ö„ Õ§, Õ«Õ°Õ¡Ö€Õ¯Õ¥, Õ¤Õ¡ Õ¤Ö€Õ½Õ¥Ö‚Õ¸Ö€Õ¾Õ«Ö‰
 EN: Working in a team is a fundamental value in behaviour obviously must be demonstrated, of course.
    [audio 7.0 s | waited 0.0 s | ASR 0.58 s | speaker 0.17 s (similarity 0.88) | MT 2.06 s]
 
 [00:01:54] Speaker 2   (latency 3.5 s)
-HY: Ելչ թե մտքում, հարգանքը թիմակիցների նկատմամբ, հարգանքը փորձի նկատմամբ, հարգանքը մասնագիտական։
+HY: ÔµÕ¬Õ¹ Õ©Õ¥ Õ´Õ¿Ö„Õ¸Ö‚Õ´, Õ°Õ¡Ö€Õ£Õ¡Õ¶Ö„Õ¨ Õ©Õ«Õ´Õ¡Õ¯Õ«ÖÕ¶Õ¥Ö€Õ« Õ¶Õ¯Õ¡Õ¿Õ´Õ¡Õ´Õ¢, Õ°Õ¡Ö€Õ£Õ¡Õ¶Ö„Õ¨ ÖƒÕ¸Ö€Õ±Õ« Õ¶Õ¯Õ¡Õ¿Õ´Õ¡Õ´Õ¢, Õ°Õ¡Ö€Õ£Õ¡Õ¶Ö„Õ¨ Õ´Õ¡Õ½Õ¶Õ¡Õ£Õ«Õ¿Õ¡Õ¯Õ¡Õ¶Ö‰
 EN: It's not just in the mind, it's respect for teammates, it's respect for experience, it's respect for the profession.
    [audio 7.0 s | waited 0.0 s | ASR 0.34 s | speaker 0.14 s (similarity 0.89) | MT 2.95 s]
 
 [00:02:01] Speaker 2   (latency 3.6 s)
-HY: Անան գիտելիքի նկատմամբ դիմացինի մասին է խոսքը գնում, եւ որ մենք ինչ֊որ մեկից վախենում ենք, մի փոքր էլի գաղտնիքներ են բացում, չ։
+HY: Ô±Õ¶Õ¡Õ¶ Õ£Õ«Õ¿Õ¥Õ¬Õ«Ö„Õ« Õ¶Õ¯Õ¡Õ¿Õ´Õ¡Õ´Õ¢ Õ¤Õ«Õ´Õ¡ÖÕ«Õ¶Õ« Õ´Õ¡Õ½Õ«Õ¶ Õ§ Õ­Õ¸Õ½Ö„Õ¨ Õ£Õ¶Õ¸Ö‚Õ´, Õ¥Ö‚ Õ¸Ö€ Õ´Õ¥Õ¶Ö„ Õ«Õ¶Õ¹ÖŠÕ¸Ö€ Õ´Õ¥Õ¯Õ«Ö Õ¾Õ¡Õ­Õ¥Õ¶Õ¸Ö‚Õ´ Õ¥Õ¶Ö„, Õ´Õ« ÖƒÕ¸Ö„Ö€ Õ§Õ¬Õ« Õ£Õ¡Õ²Õ¿Õ¶Õ«Ö„Õ¶Õ¥Ö€ Õ¥Õ¶ Õ¢Õ¡ÖÕ¸Ö‚Õ´, Õ¹Ö‰
 EN: Anna's talking about the opposite of knowledge, and that we're afraid of someone, and they're telling us a little bit of a secret, right?
    [audio 7.0 s | waited 0.0 s | ASR 0.41 s | speaker 0.14 s (similarity 0.95) | MT 3.05 s]
 
 [00:02:08] Speaker 2   (latency 3.7 s)
-HY: Զգուցե այդքան էլ գաղտնիքներ չեն, բայց նույն անգամ դասընթացների ժամանակ երբ որ մասնակիցներ են գալիս դասընթացներ ես։
+HY: Ô¶Õ£Õ¸Ö‚ÖÕ¥ Õ¡ÕµÕ¤Ö„Õ¡Õ¶ Õ§Õ¬ Õ£Õ¡Õ²Õ¿Õ¶Õ«Ö„Õ¶Õ¥Ö€ Õ¹Õ¥Õ¶, Õ¢Õ¡ÕµÖ Õ¶Õ¸Ö‚ÕµÕ¶ Õ¡Õ¶Õ£Õ¡Õ´ Õ¤Õ¡Õ½Õ¨Õ¶Õ©Õ¡ÖÕ¶Õ¥Ö€Õ« ÕªÕ¡Õ´Õ¡Õ¶Õ¡Õ¯ Õ¥Ö€Õ¢ Õ¸Ö€ Õ´Õ¡Õ½Õ¶Õ¡Õ¯Õ«ÖÕ¶Õ¥Ö€ Õ¥Õ¶ Õ£Õ¡Õ¬Õ«Õ½ Õ¤Õ¡Õ½Õ¨Õ¶Õ©Õ¡ÖÕ¶Õ¥Ö€ Õ¥Õ½Ö‰
 EN: It may not be so much a secret, but at the same time, when you're in class, when you're in class, you're in class.
    [audio 7.0 s | waited -0.0 s | ASR 0.41 s | speaker 0.16 s (similarity 0.93) | MT 3.14 s]
 
 [00:02:15] Speaker 2   (latency 3.0 s)
-HY: Հետ բազում դասընթացներ են վարում, լինում են մարդիկ, ովքեր շատ փորձված են ես երբեմն տարբեր դասընթաց։
+HY: Õ€Õ¥Õ¿ Õ¢Õ¡Õ¦Õ¸Ö‚Õ´ Õ¤Õ¡Õ½Õ¨Õ¶Õ©Õ¡ÖÕ¶Õ¥Ö€ Õ¥Õ¶ Õ¾Õ¡Ö€Õ¸Ö‚Õ´, Õ¬Õ«Õ¶Õ¸Ö‚Õ´ Õ¥Õ¶ Õ´Õ¡Ö€Õ¤Õ«Õ¯, Õ¸Õ¾Ö„Õ¥Ö€ Õ·Õ¡Õ¿ ÖƒÕ¸Ö€Õ±Õ¾Õ¡Õ® Õ¥Õ¶ Õ¥Õ½ Õ¥Ö€Õ¢Õ¥Õ´Õ¶ Õ¿Õ¡Ö€Õ¢Õ¥Ö€ Õ¤Õ¡Õ½Õ¨Õ¶Õ©Õ¡ÖÖ‰
 EN: There's a lot of training, there's a lot of people who have a lot of experience, and sometimes a different course.
    [audio 7.0 s | waited 0.0 s | ASR 0.34 s | speaker 0.17 s (similarity 0.95) | MT 2.42 s]
 
 [00:02:22] Speaker 2   (latency 5.6 s)
-HY: Չ, եթե դրանք սկսնակեն, կարողը վախենան, որ էդ մարդը ավելի էքսպերտի տպավորություն թողնի մասնակիցների մոտ։
+HY: Õ‰, Õ¥Õ©Õ¥ Õ¤Ö€Õ¡Õ¶Ö„ Õ½Õ¯Õ½Õ¶Õ¡Õ¯Õ¥Õ¶, Õ¯Õ¡Ö€Õ¸Õ²Õ¨ Õ¾Õ¡Õ­Õ¥Õ¶Õ¡Õ¶, Õ¸Ö€ Õ§Õ¤ Õ´Õ¡Ö€Õ¤Õ¨ Õ¡Õ¾Õ¥Õ¬Õ« Õ§Ö„Õ½ÕºÕ¥Ö€Õ¿Õ« Õ¿ÕºÕ¡Õ¾Õ¸Ö€Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶ Õ©Õ¸Õ²Õ¶Õ« Õ´Õ¡Õ½Õ¶Õ¡Õ¯Õ«ÖÕ¶Õ¥Ö€Õ« Õ´Õ¸Õ¿Ö‰
 EN: No, if they're just beginners, they're probably afraid that you're going to make an expert impression on the participants.
    [audio 7.0 s | waited 0.0 s | ASR 1.59 s | speaker 0.25 s (similarity 0.93) | MT 3.78 s]
 
 [00:02:29] Speaker 2   (latency 3.3 s)
-HY: Քքան ինքը, հա, եւ ի՞նչ ա պետք անել, սենց չգրված համագործակցություն է սկսում էդ մարդու հետ, այսինքն իր։
+HY: Õ”Ö„Õ¡Õ¶ Õ«Õ¶Ö„Õ¨, Õ°Õ¡, Õ¥Ö‚ Õ«ÕžÕ¶Õ¹ Õ¡ ÕºÕ¥Õ¿Ö„ Õ¡Õ¶Õ¥Õ¬, Õ½Õ¥Õ¶Ö Õ¹Õ£Ö€Õ¾Õ¡Õ® Õ°Õ¡Õ´Õ¡Õ£Õ¸Ö€Õ®Õ¡Õ¯ÖÕ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶ Õ§ Õ½Õ¯Õ½Õ¸Ö‚Õ´ Õ§Õ¤ Õ´Õ¡Ö€Õ¤Õ¸Ö‚ Õ°Õ¥Õ¿, Õ¡ÕµÕ½Õ«Õ¶Ö„Õ¶ Õ«Ö€Ö‰
 EN: So, uh, what do you do? That's how you start an unwritten partnership with the person, that's him.
    [audio 7.0 s | waited 0.0 s | ASR 0.44 s | speaker 0.17 s (similarity 0.94) | MT 2.69 s]
 
 [00:02:36] Speaker 2   (latency 2.9 s)
-HY: Անընդհատ շնորհակալություն ես ասում պատասխանատու գործեր ես տալիս ներգրավում ես տարբեր պրոյեկտների մեջ, ցույց ես տալիս, որ դու։
+HY: Ô±Õ¶Õ¨Õ¶Õ¤Õ°Õ¡Õ¿ Õ·Õ¶Õ¸Ö€Õ°Õ¡Õ¯Õ¡Õ¬Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶ Õ¥Õ½ Õ¡Õ½Õ¸Ö‚Õ´ ÕºÕ¡Õ¿Õ¡Õ½Õ­Õ¡Õ¶Õ¡Õ¿Õ¸Ö‚ Õ£Õ¸Ö€Õ®Õ¥Ö€ Õ¥Õ½ Õ¿Õ¡Õ¬Õ«Õ½ Õ¶Õ¥Ö€Õ£Ö€Õ¡Õ¾Õ¸Ö‚Õ´ Õ¥Õ½ Õ¿Õ¡Ö€Õ¢Õ¥Ö€ ÕºÖ€Õ¸ÕµÕ¥Õ¯Õ¿Õ¶Õ¥Ö€Õ« Õ´Õ¥Õ», ÖÕ¸Ö‚ÕµÖ Õ¥Õ½ Õ¿Õ¡Õ¬Õ«Õ½, Õ¸Ö€ Õ¤Õ¸Ö‚Ö‰
 EN: You say thank you all the time, you take responsibility, you get involved in different projects, you show that you are.
    [audio 7.0 s | waited 0.0 s | ASR 0.47 s | speaker 0.19 s (similarity 0.94) | MT 2.20 s]
 
 [00:02:43] Speaker 2   (latency 2.8 s)
-HY: Հարգում ես էդ գիտելիքները իրա փորձը, եւ իրան, քանի որ տալիս ես էդ կամֆորտի եւ ապահովության զգացումը եւ։
+HY: Õ€Õ¡Ö€Õ£Õ¸Ö‚Õ´ Õ¥Õ½ Õ§Õ¤ Õ£Õ«Õ¿Õ¥Õ¬Õ«Ö„Õ¶Õ¥Ö€Õ¨ Õ«Ö€Õ¡ ÖƒÕ¸Ö€Õ±Õ¨, Õ¥Ö‚ Õ«Ö€Õ¡Õ¶, Ö„Õ¡Õ¶Õ« Õ¸Ö€ Õ¿Õ¡Õ¬Õ«Õ½ Õ¥Õ½ Õ§Õ¤ Õ¯Õ¡Õ´Ö†Õ¸Ö€Õ¿Õ« Õ¥Ö‚ Õ¡ÕºÕ¡Õ°Õ¸Õ¾Õ¸Ö‚Õ©ÕµÕ¡Õ¶ Õ¦Õ£Õ¡ÖÕ¸Ö‚Õ´Õ¨ Õ¥Ö‚Ö‰
 EN: You respect your knowledge, your experience, and her, because you give her a sense of comfort and security.
    [audio 7.0 s | waited 0.0 s | ASR 0.67 s | speaker 0.19 s (similarity 0.90) | MT 1.91 s]
 
 [00:02:50] Speaker 2   (latency 2.1 s)
-HY: Հեղինակությունը ընդունում ես էդ պրոյեկտների շրջանակում, գործի շրջանակներում եւ այլն լրացուցիչ։
+HY: Õ€Õ¥Õ²Õ«Õ¶Õ¡Õ¯Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶Õ¨ Õ¨Õ¶Õ¤Õ¸Ö‚Õ¶Õ¸Ö‚Õ´ Õ¥Õ½ Õ§Õ¤ ÕºÖ€Õ¸ÕµÕ¥Õ¯Õ¿Õ¶Õ¥Ö€Õ« Õ·Ö€Õ»Õ¡Õ¶Õ¡Õ¯Õ¸Ö‚Õ´, Õ£Õ¸Ö€Õ®Õ« Õ·Ö€Õ»Õ¡Õ¶Õ¡Õ¯Õ¶Õ¥Ö€Õ¸Ö‚Õ´ Õ¥Ö‚ Õ¡ÕµÕ¬Õ¶ Õ¬Ö€Õ¡ÖÕ¸Ö‚ÖÕ«Õ¹Ö‰
 EN: You take credit for your projects, your work, and so on.
    [audio 7.0 s | waited 0.0 s | ASR 0.66 s | speaker 0.16 s (similarity 0.92) | MT 1.31 s]
 
@@ -14795,15 +14801,15 @@ The three slow segments:
 |---|---|---|
 | 01:15 | **5.7 s** | translation took **5.06 s**. It was processed from about 01:22 to 01:28, exactly when the **video switch** happened |
 | 01:22 | **5.9 s** | **waited 2.6 s** in the queue behind the previous one; ASR 0.72 s, almost twice normal |
-| 02:22 | **5.6 s** | **ASR 1.59 s**, about 3–4× normal, in the middle of video 2 with no switch. Something else used the CPU (buffering, an ad?) |
+| 02:22 | **5.6 s** | **ASR 1.59 s**, about 3â€“4Ã— normal, in the middle of video 2 with no switch. Something else used the CPU (buffering, an ad?) |
 
-So even at **Priority 10**, the video switch still slowed translation by about 2×, and a later burst of CPU load did too. The likely explanation: with only **2 cores**, a page load uses both cores fully, and Windows priority can't create spare capacity.
+So even at **Priority 10**, the video switch still slowed translation by about 2Ã—, and a later burst of CPU load did too. The likely explanation: with only **2 cores**, a page load uses both cores fully, and Windows priority can't create spare capacity.
 
 **What I can't conclude yet:** whether B1 helps *a little*. We still don't have a **normal-priority run with the switch** to compare against; the earlier run 1 had no switch. The older normal-priority two-video run (Oct 24, at the old threshold) had max 9.4 s and 3 over 5 s. That hints that above normal *might* reduce the worst case, but it was a different run, so it isn't a fair comparison.
 
 ## A speaker finding to check (0.40 threshold)
 
-Video 1 is the **host and guest interview**. Everything visible from it is **Speaker 1** (similarity 0.45–0.80), and video 2 is consistently **Speaker 2** (0.86–0.95). If **both** the host and the guest spoke before 01:26, then they're still merged at 0.40, and that matters for M1 and D10. **Do you know whether the guest spoke in that part?** And can you paste the **beginning** of the output (00:00–00:47)?
+Video 1 is the **host and guest interview**. Everything visible from it is **Speaker 1** (similarity 0.45â€“0.80), and video 2 is consistently **Speaker 2** (0.86â€“0.95). If **both** the host and the guest spoke before 01:26, then they're still merged at 0.40, and that matters for M1 and D10. **Do you know whether the guest spoke in that part?** And can you paste the **beginning** of the output (00:00â€“00:47)?
 
 ## Your decision for B1, given the deadline (about 2 days)
 
@@ -14823,7 +14829,7 @@ See
 B1 Run 2 completed with Python process priority confirmed as 10 BEFORE starting the videos.
 Results:
 
-* Processing fell behind repeatedly: 3–4 utterances waiting.
+* Processing fell behind repeatedly: 3â€“4 utterances waiting.
 * Observed latencies included 29.1 s, 25.7 s, 21.5 s, 10.3 s and 10.1 s.
 * One MT operation took 7.36 s.
 * Negative latency and negative queue wait values appeared.
@@ -14848,10 +14854,10 @@ The run you call "previous normal-priority" (median 3.2 s, p95 5.7 s, max 5.9 s,
 ## 1. Diagnosis of the four candidates, from the code and the numbers
 
 **A. CPU contention: the root cause.**
-- With 2 cores, the browser's page load and video decoding compete with our models. We measured **ASR at 3–4× its normal time** (0.4 s → 1.59 s) and **translation at 2×** (2.5 s → 5.06 s, and 7.36 s in the new run) without any change in input. Priority can't create spare capacity when both cores are busy, so priority 10 not helping is expected.
+- With 2 cores, the browser's page load and video decoding compete with our models. We measured **ASR at 3â€“4Ã— its normal time** (0.4 s â†’ 1.59 s) and **translation at 2Ã—** (2.5 s â†’ 5.06 s, and 7.36 s in the new run) without any change in input. Priority can't create spare capacity when both cores are busy, so priority 10 not helping is expected.
 
 **B. Translation (MT): where the contention hurts most.**
-- MT is the largest step (median 2.5 s per 7 s piece). In continuous speech, a new 7 s piece arrives every 7 s. As long as ASR + speaker + MT stays under 7 s, the queue stays empty. Once MT reaches 5–7 s, **processing becomes slower than real time and the queue grows without limit**. That explains the 3–4 waiting utterances and the 10–29 s latencies: each new piece waits for all earlier ones. This is a throughput problem: the system works close to its capacity limit.
+- MT is the largest step (median 2.5 s per 7 s piece). In continuous speech, a new 7 s piece arrives every 7 s. As long as ASR + speaker + MT stays under 7 s, the queue stays empty. Once MT reaches 5â€“7 s, **processing becomes slower than real time and the queue grows without limit**. That explains the 3â€“4 waiting utterances and the 10â€“29 s latencies: each new piece waits for all earlier ones. This is a throughput problem: the system works close to its capacity limit.
 
 **C. Queue and timing logic: a real bug, which also makes the latency numbers unreliable under load.**
 - The negative "latency" and "waited" values can't be real; they come from how the timeline handles delays.
@@ -14863,7 +14869,7 @@ The run you call "previous normal-priority" (median 3.2 s, p95 5.7 s, max 5.9 s,
 - So under heavy load, the reported latencies **underestimate** the true delay. The repeated `waited -0.0 s` in earlier runs is the small version of the same effect. That's an honest correction to keep in mind when reading earlier results.
 
 **D. Shutdown handler: a real but secondary bug.**
-- After Ctrl+C, the app waits up to 30 s (`th.join(timeout=30)`) for the worker to **finish the backlog**. With 3–4 utterances waiting at about 7 s each, that takes a long time. A second Ctrl+C during the wait raises `KeyboardInterrupt`, which isn't caught there, so the summary is lost.
+- After Ctrl+C, the app waits up to 30 s (`th.join(timeout=30)`) for the worker to **finish the backlog**. With 3â€“4 utterances waiting at about 7 s each, that takes a long time. A second Ctrl+C during the wait raises `KeyboardInterrupt`, which isn't caught there, so the summary is lost.
 - It doesn't affect latency, but it hides statistics exactly in the runs where they matter most.
 
 **Overall:**
@@ -14880,7 +14886,7 @@ typeperf "\Processor(_Total)\% Processor Time" -si 1 -sc 200 -o cpu_run.csv
 
 It records total CPU usage once per second for 200 seconds into `cpu_run.csv`. That file is ignored by Git? No: it isn't covered by `.gitignore`, so **delete it after the analysis** (`del cpu_run.csv`).
 
-Then run the app at **normal priority**, no `setpriority`, checking Priority 8, with the same protocol (video 1, switch at about 45 s, video 2, stop at about 90–120 s). **Press Ctrl+C only once**, and wait for the summary.
+Then run the app at **normal priority**, no `setpriority`, checking Priority 8, with the same protocol (video 1, switch at about 45 s, video 2, stop at about 90â€“120 s). **Press Ctrl+C only once**, and wait for the summary.
 
 **What it will show:**
 - If the CPU sits near **100%** exactly when ASR and MT slow down (around the switch), contention is confirmed. Then the fixes to evaluate later are ones that **reduce our own load**: shorter pieces, beam 1 only under load, dropping or merging a backlog.
@@ -14991,138 +14997,138 @@ mic:    [9] Internal Microphone (Conexant 20751 SmartAudio HD)
 system: [10] Speakers (Conexant 20751 SmartAudio HD) [Loopback]
 settings: end-silence 0.6 s, max utterance 7.0 s, MT beam 2, speaker threshold 0.4
 loading models ...
-Fetching 9 files: 100%|█████████████████████████████████████████████████████████████████| 9/9 [00:00<00:00, 351.75it/s]
+Fetching 9 files: 100%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ| 9/9 [00:00<00:00, 351.75it/s]
 Download complete:                                                                                 |  0.00B
 Reconstruction complete: |                                                                |  0.00B /  0.00B
 listening - speak Armenian. Ctrl+C to stop.
 
 [00:00:00] Me   (latency 1.5 s)
-HY: Հովհ.
+HY: Õ€Õ¸Õ¾Õ°.
 EN: John: What is it?
    [audio 1.2 s | waited 0.6 s | ASR 0.22 s | speaker 0.00 s | MT 0.67 s]
 
 [00:00:00] Speaker 1   (latency 3.0 s)
-HY: Բառը հասանելի բառ մեր հայոց տենց շտեմարաններում ամենուր գրքերում գրականությունում կա այդ հասանի, բայց էսօր։
+HY: Ô²Õ¡Õ¼Õ¨ Õ°Õ¡Õ½Õ¡Õ¶Õ¥Õ¬Õ« Õ¢Õ¡Õ¼ Õ´Õ¥Ö€ Õ°Õ¡ÕµÕ¸Ö Õ¿Õ¥Õ¶Ö Õ·Õ¿Õ¥Õ´Õ¡Ö€Õ¡Õ¶Õ¶Õ¥Ö€Õ¸Ö‚Õ´ Õ¡Õ´Õ¥Õ¶Õ¸Ö‚Ö€ Õ£Ö€Ö„Õ¥Ö€Õ¸Ö‚Õ´ Õ£Ö€Õ¡Õ¯Õ¡Õ¶Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶Õ¸Ö‚Õ´ Õ¯Õ¡ Õ¡ÕµÕ¤ Õ°Õ¡Õ½Õ¡Õ¶Õ«, Õ¢Õ¡ÕµÖ Õ§Õ½Ö…Ö€Ö‰
 EN: There's a word that's available in our Armenian libraries, everywhere in the literature, but today.
    [audio 7.0 s | waited -0.0 s | ASR 0.44 s | speaker 0.16 s (similarity 1.00) | MT 2.45 s]
 
 [00:00:06] Speaker 1   (latency 4.6 s)
-HY: Խանութրաներ կան, որ օգտագործում են, էդ բառը, օրինակ, ասում են՝ էս ապրանքը հասանելի, ես միշտ զարմանում։
+HY: Ô½Õ¡Õ¶Õ¸Ö‚Õ©Ö€Õ¡Õ¶Õ¥Ö€ Õ¯Õ¡Õ¶, Õ¸Ö€ Ö…Õ£Õ¿Õ¡Õ£Õ¸Ö€Õ®Õ¸Ö‚Õ´ Õ¥Õ¶, Õ§Õ¤ Õ¢Õ¡Õ¼Õ¨, Ö…Ö€Õ«Õ¶Õ¡Õ¯, Õ¡Õ½Õ¸Ö‚Õ´ Õ¥Õ¶Õ Õ§Õ½ Õ¡ÕºÖ€Õ¡Õ¶Ö„Õ¨ Õ°Õ¡Õ½Õ¡Õ¶Õ¥Õ¬Õ«, Õ¥Õ½ Õ´Õ«Õ·Õ¿ Õ¦Õ¡Ö€Õ´Õ¡Õ¶Õ¸Ö‚Õ´Ö‰
 EN: There are shops that use that word, for example, "I'm available, I'm always surprised".
    [audio 7.0 s | waited 0.0 s | ASR 0.38 s | speaker 0.17 s (similarity 0.84) | MT 3.98 s]
 
 [00:00:13] Speaker 1   (latency 3.6 s)
-HY: Համմ, ես ցանկացած կոնտեն տեղադրելուց, անկախ ամեն ինչից մեր մարկետինգի թիմին ասում եմ, նեք, որ չկօրինակենք ինչ֊որ մեկին, անկախ։
+HY: Õ€Õ¡Õ´Õ´, Õ¥Õ½ ÖÕ¡Õ¶Õ¯Õ¡ÖÕ¡Õ® Õ¯Õ¸Õ¶Õ¿Õ¥Õ¶ Õ¿Õ¥Õ²Õ¡Õ¤Ö€Õ¥Õ¬Õ¸Ö‚Ö, Õ¡Õ¶Õ¯Õ¡Õ­ Õ¡Õ´Õ¥Õ¶ Õ«Õ¶Õ¹Õ«Ö Õ´Õ¥Ö€ Õ´Õ¡Ö€Õ¯Õ¥Õ¿Õ«Õ¶Õ£Õ« Õ©Õ«Õ´Õ«Õ¶ Õ¡Õ½Õ¸Ö‚Õ´ Õ¥Õ´, Õ¶Õ¥Ö„, Õ¸Ö€ Õ¹Õ¯Ö…Ö€Õ«Õ¶Õ¡Õ¯Õ¥Õ¶Ö„ Õ«Õ¶Õ¹ÖŠÕ¸Ö€ Õ´Õ¥Õ¯Õ«Õ¶, Õ¡Õ¶Õ¯Õ¡Õ­Ö‰
 EN: Um, I'm telling our marketing team, no matter what content you post, don't copy anyone, no matter what.
    [audio 7.0 s | waited 0.0 s | ASR 0.58 s | speaker 0.17 s (similarity 0.87) | MT 2.80 s]
 
 [00:00:20] Speaker 1   (latency 6.3 s)
-HY: Ամեն ինչից, մենք մեր ունենանք, մեզանից թող կրկենինակեն, մենք ուրիշի մոքափը չօգագործենք, մենք մեր մոքապը ստեղծենք օգտագործենք, նույնը։
+HY: Ô±Õ´Õ¥Õ¶ Õ«Õ¶Õ¹Õ«Ö, Õ´Õ¥Õ¶Ö„ Õ´Õ¥Ö€ Õ¸Ö‚Õ¶Õ¥Õ¶Õ¡Õ¶Ö„, Õ´Õ¥Õ¦Õ¡Õ¶Õ«Ö Õ©Õ¸Õ² Õ¯Ö€Õ¯Õ¥Õ¶Õ«Õ¶Õ¡Õ¯Õ¥Õ¶, Õ´Õ¥Õ¶Ö„ Õ¸Ö‚Ö€Õ«Õ·Õ« Õ´Õ¸Ö„Õ¡ÖƒÕ¨ Õ¹Ö…Õ£Õ¡Õ£Õ¸Ö€Õ®Õ¥Õ¶Ö„, Õ´Õ¥Õ¶Ö„ Õ´Õ¥Ö€ Õ´Õ¸Ö„Õ¡ÕºÕ¨ Õ½Õ¿Õ¥Õ²Õ®Õ¥Õ¶Ö„ Ö…Õ£Õ¿Õ¡Õ£Õ¸Ö€Õ®Õ¥Õ¶Ö„, Õ¶Õ¸Ö‚ÕµÕ¶Õ¨Ö‰
 EN: Of everything, we have our own, let it be repeated from us, we don't use someone else's makeup, we make our own makeup, we use the same thing.
    [audio 7.0 s | waited -0.0 s | ASR 0.50 s | speaker 0.16 s (similarity 0.84) | MT 5.69 s]
 
 [00:00:27] Speaker 1   (latency 3.7 s)
-HY: Եսաս ինչի վրա եմ տանում, էս սրա համար գրականություն տ չեմ կարդացել ու որ կ ուզենաս կարդաս տարբեր։
+HY: ÔµÕ½Õ¡Õ½ Õ«Õ¶Õ¹Õ« Õ¾Ö€Õ¡ Õ¥Õ´ Õ¿Õ¡Õ¶Õ¸Ö‚Õ´, Õ§Õ½ Õ½Ö€Õ¡ Õ°Õ¡Õ´Õ¡Ö€ Õ£Ö€Õ¡Õ¯Õ¡Õ¶Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶ Õ¿ Õ¹Õ¥Õ´ Õ¯Õ¡Ö€Õ¤Õ¡ÖÕ¥Õ¬ Õ¸Ö‚ Õ¸Ö€ Õ¯ Õ¸Ö‚Õ¦Õ¥Õ¶Õ¡Õ½ Õ¯Õ¡Ö€Õ¤Õ¡Õ½ Õ¿Õ¡Ö€Õ¢Õ¥Ö€Ö‰
 EN: I don't know what I'm talking about, but I haven't read any literature for that, and you'd want to read something different.
    [audio 7.0 s | waited 0.0 s | ASR 0.45 s | speaker 0.16 s (similarity 0.85) | MT 3.06 s]
 
 [00:00:34] Speaker 1   (latency 4.5 s)
-HY: Հրդների սլոգըները, ասենք կյանքում ադիդացնում նայքը նույն սլոգը չեն կարող օգտագործել, նույնիսկ նույն ամբասադին չեն կարա աջուձախ տանեն։
+HY: Õ€Ö€Õ¤Õ¶Õ¥Ö€Õ« Õ½Õ¬Õ¸Õ£Õ¨Õ¶Õ¥Ö€Õ¨, Õ¡Õ½Õ¥Õ¶Ö„ Õ¯ÕµÕ¡Õ¶Ö„Õ¸Ö‚Õ´ Õ¡Õ¤Õ«Õ¤Õ¡ÖÕ¶Õ¸Ö‚Õ´ Õ¶Õ¡ÕµÖ„Õ¨ Õ¶Õ¸Ö‚ÕµÕ¶ Õ½Õ¬Õ¸Õ£Õ¨ Õ¹Õ¥Õ¶ Õ¯Õ¡Ö€Õ¸Õ² Ö…Õ£Õ¿Õ¡Õ£Õ¸Ö€Õ®Õ¥Õ¬, Õ¶Õ¸Ö‚ÕµÕ¶Õ«Õ½Õ¯ Õ¶Õ¸Ö‚ÕµÕ¶ Õ¡Õ´Õ¢Õ¡Õ½Õ¡Õ¤Õ«Õ¶ Õ¹Õ¥Õ¶ Õ¯Õ¡Ö€Õ¡ Õ¡Õ»Õ¸Ö‚Õ±Õ¡Õ­ Õ¿Õ¡Õ¶Õ¥Õ¶Ö‰
 EN: The slogan of the flock, let's say in life, adds to the look, can't use the same slogan, they can't even take the same crowd to the right.
    [audio 7.0 s | waited -0.0 s | ASR 0.39 s | speaker 0.19 s (similarity 0.88) | MT 3.94 s]
 
 [00:00:41] Speaker 1   (latency 3.8 s)
-HY: Է նրաասը դռը այ ա, մյուսի Ադիդասի անասադռը այ ա, նույն էլ, օրինակ, Պեյփսի ու կոկոկոլայի միջեւ։
+HY: Ô· Õ¶Ö€Õ¡Õ¡Õ½Õ¨ Õ¤Õ¼Õ¨ Õ¡Õµ Õ¡, Õ´ÕµÕ¸Ö‚Õ½Õ« Ô±Õ¤Õ«Õ¤Õ¡Õ½Õ« Õ¡Õ¶Õ¡Õ½Õ¡Õ¤Õ¼Õ¨ Õ¡Õµ Õ¡, Õ¶Õ¸Ö‚ÕµÕ¶ Õ§Õ¬, Ö…Ö€Õ«Õ¶Õ¡Õ¯, ÕŠÕ¥ÕµÖƒÕ½Õ« Õ¸Ö‚ Õ¯Õ¸Õ¯Õ¸Õ¯Õ¸Õ¬Õ¡ÕµÕ« Õ´Õ«Õ»Õ¥Ö‚Ö‰
 EN: There's one door, yes, there's another Adidas door, yes, there's the same thing between Pepsi and Cocoa.
    [audio 7.0 s | waited 0.0 s | ASR 0.59 s | speaker 0.20 s (similarity 0.89) | MT 3.00 s]
 
 [00:00:48] Speaker 1   (latency 4.0 s)
-HY: Այսես բառը բոլորը ասոցացնեն կոկակոլայի հետ, որովհետեւ ընդմիշտ կոկակոլ է, տենց ա ամբողջ աշխարհում տենց ա գրված ու կյանքում։
+HY: Ô±ÕµÕ½Õ¥Õ½ Õ¢Õ¡Õ¼Õ¨ Õ¢Õ¸Õ¬Õ¸Ö€Õ¨ Õ¡Õ½Õ¸ÖÕ¡ÖÕ¶Õ¥Õ¶ Õ¯Õ¸Õ¯Õ¡Õ¯Õ¸Õ¬Õ¡ÕµÕ« Õ°Õ¥Õ¿, Õ¸Ö€Õ¸Õ¾Õ°Õ¥Õ¿Õ¥Ö‚ Õ¨Õ¶Õ¤Õ´Õ«Õ·Õ¿ Õ¯Õ¸Õ¯Õ¡Õ¯Õ¸Õ¬ Õ§, Õ¿Õ¥Õ¶Ö Õ¡ Õ¡Õ´Õ¢Õ¸Õ²Õ» Õ¡Õ·Õ­Õ¡Ö€Õ°Õ¸Ö‚Õ´ Õ¿Õ¥Õ¶Ö Õ¡ Õ£Ö€Õ¾Õ¡Õ® Õ¸Ö‚ Õ¯ÕµÕ¡Õ¶Ö„Õ¸Ö‚Õ´Ö‰
 EN: And that's the word everybody associates with chocolate, because it's always chocolate, and that's the way it's written all over the world and in life.
    [audio 7.0 s | waited 0.1 s | ASR 0.41 s | speaker 0.14 s (similarity 0.90) | MT 3.42 s]
 
 [00:00:55] Speaker 1   (latency 2.5 s)
-HY: Պ ինչ՞նչ ասի, ընդմիշտ քաղցր, ընդմիշտ հասանելի, ընդշտ ավելի հասուն շուկաներերեն ավելի զարգացած հասարակություն։
+HY: ÕŠ Õ«Õ¶Õ¹ÕžÕ¶Õ¹ Õ¡Õ½Õ«, Õ¨Õ¶Õ¤Õ´Õ«Õ·Õ¿ Ö„Õ¡Õ²ÖÖ€, Õ¨Õ¶Õ¤Õ´Õ«Õ·Õ¿ Õ°Õ¡Õ½Õ¡Õ¶Õ¥Õ¬Õ«, Õ¨Õ¶Õ¤Õ·Õ¿ Õ¡Õ¾Õ¥Õ¬Õ« Õ°Õ¡Õ½Õ¸Ö‚Õ¶ Õ·Õ¸Ö‚Õ¯Õ¡Õ¶Õ¥Ö€Õ¥Ö€Õ¥Õ¶ Õ¡Õ¾Õ¥Õ¬Õ« Õ¦Õ¡Ö€Õ£Õ¡ÖÕ¡Õ® Õ°Õ¡Õ½Õ¡Ö€Õ¡Õ¯Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶Ö‰
 EN: What do you say, a more mature, more developed market-based society, always sweet, always accessible?
    [audio 7.0 s | waited 0.0 s | ASR 0.41 s | speaker 0.12 s (similarity 0.71) | MT 1.98 s]
 
 [00:01:02] Speaker 1   (latency 3.9 s)
-HY: Տոմ մեջ տեղի ունեն, բայց իրականում ճիշտ խոսենք, եթե մեր տարանջատված ա, եթե մեր հասարակությունում մեր ընդհանրապես օրենսդության մեջ լին։
+HY: ÕÕ¸Õ´ Õ´Õ¥Õ» Õ¿Õ¥Õ²Õ« Õ¸Ö‚Õ¶Õ¥Õ¶, Õ¢Õ¡ÕµÖ Õ«Ö€Õ¡Õ¯Õ¡Õ¶Õ¸Ö‚Õ´ Õ³Õ«Õ·Õ¿ Õ­Õ¸Õ½Õ¥Õ¶Ö„, Õ¥Õ©Õ¥ Õ´Õ¥Ö€ Õ¿Õ¡Ö€Õ¡Õ¶Õ»Õ¡Õ¿Õ¾Õ¡Õ® Õ¡, Õ¥Õ©Õ¥ Õ´Õ¥Ö€ Õ°Õ¡Õ½Õ¡Ö€Õ¡Õ¯Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶Õ¸Ö‚Õ´ Õ´Õ¥Ö€ Õ¨Õ¶Õ¤Õ°Õ¡Õ¶Ö€Õ¡ÕºÕ¥Õ½ Ö…Ö€Õ¥Õ¶Õ½Õ¤Õ¸Ö‚Õ©ÕµÕ¡Õ¶ Õ´Õ¥Õ» Õ¬Õ«Õ¶Ö‰
 EN: They happen in a row, but we're actually right, if we're isolated, if we're in our society, if we're in our common law.
    [audio 7.0 s | waited -0.0 s | ASR 0.38 s | speaker 0.17 s (similarity 0.79) | MT 3.38 s]
 
 [00:01:09] Speaker 1   (latency 3.1 s)
-HY: Է որ էդ ընդը բառ անշարժքույքում միայն օգտագործվի քո պարագայում, էլի շատ ավելի ճիշտ կլիներ, մի խոսքով տեսենց մի։
+HY: Ô· Õ¸Ö€ Õ§Õ¤ Õ¨Õ¶Õ¤Õ¨ Õ¢Õ¡Õ¼ Õ¡Õ¶Õ·Õ¡Ö€ÕªÖ„Õ¸Ö‚ÕµÖ„Õ¸Ö‚Õ´ Õ´Õ«Õ¡ÕµÕ¶ Ö…Õ£Õ¿Õ¡Õ£Õ¸Ö€Õ®Õ¾Õ« Ö„Õ¸ ÕºÕ¡Ö€Õ¡Õ£Õ¡ÕµÕ¸Ö‚Õ´, Õ§Õ¬Õ« Õ·Õ¡Õ¿ Õ¡Õ¾Õ¥Õ¬Õ« Õ³Õ«Õ·Õ¿ Õ¯Õ¬Õ«Õ¶Õ¥Ö€, Õ´Õ« Õ­Õ¸Õ½Ö„Õ¸Õ¾ Õ¿Õ¥Õ½Õ¥Õ¶Ö Õ´Õ«Ö‰
 EN: It would be much more accurate to use the word "in motion" only in your case, in a nutshell.
    [audio 7.0 s | waited 0.0 s | ASR 0.42 s | speaker 0.16 s (similarity 0.85) | MT 2.45 s]
 
 [00:01:16] Speaker 1   (latency 5.0 s)
-HY: Չ բաց թողնում կա՞, էլի առողջմ մրցակցությունը, լավ ես զգում։
+HY: Õ‰ Õ¢Õ¡Ö Õ©Õ¸Õ²Õ¶Õ¸Ö‚Õ´ Õ¯Õ¡Õž, Õ§Õ¬Õ« Õ¡Õ¼Õ¸Õ²Õ»Õ´ Õ´Ö€ÖÕ¡Õ¯ÖÕ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶Õ¨, Õ¬Õ¡Õ¾ Õ¥Õ½ Õ¦Õ£Õ¸Ö‚Õ´Ö‰
 EN: Don't you miss out on a healthy competition, you feel good?
    [audio 3.6 s | waited 0.6 s | ASR 0.27 s | speaker 0.09 s (similarity 0.73) | MT 3.97 s]
 
 [00:01:21] Speaker 2   (latency 4.3 s)
-HY: Դրա մենք ինքներս սկսում ենք արդեն չվախենալ, ոչ թեի ուժեղ մասնագետից, ոչ մեկ ուրիշից եւ այլն, բայց ամեն։
+HY: Ô´Ö€Õ¡ Õ´Õ¥Õ¶Ö„ Õ«Õ¶Ö„Õ¶Õ¥Ö€Õ½ Õ½Õ¯Õ½Õ¸Ö‚Õ´ Õ¥Õ¶Ö„ Õ¡Ö€Õ¤Õ¥Õ¶ Õ¹Õ¾Õ¡Õ­Õ¥Õ¶Õ¡Õ¬, Õ¸Õ¹ Õ©Õ¥Õ« Õ¸Ö‚ÕªÕ¥Õ² Õ´Õ¡Õ½Õ¶Õ¡Õ£Õ¥Õ¿Õ«Ö, Õ¸Õ¹ Õ´Õ¥Õ¯ Õ¸Ö‚Ö€Õ«Õ·Õ«Ö Õ¥Ö‚ Õ¡ÕµÕ¬Õ¶, Õ¢Õ¡ÕµÖ Õ¡Õ´Õ¥Õ¶Ö‰
 EN: We're not afraid of that anymore, not of a strong expert, not of anyone else, and so on, but of everything.
    [audio 7.0 s | waited 0.0 s | ASR 0.66 s | speaker 0.34 s (similarity 1.00) | MT 3.31 s]
 
 [00:01:28] Speaker 2   (latency 2.8 s)
-HY: Ուքում ենթադրենք չունենք էդ վստահությունը, ենթադրենք դեռեւս նոր ենք, շատ կարելի է հասկանալ ինչպես աշխատել։
+HY: ÕˆÖ‚Ö„Õ¸Ö‚Õ´ Õ¥Õ¶Õ©Õ¡Õ¤Ö€Õ¥Õ¶Ö„ Õ¹Õ¸Ö‚Õ¶Õ¥Õ¶Ö„ Õ§Õ¤ Õ¾Õ½Õ¿Õ¡Õ°Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶Õ¨, Õ¥Õ¶Õ©Õ¡Õ¤Ö€Õ¥Õ¶Ö„ Õ¤Õ¥Õ¼Õ¥Ö‚Õ½ Õ¶Õ¸Ö€ Õ¥Õ¶Ö„, Õ·Õ¡Õ¿ Õ¯Õ¡Ö€Õ¥Õ¬Õ« Õ§ Õ°Õ¡Õ½Õ¯Õ¡Õ¶Õ¡Õ¬ Õ«Õ¶Õ¹ÕºÕ¥Õ½ Õ¡Õ·Õ­Õ¡Õ¿Õ¥Õ¬Ö‰
 EN: So if you're not confident, if you're new, you can learn a lot about how to work.
    [audio 7.0 s | waited -0.0 s | ASR 0.45 s | speaker 0.16 s (similarity 0.87) | MT 2.20 s]
 
 [00:01:35] Speaker 2   (latency 2.3 s)
-HY: Ընդհանրապես փորձված, երբեմն ավելի տարիքով, երբեմն ավելի երկար տարիների փորձ ունեցող մարդը, որ հենց էդ թիմը։
+HY: Ô¸Õ¶Õ¤Õ°Õ¡Õ¶Ö€Õ¡ÕºÕ¥Õ½ ÖƒÕ¸Ö€Õ±Õ¾Õ¡Õ®, Õ¥Ö€Õ¢Õ¥Õ´Õ¶ Õ¡Õ¾Õ¥Õ¬Õ« Õ¿Õ¡Ö€Õ«Ö„Õ¸Õ¾, Õ¥Ö€Õ¢Õ¥Õ´Õ¶ Õ¡Õ¾Õ¥Õ¬Õ« Õ¥Ö€Õ¯Õ¡Ö€ Õ¿Õ¡Ö€Õ«Õ¶Õ¥Ö€Õ« ÖƒÕ¸Ö€Õ± Õ¸Ö‚Õ¶Õ¥ÖÕ¸Õ² Õ´Õ¡Ö€Õ¤Õ¨, Õ¸Ö€ Õ°Õ¥Õ¶Ö Õ§Õ¤ Õ©Õ«Õ´Õ¨Ö‰
 EN: A person with experience, sometimes older, sometimes more years of experience, that's the team.
    [audio 7.0 s | waited 0.0 s | ASR 0.34 s | speaker 0.16 s (similarity 0.91) | MT 1.80 s]
 
 [00:01:42] Speaker 2   (latency 2.8 s)
-HY: Աշխատում է, ֆունտամենտալ արժեք է վարքագծի մեջ ակնհայտ պետք է, իհարկե, դա դրսեւորվի, ոչ թե։
+HY: Ô±Õ·Õ­Õ¡Õ¿Õ¸Ö‚Õ´ Õ§, Ö†Õ¸Ö‚Õ¶Õ¿Õ¡Õ´Õ¥Õ¶Õ¿Õ¡Õ¬ Õ¡Ö€ÕªÕ¥Ö„ Õ§ Õ¾Õ¡Ö€Ö„Õ¡Õ£Õ®Õ« Õ´Õ¥Õ» Õ¡Õ¯Õ¶Õ°Õ¡ÕµÕ¿ ÕºÕ¥Õ¿Ö„ Õ§, Õ«Õ°Õ¡Ö€Õ¯Õ¥, Õ¤Õ¡ Õ¤Ö€Õ½Õ¥Ö‚Õ¸Ö€Õ¾Õ«, Õ¸Õ¹ Õ©Õ¥Ö‰
 EN: It works, the fundamental value in behavior is obvious, it must be manifested, of course, not.
    [audio 7.0 s | waited 0.0 s | ASR 0.41 s | speaker 0.14 s (similarity 0.87) | MT 2.25 s]
 
 [00:01:49] Speaker 2   (latency 2.7 s)
-HY: Մտքում, հարգանքը թիմակիցների նկատ, հարգանքը փորձի նկատմամբ, հարգանքը մասնագիտական գիտելիք։
+HY: Õ„Õ¿Ö„Õ¸Ö‚Õ´, Õ°Õ¡Ö€Õ£Õ¡Õ¶Ö„Õ¨ Õ©Õ«Õ´Õ¡Õ¯Õ«ÖÕ¶Õ¥Ö€Õ« Õ¶Õ¯Õ¡Õ¿, Õ°Õ¡Ö€Õ£Õ¡Õ¶Ö„Õ¨ ÖƒÕ¸Ö€Õ±Õ« Õ¶Õ¯Õ¡Õ¿Õ´Õ¡Õ´Õ¢, Õ°Õ¡Ö€Õ£Õ¡Õ¶Ö„Õ¨ Õ´Õ¡Õ½Õ¶Õ¡Õ£Õ«Õ¿Õ¡Õ¯Õ¡Õ¶ Õ£Õ«Õ¿Õ¥Õ¬Õ«Ö„Ö‰
 EN: Mind, respect for teammates, respect for experience, respect for professional knowledge.
    [audio 7.0 s | waited -0.0 s | ASR 0.39 s | speaker 0.16 s (similarity 0.89) | MT 2.19 s]
 
 [00:01:56] Speaker 2   (latency 4.2 s)
-HY: Քքիի նկատմամբ դիմացինի մասին է խոսքը գրնում, եւ որ մենք ինչ֊որ մեկից վախենում ենք, մի փոքր էլի գաղտնիքներ են բացում, չնայած գուցե այդ։
+HY: Õ”Ö„Õ«Õ« Õ¶Õ¯Õ¡Õ¿Õ´Õ¡Õ´Õ¢ Õ¤Õ«Õ´Õ¡ÖÕ«Õ¶Õ« Õ´Õ¡Õ½Õ«Õ¶ Õ§ Õ­Õ¸Õ½Ö„Õ¨ Õ£Ö€Õ¶Õ¸Ö‚Õ´, Õ¥Ö‚ Õ¸Ö€ Õ´Õ¥Õ¶Ö„ Õ«Õ¶Õ¹ÖŠÕ¸Ö€ Õ´Õ¥Õ¯Õ«Ö Õ¾Õ¡Õ­Õ¥Õ¶Õ¸Ö‚Õ´ Õ¥Õ¶Ö„, Õ´Õ« ÖƒÕ¸Ö„Ö€ Õ§Õ¬Õ« Õ£Õ¡Õ²Õ¿Õ¶Õ«Ö„Õ¶Õ¥Ö€ Õ¥Õ¶ Õ¢Õ¡ÖÕ¸Ö‚Õ´, Õ¹Õ¶Õ¡ÕµÕ¡Õ® Õ£Õ¸Ö‚ÖÕ¥ Õ¡ÕµÕ¤Ö‰
 EN: And it's about the other guy, and we're afraid of someone, and they're telling us a little bit of a secret, even though maybe that's it.
    [audio 7.0 s | waited 0.0 s | ASR 0.48 s | speaker 0.12 s (similarity 0.94) | MT 3.58 s]
 
 [00:02:03] Speaker 2   (latency 2.5 s)
-HY: Քքան էլ գաղտնիքներ չեն, բայց նույն անգամ դասընթացների ժամանակ երբ որ մասնակիցներ են գալիս դասընթացներ, ես։
+HY: Õ”Ö„Õ¡Õ¶ Õ§Õ¬ Õ£Õ¡Õ²Õ¿Õ¶Õ«Ö„Õ¶Õ¥Ö€ Õ¹Õ¥Õ¶, Õ¢Õ¡ÕµÖ Õ¶Õ¸Ö‚ÕµÕ¶ Õ¡Õ¶Õ£Õ¡Õ´ Õ¤Õ¡Õ½Õ¨Õ¶Õ©Õ¡ÖÕ¶Õ¥Ö€Õ« ÕªÕ¡Õ´Õ¡Õ¶Õ¡Õ¯ Õ¥Ö€Õ¢ Õ¸Ö€ Õ´Õ¡Õ½Õ¶Õ¡Õ¯Õ«ÖÕ¶Õ¥Ö€ Õ¥Õ¶ Õ£Õ¡Õ¬Õ«Õ½ Õ¤Õ¡Õ½Õ¨Õ¶Õ©Õ¡ÖÕ¶Õ¥Ö€, Õ¥Õ½Ö‰
 EN: It's not much of a secret, but at the same time, when people come to classes, I do.
    [audio 7.0 s | waited 0.0 s | ASR 0.31 s | speaker 0.16 s (similarity 0.94) | MT 2.05 s]
 
 [00:02:10] Speaker 2   (latency 3.7 s)
-HY: Բազում դասընթացներ են վարում, լինում են մարդիկ, ովքեր շատ փորձված են ես երբեմն տարբեր դասընթացավարներ եթեր։
+HY: Ô²Õ¡Õ¦Õ¸Ö‚Õ´ Õ¤Õ¡Õ½Õ¨Õ¶Õ©Õ¡ÖÕ¶Õ¥Ö€ Õ¥Õ¶ Õ¾Õ¡Ö€Õ¸Ö‚Õ´, Õ¬Õ«Õ¶Õ¸Ö‚Õ´ Õ¥Õ¶ Õ´Õ¡Ö€Õ¤Õ«Õ¯, Õ¸Õ¾Ö„Õ¥Ö€ Õ·Õ¡Õ¿ ÖƒÕ¸Ö€Õ±Õ¾Õ¡Õ® Õ¥Õ¶ Õ¥Õ½ Õ¥Ö€Õ¢Õ¥Õ´Õ¶ Õ¿Õ¡Ö€Õ¢Õ¥Ö€ Õ¤Õ¡Õ½Õ¨Õ¶Õ©Õ¡ÖÕ¡Õ¾Õ¡Ö€Õ¶Õ¥Ö€ Õ¥Õ©Õ¥Ö€Ö‰
 EN: There's a lot of classes, and there are people who have a lot of experience, and sometimes they have different courses.
    [audio 7.0 s | waited 0.0 s | ASR 0.34 s | speaker 0.50 s (similarity 0.95) | MT 2.80 s]
 
 [00:02:17] Speaker 2   (latency 2.9 s)
-HY: Սկսնակեն, կարողը վախենան, որ էդ մարդը ավելի էքսպերտտի տպավորություն թողնի մասնակիցների մոտ, քան։
+HY: ÕÕ¯Õ½Õ¶Õ¡Õ¯Õ¥Õ¶, Õ¯Õ¡Ö€Õ¸Õ²Õ¨ Õ¾Õ¡Õ­Õ¥Õ¶Õ¡Õ¶, Õ¸Ö€ Õ§Õ¤ Õ´Õ¡Ö€Õ¤Õ¨ Õ¡Õ¾Õ¥Õ¬Õ« Õ§Ö„Õ½ÕºÕ¥Ö€Õ¿Õ¿Õ« Õ¿ÕºÕ¡Õ¾Õ¸Ö€Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶ Õ©Õ¸Õ²Õ¶Õ« Õ´Õ¡Õ½Õ¶Õ¡Õ¯Õ«ÖÕ¶Õ¥Ö€Õ« Õ´Õ¸Õ¿, Ö„Õ¡Õ¶Ö‰
 EN: For starters, they're afraid that you're going to make an impression of being more expert than you are.
    [audio 7.0 s | waited -0.0 s | ASR 0.34 s | speaker 0.14 s (similarity 0.92) | MT 2.42 s]
 
 [00:02:24] Speaker 2   (latency 3.2 s)
-HY: Ինքը, հա՞ եւ ի՞նչ ա պետք անել, սենց չգրված համագործակցություն է սկսում էդ մարդու հետ, այսինքն իրան անընդհ։
+HY: Ô»Õ¶Ö„Õ¨, Õ°Õ¡Õž Õ¥Ö‚ Õ«ÕžÕ¶Õ¹ Õ¡ ÕºÕ¥Õ¿Ö„ Õ¡Õ¶Õ¥Õ¬, Õ½Õ¥Õ¶Ö Õ¹Õ£Ö€Õ¾Õ¡Õ® Õ°Õ¡Õ´Õ¡Õ£Õ¸Ö€Õ®Õ¡Õ¯ÖÕ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶ Õ§ Õ½Õ¯Õ½Õ¸Ö‚Õ´ Õ§Õ¤ Õ´Õ¡Ö€Õ¤Õ¸Ö‚ Õ°Õ¥Õ¿, Õ¡ÕµÕ½Õ«Õ¶Ö„Õ¶ Õ«Ö€Õ¡Õ¶ Õ¡Õ¶Õ¨Õ¶Õ¤Õ°Ö‰
 EN: What is it, and what is to be done, that's the unwritten collaboration that you begin with the person, that is, the whole person?
    [audio 7.0 s | waited 0.0 s | ASR 0.38 s | speaker 0.12 s (similarity 0.94) | MT 2.70 s]
 
 [00:02:31] Speaker 2   (latency 2.4 s)
-HY: Շատ շնորհակալություն ես ասում պատասխանատու գործեր ես տալիս ներգրավում ես տարբեր պոյեկտների մեջ, ցույց ես տալիս, որ դու հարգում։
+HY: Õ‡Õ¡Õ¿ Õ·Õ¶Õ¸Ö€Õ°Õ¡Õ¯Õ¡Õ¬Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶ Õ¥Õ½ Õ¡Õ½Õ¸Ö‚Õ´ ÕºÕ¡Õ¿Õ¡Õ½Õ­Õ¡Õ¶Õ¡Õ¿Õ¸Ö‚ Õ£Õ¸Ö€Õ®Õ¥Ö€ Õ¥Õ½ Õ¿Õ¡Õ¬Õ«Õ½ Õ¶Õ¥Ö€Õ£Ö€Õ¡Õ¾Õ¸Ö‚Õ´ Õ¥Õ½ Õ¿Õ¡Ö€Õ¢Õ¥Ö€ ÕºÕ¸ÕµÕ¥Õ¯Õ¿Õ¶Õ¥Ö€Õ« Õ´Õ¥Õ», ÖÕ¸Ö‚ÕµÖ Õ¥Õ½ Õ¿Õ¡Õ¬Õ«Õ½, Õ¸Ö€ Õ¤Õ¸Ö‚ Õ°Õ¡Ö€Õ£Õ¸Ö‚Õ´Ö‰
 EN: You say thank you very much, you take responsibility, you engage in different things, you show respect.
    [audio 7.0 s | waited -0.0 s | ASR 0.33 s | speaker 0.16 s (similarity 0.92) | MT 1.91 s]
 
 [00:02:38] Speaker 2   (latency 2.7 s)
-HY: Մ էդ գիտելիքները, իրա փորձը, եւ իրան, քանի որ տալիս ես էդ կամֆորտի եւ ապահովության զգացումը եւ իր հեղինակ։
+HY: Õ„ Õ§Õ¤ Õ£Õ«Õ¿Õ¥Õ¬Õ«Ö„Õ¶Õ¥Ö€Õ¨, Õ«Ö€Õ¡ ÖƒÕ¸Ö€Õ±Õ¨, Õ¥Ö‚ Õ«Ö€Õ¡Õ¶, Ö„Õ¡Õ¶Õ« Õ¸Ö€ Õ¿Õ¡Õ¬Õ«Õ½ Õ¥Õ½ Õ§Õ¤ Õ¯Õ¡Õ´Ö†Õ¸Ö€Õ¿Õ« Õ¥Ö‚ Õ¡ÕºÕ¡Õ°Õ¸Õ¾Õ¸Ö‚Õ©ÕµÕ¡Õ¶ Õ¦Õ£Õ¡ÖÕ¸Ö‚Õ´Õ¨ Õ¥Ö‚ Õ«Ö€ Õ°Õ¥Õ²Õ«Õ¶Õ¡Õ¯Ö‰
 EN: You have the knowledge, the experience, and the experience, because you give Ed a sense of comfort and security, and the author.
    [audio 7.0 s | waited 0.0 s | ASR 0.33 s | speaker 0.17 s (similarity 0.90) | MT 2.20 s]
 
 [00:02:45] Speaker 2   (latency 2.0 s)
-HY: Կությունը ընդունում ես էդ պրոյեկտների շրջանակում, գործի շրջանակներում եւ այլն լրացուցիչ իրավ։
+HY: Ô¿Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶Õ¨ Õ¨Õ¶Õ¤Õ¸Ö‚Õ¶Õ¸Ö‚Õ´ Õ¥Õ½ Õ§Õ¤ ÕºÖ€Õ¸ÕµÕ¥Õ¯Õ¿Õ¶Õ¥Ö€Õ« Õ·Ö€Õ»Õ¡Õ¶Õ¡Õ¯Õ¸Ö‚Õ´, Õ£Õ¸Ö€Õ®Õ« Õ·Ö€Õ»Õ¡Õ¶Õ¡Õ¯Õ¶Õ¥Ö€Õ¸Ö‚Õ´ Õ¥Ö‚ Õ¡ÕµÕ¬Õ¶ Õ¬Ö€Õ¡ÖÕ¸Ö‚ÖÕ«Õ¹ Õ«Ö€Õ¡Õ¾Ö‰
 EN: The company accepts you as part of the projects, the case, and so on.
    [audio 7.0 s | waited -0.0 s | ASR 0.33 s | speaker 0.14 s (similarity 0.91) | MT 1.50 s]
 
@@ -15148,12 +15154,12 @@ C:\Users\Lenovo\Projects\mathrix-live-translate>
 
 | Measure | Normal (this run) | Priority 10, run 1 (process 6640) | Priority 10, run 2 (your summary) |
 |---|---|---|---|
-| Segments | 26 | 23 | — (no summary) |
-| Median latency | **3.1 s** | 3.2 s | — |
-| p95 | **5.0 s** | 5.7 s | — |
+| Segments | 26 | 23 | â€” (no summary) |
+| Median latency | **3.1 s** | 3.2 s | â€” |
+| p95 | **5.0 s** | 5.7 s | â€” |
 | Max | **6.3 s** | 5.9 s | 29.1 s |
 | Over 5 s | **1** | 3 | at least 5 |
-| Backlog | **none** (waited 0.0 s almost everywhere) | 1 short (2.6 s) | 3–4 utterances |
+| Backlog | **none** (waited 0.0 s almost everywhere) | 1 short (2.6 s) | 3â€“4 utterances |
 
 **Conclusion for B1:** higher priority did **not** improve latency in either of its two runs; the normal run is at least as good. **B1 is not adopted.** With one run per condition, the honest wording is "no improvement observed", not "proven worse".
 
@@ -15161,21 +15167,21 @@ C:\Users\Lenovo\Projects\mathrix-live-translate>
 
 ## What the CPU log shows, with one caveat
 
-**Caveat:** `typeperf` ran **twice**, and the second run **overwrote** the file. So I need to know **whether the app was running during the second log** (20:18:23–20:21:45). The pattern suggests it was, but please confirm.
+**Caveat:** `typeperf` ran **twice**, and the second run **overwrote** the file. So I need to know **whether the app was running during the second log** (20:18:23â€“20:21:45). The pattern suggests it was, but please confirm.
 
 - **The CPU is saturated often:** 65 of 200 seconds at 90% or more (average 67%).
-- **There's a clear rhythm:** bursts of **100% lasting 2–5 s, about every 7 s** (for example at 45–46 s, 52–54, 59–60, 66–70, 73–74, 79–82, 86–88). That matches our **7 s pieces**: each piece makes ASR, speaker and translation use **both cores fully for ~3 s**. In other words, **our own app saturates the CPU during processing**, and the video uses the rest.
-- **One long stretch of 88–97% from about 13 s to 26 s** looks like a page load or the start of playback. When anything else needs CPU during one of our 100% bursts, translation simply takes longer. That's the 5.69 s case.
+- **There's a clear rhythm:** bursts of **100% lasting 2â€“5 s, about every 7 s** (for example at 45â€“46 s, 52â€“54, 59â€“60, 66â€“70, 73â€“74, 79â€“82, 86â€“88). That matches our **7 s pieces**: each piece makes ASR, speaker and translation use **both cores fully for ~3 s**. In other words, **our own app saturates the CPU during processing**, and the video uses the rest.
+- **One long stretch of 88â€“97% from about 13 s to 26 s** looks like a page load or the start of playback. When anything else needs CPU during one of our 100% bursts, translation simply takes longer. That's the 5.69 s case.
 
 **Overall diagnosis:**
 1. **CPU contention** is the root cause. Our app leaves no headroom during processing, so any extra load (a page switch, buffering) stretches translation directly.
 2. **Translation** is the step that stretches most, because it's the longest.
-3. **Queue and timing logic**: at normal load there was no backlog, and the negative "waited" values were tiny (−0.0). The large negative values appeared only in the **overloaded** priority-10 run. That fits the timeline-drift bug (C), which only matters under heavy load, but then it hides how late things are.
+3. **Queue and timing logic**: at normal load there was no backlog, and the negative "waited" values were tiny (âˆ’0.0). The large negative values appeared only in the **overloaded** priority-10 run. That fits the timeline-drift bug (C), which only matters under heavy load, but then it hides how late things are.
 4. **Shutdown handler**: unrelated to latency, but it loses the summary after a backlog.
 
 ## A speaker observation to check (threshold 0.40)
 
-At **01:16**: *"Չ բաց թողնում կա՞, էլի առողջ մրցակցությունը, լավ ես զգում։"* ("Don't you miss healthy competition, you feel good?"). That's a **question**, so probably the **host**, but it was labelled **Speaker 1** (similarity 0.73), like the guest. **Can you confirm who says it?** If it's the host, host and guest of video 1 are still merged at 0.40, from a **short, clean** piece. That would mean this pair of voices is genuinely hard for the model, and it's important input for M1 and the README limitations.
+At **01:16**: *"Õ‰ Õ¢Õ¡Ö Õ©Õ¸Õ²Õ¶Õ¸Ö‚Õ´ Õ¯Õ¡Õž, Õ§Õ¬Õ« Õ¡Õ¼Õ¸Õ²Õ» Õ´Ö€ÖÕ¡Õ¯ÖÕ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶Õ¨, Õ¬Õ¡Õ¾ Õ¥Õ½ Õ¦Õ£Õ¸Ö‚Õ´Ö‰"* ("Don't you miss healthy competition, you feel good?"). That's a **question**, so probably the **host**, but it was labelled **Speaker 1** (similarity 0.73), like the guest. **Can you confirm who says it?** If it's the host, host and guest of video 1 are still merged at 0.40, from a **short, clean** piece. That would mean this pair of voices is genuinely hard for the model, and it's important input for M1 and the README limitations.
 
 ## Recommendation (no code changes yet)
 
@@ -15206,7 +15212,7 @@ And delete the log: `del cpu_run.csv`
 1. CPU log: I believe the app was running during the second `typeperf` measurement, but I cannot guarantee the exact synchronization. The CSV was overwritten by the second run.
 2. Speaker at 01:16: I cannot confidently confirm whether it is the host or the guest from the transcript alone. Please don't treat this as verified speaker-identification evidence yet.
 3. Video stuttering: I haven't reliably confirmed whether the video stuttered, so I don't want to guess.
-4. B1 and fixes: Yes, let's close B1 as “no improvement observed,” not “proven worse.” I agree with fixing D (shutdown summary preservation) first, then C (timeline drift), with a separate test and review for each change. Please show me the proposed changes and test results before committing. Keep the scope minimal because the deadline is close.
+4. B1 and fixes: Yes, let's close B1 as â€œno improvement observed,â€ not â€œproven worse.â€ I agree with fixing D (shutdown summary preservation) first, then C (timeline drift), with a separate test and review for each change. Please show me the proposed changes and test results before committing. Keep the scope minimal because the deadline is close.
 
 Please preserve the existing evidence and don't make unrelated changes.
 ```
@@ -15224,7 +15230,7 @@ I've prepared **fix D** (the summary being lost on stop) and tested it here. Not
 
 **The fix**, only in `app.py`, plus a new test file:
 - **`finish()`**, new: waits for the worker exactly as before (up to 30 s), but a second Ctrl+C or the timeout just **stops waiting**. It then returns **how many queued utterances were not processed**.
-- **`report()`**: one optional extra argument, so the summary line shows e.g. `…, 0 skipped, 3 not processed (stopped) | latency …`.
+- **`report()`**: one optional extra argument, so the summary line shows e.g. `â€¦, 0 skipped, 3 not processed (stopped) | latency â€¦`.
 - **`main()`**: calls `finish()` instead of `th.join()`, and passes **copies** of the statistics, so the worker can't change them while the summary is being printed.
 
 Nothing else changes: no change to the latency logic, models, thresholds or timing. **One remaining limitation:** if the worker is in the middle of an utterance when you press Ctrl+C a second time, that one utterance may still print after the summary and isn't counted.
@@ -15276,9 +15282,9 @@ Nothing else changes: no change to the latency logic, models, thresholds or timi
 ```
 
 **New tests, `tests/test_app_shutdown.py`, 5 of them:**
-- the worker finishes the queue normally → 0 unprocessed
-- a second Ctrl+C → the 3 queued utterances are counted
-- the timeout with a busy worker → the 2 queued utterances are counted
+- the worker finishes the queue normally â†’ 0 unprocessed
+- a second Ctrl+C â†’ the 3 queued utterances are counted
+- the timeout with a busy worker â†’ the 2 queued utterances are counted
 - the summary shows "not processed", both without and with segments
 
 **Tested here** on a copy of your `app.py`: the script applied the changes; a second run refused with "nothing changed"; **5 of 5 new tests pass**. (I had to stand in for the Windows-only audio library to import `app.py` here, so the real check is your run below.)
@@ -15464,13 +15470,13 @@ git --no-pager diff --stat
 ```
 Expected: only `src/livetrans/app.py` modified (about 30 lines added, 4 removed), and `tests/test_app_shutdown.py` new/untracked.
 
-**5. A short real check (about 1 minute).** Start the app, play a video, let 3–4 lines appear, then press **Ctrl+C twice quickly**:
+**5. A short real check (about 1 minute).** Start the app, play a video, let 3â€“4 lines appear, then press **Ctrl+C twice quickly**:
 ```cmd
 C:\ProgramData\anaconda3\envs\livetrans\python.exe -m livetrans.app --timing
 ```
-Expected: a summary line **always** appears. If utterances were still queued, you'll see `finishing N queued utterance(s)…`, then `skipped…`, and `N not processed (stopped)` in the summary.
+Expected: a summary line **always** appears. If utterances were still queued, you'll see `finishing N queued utterance(s)â€¦`, then `skippedâ€¦`, and `N not processed (stopped)` in the summary.
 
-Paste the outputs of steps 2–5. If everything checks out, we commit D on its own. Then **C (timeline drift)** follows the same way, as a separate change with its own tests. B1's "no improvement observed" record will be a separate, documentation-only commit, as agreed.
+Paste the outputs of steps 2â€“5. If everything checks out, we commit D on its own. Then **C (timeline drift)** follows the same way, as a separate change with its own tests. B1's "no improvement observed" record will be a separate, documentation-only commit, as agreed.
 
 
 ---
@@ -15500,39 +15506,39 @@ mic:    [9] Internal Microphone (Conexant 20751 SmartAudio HD)
 system: [10] Speakers (Conexant 20751 SmartAudio HD) [Loopback]
 settings: end-silence 0.6 s, max utterance 7.0 s, MT beam 2, speaker threshold 0.4
 loading models ...
-Fetching 9 files: 100%|█████████████████████████████████████████████████████████████████| 9/9 [00:00<00:00, 313.26it/s]
+Fetching 9 files: 100%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ| 9/9 [00:00<00:00, 313.26it/s]
 Download complete:                                                                                 |  0.00B
 Reconstruction complete: |                                                                |  0.00B /  0.00B
 Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
 listening - speak Armenian. Ctrl+C to stop.
 
 [00:00:00] Speaker 1   (latency 5.8 s)
-HY: Էուր ստեղծի էդ ամեն ինչը, որ էդիտիի, որովհետեւ ես ստեղծեմ, օրինակ եմ բերում, օրինակ եմ բերում, օրինակ մեր։
+HY: Ô·Õ¸Ö‚Ö€ Õ½Õ¿Õ¥Õ²Õ®Õ« Õ§Õ¤ Õ¡Õ´Õ¥Õ¶ Õ«Õ¶Õ¹Õ¨, Õ¸Ö€ Õ§Õ¤Õ«Õ¿Õ«Õ«, Õ¸Ö€Õ¸Õ¾Õ°Õ¥Õ¿Õ¥Ö‚ Õ¥Õ½ Õ½Õ¿Õ¥Õ²Õ®Õ¥Õ´, Ö…Ö€Õ«Õ¶Õ¡Õ¯ Õ¥Õ´ Õ¢Õ¥Ö€Õ¸Ö‚Õ´, Ö…Ö€Õ«Õ¶Õ¡Õ¯ Õ¥Õ´ Õ¢Õ¥Ö€Õ¸Ö‚Õ´, Ö…Ö€Õ«Õ¶Õ¡Õ¯ Õ´Õ¥Ö€Ö‰
 EN: You create everything you edit, because I create, I give examples, I give examples, I give examples, I give examples, I give examples, I give examples, I give examples, I give examples, I give examples.
    [audio 7.0 s | waited 0.0 s | ASR 0.55 s | speaker 0.19 s (similarity 1.00) | MT 5.09 s]
 
 [00:00:07] Speaker 1   (latency 3.7 s)
-HY: Հեռախոսների շուկայում, մենք ունենք տենց խումբ, որտեղ մենք էդ խմբի մեջ մենք մեր կարծիքն ենք ասում, շատ ժամանակ ես։
+HY: Õ€Õ¥Õ¼Õ¡Õ­Õ¸Õ½Õ¶Õ¥Ö€Õ« Õ·Õ¸Ö‚Õ¯Õ¡ÕµÕ¸Ö‚Õ´, Õ´Õ¥Õ¶Ö„ Õ¸Ö‚Õ¶Õ¥Õ¶Ö„ Õ¿Õ¥Õ¶Ö Õ­Õ¸Ö‚Õ´Õ¢, Õ¸Ö€Õ¿Õ¥Õ² Õ´Õ¥Õ¶Ö„ Õ§Õ¤ Õ­Õ´Õ¢Õ« Õ´Õ¥Õ» Õ´Õ¥Õ¶Ö„ Õ´Õ¥Ö€ Õ¯Õ¡Ö€Õ®Õ«Ö„Õ¶ Õ¥Õ¶Ö„ Õ¡Õ½Õ¸Ö‚Õ´, Õ·Õ¡Õ¿ ÕªÕ¡Õ´Õ¡Õ¶Õ¡Õ¯ Õ¥Õ½Ö‰
 EN: In the phone market, we have this group, where we're in this group, we're saying our opinion, you're a lot of the time.
    [audio 7.0 s | waited 0.0 s | ASR 0.39 s | speaker 0.17 s (similarity 0.76) | MT 3.09 s]
 
 [00:00:14] Speaker 1   (latency 4.4 s)
-HY: Օրինակ հայտարարվում, ու ասում էի էս ապրանքը էս գնից ավել պակաս մի վաճառեք։ չի կարելի էս գնից պակաս։
+HY: Õ•Ö€Õ«Õ¶Õ¡Õ¯ Õ°Õ¡ÕµÕ¿Õ¡Ö€Õ¡Ö€Õ¾Õ¸Ö‚Õ´, Õ¸Ö‚ Õ¡Õ½Õ¸Ö‚Õ´ Õ§Õ« Õ§Õ½ Õ¡ÕºÖ€Õ¡Õ¶Ö„Õ¨ Õ§Õ½ Õ£Õ¶Õ«Ö Õ¡Õ¾Õ¥Õ¬ ÕºÕ¡Õ¯Õ¡Õ½ Õ´Õ« Õ¾Õ¡Õ³Õ¡Õ¼Õ¥Ö„Ö‰ Õ¹Õ« Õ¯Õ¡Ö€Õ¥Õ¬Õ« Õ§Õ½ Õ£Õ¶Õ«Ö ÕºÕ¡Õ¯Õ¡Õ½Ö‰
 EN: For example, you're advertising, and I'm saying, "Don't sell this product for less than that price. You can't sell it for less than that price".
    [audio 7.0 s | waited 0.0 s | ASR 0.42 s | speaker 0.19 s (similarity 0.87) | MT 3.77 s]
 
 [00:00:21] Speaker 1   (latency 4.0 s)
-HY: Առ վաճառել, դա կոչվում ա մրցակցային մոնոպո, հա, ես ասում եմ մի վաճառեք, չէ, եթե կարողում ես վաճառես, հոգ է, ես գալիս եմ։
+HY: Ô±Õ¼ Õ¾Õ¡Õ³Õ¡Õ¼Õ¥Õ¬, Õ¤Õ¡ Õ¯Õ¸Õ¹Õ¾Õ¸Ö‚Õ´ Õ¡ Õ´Ö€ÖÕ¡Õ¯ÖÕ¡ÕµÕ«Õ¶ Õ´Õ¸Õ¶Õ¸ÕºÕ¸, Õ°Õ¡, Õ¥Õ½ Õ¡Õ½Õ¸Ö‚Õ´ Õ¥Õ´ Õ´Õ« Õ¾Õ¡Õ³Õ¡Õ¼Õ¥Ö„, Õ¹Õ§, Õ¥Õ©Õ¥ Õ¯Õ¡Ö€Õ¸Õ²Õ¸Ö‚Õ´ Õ¥Õ½ Õ¾Õ¡Õ³Õ¡Õ¼Õ¥Õ½, Õ°Õ¸Õ£ Õ§, Õ¥Õ½ Õ£Õ¡Õ¬Õ«Õ½ Õ¥Õ´Ö‰
 EN: Without selling, it's called a competitive monopoly, well, I say don't sell, no, if you can sell, well, I'm coming.
    [audio 7.0 s | waited 0.0 s | ASR 0.55 s | speaker 0.19 s (similarity 0.73) | MT 3.25 s]
 
 [00:00:28] Speaker 1   (latency 4.2 s)
-HY: Խոխանութ խանութ լայվով առնում եմ, օրինակ, վերերում հիմա ո՞նց ա մենք էս սրա տեսածենթ թե զարգացած։
+HY: Ô½Õ¸Õ­Õ¡Õ¶Õ¸Ö‚Õ© Õ­Õ¡Õ¶Õ¸Ö‚Õ© Õ¬Õ¡ÕµÕ¾Õ¸Õ¾ Õ¡Õ¼Õ¶Õ¸Ö‚Õ´ Õ¥Õ´, Ö…Ö€Õ«Õ¶Õ¡Õ¯, Õ¾Õ¥Ö€Õ¥Ö€Õ¸Ö‚Õ´ Õ°Õ«Õ´Õ¡ Õ¸ÕžÕ¶Ö Õ¡ Õ´Õ¥Õ¶Ö„ Õ§Õ½ Õ½Ö€Õ¡ Õ¿Õ¥Õ½Õ¡Õ®Õ¥Õ¶Õ© Õ©Õ¥ Õ¦Õ¡Ö€Õ£Õ¡ÖÕ¡Õ®Ö‰
 EN: I'm going to buy a grocery store, for example, upstairs, where are we now, so we've seen this or developed it.
    [audio 7.0 s | waited 0.0 s | ASR 0.70 s | speaker 0.17 s (similarity 0.84) | MT 3.28 s]
 
 [00:00:35] Speaker 1   (latency 3.1 s)
-HY: Օրսդրությամբ պետություն էլեինք, դա պետք է արգելեր, իհարկե, մենք իրականում զարգացած էինք զարգացող ընկեր։
+HY: Õ•Ö€Õ½Õ¤Ö€Õ¸Ö‚Õ©ÕµÕ¡Õ´Õ¢ ÕºÕ¥Õ¿Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶ Õ§Õ¬Õ¥Õ«Õ¶Ö„, Õ¤Õ¡ ÕºÕ¥Õ¿Ö„ Õ§ Õ¡Ö€Õ£Õ¥Õ¬Õ¥Ö€, Õ«Õ°Õ¡Ö€Õ¯Õ¥, Õ´Õ¥Õ¶Ö„ Õ«Ö€Õ¡Õ¯Õ¡Õ¶Õ¸Ö‚Õ´ Õ¦Õ¡Ö€Õ£Õ¡ÖÕ¡Õ® Õ§Õ«Õ¶Ö„ Õ¦Õ¡Ö€Õ£Õ¡ÖÕ¸Õ² Õ¨Õ¶Õ¯Õ¥Ö€Ö‰
 EN: If we had a state with an order, it would have to be forbidden, of course, we were actually a developed developing friend.
    [audio 7.0 s | waited 0.0 s | ASR 0.39 s | speaker 0.17 s (similarity 0.76) | MT 2.53 s]
 
@@ -15553,7 +15559,7 @@ C:\Users\Lenovo\Projects\mathrix-live-translate>
 Thanks. The edit hasn't been applied yet, so this run still used the **old** code:
 - **pytest shows 38 passed, not 43**, so the new test file doesn't exist.
 - **`git status` shows no change to `app.py`**, and `git diff --stat` is empty.
-- The output has no `finishing … queued` line. (This run had no backlog anyway, so the stop path wasn't exercised.)
+- The output has no `finishing â€¦ queued` line. (This run had no backlog anyway, so the stop path wasn't exercised.)
 
 You opened the script in IDLE, but **step 2, running it, is missing.**
 
@@ -15585,7 +15591,7 @@ git --no-pager diff --stat
 ```
 Expected: **43 passed**, `app.py` modified, `tests/test_app_shutdown.py` untracked.
 
-**4. Real check:** start the app, play a video, and when 3–4 lines have appeared, press **Ctrl+C twice quickly**:
+**4. Real check:** start the app, play a video, and when 3â€“4 lines have appeared, press **Ctrl+C twice quickly**:
 ```cmd
 C:\ProgramData\anaconda3\envs\livetrans\python.exe -m livetrans.app --timing
 ```
@@ -15596,7 +15602,7 @@ The summary must still appear.
 del cpu_run.csv
 ```
 
-Paste the outputs of 1–4.
+Paste the outputs of 1â€“4.
 
 
 ---
@@ -15649,31 +15655,31 @@ mic:    [9] Internal Microphone (Conexant 20751 SmartAudio HD)
 system: [10] Speakers (Conexant 20751 SmartAudio HD) [Loopback]
 settings: end-silence 0.6 s, max utterance 7.0 s, MT beam 2, speaker threshold 0.4
 loading models ...
-Fetching 9 files: 100%|█████████████████████████████████████████████████████████████████| 9/9 [00:00<00:00, 549.38it/s]
+Fetching 9 files: 100%|â–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆâ–ˆ| 9/9 [00:00<00:00, 549.38it/s]
 Download complete:                                                                                 |  0.00B
 Reconstruction complete: |                                                                |  0.00B /  0.00B
 Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
 listening - speak Armenian. Ctrl+C to stop.
 
 [00:00:00] Speaker 1   (latency 2.7 s)
-HY: Ես էլ ունեմ շատ ժամանակ տարածքներ, որ տալիս են վարձակալության, ի՞նչ կոնցեպ։
+HY: ÔµÕ½ Õ§Õ¬ Õ¸Ö‚Õ¶Õ¥Õ´ Õ·Õ¡Õ¿ ÕªÕ¡Õ´Õ¡Õ¶Õ¡Õ¯ Õ¿Õ¡Ö€Õ¡Õ®Ö„Õ¶Õ¥Ö€, Õ¸Ö€ Õ¿Õ¡Õ¬Õ«Õ½ Õ¥Õ¶ Õ¾Õ¡Ö€Õ±Õ¡Õ¯Õ¡Õ¬Õ¸Ö‚Õ©ÕµÕ¡Õ¶, Õ«ÕžÕ¶Õ¹ Õ¯Õ¸Õ¶ÖÕ¥ÕºÖ‰
 EN: I also have lots of space that I can rent. What's the concept?
    [audio 7.0 s | waited 0.0 s | ASR 0.53 s | speaker 0.27 s (similarity 1.00) | MT 1.84 s]
 
 [00:00:06] Speaker 1   (latency 3.0 s)
-HY: Ինձ դուր չի գալիս, նույնիսկ էդ անշարժ գույքի գործակալները չեն անցնում տարրական պրակտիկա, որ իմանան՝ ինչ կոնցե։
+HY: Ô»Õ¶Õ± Õ¤Õ¸Ö‚Ö€ Õ¹Õ« Õ£Õ¡Õ¬Õ«Õ½, Õ¶Õ¸Ö‚ÕµÕ¶Õ«Õ½Õ¯ Õ§Õ¤ Õ¡Õ¶Õ·Õ¡Ö€Õª Õ£Õ¸Ö‚ÕµÖ„Õ« Õ£Õ¸Ö€Õ®Õ¡Õ¯Õ¡Õ¬Õ¶Õ¥Ö€Õ¨ Õ¹Õ¥Õ¶ Õ¡Õ¶ÖÕ¶Õ¸Ö‚Õ´ Õ¿Õ¡Ö€Ö€Õ¡Õ¯Õ¡Õ¶ ÕºÖ€Õ¡Õ¯Õ¿Õ«Õ¯Õ¡, Õ¸Ö€ Õ«Õ´Õ¡Õ¶Õ¡Õ¶Õ Õ«Õ¶Õ¹ Õ¯Õ¸Õ¶ÖÕ¥Ö‰
 EN: I don't like it, even those real estate agents don't go through basic practice to figure out what's going on.
    [audio 7.0 s | waited 0.0 s | ASR 0.41 s | speaker 0.14 s (similarity 0.84) | MT 2.47 s]
 
 [00:00:13] Speaker 1   (latency 3.7 s)
-HY: Հետոտով, ինչ եղանակով, ինչ տեսակով, ինչ խոսքքեր հաջորդականությամբ պետք է զանգեն, ներկայանան։
+HY: Õ€Õ¥Õ¿Õ¸Õ¿Õ¸Õ¾, Õ«Õ¶Õ¹ Õ¥Õ²Õ¡Õ¶Õ¡Õ¯Õ¸Õ¾, Õ«Õ¶Õ¹ Õ¿Õ¥Õ½Õ¡Õ¯Õ¸Õ¾, Õ«Õ¶Õ¹ Õ­Õ¸Õ½Ö„Ö„Õ¥Ö€ Õ°Õ¡Õ»Õ¸Ö€Õ¤Õ¡Õ¯Õ¡Õ¶Õ¸Ö‚Õ©ÕµÕ¡Õ´Õ¢ ÕºÕ¥Õ¿Ö„ Õ§ Õ¦Õ¡Õ¶Õ£Õ¥Õ¶, Õ¶Õ¥Ö€Õ¯Õ¡ÕµÕ¡Õ¶Õ¡Õ¶Ö‰
 EN: By the way, by the way, by the way, by the way, by the sequence of words to be uttered.
    [audio 7.0 s | waited 0.0 s | ASR 0.42 s | speaker 0.16 s (similarity 0.87) | MT 3.06 s]
 
 
 stopping ...
 [00:00:20] Speaker 1   (latency 3.8 s)
-HY: Վարձատունը, որ տալիս ա կամ վաճառող ընկերություն վաճառող մարդուն Անատին, բոլորը նույն տողեր են ասում, կասեմ։
+HY: ÕŽÕ¡Ö€Õ±Õ¡Õ¿Õ¸Ö‚Õ¶Õ¨, Õ¸Ö€ Õ¿Õ¡Õ¬Õ«Õ½ Õ¡ Õ¯Õ¡Õ´ Õ¾Õ¡Õ³Õ¡Õ¼Õ¸Õ² Õ¨Õ¶Õ¯Õ¥Ö€Õ¸Ö‚Õ©ÕµÕ¸Ö‚Õ¶ Õ¾Õ¡Õ³Õ¡Õ¼Õ¸Õ² Õ´Õ¡Ö€Õ¤Õ¸Ö‚Õ¶ Ô±Õ¶Õ¡Õ¿Õ«Õ¶, Õ¢Õ¸Õ¬Õ¸Ö€Õ¨ Õ¶Õ¸Ö‚ÕµÕ¶ Õ¿Õ¸Õ²Õ¥Ö€ Õ¥Õ¶ Õ¡Õ½Õ¸Ö‚Õ´, Õ¯Õ¡Õ½Õ¥Õ´Ö‰
 EN: The landlord who gives a rental to the person who sells the company to Anata, they all say the same thing, I'd say.
    [audio 7.0 s | waited -0.0 s | ASR 0.36 s | speaker 0.36 s (similarity 0.88) | MT 3.06 s]
 
@@ -15700,11 +15706,11 @@ Fix D is applied and verified, ready to commit:
 | Script | `updated src/livetrans/app.py`, `created tests/test_app_shutdown.py` |
 | Tests | **43 passed** (38 + 5 new) |
 | Diff | only `app.py`, **32 insertions, 5 deletions**: the 5 replaced lines are the old `report` signature, its "no segments" line, the summary line, `th.join(...)`, and the `report(...)` call. I'd estimated about 30/4; the actual count matches the diff I showed you. |
-| Live run | normal stop: the utterance in progress was finished and printed after "stopping…", then the **summary printed**. Latency max 3.8 s, 0 over 5 s. |
+| Live run | normal stop: the utterance in progress was finished and printed after "stoppingâ€¦", then the **summary printed**. Latency max 3.8 s, 0 over 5 s. |
 
-**Honest scope of the live check:** this stop had **no queued backlog**, so the "finishing N queued… / N not processed" path and the double-Ctrl+C path weren't triggered live. They're covered by the 3 unit tests (normal finish, second Ctrl+C, timeout). Forcing a real backlog would mean deliberately overloading the laptop, so I'd suggest accepting the unit-test evidence for that path.
+**Honest scope of the live check:** this stop had **no queued backlog**, so the "finishing N queuedâ€¦ / N not processed" path and the double-Ctrl+C path weren't triggered live. They're covered by the 3 unit tests (normal finish, second Ctrl+C, timeout). Forcing a real backlog would mean deliberately overloading the laptop, so I'd suggest accepting the unit-test evidence for that path.
 
-(Side note: *"By the way, by the way, by the way…"* is another, milder **translation repetition loop**, the same weakness noted last time. It's still out of scope for now.)
+(Side note: *"By the way, by the way, by the wayâ€¦"* is another, milder **translation repetition loop**, the same weakness noted last time. It's still out of scope for now.)
 
 **Commit D:**
 ```cmd
@@ -15847,7 +15853,7 @@ No changes to models, thresholds, segmenting or the translation settings.
 ```
 
 **New tests, `tests/test_timeline_drift.py`, 6 of them:**
-- the bug itself is measured (padding, then late audio → 0.7 s ahead)
+- the bug itself is measured (padding, then late audio â†’ 0.7 s ahead)
 - on-time audio shows no drift
 - `pump()` applies 2 s of queued audio **without** inserting silence
 - `pump()` still pads a genuinely quiet source
@@ -16072,7 +16078,7 @@ if __name__ == "__main__":
 ```cmd
 C:\ProgramData\anaconda3\envs\livetrans\python.exe %TEMP%\apply_timeline_fix.py
 ```
-Expected: two `updated …` lines and one `created …`. If it says "nothing changed", paste the reasons.
+Expected: two `updated â€¦` lines and one `created â€¦`. If it says "nothing changed", paste the reasons.
 
 **3. Test and review:**
 ```cmd
@@ -16090,9 +16096,9 @@ Expected: **49 passed** (43 + 6). `app.py` and `timeline.py` modified (about 30 
 ```cmd
 C:\ProgramData\anaconda3\envs\livetrans\python.exe -m livetrans.app --timing
 ```
-The output should look as before: lines in the brief's format, then the summary. If a `[warning] audio timeline ran … ahead` line appears, that's the diagnostic working, measuring drift that's still there, and it's useful evidence to paste.
+The output should look as before: lines in the brief's format, then the summary. If a `[warning] audio timeline ran â€¦ ahead` line appears, that's the diagnostic working, measuring drift that's still there, and it's useful evidence to paste.
 
-Paste the outputs of steps 1–4. After your review, we commit C on its own, then the documentation-only commit (B1 result as D11; fixes D and C as D12; TESTS.md updated). Then it's **M1** and the **README**, with roughly 1.5 days left.
+Paste the outputs of steps 1â€“4. After your review, we commit C on its own, then the documentation-only commit (B1 result as D11; fixes D and C as D12; TESTS.md updated). Then it's **M1** and the **README**, with roughly 1.5 days left.
 
 
 ---
@@ -16169,7 +16175,7 @@ The same method worked for the previous fix, so most likely the paste or the sav
 2. **Click inside the white area** of the IDLE window, then press **Ctrl+V**. You should now see the code, starting with `"""One-off edit: fix C` and about 190 lines long. The title bar shows `*apply_timeline_fix.py*`.
    - If **nothing appears** after Ctrl+V, the clipboard is empty: go back to my message, copy the code box under **"1. Save the script"** again (the copy button at its top-right), and paste again.
 3. Press **Ctrl+S**. The `*` in the title bar must **disappear**. If a dialog asks about saving or encoding, click **OK** or choose **UTF-8**.
-4. Close IDLE. If it asks *"Do you want to save…?"*, click **Yes**.
+4. Close IDLE. If it asks *"Do you want to saveâ€¦?"*, click **Yes**.
 
 Then:
 ```cmd
@@ -16205,7 +16211,7 @@ I can't edit your project files from here: this chat **isn't linked to your lapt
 I re-checked the proposed change against your actual code (`app.py` after fix D, and `timeline.py`), and ran it on exact copies:
 
 - **The cause is real and reproduced.** With 2 s of audio waiting in the queue, the **old** loop (one chunk, then a tick) inserted **1.67 s of false silence**, and the timeline ran **1.67 s ahead** of the clock. With `pump()` (apply all queued chunks, then tick): **0 s inserted, 0 s ahead**.
-- **Quiet sources still work:** with an empty queue, `pump()` still pads the system side with silence up to `now − 0.3 s`, exactly as before (D4).
+- **Quiet sources still work:** with an empty queue, `pump()` still pads the system side with silence up to `now âˆ’ 0.3 s`, exactly as before (D4).
 - **The diagnostic doesn't change behaviour:** `max_ahead` is only counted; nothing that's emitted changes. Normal on-time audio gives 0, and the summary warns only above 0.1 s.
 - **Edge cases I checked:**
   - If chunks arrive faster than the loop can process them, `pump()` keeps applying them before ticking. That's the intended behaviour, and the loop ends as soon as the queue is empty.
@@ -16288,17 +16294,17 @@ dir /b chats
 
 | Brief requirement | Status | Evidence |
 |---|---|---|
-| Mic + system audio at once, device choice | ✅ done | WASAPI loopback, `--list/--mic/--loopback` (D3, D4) |
-| Armenian transcription | ✅ done | CER 0.085 on test take (D6) |
-| English translation | ✅ done | chrF 74.5 / 69.1 (D7) |
-| "Me" + Speaker 1, 2 stable | ⚠️ partly verified | 100% on known-truth eval at 0.40 (D10); podcast host/guest correct live (D9, at 0.25). **Real two-friends call at 0.40: not done (M1)** |
-| Live output: time, speaker, HY, EN | ✅ done | tests + live runs |
-| ≤ 5 s latency | ⚠️ mostly | normal runs: max 4.3–4.6 s; under CPU load (page loads) 1–3 segments over 5 s, up to 6.3 s; one overloaded run with backlog |
-| Local models only | ✅ inference is local | models download once from Hugging Face. **Running fully offline: not verified (M2)** |
-| Runs on interview laptop | ✅ | all measurements on it |
-| Git repo, no weights, audio or keys | ⏳ checking | Step 1 |
-| README | ❌ **missing, a blocker** | draft below |
-| Chat exports in `chats/` | ❌ **missing, a blocker** | only you can export them |
+| Mic + system audio at once, device choice | âœ… done | WASAPI loopback, `--list/--mic/--loopback` (D3, D4) |
+| Armenian transcription | âœ… done | CER 0.085 on test take (D6) |
+| English translation | âœ… done | chrF 74.5 / 69.1 (D7) |
+| "Me" + Speaker 1, 2 stable | âš ï¸ partly verified | 100% on known-truth eval at 0.40 (D10); podcast host/guest correct live (D9, at 0.25). **Real two-friends call at 0.40: not done (M1)** |
+| Live output: time, speaker, HY, EN | âœ… done | tests + live runs |
+| â‰¤ 5 s latency | âš ï¸ mostly | normal runs: max 4.3â€“4.6 s; under CPU load (page loads) 1â€“3 segments over 5 s, up to 6.3 s; one overloaded run with backlog |
+| Local models only | âœ… inference is local | models download once from Hugging Face. **Running fully offline: not verified (M2)** |
+| Runs on interview laptop | âœ… | all measurements on it |
+| Git repo, no weights, audio or keys | â³ checking | Step 1 |
+| README | âŒ **missing, a blocker** | draft below |
+| Chat exports in `chats/` | âŒ **missing, a blocker** | only you can export them |
 
 **On fix C (timeline drift):** it's **not a submission blocker**. It only matters under heavy CPU load, where it can make the *reported* latency too low. It's documented honestly as a known limitation in the README, and left unapplied, as you asked.
 
@@ -16309,14 +16315,14 @@ Every number in it comes from DECISIONS.md, TESTS.md or runs you pasted. Anythin
 ```markdown
 # mathrix-live-translate
 
-Live Armenian speech → Armenian text → English translation in the terminal, with speaker
+Live Armenian speech â†’ Armenian text â†’ English translation in the terminal, with speaker
 labels. Captures the microphone ("Me") and the computer's audio output (the other side of a
-call, "Speaker 1", "Speaker 2", …) at the same time. All speech recognition, translation and
+call, "Speaker 1", "Speaker 2", â€¦) at the same time. All speech recognition, translation and
 speaker identification run locally on the CPU.
 
 ```
 [00:01:12] Speaker 1   (latency 3.1 s)
-HY: Բարև, ինչպե՞ս ես։
+HY: Ô²Õ¡Ö€Ö‡, Õ«Õ¶Õ¹ÕºÕ¥ÕžÕ½ Õ¥Õ½Ö‰
 EN: Hi, how are you?
 ```
 
@@ -16324,7 +16330,7 @@ EN: Hi, how are you?
 
 - **Windows 10 or 11** (system audio is captured with WASAPI loopback via PyAudioWPatch;
   no virtual audio cable is needed and the user keeps hearing the call normally).
-- Python 3.10–3.12 (developed and measured with **Python 3.11** in a conda environment).
+- Python 3.10â€“3.12 (developed and measured with **Python 3.11** in a conda environment).
 - About **2.1 GB free RAM** while running (estimate from separate measurements: speech
   recognition ~0.9 GB, translation ~1.0 GB, speaker model ~0.2 GB). Close the browser
   tabs you do not need.
@@ -16354,8 +16360,8 @@ pip install -e .[dev]     # optional: tests and benchmark tools
    ```
    The default loopback device follows the default Windows output device, so plug in the
    headphones **before** starting. Choose others with `--mic N` and `--loopback N`.
-3. Microphone level: Windows Sound settings → Recording → your microphone → Levels.
-   Aim for speech peaks around −25 to −12 dBFS with less than 0.1 % clipped samples. Check
+3. Microphone level: Windows Sound settings â†’ Recording â†’ your microphone â†’ Levels.
+   Aim for speech peaks around âˆ’25 to âˆ’12 dBFS with less than 0.1 % clipped samples. Check
    with `python -m livetrans.tools.record --seconds 20` (shows live levels and saves WAVs
    to `samples/`). On the development laptop the default level clipped ~15 % of samples
    and made recognition fail (see DECISIONS.md D5).
@@ -16374,15 +16380,15 @@ how many segments took longer than 5 s.
 |---|---|---|
 | `--list` | | print audio devices and exit |
 | `--mic N`, `--loopback N` | system defaults | choose devices |
-| `--threshold-db` | −40 | mic loudness that counts as speech |
-| `--system-threshold-db` | −45 | system-audio loudness that counts as speech |
+| `--threshold-db` | âˆ’40 | mic loudness that counts as speech |
+| `--system-threshold-db` | âˆ’45 | system-audio loudness that counts as speech |
 | `--end-silence-s` | 0.6 | pause that ends a phrase |
 | `--max-utterance-s` | 7 | longer speech is cut into pieces of this length |
 | `--mt-beam` | 2 | translation beam size |
 | `--speaker-threshold` | 0.40 | voice similarity needed to match a known caller |
 | `--timing` | off | per-segment timing breakdown |
 
-## Models — what was chosen and why
+## Models â€” what was chosen and why
 
 Armenian is a low-resource language, so every choice was measured on this laptop
 (details and numbers: DECISIONS.md).
@@ -16396,57 +16402,57 @@ Armenian is a low-resource language, so every choice was measured on this laptop
 Measured results:
 
 - **Speech recognition** on a 60 s test take of 8 read sentences: CER 0.085, WER 0.146,
-  real-time factor 0.06–0.07 (D6); full pipeline on the same take: CER 0.072.
+  real-time factor 0.06â€“0.07 (D6); full pipeline on the same take: CER 0.072.
 - **Translation** of the same 8 sentences: chrF 74.5 from correct text, 69.1 from real
   recognition output, ~1 s per sentence (D7).
 - **Speakers**: known-truth evaluation with three verified single-voice recordings (clean
   turns, a mixed first piece, quick handovers): at threshold 0.40 all scenarios 100 %, no
-  merged, split or invented speakers; 0.25–0.30 merged people after a mixed piece (D10).
+  merged, split or invented speakers; 0.25â€“0.30 merged people after a mixed piece (D10).
 
 ## Architecture
 
 ```
-microphone ──► capture ─┐                          ┌─► speech recognition (ASR)
-                        ├─► Timeline ─► Segmenter ─┤   speaker voiceprint (system side only)
-loopback   ──► capture ─┘   (per source)           └─► translation ─► terminal
+microphone â”€â”€â–º capture â”€â”                          â”Œâ”€â–º speech recognition (ASR)
+                        â”œâ”€â–º Timeline â”€â–º Segmenter â”€â”¤   speaker voiceprint (system side only)
+loopback   â”€â”€â–º capture â”€â”˜   (per source)           â””â”€â–º translation â”€â–º terminal
 ```
 
-- `audio/capture.py` – one WASAPI stream per source, converted to 16 kHz mono.
-- `audio/timeline.py` – keeps each source on a gap-free clock; WASAPI loopback sends no
+- `audio/capture.py` â€“ one WASAPI stream per source, converted to 16 kHz mono.
+- `audio/timeline.py` â€“ keeps each source on a gap-free clock; WASAPI loopback sends no
   data while nothing plays, so silence is inserted (D4).
-- `audio/segmenter.py` – cuts each source into phrases with a loudness threshold
+- `audio/segmenter.py` â€“ cuts each source into phrases with a loudness threshold
   (end after 0.6 s pause, at most 7 s per piece).
-- `asr.py`, `translate.py`, `speakers.py` – model wrappers; one worker thread processes
+- `asr.py`, `translate.py`, `speakers.py` â€“ model wrappers; one worker thread processes
   phrases in order (2 CPU cores: parallel models would only compete).
-- `output.py` – terminal format; `app.py` – command line, threads, summary.
-- `tools/` – recorder and the benchmarks used for every decision; `eval/` – reference texts.
+- `output.py` â€“ terminal format; `app.py` â€“ command line, threads, summary.
+- `tools/` â€“ recorder and the benchmarks used for every decision; `eval/` â€“ reference texts.
 
-## Measured latency (end of phrase → English line printed)
+## Measured latency (end of phrase â†’ English line printed)
 
 | Situation | Result |
 |---|---|
-| Microphone, read sentences | median 1.6–1.8 s, max 2.0–2.3 s, 0 over 5 s |
+| Microphone, read sentences | median 1.6â€“1.8 s, max 2.0â€“2.3 s, 0 over 5 s |
 | Continuous podcast speech, 7 s pieces | median 2.9 s, max 4.3 s, 0 over 5 s (D8) |
 | With speaker identification, podcast | median 3.1 s, max 4.4 s, 0 over 5 s (D9) |
 | Google Meet call, one remote speaker | median 1.9 s, max 3.1 s, 0 over 5 s |
-| Two YouTube videos incl. page switch | 1–3 of 23–26 segments over 5 s (max 5.9–6.3 s) |
+| Two YouTube videos incl. page switch | 1â€“3 of 23â€“26 segments over 5 s (max 5.9â€“6.3 s) |
 
 ## Known limitations
 
 - **Latency under CPU load.** On 2 cores the models use the whole CPU for ~3 s per 7 s
-  piece. Loading a web page or other heavy work slows translation about 2× and can push
+  piece. Loading a web page or other heavy work slows translation about 2Ã— and can push
   segments over 5 s; in one overloaded run phrases queued up and latency grew far beyond
   5 s. Raising the process priority did not help in the tests. During a call, run nothing else.
 - **Reported latency can be too low under heavy load.** When audio waits in the capture
   queue, the timeline inserts silence for it and then runs ahead of the clock (known bug,
   diagnosed, not fixed; it does not occur at normal load).
-- **Translation sometimes repeats itself** ("I give examples, I give examples, …"); this
+- **Translation sometimes repeats itself** ("I give examples, I give examples, â€¦"); this
   also makes that segment slow.
 - **Speakers**: a piece that contains two voices (quick handover or overlap) gets one label.
   Two people sharing one device in a call were merged at the earlier threshold 0.25. The
   current threshold 0.40 was chosen on recorded test data; a live call with two remote
   speakers at 0.40 has **not yet been verified**.
-- Very short utterances ("Հա", single words) are often misrecognised; personal names are
+- Very short utterances ("Õ€Õ¡", single words) are often misrecognised; personal names are
   often mistranslated.
 - Fully offline operation after the first download has **not been verified**.
 - The speech model card notes sensitivity to noise; the translation weights are
@@ -16480,11 +16486,11 @@ Please check it carefully. In particular: is "headphones strongly recommended" r
 
 | Deliverable | Status |
 |---|---|
-| Source code in Git | ✅ (Step 1 confirms tracked files) |
-| README | ❌ draft above, to be added |
-| `chats/`: every Claude session, each as its own **unedited .md** export | ❌ **missing**. Only you can export them from the Claude app. That includes **this** session and any other sessions you used for the project. Copy the files into `chats/`, and don't edit them. |
-| No weights, audio or keys in Git | ⏳ Step 1 |
-| Git repository **link** | ❓ Is there a remote (GitHub) yet? Check with `git remote -v`. If it's empty, you'll need to create a repository and push. |
+| Source code in Git | âœ… (Step 1 confirms tracked files) |
+| README | âŒ draft above, to be added |
+| `chats/`: every Claude session, each as its own **unedited .md** export | âŒ **missing**. Only you can export them from the Claude app. That includes **this** session and any other sessions you used for the project. Copy the files into `chats/`, and don't edit them. |
+| No weights, audio or keys in Git | â³ Step 1 |
+| Git repository **link** | â“ Is there a remote (GitHub) yet? Check with `git remote -v`. If it's empty, you'll need to create a repository and push. |
 
 Two small documentation fixes I'd include in the same commit, for accuracy only:
 - TESTS.md still says "38 passed"; after the shutdown fix it's 43, and the test table is missing `test_app_shutdown.py`.
@@ -16530,9 +16536,9 @@ I've written **README.md** (172 lines, shown in the panel for review), but I can
 
 ## What the README covers
 
-**Sections:** Features · Requirements · Setup (with dependencies and audio setup) · Run (with an option table) · Models (chosen vs alternatives) · Architecture · Tests and measured performance · **Verification status** · Known limitations · What I would improve · Project files.
+**Sections:** Features Â· Requirements Â· Setup (with dependencies and audio setup) Â· Run (with an option table) Â· Models (chosen vs alternatives) Â· Architecture Â· Tests and measured performance Â· **Verification status** Â· Known limitations Â· What I would improve Â· Project files.
 
-Every number comes from DECISIONS.md (D4–D10), TESTS.md, or runs you pasted, including **43 passed**. The **Verification status** section says explicitly:
+Every number comes from DECISIONS.md (D4â€“D10), TESTS.md, or runs you pasted, including **43 passed**. The **Verification status** section says explicitly:
 - a **live call with at least two remote speakers at threshold 0.40: not verified**
 - **fully offline operation after the first download: not verified**
 - the 5 s limit: **exceeded under CPU load**
@@ -16553,14 +16559,14 @@ C:\ProgramData\anaconda3\envs\livetrans\python.exe -m idlelib README.md
 ````markdown
 # mathrix-live-translate
 
-Live Armenian speech → Armenian text → English translation in the terminal, with speaker
+Live Armenian speech â†’ Armenian text â†’ English translation in the terminal, with speaker
 labels. The program captures the microphone ("Me") and the computer's audio output (the
-other side of a call: "Speaker 1", "Speaker 2", …) at the same time. Speech recognition,
+other side of a call: "Speaker 1", "Speaker 2", â€¦) at the same time. Speech recognition,
 translation and speaker identification all run locally on the CPU.
 
 ```
 [00:01:12] Speaker 1   (latency 3.1 s)
-HY: Բարև, ինչպե՞ս ես։
+HY: Ô²Õ¡Ö€Ö‡, Õ«Õ¶Õ¹ÕºÕ¥ÕžÕ½ Õ¥Õ½Ö‰
 EN: Hi, how are you?
 ```
 
@@ -16576,7 +16582,7 @@ EN: Hi, how are you?
 ## Requirements
 
 - **Windows 10 or 11** (system audio via WASAPI loopback with PyAudioWPatch).
-- Python 3.10–3.12; developed and measured with **Python 3.11** in a conda environment.
+- Python 3.10â€“3.12; developed and measured with **Python 3.11** in a conda environment.
 - About **2.1 GB free RAM** while running (estimate from separate measurements: speech
   recognition ~0.9 GB, translation ~1.0 GB, speaker model ~0.2 GB).
 - **Internet on the first run**: the models (~1.1 GB) are downloaded from Hugging Face into
@@ -16610,8 +16616,8 @@ Whisper comparison benchmark).
    python -m livetrans.app --list
    python -m livetrans.app --mic 9 --loopback 10
    ```
-4. Microphone level: Windows Sound settings → Recording → microphone → Levels. Aim for speech
-   peaks around −25 to −12 dBFS and under 0.1 % clipped samples. Check with
+4. Microphone level: Windows Sound settings â†’ Recording â†’ microphone â†’ Levels. Aim for speech
+   peaks around âˆ’25 to âˆ’12 dBFS and under 0.1 % clipped samples. Check with
    `python -m livetrans.tools.record --seconds 20` (live levels; WAVs saved to `samples/`).
    On the development laptop the default level clipped about 15 % of samples (DECISIONS.md D5).
 
@@ -16626,8 +16632,8 @@ python -m livetrans.app --timing   # also show waiting / ASR / speaker / transla
 |---|---|---|
 | `--list` | | print audio devices and exit |
 | `--mic N`, `--loopback N` | system defaults | choose devices |
-| `--threshold-db` | −40 | microphone loudness that counts as speech |
-| `--system-threshold-db` | −45 | system-audio loudness that counts as speech |
+| `--threshold-db` | âˆ’40 | microphone loudness that counts as speech |
+| `--system-threshold-db` | âˆ’45 | system-audio loudness that counts as speech |
 | `--end-silence-s` | 0.6 | pause that ends a phrase |
 | `--max-utterance-s` | 7 | longer speech is cut into pieces of this length |
 | `--mt-beam` | 2 | translation beam size |
@@ -16648,9 +16654,9 @@ Full numbers and reasoning: `DECISIONS.md`.
 ## Architecture
 
 ```
-microphone ─► capture ─┐                            ┌─► speech recognition
-                       ├─► Timeline ─► Segmenter ─► │   speaker voiceprint (call side only)
-loopback   ─► capture ─┘   (per source)             └─► translation ─► terminal
+microphone â”€â–º capture â”€â”                            â”Œâ”€â–º speech recognition
+                       â”œâ”€â–º Timeline â”€â–º Segmenter â”€â–º â”‚   speaker voiceprint (call side only)
+loopback   â”€â–º capture â”€â”˜   (per source)             â””â”€â–º translation â”€â–º terminal
 ```
 
 - `audio/capture.py`: one WASAPI stream per source, converted to 16 kHz mono.
@@ -16674,14 +16680,14 @@ laptop; sources in `DECISIONS.md`):
 
 | Measurement | Result |
 |---|---|
-| Speech recognition, 60 s take of 8 read sentences | CER 0.085, WER 0.146, real-time factor 0.06–0.07 (D6); full pipeline on the same take: CER 0.072 |
+| Speech recognition, 60 s take of 8 read sentences | CER 0.085, WER 0.146, real-time factor 0.06â€“0.07 (D6); full pipeline on the same take: CER 0.072 |
 | Translation of the same 8 sentences | chrF 74.5 from correct text, 69.1 from recognition output; ~1 s per sentence (D7) |
-| Speakers, known-truth evaluation (3 verified single voices; clean turns, mixed first piece, quick handovers) | threshold 0.40: 100 % in all scenarios, no merged, split or invented speakers; 0.25–0.30 merged people after a mixed piece (D10) |
-| Latency, microphone, read sentences | median 1.6–1.8 s, max 2.0 s, 0 over 5 s (D8) |
+| Speakers, known-truth evaluation (3 verified single voices; clean turns, mixed first piece, quick handovers) | threshold 0.40: 100 % in all scenarios, no merged, split or invented speakers; 0.25â€“0.30 merged people after a mixed piece (D10) |
+| Latency, microphone, read sentences | median 1.6â€“1.8 s, max 2.0 s, 0 over 5 s (D8) |
 | Latency, continuous podcast speech, 7 s pieces | median 2.9 s, max 4.3 s, 0 over 5 s (D8) |
 | Latency with speaker identification, podcast | median 3.1 s, max 4.4 s, 0 over 5 s (D9) |
 | Latency, Google Meet call, one remote speaker | median 1.9 s, max 3.1 s, 0 over 5 s |
-| Latency, two YouTube videos including a page switch | 1 to 3 segments over 5 s (max 5.9–6.3 s) |
+| Latency, two YouTube videos including a page switch | 1 to 3 segments over 5 s (max 5.9â€“6.3 s) |
 
 Latency is measured from the end of a phrase to its English line.
 
@@ -16691,20 +16697,20 @@ Latency is measured from the end of a phrase to its English line.
 |---|---|
 | Microphone and system audio together, device choice | verified |
 | Armenian transcription, English translation, output format | verified |
-| ≤ 5 s latency | verified at normal load; **exceeded under CPU load** (see limitations) |
+| â‰¤ 5 s latency | verified at normal load; **exceeded under CPU load** (see limitations) |
 | Speaker labels on the call side | verified on recorded test data and with a podcast (two speakers, earlier threshold 0.25). **A live call with at least two remote speakers at the current threshold 0.40 has not been verified.** |
 | Local models only | inference runs locally. **Fully offline operation after the first download has not been verified.** |
 
 ## Known limitations
 
 - **Latency under CPU load.** On 2 cores the models use the whole CPU for about 3 s per 7 s
-  piece. Loading a web page or other heavy work slowed translation about 2× and pushed
+  piece. Loading a web page or other heavy work slowed translation about 2Ã— and pushed
   segments over 5 s; in one overloaded run phrases queued up and latency grew far beyond 5 s.
   Raising the process priority showed no improvement. During a call, run nothing else.
 - **Reported latency can be too low under heavy load.** When audio waits in the capture
   queue, the timeline inserts silence for it and then runs ahead of the clock (diagnosed,
   not fixed; not seen at normal load).
-- **Translation sometimes repeats itself** ("I give examples, I give examples, …"), which also
+- **Translation sometimes repeats itself** ("I give examples, I give examples, â€¦"), which also
   makes that segment slow.
 - **Speakers:** a piece containing two voices (quick handover or overlap) gets one label; two
   people sharing one device in a call were merged at the earlier threshold 0.25.
@@ -16874,7 +16880,7 @@ C:\ProgramData\anaconda3\envs\livetrans\python.exe -m idlelib DECISIONS.md
 ```
 ```markdown
 
-## D11 — Process priority (B1), shutdown fix, known timeline drift (2026-10-26)
+## D11 â€” Process priority (B1), shutdown fix, known timeline drift (2026-10-26)
 - B1, raised priority ("above normal", Windows priority 10), two YouTube videos incl. a page
   switch: run 1 (priority check: process 6640, Priority 10): 23 segments, median 3.2 s,
   p95 5.7 s, max 5.9 s, 3 over 5 s. Run 2 (summary only, raw output not kept): queue of
@@ -16909,8 +16915,8 @@ git --no-pager diff --stat
 Expected:
 - **43 passed**
 - `findstr` shows the "43 passed" line and the new table row
-- **11** decision headings, D1–D11
-- the diff shows only `TESTS.md` (+2/−1) and `DECISIONS.md` (about +17, no deletions)
+- **11** decision headings, D1â€“D11
+- the diff shows only `TESTS.md` (+2/âˆ’1) and `DECISIONS.md` (about +17, no deletions)
 
 Paste the outputs of 1, 3 and 4 (and `dir /b chats` once the exports are in). Then I'll give you the final commit command and a one-page submission checklist.
 
@@ -16997,10 +17003,10 @@ Results of the checks:
 
 | Check | Result |
 |---|---|
-| Tracked files (`git ls-files`) | ✅ clean: only source code, tests, docs, the 3 reference **texts** in `eval/`, and two `.gitkeep` files. No audio, models, logs or secrets. |
-| History search | ✅ the single hit, `src/livetrans/audio/capture.py`, is a **false match**: `findstr` treats `.` as "any character", so `.pt` matched the "apt" in "c**apt**ure". No real audio, weight or key file was ever committed. |
-| `chats/` | ❌ only `.gitkeep`, so the **exports are still missing** |
-| Remote | ❌ none yet |
+| Tracked files (`git ls-files`) | âœ… clean: only source code, tests, docs, the 3 reference **texts** in `eval/`, and two `.gitkeep` files. No audio, models, logs or secrets. |
+| History search | âœ… the single hit, `src/livetrans/audio/capture.py`, is a **false match**: `findstr` treats `.` as "any character", so `.pt` matched the "apt" in "c**apt**ure". No real audio, weight or key file was ever committed. |
+| `chats/` | âŒ only `.gitkeep`, so the **exports are still missing** |
+| Remote | âŒ none yet |
 
 **The `git remote add` error was my fault.** I put `<your-user>` in a command box. In cmd, `<` and `>` mean "read from file" and "write to file", so cmd tried to read a file called `your-user`, failed, and ran **nothing**: no remote was added. Let's confirm nothing was created by the `>` part:
 ```cmd
@@ -17009,13 +17015,13 @@ git remote -v
 ```cmd
 dir C:\mathrix-live-translate.git
 ```
-Expected: no output from the first, and **"File Not Found"** from the second. If the second shows a file, tell me before deleting anything. From now on, there are no `<…>` placeholders in commands.
+Expected: no output from the first, and **"File Not Found"** from the second. If the second shows a file, tell me before deleting anything. From now on, there are no `<â€¦>` placeholders in commands.
 
 ## Repository link: the safest way
 
 1. On **github.com**, sign in, click **New repository**, name it `mathrix-live-translate`, and **don't** add a README, .gitignore or license (the repository must be empty).
    - **Public or private?** The brief asks for a link. Public is simplest. If you choose private, you'll need to invite the reviewers. Keep in mind that the chat exports will be in the repository too.
-2. After creating it, GitHub shows a box **"…or push an existing repository from the command line"** with the exact commands for **your** account. Run those three lines one at a time in your project folder. They look like `git remote add origin https://github.com/YOURNAME/mathrix-live-translate.git`, then `git branch -M main`, then `git push -u origin main`. Renaming `master` to `main` is harmless.
+2. After creating it, GitHub shows a box **"â€¦or push an existing repository from the command line"** with the exact commands for **your** account. Run those three lines one at a time in your project folder. They look like `git remote add origin https://github.com/YOURNAME/mathrix-live-translate.git`, then `git branch -M main`, then `git push -u origin main`. Renaming `master` to `main` is harmless.
 3. `git push` will probably open a browser window to sign in to GitHub, which is normal.
 
 Paste the output of the push, and the URL of the repository.
@@ -17090,8 +17096,8 @@ cmdkey /list | findstr /i github
   ```
 
 - **If the first prints nothing, or the browser window doesn't appear**, use a token instead:
-  1. On github.com: profile picture → **Settings** → **Developer settings** → **Personal access tokens** → **Fine-grained tokens** → **Generate new token**.
-  2. Repository access: **Only select repositories** → `mathrix-live-translate`. Permissions: **Contents → Read and write**. Expiration: for example 7 days.
+  1. On github.com: profile picture â†’ **Settings** â†’ **Developer settings** â†’ **Personal access tokens** â†’ **Fine-grained tokens** â†’ **Generate new token**.
+  2. Repository access: **Only select repositories** â†’ `mathrix-live-translate`. Permissions: **Contents â†’ Read and write**. Expiration: for example 7 days.
   3. Copy the token. Then run `git push -u origin main`. When asked, enter **Username: `HasTum`**, and at **Password**, paste the **token**, not your password. Nothing will show while you paste; that's normal.
 
 **Also check:** is `HasTum` exactly your **GitHub** username, and did you already create the **empty** repository `mathrix-live-translate` on GitHub? If not, the push will fail even with correct sign-in.
@@ -17137,7 +17143,7 @@ I can't produce that file in a way that meets the brief, and I don't think you s
 
 According to Anthropic's help article on exporting your Claude data ([Export your Claude data](https://support.claude.com/en/articles/9450526-export-your-claude-data)):
 
-1. In the Claude **web app or desktop app** (not the phone apps): **Settings → Privacy → Export data**.
+1. In the Claude **web app or desktop app** (not the phone apps): **Settings â†’ Privacy â†’ Export data**.
 2. You get a **download link by email**. You must be signed in to download it, and the link **expires after 24 hours**.
 3. On Team or Enterprise plans, an owner may have to allow members to export their own data first.
 
