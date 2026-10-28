@@ -11,7 +11,7 @@ Command (from the project folder):
 
     C:\ProgramData\anaconda3\envs\livetrans\python.exe -m pytest -q
 
-Latest verified result: **38 passed** (2026-10-24, with the D10 threshold change).
+Latest verified result: **43 passed** (2026-10-27, with the D10 threshold change).
 
 | File | Tests | Covers |
 |---|---|---|
